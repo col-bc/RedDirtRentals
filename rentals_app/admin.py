@@ -44,6 +44,8 @@ def new():
 def create():
     rental = Rental()
     if request.method == 'POST':
+
+        print(helpers.get_attributes(request))
         
         rental.category = request.form.get('category')
         rental.make = request.form.get('make')
@@ -65,11 +67,7 @@ def create():
         rental.description = request.form.get('description')
         rental.features =  request.form.get('features')
 
-        files = request.files.getlist('rental_image')
-        paths = rental.save_images(files)
-        print(paths)
-        rental.image_paths = paths
-
+        
         print(rental)
     
         if rental.insert():
@@ -87,7 +85,6 @@ def details(id):
     paths = []
     images = rental.image_paths
     for image in images:
-        print(image)
         paths.append(image.replace('[','').replace(']','').replace('\'','').split(','))
     return render_template('admin/details.html', rental=rental, images=paths)
 
@@ -122,7 +119,7 @@ def update(id):
         rental.rent_queue = attr['rent_queue']
         rental.description = attr['description']
         rental.feature = attr['features']
-        rental.is_shown = bytes(is_shown)
+        rental.is_shown = 1 if is_shown is True else 0
 
         files = request.files.getlist('rental_image')
         relative_paths = []
@@ -130,11 +127,13 @@ def update(id):
 
         if not os.path.exists(abs_path):
             os.mkdir(abs_path)
+            print('Creating dir {}'.format(abs_path))
 
         for file in files: 
             filename = secure_filename(file.filename)
             file.save(abs_path+'/'+filename)
             relative_paths.append(current_app.static_url_path+'/uploads/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)+filename)
+            print('Appending to paths -> {}'.format(relative_paths[len(relative_paths)]))
         rental.image_paths = relative_paths
 
         if Rental.update(rental, id):

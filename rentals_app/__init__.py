@@ -1,11 +1,10 @@
 from flask import (
     Flask, render_template
 )
-from flask_uploads import configure_uploads
 
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = 'development*041921'
-app.config['UPLOADED_PHOTOS_DEST'] = '/Users/colby/RedDirtRentals/rentals_app/static/uploads'
+
 
 from . import index
 app.register_blueprint(index.index)

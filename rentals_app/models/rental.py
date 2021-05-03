@@ -89,7 +89,7 @@ class Rental:
                 description = result[18],
                 features = result[19]
             )
-            print(rental.rental_id)
+            print('Found Rental -> {}'.format(rental))
             return rental
         except Exception as ex:
             print(ex)
@@ -106,10 +106,9 @@ class Rental:
             raise AssertionError
 
         con, cur = helpers.connect_to_db()
-        try:
-            cur.execute("""
+        sql = """
                 INSERT INTO inventory (
-                    make,
+                    make, 
                     model,
                     category,
                     fuel_type,
@@ -156,7 +155,10 @@ class Rental:
                 obj.engine, obj.stock, obj.drive, obj.rate,
                 obj.image_paths, obj.job_category, obj.price_range,
                 obj.is_available, obj.rented_by, obj.rent_queue,
-                obj.is_shown, obj.description, obj.features, obj.available_on))
+                obj.is_shown, obj.description, obj.features, obj.available_on)
+        print(sql)
+        try:
+            cur.execute(sql)
             con.commit()
             return True
         except Exception as ex:
