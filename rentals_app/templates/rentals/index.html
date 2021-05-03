@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div class="container is-fluid p-0">
+
+    <div class="columns">
+
+        <aside class="menu column is-one-fifth pl-6 py-6">
+            <p class="menu-label">Filters</p>
+            <ul class="menu-list">
+                <li><a>Tractors</a></li>
+                <li><a>Mowers</a></li>
+                <li><a>Powertools</a></li>
+                <li><a>With Add-ons</a></li>
+                <li><a>For Small Jobs</a></li>
+                <li><a>For Medium Jobs</a></li>
+                <li><a>For Large Jobs</a></li>
+            </ul>
+        </aside>
+
+        <div class="column is-four-fifths">
+            <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap">
+
+                {{rows}}
+                {%for item in rows%}
+
+                <div class="ml-0 mr-6 my-3">
+                    <figure class="image is-16by9">
+                        <img class="card-img"
+                             src="{{item[11] | replace('[', '') | replace (']','') | replace('\'', '')}}">
+                    </figure>
+                    <div class="media-content mb-3">
+                        <p class="title is-4">{{item[2]}} {{item[3]}}</p>
+                        <p class="subtitle is-6">{{item[1]}} - {{item[8]}}</p>
+                    </div>
+                    <div class="content">
+                        <p class="p-4 has-background-info has-text-white has-text-weight-bold">
+                            ${{item[10]}} / machine hour <span class="is-size-7">({{item[13]}})
+                        </p>
+                        <div class="tags are-medium">
+                            <span class="tag">{{item[12]}}</span>
+                            <span class="tag">{{item[4]}}</span>
+                            <span class="tag">{{item[9]}}</span>
+                            <span class="tag">{{item[9]}}</span>
+                            {%if item[14] == 1%}
+                                <span class="tag">Available Now</span>
+                            {%endif%}
+                        </div>
+                        <p><strong>Engine</strong>: {{item[7]}} horsepower</p>
+                        <div class="shade">
+                            {{item[19]}}
+                        </div>
+                    </div>
+                </div>
+
+                {%endfor%}
+
+
+            </div>
+        </div>
+    </div>
+
+    {%endblock%}

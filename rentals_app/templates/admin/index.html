@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Admin | Inventory{% endblock %}
+<!---->
+{% block content %}
+<div class="container px-3 my-5 is-max-desktop">
+    <h1 class="title is-family-secondary">Administration Dashboard</h1>
+    <div class="container">
+
+        <div class="container my-5">
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+            <div class="notification is-danger is-outlined m3">
+                <button class="delete"></button>
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %} {% endif %} {% endwith %}
+        </div>
+
+        <div class="tabs">
+            <ul>
+                <li class="tab-item is-active"><a id="inventory_tab">Rental Inventory</a></li>
+                <li class="tab-item "><a id="reservations_tab">Reservations</a></li>
+            </ul>
+            <a href="{{ url_for('admin.new') }}" class="button is-info is-outlined">
+                <i class="fas fa-plus mr-3"></i>New
+            </a>
+        </div>
+
+        <div id="inventory_tab_view" class="">
+
+            <!--Search Form-->
+            <div class="is-flex is-flex-direction-column mb-3">
+                <form action="" method="">
+                    <div class="field is-fullwidth">
+                        <p class="control has-icons-left">
+                            <input class="input is-dark" type="text" name="inventory_query " placeholder="Search ">
+                            <span class="icon is-small is-left ">
+                                <i class="fas fa-search "></i>
+                            </span>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!--Collapse/Show All-->
+            <div class="is-flex is-flex-direction-row is-justify-content-flex-end pb-5">
+                <a id="collapse_all_inventory" class="is-link has-text-link mx-3">Collapse All</a>
+                <a id="show_all_inventory" class="is-link has-text-link mx-3">Show All</a>
+            </div>
+
+            {% for row in rows %}
+
+            <nav class="panel" id="inventory-panel-{{ row[0] }} ">
+
+                <!--Panel Header-->
+                <div class="panel-heading has-background-dark has-text-light is-flex is-flex-direction-row">
+                    <p class="is-flex-grow-5">{{ row[2] }} {{ row[3] }}</p>
+                    <a href="{{ url_for( 'admin.details', id=row[0]) }} " class="button is-outlined is-small is-light mx-2">
+                        <i class=" fas fa-edit mr-3 "></i>Manage
+                    </a>
+                    <button class="button is-outlined is-small is-light expand-toggle mx-2">
+                        <i class="fas fa-chevron-down "></i>
+                    </button>
+                </div>
+                <div class="shade is-hidden ">
+                    <p class="panel-block "><strong>ID: &nbsp;</strong>{{ row[0] }}</p>
+                    <p class="panel-block "><strong>Category: &nbsp;</strong> {{ row[1] }}</p>
+                    <p class="panel-block "><strong>Fuel Type: &nbsp;</strong> {{ row[4] }}</p>
+                    <p class="panel-block "><strong>Horsepower: &nbsp;</strong> {{ row[5] }}</p>
+                    <p class="panel-block "><strong>Deck Size: &nbsp;</strong> {{ row[6] }}</p>
+                    <p class="panel-block "><strong>Engine: &nbsp;</strong> {{ row[7] }}</p>
+                    <p class="panel-block "><strong>Stock: &nbsp;</strong> {{ row[8] }}</p>
+                    <p class="panel-block "><strong>Drive Type: &nbsp;</strong> {{ row[9] }}</p>
+                    <p class="panel-block "><strong>Rate: &nbsp;</strong> ${{ row[10] }}</p>
+                    <p class="panel-block "><strong>Images: &nbsp;</strong> {{ row[11] }}</p>
+                    <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ row[12] }}</p>
+                    <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ row[13] }}</p>
+                    <p class="panel-block "><strong>Available for Rent: &nbsp;</strong> {{ row[14] }}</p>
+                    <p class="panel-block "><strong>Available On: &nbsp;</strong> {{ row[15] }}</p>
+                    <p class="panel-block "><strong>Rented By: &nbsp;</strong> {{ row[16] }}</p>
+                    <p class="panel-block "><strong>Rent Queue: &nbsp;</strong> {{ row[17] }}</p>
+                    <p class="panel-block "><strong>Customer Viewable: &nbsp;</strong> {{ row[18] }}</p>
+                </div>
+            </nav>
+
+            {% endfor %}
+        </div>
+
+        <div id="reservations_tab_view " class="is-hidden ">
+            <h2 class="subtitle">Reservations</h2>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

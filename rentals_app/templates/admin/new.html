@@ -1,0 +1,351 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}New | Admin{% endblock %}
+<!---->
+{% block content %}
+<div class="container is-max-desktop">
+    <h1 class="title m-0 mt-5 p-3 is-family-title">New Rental
+        <a href="{{ url_for('admin.inventory') }}"
+           class="button is-info is-outlined is-pulled-right">
+            <i class="far fa-times-circle mr-3"></i> Cancel
+        </a>
+    </h1>
+
+    <div class="p-3 my-3 mb-5">
+
+        <div class="container">
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+            <div class="notification is-danger m3">
+                <button class="delete"></button>
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %} {% endif %} {% endwith %}
+        </div>
+
+        <form method="POST"
+              action="{{ url_for('admin.create') }}"
+              enctype="multipart/form-data"
+              class="p-5">
+            <p class="subtitle content mt-3 is-size-4 is-family-title"><strong>Enter Rentals Details</strong>
+                <a id="developer_option"
+                   class="button is-small is-white has-text-white is-pulled-right">
+                    <i class="fas fa-server fa-1x"></i>
+                </a>
+            </p>
+
+            <!--Make/Model-->
+            <div class="columns my-0">
+                <label class="label column py-0">Make</label>
+                <label class="label column py-0">Model</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <div class="field">
+                        <input class="input"
+                               type="text"
+                               name="make"
+                               placeholder="Make">
+                    </div>
+                </div>
+                <div class="field column pt-0">
+                    <div class="field">
+                        <input class="input"
+                               type="text"
+                               name="model"
+                               placeholder="Model">
+                    </div>
+                </div>
+            </div>
+
+            <!--Category/Fuel Type-->
+            <div class="columns my-0">
+                <label class="label column py-0">Category</label>
+                <label class="label column py-0">Fuel Type</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <div class="select is-fullwidth">
+                        <select name="fuel_type">
+                            <option>Gasoline</option>
+                            <option>Desil</option>
+                            <option>Hybrid</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field column pt-0">
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="category">
+                                <option>Tractor</option>
+                                <option>Mower</option>
+                                <option>Power Tool</option>
+                                <option>Add on</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Job Category/Drive Type-->
+            <div class="columns my-0">
+                <label class="label column py-0 pb-3">Job Category</label>
+                <label class="label column py-0 pb-3">Drive Type</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0 pb-5">
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="job_category">
+                                <option>Small Jobs</option>
+                                <option>Medium Jobs</option>
+                                <option>Large Jobs</option>
+                                <option>Heavy Duty Jobs</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field column pt-0 pb-5">
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="drive">
+                                <option>4WD</option>
+                                <option>2WD</option>
+                                <option>Other</option>
+                                <option>NA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Horsepower/Deck Size-->
+            <div class="columns my-0">
+                <label class="label column py-0">Horsepower</label>
+                <label class="label column py-0">Deck Size</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <input class="input"
+                           type="number"
+                           step="0.1"
+                           name="horsepower"
+                           placeholder="Horsepower">
+                </div>
+                <div class="field column pt-0">
+                    <input class="input"
+                           type="text"
+                           name="deck_size"
+                           placeholder="Deck Size">
+                </div>
+            </div>
+
+            <!--Engine Size/Stock-->
+            <div class="columns my-0">
+                <label class="label column py-0">Stock</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <input class="input"
+                           type="text"
+                           name="stock"
+                           placeholder="Stock">
+                </div>
+            </div>
+
+            <!--Pricing-->
+            <div class="columns my-0">
+                <label class="label column py-0">Hourly Rate</label>
+                <label class="label column py-0">Price Category</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <input class="input"
+                           type="number"
+                           step="0.01"
+                           name="rate"
+                           placeholder="Hourly Rate">
+                </div>
+                <div class="field column pt-0">
+                    <div class="control is-expanded">
+                        <div class="select is-fullwidth">
+                            <select name="price_range">
+                                <option>Cheap</option>
+                                <option>Affordable</option>
+                                <option>Normal</option>
+                                <option>Costly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Currently Rented/Available Date/Currently Available-->
+            <div class="columns my-0">
+                <label class="label column py-0">Currently Rented By</label>
+                <label class="label column py-0">Date Available</label>
+                <label class="label column py-0">Currently Available</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <input type="text"
+                           class="input"
+                           name="rented_by_name"
+                           placeholder="John Doe">
+                    <div class="wrapper is-size-7">
+                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.</p>
+                    </div>
+                </div>
+                <div class="field column pt-0">
+                    <input type="date"
+                           class="input"
+                           name="date_available">
+                    <div class="wrapper is-size-7">
+                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.</p>
+                    </div>
+                </div>
+                <div class="field column pt-0">
+                    <div class="control ">
+                        <div class="select is-fullwidth">
+                            <select name="is_currently_available"
+                                    required>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Rent Queue-->
+            <div class="columns my-0">
+                <label class="label column py-0 pb-3">Rental Queue</label>
+            </div>
+            <div class="columns my-0">
+                <div class="field column pt-0">
+                    <textarea class="textarea"
+                              name="queue"
+                              rows=3
+                              placeholder="Johnny Appleseed, Jane Doe, etc."></textarea>
+                    <p class="help"><i class="fas fa-info-circle mr-3"></i>Enter names seperated by a comma.</p>
+                    <p class="help">
+                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.
+                    </p>
+                </div>
+            </div>
+
+            <!--Is Hidden/Img Picker-->
+            <div class=" columns my-0 ">
+                <label class="label column py-0 ">Shown to Customers?</label>
+                <label class="label column py-0 ">Rental Image</label>
+            </div>
+            <div class="columns my-0 ">
+                <div class="field column pt-0 ">
+                    <div class="control ">
+                        <div class="select is-fullwidth ">
+                            <select name="is_customer_facing ">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field column pt-0 ">
+                    <div class="file">
+                        <label class="file-label">
+                            <input class="file-input"
+                                   type="file"
+                                   name="files">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Choose a file…
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div id="selected_files"
+                         class="p-1">
+                    </div>
+                </div>
+            </div>
+
+            <!--Features-->
+            <div class="columns my-0 ">
+                <label class="label column py-0 pb-3 ">Features, Options, Implements, etc.</label>
+            </div>
+            <div class="columns my-0 ">
+                <div class="field column pt-0 ">
+                    <textarea class="textarea "
+                              rows=3
+                              placeholder="feature1, feature2, feature3, etc. "
+                              name="features "></textarea>
+                    <p class="help is-dark ">
+                        <i class="fas fa-info-circle mr-2 "></i>Enter features seperated by a comma.
+                    </p>
+                </div>
+            </div>
+
+            <!--Description-->
+            <div class="columns my-0 ">
+                <label class="label column py-0 pb-3 ">Rental Description</label>
+            </div>
+            <div class="columns my-0 ">
+                <div class="field column pt-0 ">
+                    <textarea class="textarea "
+                              rows=3
+                              placeholder="Description"
+                              name="description"></textarea>
+                </div>
+            </div>
+
+            <div class="my-5"
+                 style="border-top: 2px solid whitesmoke; "></div>
+
+            <div class="columns my-0 ">
+                <div class="column">
+                    <div class="control is-flex is-fullwidth is-justify-content-flex-end ">
+                        <button type="submit "
+                                class="button is-info is-outlined ">
+                            <i class="fas fa-save mr-3 "></i>Add Rental
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="modal"
+     id="fast_add_inventory">
+    <div class="modal-background "></div>
+    <div class="modal-content has-background-light p-3 ">
+        {% if session.get('IS_ADMIN') == 'TRUE' %}
+        <h1 class="subtitle has-family-title ">SQL Entry</h1>
+        <form action="{{ url_for('admin.fast_add') }} "
+              method="POST"
+              enctype="multipart/form-data">
+            <textarea class="textarea mb-3 is-family-code "
+                      name="sql_query"
+                      rows=10>
+            </textarea>
+            <button type="submit "
+                    class="button is-success is-outlined is-pulled-right ">
+                <i class="fas fa-play mr-3 "></i> Run
+            </button>
+        </form>
+        {% else %}
+        <h1 class="title has-text-danger has-text-centered p-5 ">You are not authorized to use this function.</h1>
+        <p class="has-text-centered is-text-italic">This event has been logged</p>
+
+        <p class="has-text-centered ">If you believe you got this message in error, please contact your web admin.</p>
+        {% endif %}
+    </div>
+    <button class="modal-close is-large "
+            aria-label="close "></button>
+</div>
+{% endblock %}

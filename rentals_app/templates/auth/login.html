@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Login | Admin{% endblock %}
+<!---->
+{% block content %}
+<div class="container">
+    <div class="columns is-max-desktop is-centered m-5">
+        <form method="POST"
+              action="/auth/verify"
+              class="column is-half">
+            <h3 class="title">Admin Login</h3>
+
+            <div class="container my-5">
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <p class="has-text-dark has-text-weight-bold p-3"
+                   style="border: 2px solid silver; border-radius: 4px;">{{ message }}</p>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                    <input class="input"
+                           type="text"
+                           required
+                           name="username">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input class="input"
+                           type="password"
+                           required
+                           name="passwd">
+                </div>
+            </div>
+            <div class="control">
+                <button class="button is-outline is-info">
+                    <i class="fas fa-user-lock mr-3"></i> Login
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

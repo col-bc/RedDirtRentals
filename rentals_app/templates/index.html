@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+<!--Set Page Title-->
+{% block title %}Home{% endblock %}
+<!--Start Page Content-->
+{% block content %}
+
+<div class="has-background-white-ter py-5">
+    <div class="container px-3 is-max-desktop">
+        <div class="columns mt-5">
+            <div class="column is-half is-flex is-flex-direction-column ">
+                <h1 class="is-size-3 has-text-weight-bold has-family-title">I know what I'm looking for</h1>
+                <div class="is-flex-grow-5 my-5">
+                    <a href="{{url_for('Rentals.all_rentals')}}" class="button is-info is-large is-outlined">See Rental Inventory</a>
+                </div>
+            </div>
+            <div class="column is-half">
+                <h1 class="is-size-3 has-text-weight-bold has-family-title">Or...</h1>
+                <form class="p-5 my-5 box" style="border: 2px solid whitesmoke; border-radius: 4px;">
+                    <h1 class="is-size-4 has-text-weight-bold has-family-title mb-3">I need some help deciding</h1>
+                    <hr class="has-background-white-ter">
+                    <div class="field">
+                        <label class="label subtitle">I need a ...</label>
+                        <div class="control">
+                            <div class="is-flex is-flex-direction-row is-justify-content-space-between mb-3">
+                                <label class="radio-icn mb-3">
+                                    <img src="{{ url_for('static', filename='res/icn_mower.png') }}" style="max-height: 75px; max-width: 75px">
+                                    <span>Mower</span>
+                                    <input type="radio" name="question" class="input-icn-radio"> 
+                                </label>
+
+                                <label class="radio-icn mb-3">
+                                    <img src="{{ url_for('static', filename='res/icn_tractor.png') }}" class="image" style="max-width: 75px; max-height: 75px;">
+                                    <span>Tractor</span>
+                                    <input type="radio" name="question" class="input-icn-radio"> 
+                                </label>
+
+                                <label class="radio-icn mb-3">
+                                    <img src="{{ url_for('static', filename='res/icn_chainsaw.png') }}" class="image" style="max-width: 75px; max-height: 75px;">
+                                    <span>Power Tool</span>
+                                    <input type="radio" name="question" class="input-icn-radio"> 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field mb-5">
+                        <label class="label subtitle">For ...</label>
+                        <div class="select">
+                            <select>
+                                <option>A small job</option>
+                                <option>A medium sized job</option>
+                                <option>A heavy duty job</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field is-flex is-flex-direction-column mb-3">
+                        <label class="label subtitle">With these features ...</label>
+                        <label class="checkbox py-2">
+                            <input type="checkbox"> Implement Ready
+                        </label>
+                        <label class="checkbox py-2">
+                            <input type="checkbox"> With cab
+                        </label>
+                        <label class="checkbox py-2">
+                            <input type="checkbox"> Adjustable blades
+                        </label>
+                        <label class="checkbox py-2">
+                            <input type="checkbox"> Bundled Deal
+                        </label>
+                    </div>
+
+                    <div class="field">
+                        <button type="submit" class="button is-info is-fullwidth">Find my Rental</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal hidden" id="mahindra_modal">
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

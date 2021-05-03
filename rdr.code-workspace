@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"driver": "SQLite",
+				"name": "inv",
+				"database": "${workspaceFolder:RedDirtRentals}/database.db"
+			}
+		]
+	}
+}

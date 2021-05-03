@@ -1,0 +1,33 @@
+[2021-04-26 14:01:20.936393] Login Failure from 127.0.0.1 * test : test
+[2021-04-26 14:01:24.083061] Login Failure from 127.0.0.1 * tset : sdflaksdf;'lksadf
+[2021-04-26 14:03:35.803610] Admin Login from 127.0.0.1
+[2021-04-26 14:24:07.631021] Admin session spawned from 127.0.0.1
+[2021-04-26 15:59:07.060681] Admin session spawned from 127.0.0.1
+[2021-04-26 16:59:35.516589] Admin session spawned from 127.0.0.1
+[2021-04-26 21:40:01.945531] Admin session spawned from 127.0.0.1
+[2021-04-26 22:40:54.009434] Admin session spawned from 127.0.0.1
+[2021-04-26 23:56:19.653915] Admin session spawned from 127.0.0.1
+[2021-04-27 17:46:56.977922] Admin session spawned from 127.0.0.1
+[2021-04-27 17:51:07.218232] Admin executed sql from 127.0.0.1[2021-04-27 17:52:07.658664] Admin executed sql from 127.0.0.1[2021-04-27 17:53:39.233974] Admin executed sql from 127.0.0.1
+[2021-04-27 17:53:40.313618] Admin executed sql from 127.0.0.1
+[2021-04-27 17:54:02.491001] Admin executed sql from 127.0.0.1
+[2021-04-27 17:54:25.308495] Admin executed sql from 127.0.0.1
+[2021-04-27 17:54:32.124854] Admin executed sql from 127.0.0.1
+[2021-04-27 17:54:50.306809] Admin executed sql from 127.0.0.1
+[2021-04-27 17:54:51.406812] Admin executed sql from 127.0.0.1
+[2021-04-27 17:55:34.880538] Admin executed sql from 127.0.0.1
+[2021-04-27 17:55:52.089058] Admin executed sql from 127.0.0.1
+[2021-04-27 17:56:00.326746] Admin executed sql from 127.0.0.1
+[2021-04-27 18:14:23.878306] Admin executed sql from 127.0.0.1
+[2021-04-29 22:02:51.435775] Admin session spawned from 127.0.0.1
+[2021-04-29 23:41:21.248820] Admin session spawned from 127.0.0.1
+[2021-04-30 00:42:46.828969] Login failure from 127.0.0.1 * ccooper:CBC00p3r!
+[2021-04-30 00:42:53.122359] Admin session spawned from 127.0.0.1
+[2021-04-30 15:30:16.582713] Admin session spawned from 127.0.0.1
+[2021-04-30 20:27:26.313040] Admin session spawned from 127.0.0.1
+[2021-04-30 23:15:49.656310] Admin session spawned from 127.0.0.1
+[2021-04-30 23:35:41.089677] Admin session spawned from 127.0.0.1
+[2021-05-02 21:46:23.407181] Admin session spawned from 127.0.0.1
+[2021-05-02 21:50:50.267245] Admin session spawned from 127.0.0.1
+[2021-05-02 22:57:49.712928] Login failure from 127.0.0.1 * admin:12345678
+[2021-05-02 22:57:56.114507] Admin session spawned from 127.0.0.1
