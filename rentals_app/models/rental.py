@@ -6,7 +6,7 @@ from flask import current_app
 from werkzeug.utils import secure_filename
 
 
-# Functions that return bool indiate
+# Functions that return bool indicating
 # if sql executed successfully.
 class Rental:
 

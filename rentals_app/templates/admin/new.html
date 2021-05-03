@@ -3,15 +3,17 @@
 {% block title %}New | Admin{% endblock %}
 <!---->
 {% block content %}
-<div class="container is-max-desktop">
-    <h1 class="title m-0 mt-5 p-3 is-family-title">New Rental
-        <a href="{{ url_for('admin.inventory') }}"
-           class="button is-info is-outlined is-pulled-right">
-            <i class="far fa-times-circle mr-3"></i> Cancel
-        </a>
-    </h1>
+<div class="container is-fluid">
+    <div class="container is-max-desktop">
 
-    <div class="p-3 my-3 mb-5">
+        <h1 class="title is-family-title has-background-light p-5"
+            style="border-bottom: 2px solid whitesmoke;">
+            New Rental
+            <a href="{{ url_for('admin.inventory') }}"
+               class="button is-info is-outlined is-pulled-right">
+                <i class="far fa-times-circle mr-3"></i> Cancel
+            </a>
+        </h1>
 
         <div class="container">
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
@@ -26,12 +28,6 @@
               action="{{ url_for('admin.create') }}"
               enctype="multipart/form-data"
               class="p-5">
-            <p class="subtitle content mt-3 is-size-4 is-family-title"><strong>Enter Rentals Details</strong>
-                <a id="developer_option"
-                   class="button is-small is-white has-text-white is-pulled-right">
-                    <i class="fas fa-server fa-1x"></i>
-                </a>
-            </p>
 
             <!--Make/Model-->
             <div class="columns my-0">
@@ -190,9 +186,6 @@
                     </div>
                 </div>
             </div>
-            <div class="columns my-0">
-
-            </div>
 
             <!--Currently Rented/Available Date/Currently Available-->
             <div class="columns my-0">
@@ -316,10 +309,43 @@
                 </div>
             </div>
 
+            <!--Implements-->
+            <label class="label">Compatible Implements</label>
+            <div class="columns my-0">
+                <div class="column">
+                    <div class="is-flex is-flex-direction-row">
+                        <input class="input is-dark is-flex-grow-1"
+                               type="text"
+                               placeholder="Enter Implement Name Here"
+                               id="implement_adder">
+                        <button class="button is-dark is-outlined"
+                                id="implement_adder_submit"
+                                type="button">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <a class="is-link" id="implement_clear">Clear List</a>
+                </div>
+                <div class="column">
+                    <div class="select is-multiple is-fullwidth is-dark">
+                        <select multiple
+                                id="implement_target"
+                                name="implements">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="my-5"
                  style="border-top: 2px solid whitesmoke;"></div>
 
             <div class="columns my-0 ">
+                <div class="column">
+                    <a id="developer_option"
+                       class="button is-small is-white has-text-white">
+                        <i class="fas fa-server fa-1x"></i>
+                    </a>
+                </div>
                 <div class="column">
                     <div class="control is-flex is-fullwidth is-justify-content-flex-end ">
                         <button type="submit"
@@ -329,12 +355,11 @@
                     </div>
                 </div>
             </div>
+        </form>
+
     </div>
 
-    </form>
-
 </div>
-
 <div class="modal"
      id="fast_add_inventory">
     <div class="modal-background "></div>
@@ -347,7 +372,7 @@
             <textarea class="textarea mb-3 is-family-code "
                       name="sql_query"
                       rows=10>
-            </textarea>
+        </textarea>
             <button type="submit "
                     class="button is-success is-outlined is-pulled-right ">
                 <i class="fas fa-play mr-3 "></i> Run
@@ -362,5 +387,6 @@
     </div>
     <button class="modal-close is-large "
             aria-label="close "></button>
+
 </div>
 {% endblock %}

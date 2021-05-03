@@ -33,6 +33,14 @@ $(document).ready(function () {
         }
     });
 
+    //Prevent forms from being submitted when enter is pressed
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
     //Handle Radio Icon State Changes
     $('.radio-icn input').change(function () {
         $('.radio-icn').css('border', '2px solid whitesmoke');
@@ -67,7 +75,20 @@ $(document).ready(function () {
     //Handle Display Filenames
     $('input[type=file].file-input').change(function () {
         var filename = $('input[type=file]').val().replace(/.*(\/|\\)/, '');
-        $('#selected_files').append('<span>'+filename+'</span>');
+        $('#selected_files').append('<span>' + filename + '</span>');
+    });
+
+    $('#implement_adder_submit').click(function () {
+        let text = $('#implement_adder')
+        let list = $('#implement_target');
+        list.append(new Option(text.val()))
+        text.val('');
+    });
+    $('#implement_clear').click(function(){
+        $('#implement_target')
+            .find('option')
+            .remove()
+            .end()
     });
 
 });
