@@ -18,7 +18,7 @@
         <!--Flashes-->
         <div class="container">
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-            <div class="notification is-danger m3">
+            <div class="notification is-light m3 has-text-centered">
                 <button class="delete"></button>
                 <p>{{ message }}</p>
             </div>
@@ -334,8 +334,12 @@
                                        name="files">
                             </label>
                         </div>
-                        <div id="selected_files"
-                             class="p-1">
+                        <div class="container">
+                            {% for path in rental.image_paths %}
+                            <img src="{{url_for('static', filename='uploads/'+path)}}"
+                                 class="image"
+                                 height="250px">
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -398,9 +402,10 @@
                         <select multiple
                                 class="implement_target"
                                 name="implements">
-                                {% for implement in rental.implements %}
-                                    <option selected value="{{implement}}">{{implement}}</option>
-                                {% endfor %}
+                            {% for implement in rental.implements %}
+                            <option selected
+                                    value="{{implement}}">{{implement}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>

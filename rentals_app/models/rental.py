@@ -115,7 +115,6 @@ class Rental:
                         description =   result[19],
                         features =      result[20]
             )
-            print('Found Rental -> {}:\n'.format(rental))
             return rental
         except Exception as ex:
             print(ex)
@@ -160,7 +159,7 @@ class Rental:
             '{7}',
             '{8}',
             '{9}',
-            '{10}', 
+            "{10}", 
             '{11}',
             '{12}', 
             '{13}', 
@@ -191,7 +190,6 @@ class Rental:
                     data.is_shown, 
                     data.description, 
                     data.features)
-        print(sql)
         try:
             cur.execute(sql)
             con.commit()
@@ -219,7 +217,7 @@ class Rental:
             stock='{7}', 
             drive='{8}',
             rate='{9}', 
-            image_paths='{10}',
+            image_paths="{10}",
             job_category='{11}', 
             price_range='{12}', 
             is_available='{13}', 
@@ -252,7 +250,6 @@ class Rental:
                     data.description, 
                     data.features, 
                 rental_id)
-        print(sql)
         try:
             cur.execute(sql)
             con.commit()

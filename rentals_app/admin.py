@@ -27,9 +27,21 @@ def inventory():
         for id in id_list:
             rentals.append(Rental().find_rental(id))
     for rental in rentals:
-        rental.implements = rental.implements.replace('[','').replace(']','').replace('\'','')
-        rental.implements = list(rental.implements.split(','))
-        print(rental.implements)
+        rental.implements = list(
+            rental.implements
+                .replace('[','')
+                .replace(']','')
+                .replace('\'','')
+                .split(',')
+        )
+        rental.image_paths = list(
+            rental.image_paths
+                .replace('[','')
+                .replace(']','')
+                .replace("'",'')
+                .split(',')
+        )
+
     con.close
 
     return render_template('admin/index.html', rentals=rentals)
@@ -70,7 +82,16 @@ def create():
         rental.description =    request.form.get('description')
         rental.features =       request.form.get('features')
 
-        rental.image_paths = None
+        paths = []
+        files = request.files.getlist('files')
+        for file in files:
+            if file:
+                folder_format = '/{0}_{1}_{2}/'.format(rental.make,rental.model,rental.category)
+                filename = secure_filename(file.filename)
+                file.save(helpers.ABS_UPLOAD_PATH+folder_format+'/'+filename)
+                paths.append(os.path.join(
+                    current_app.static_url_path,
+                    folder_format+filename))
     
         if rental.insert():
             return redirect(url_for('admin.inventory'))
@@ -84,12 +105,15 @@ def create():
 @login_required
 def details(id):
     rental = Rental().find_rental(rental_id=id)
-    paths = []
-    # images = rental.image_paths
-    # for image in images:
-    #     paths.append(image.replace('[','').replace(']','').replace('\'','').split(','))
+    rental.image_paths = list(
+            rental.image_paths
+                .replace('[','')
+                .replace(']','')
+                .replace("'",'')
+                .split(',')
+        )
     rental.implements = list(rental.implements.replace('[','').replace(']','').replace('\'','').split(','))
-    return render_template('admin/details.html', rental=rental, images=paths)
+    return render_template('admin/details.html', rental=rental)
 
 
 # CRUD - UPDATE
@@ -118,20 +142,16 @@ def update(id):
         rental.description =    request.form.get('description')
         rental.features =       request.form.get('features')
 
-        # files = request.files.getlist('rental_image')
-        # relative_paths = []
-        # abs_path = helpers.RENTAL_IMAGE_PATH+'/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)
-
-        # if not os.path.exists(abs_path):
-        #     os.mkdir(abs_path)
-        #     print('Creating dir {}'.format(abs_path))
-
-        # for file in files: 
-        #     filename = secure_filename(file.filename)
-        #     file.save(abs_path+'/'+filename)
-        #     relative_paths.append(current_app.static_url_path+'/uploads/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)+filename)
-        #     print('Appending to paths -> {}'.format(relative_paths[len(relative_paths)]))
-        # rental.image_paths = relative_paths
+        paths = []
+        files = request.files.getlist('files')
+        for file in files:
+            if file:
+                folder_format = '/{0}_{1}_{2}/'.format(rental.make,rental.model,rental.category)
+                filename = secure_filename(file.filename)
+                file.save(helpers.ABS_UPLOAD_PATH+folder_format+'/'+filename)
+                paths.append(os.path.join(
+                    current_app.static_url_path,
+                    folder_format+filename))
 
         if Rental.update(rental, id):
             flash('Record #'+str(id)+' was successfully updated')

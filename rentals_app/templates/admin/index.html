@@ -68,7 +68,7 @@
 
                 <!--Panel Header-->
                 <div class="panel-heading is-flex is-flex-direction-row"
-                    style="border-radius: 4px;">
+                     style="border-radius: 4px;">
                     <p class="is-flex-grow-5 is-family-secondary expand-toggle is-size-4 is-clickable">
                         {{ rental.make }} {{ rental.model }}
                     </p>
@@ -91,7 +91,17 @@
                     <p class="panel-block "><strong>Stock: &nbsp;</strong> {{ rental.stock }}</p>
                     <p class="panel-block "><strong>Drive Type: &nbsp;</strong> {{ rental.drive }}</p>
                     <p class="panel-block "><strong>Rate: &nbsp;</strong> ${{ '%0.2f'%rental.rate[0] }}</p>
-                    <p class="panel-block "><strong>Images: &nbsp;</strong> {{ rental.image_paths }}</p>
+                    <p class="panel-block "><strong>Images: &nbsp;</strong>
+                        {% if rental.image_paths != 'None' %}
+                        {% for path in rental.image_paths %}
+                        <a href="{{url_for('static', filename='uploads/'+path)}}"
+                           class="is-link"
+                           target="_blank">{{path}}</a>
+                        {% endfor %}
+                        {% else %}
+                        None
+                        {% endif %}
+                    </p>
                     <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ rental.job_category }}</p>
                     <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ rental.price_range }}</p>
                     <p class="panel-block "><strong>Available for Rent: &nbsp;</strong>

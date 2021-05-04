@@ -1,7 +1,9 @@
 import sqlite3
+from flask import current_app
+import os
 from rentals_app.models.rental import Rental
 
-RENTAL_IMAGE_PATH = '/Users/colby/RedDirtRentals/rentals_app/static/uploads'
+ABS_UPLOAD_PATH = '/Users/colby/RedDirtRentals/rentals_app/static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'tiff', 'jpeg'}
 
 
