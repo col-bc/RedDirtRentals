@@ -3,14 +3,18 @@
 
 <div class="container is-fluid p-0">
 
-    <div class="columns">
+    <h1 class="title is-3 is-family-secondary has-text-centered py-6 mb-0 has-background-light">
+        <u>Our Rental Inventory</u>
+    </h1>
 
-        <aside class="menu column is-one-fifth pl-6 py-6">
+    <div class="columns my-3">
+
+        <aside class="menu column is-one-fifth pl-6">
             <p class="menu-label">Filters</p>
             <ul class="menu-list">
                 <li><a>Tractors</a></li>
                 <li><a>Mowers</a></li>
-                <li><a>Powertools</a></li>
+                <li><a>Power tools</a></li>
                 <li><a>With Add-ons</a></li>
                 <li><a>For Small Jobs</a></li>
                 <li><a>For Medium Jobs</a></li>
@@ -18,37 +22,58 @@
             </ul>
         </aside>
 
-        <div class="column is-four-fifths">
+        <div class="column mx-5">
             <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap">
 
-                {{rows}}
-                {%for item in rows%}
+                {%for rental in rentals%}
 
-                <div class="ml-0 mr-6 my-3">
-                    <figure class="image is-16by9">
+                <div class="m-4 column"
+                     style="border: 2px solid whitesmoke; border-radius: 4px;">
+                    {% for path in rental.image_paths %}
+                    <figure class="image is-4by3 mb-3">
                         <img class="card-img"
-                             src="{{item[11] | replace('[', '') | replace (']','') | replace('\'', '')}}">
+                             src="{{url_for('static', filename='uploads/'+path)}}">
                     </figure>
-                    <div class="media-content mb-3">
-                        <p class="title is-4">{{item[2]}} {{item[3]}}</p>
-                        <p class="subtitle is-6">{{item[1]}} - {{item[8]}}</p>
+                    {% endfor %}
+                    <div class="content my-3">
+                        <div class="is-flex is-flex-direction-row is-align-items-center">
+                            <p class="is-size-4 is-family-secondary has-text-weight-bold is-flex-grow-1 mb-0">{{rental.make}} {{rental.model}}</p>
+                            <a href="/rentals/details/id"
+                               class="is-link column is-one-quarter"> See More </a>
+                        </div>
+                        <p class="subtitle is-6">{{rental.category}} - {{rental.stock}}</p>
                     </div>
-                    <div class="content">
-                        <p class="p-4 has-background-info has-text-white has-text-weight-bold">
-                            ${{item[10]}} / machine hour <span class="is-size-7">({{item[13]}})
+                    <div class="content my-3">
+                        <p class="p-4 has-background-light has-text-weight-bold">
+                            ${{'%0.2f'%rental.rate}} / machine hour <span class="is-size-7">({{rental.price_range}})
                         </p>
                         <div class="tags are-medium">
-                            <span class="tag">{{item[12]}}</span>
-                            <span class="tag">{{item[4]}}</span>
-                            <span class="tag">{{item[9]}}</span>
-                            <span class="tag">{{item[9]}}</span>
-                            {%if item[14] == 1%}
-                                <span class="tag">Available Now</span>
+                            {%if rental.is_available == 1%}
+                            <span class="tag is-info">Available Now!</span>
                             {%endif%}
+                            <span class="tag">{{rental.drive}}</span>
+                            <span class="tag">{{rental.fuel_type}}</span>
                         </div>
-                        <p><strong>Engine</strong>: {{item[7]}} horsepower</p>
-                        <div class="shade">
-                            {{item[19]}}
+                        <p><strong>Engine</strong>: {{rental.horse_power}} horsepower <span class="is-size-7">good for <strong>{{rental.job_category}}</strong>!</p>
+                        <p><strong>Deck Size</strong>: {{rental.deck_size}}</p>
+                        <p><strong>Compatible Implements</strong>:
+                            {% if rental.implements %}
+                        <ul>
+                            {% for implement in rental.implements %}
+                            <li>{{implement}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        None
+                        {% endif %}
+                        </p>
+                        <p><strong>Features</strong>: {{rental.features}}</p>
+                        <p><strong>Description</strong>: {{rental.description}}</p>
+                        <div class="has-text-right mt-5">
+                            <a href="#"
+                               class="button is-info">
+                                <i class="fas fa-plus mr-3"></i> Add to Cart
+                            </a>
                         </div>
                     </div>
                 </div>

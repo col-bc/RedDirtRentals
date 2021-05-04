@@ -37,7 +37,8 @@
         <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item px-3" href="{{ url_for('index.root') }}">Home</a>
-                <a class="navbar-item px-3" href="/rentals/all">View Rentals</a>
+                <a class="navbar-item px-3" href="{{url_for('Rentals.all_rentals')}}">View Rentals</a>
+                <a class="navbar-item px-3" href="#">My Account</a>
             </div>
 
             <div class="navbar-end mx-5">
@@ -46,7 +47,7 @@
                 <a href="{{ url_for('auth.logout') }}" class="is-align-self-center navbar-item button is-small is-info is-outlined px-3">
                     <i class="fas fa-sign-out-alt mr-3"></i>Logout
                 </a> {% else %}
-                <a class="navbar-item button is-outlined" href="{{ url_for('index.send_to_rde') }}">
+                <a class="navbar-item button is-outlined" href="#">
                     <i class="fas fa-shopping-cart mr-3"></i> Cart
                 </a> {% endif %}
             </div>
