@@ -131,7 +131,7 @@
                         <input class="input is-dark is-dark"
                                type="number"
                                step="0.1"
-                               name="horsepower"
+                               name="horse_power"
                                placeholder="Horsepower">
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                     <div class="field">
                         <input type="text"
                                class="input is-dark"
-                               name="rented_by_name"
+                               name="rented_by"
                                placeholder="John Doe">
                         <div class="wrapper is-size-7">
                             <i class="fas fa-eye-slash mr-3"></i>This field <strong>will not </strong>be seen by customers.</p>
@@ -207,7 +207,7 @@
                     <div class="field">
                         <input type="date"
                                class="input is-dark"
-                               name="date_available">
+                               name="available_on">
                         <div class="wrapper is-size-7">
                             <i class="fas fa-eye-slash mr-3">
                             </i>This field <strong>will not </strong>be seen by customers.</p>
@@ -219,7 +219,7 @@
                     <div class="field">
                         <div class="control">
                             <div class="select is-fullwidth is-dark">
-                                <select name="is_currently_available"
+                                <select name="is_available"
                                         required>
                                     <option>Yes</option>
                                     <option>No</option>
@@ -236,7 +236,7 @@
                     <label class="label">Rental Queue</label>
                     <div class="field">
                         <textarea class="textarea is-dark"
-                                  name="queue"
+                                  name="rent_queue"
                                   rows=3
                                   placeholder="Johnny Appleseed, Jane Doe, etc."></textarea>
                         <p class="help">
@@ -256,7 +256,7 @@
                     <div class="field">
                         <div class="control ">
                             <div class="select is-fullwidth is-dark">
-                                <select name="is_customer_facing ">
+                                <select name="is_shown">
                                     <option>Yes</option>
                                     <option>No</option>
                                 </select>
@@ -289,7 +289,7 @@
                         <textarea class="textarea is-dark"
                                   rows=3
                                   placeholder="feature1, feature2, feature3, etc. "
-                                  name="features "></textarea>
+                                  name="features"></textarea>
                         <p class="help is-dark ">
                             <i class="fas fa-info-circle mr-2 "></i>Enter features separated by a comma.
                         </p>
@@ -325,7 +325,8 @@
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
-                    <a class="is-link" id="implement_clear">Clear List</a>
+                    <a class="is-link"
+                       id="implement_clear">Clear List</a>
                 </div>
                 <div class="column">
                     <div class="select is-multiple is-fullwidth is-dark">
@@ -356,11 +357,12 @@
                     </div>
                 </div>
             </div>
+
         </form>
 
     </div>
-
 </div>
+
 <div class="modal"
      id="fast_add_inventory">
     <div class="modal-background "></div>

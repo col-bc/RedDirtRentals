@@ -20,7 +20,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         IS_AUTHENTICATED = session.get('status') == 'AUTHENTICATED'
-        IS_EXPIRED = session.get('expire') < datetime.datetime.now()
+        IS_EXPIRED = session.get('expire') is not None and session.get('expire') < datetime.datetime.now()
         # Force Login if not authenticated
         if not IS_AUTHENTICATED:
             session.pop('status')

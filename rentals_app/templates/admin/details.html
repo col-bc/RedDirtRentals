@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 <!---->
-{% block title %}Update | Admin{% endblock %}
+{% block title %}New | Admin{% endblock %}
 <!---->
 {% block content %}
-<div class="container is-max-desktop">
-    <h1 class="title m-0 mt-5 p-3">Rental Details
-        <a href="{{ url_for('admin.inventory') }}"
-           class="button is-info is-outlined is-pulled-right">
-            <i class="far fa-times-circle mr-3"></i> Discard Changes
-        </a>
-    </h1>
+<div class="container is-fluid my-5">
+    <div class="container is-max-desktop">
 
-    <div class="p-3 my-3 mb-5">
+        <h1 class="title is-family-title has-background-light p-5"
+            style="border-bottom: 2px solid whitesmoke;">
+            New Rental
+            <a href="{{ url_for('admin.inventory') }}"
+               class="button is-info is-outlined is-pulled-right">
+                <i class="far fa-times-circle mr-3"></i> Cancel
+            </a>
+        </h1>
 
+        <!--Flashes-->
         <div class="container">
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
             <div class="notification is-danger m3">
@@ -22,127 +25,83 @@
             {% endfor %} {% endif %} {% endwith %}
         </div>
 
-        {{row}}
-
         <form method="POST"
-              action="{{ url_for('admin.update', id=rental.rental_id[0]) }}"
-              class="p-5"
-              enctype="multipart/form-data">
-            <p class="subtitle content mt-3 is-size-4 is-family-title">
-                <strong>Updating Rental ID: {{ rental.rental_id[0] }}</strong>
-            </p>
+              action="{{ url_for('admin.update', id=rental.rental_id) }}"
+              enctype="multipart/form-data"
+              class="p-5">
 
             <!--Make/Model-->
             <div class="columns my-0">
-                <label class="label column py-0">Make</label>
-                <label class="label column py-0">Model</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
+                <div class="column">
+                    <label class="label">Make</label>
                     <div class="field">
-                        <input class="input"
-                               type="text"
-                               value="{{ rental.make }}"
-                               required
-                               name="make"
-                               placeholder="Make">
+                        <div class="field">
+                            <input class="input is-dark is-dark"
+                                   type="text"
+                                   name="make"
+                                   value="{{rental.make}}"
+                                   placeholder="Make">
+                        </div>
                     </div>
                 </div>
-                <div class="field column pt-0">
+                <div class="column">
+                    <label class="label">Model</label>
                     <div class="field">
-                        <input class="input"
-                               type="text"
-                               value="{{ rental.model }}"
-                               name="model"
-                               required
-                               placeholder="Model">
+                        <div class="field">
+                            <input class="input is-dark is-dark"
+                                   type="text"
+                                   name="model"
+                                   value="{{rental.model}}"
+                                   placeholder="Model">
+                        </div>
                     </div>
                 </div>
             </div>
 
+
             <!--Category/Fuel Type-->
             <div class="columns my-0">
-                <label class="label column py-0">Fuel Type</label>
-                <label class="label column py-0">Category</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <div class="select is-fullwidth">
-                        <select name="fuel_type"
-                                required>
-                            <option {%
-                                    if
-                                    rental.fuel_type=="Gasoline"
-                                    %}
-                                    selected
-                                    {%
-                                    endif
-                                    %}>Gasoline</option>
-                            <option {%
-                                    if
-                                    rental.fuel_type=="Desil"
-                                    %}
-                                    selected
-                                    {%
-                                    endif
-                                    %}>Deasil</option>
-                            <option {%
-                                    if
-                                    rental.fuel_type=="Hybrid"
-                                    %}
-                                    selected
-                                    {%
-                                    endif
-                                    %}>Hybrid</option>
-                            <option {%
-                                    if
-                                    rental.fuel_type=="Other"
-                                    %}
-                                    selected
-                                    {%
-                                    endif
-                                    %}>Other</option>
-                        </select>
+                <div class="column">
+                    <label class="label">Fuel Type</label>
+                    <div class="field">
+                        <div class="select is-fullwidth is-dark">
+                            <select name="fuel_type">
+                                <option {%if
+                                        rental.fuel_type=='Gasoline'
+                                        %}selected{%endif%}>Gasoline</option>
+                                <option {%if
+                                        rental.fuel_type=='Diesel'
+                                        %}selected{%endif%}>Diesel</option>
+                                <option {%if
+                                        rental.fuel_type=='Hybrid'
+                                        %}selected{%endif%}>Hybrid</option>
+                                <option {%if
+                                        rental.fuel_type=='Other'
+                                        %}selected{%endif%}>Other</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="field column pt-0">
-                    <div class="control">
-                        <div class="select is-fullwidth">
-                            <select name="category"
-                                    required>
-                                <option {%
-                                        if
-                                        rental.category=="Tractor"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Tractor</option>
-                                <option {%
-                                        if
-                                        rental.category=="Mower"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Mower</option>
-                                <option {%
-                                        if
-                                        rental.category=="Power Tool"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Power Tool</option>
-                                <option {%
-                                        if
-                                        rental.category=="Add on"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Add on</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Category</label>
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="category">
+                                    <option {%if
+                                            rental.category=='Tractor'
+                                            %}selected{%endif%}>Tractor</option>
+                                    <option {%if
+                                            rental.category=='Mower'
+                                            %}selected{%endif%}>Mower</option>
+                                    <option {%if
+                                            rental.category=='Power Tool'
+                                            %}selected{%endif%}>Power Tool</option>
+                                    <option {%if
+                                            rental.category=='Add on'
+                                            %}selected{%endif%}>Add on</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,88 +109,49 @@
 
             <!--Job Category/Drive Type-->
             <div class="columns my-0">
-                <label class="label column py-0 pb-3">Job Category</label>
-                <label class="label column py-0 pb-3">Drive Type</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0 pb-5">
-                    <div class="control">
-                        <div class="select is-fullwidth">
-                            <select name="job_category"
-                                    required>
-                                <option {%
-                                        if
-                                        rental.job_category=="Small Jobs"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Small Jobs</option>
-                                <option {%
-                                        if
-                                        rental.job_category=="Medium Jobs"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Medium Jobs</option>
-                                <option {%
-                                        if
-                                        rental.job_category=="Large Jobs"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Large Jobs</option>
-                                <option {%
-                                        if
-                                        rental.job_category=="Heavy Duty Jobs"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Heavy Duty Jobs</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Job Category</label>
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="job_category">
+                                    <option {%if
+                                            rental.job_category=='Small Jobs'
+                                            %}selected{%endif%}>Small Jobs</option>
+                                    <option {%if
+                                            rental.job_category=='Medium Jobs'
+                                            %}selected{%endif%}>Medium Jobs</option>
+                                    <option {%if
+                                            rental.job_category=='Large Jobs'
+                                            %}selected{%endif%}>Large Jobs</option>
+                                    <option {%if
+                                            rental.job_category=='Heavy Duty Jobs'
+                                            %}selected{%endif%}>Heavy Duty Jobs</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="field column pt-0 pb-5">
-                    <div class="control">
-                        <div class="select is-fullwidth">
-                            <select name="drive">
-                                <option {%
-                                        if
-                                        rental.drive=="4WD"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>4WD</option>
-                                <option {%
-                                        if
-                                        rental.drive=="2WD"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>2WD</option>
-                                <option {%
-                                        if
-                                        rental.drive=="Other"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Other</option>
-                                <option {%
-                                        if
-                                        rental.drive=="NA"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>NA</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Drive Type</label>
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="drive">
+                                    <option {%if
+                                            rental.drive=='4WD'
+                                            %}selected{%endif%}>4WD</option>
+                                    <option {%if
+                                            rental.drive=='2WD'
+                                            %}selected{%endif%}>2WD</option>
+                                    <option {%if
+                                            rental.drive=='Other'
+                                            %}selected{%endif%}>Other</option>
+                                    <option {%if
+                                            rental.drive=='NA'
+                                            %}selected{%endif%}>NA</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -239,94 +159,76 @@
 
             <!--Horsepower/Deck Size-->
             <div class="columns my-0">
-                <label class="label column py-0">Horsepower</label>
-                <label class="label column py-0">Deck Size</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <input class="input"
-                           type="number"
-                           step="0.1"
-                           name="horsepower"
-                           value="{{ rental.horsepower }}"
-                           placeholder="Horsepower">
+                <div class="column">
+                    <label class="label py-0">Horsepower</label>
+                    <div class="field">
+                        <input class="input is-dark is-dark"
+                               type="number"
+                               step="0.1"
+                               value="{{rental.horse_power}}"
+                               name="horse_power"
+                               placeholder="Horsepower">
+                    </div>
                 </div>
-                <div class="field column pt-0">
-                    <input class="input"
-                           type="text"
-                           name="deck_size"
-                           value="{{ rental.decksize }}"
-                           placeholder="Deck Size">
+                <div class="column">
+                    <label class="label">Deck Size</label>
+                    <div class="field">
+                        <input class="input is-dark is-dark"
+                               type="text"
+                               value="{{rental.deck_size}}"
+                               name="deck_size"
+                               placeholder="Deck Size">
+                    </div>
                 </div>
             </div>
 
-            <!--Engine Size/Stock-->
+            <!--Stock-->
             <div class="columns my-0">
-                <label class="label column py-0">Stock</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <input class="input"
-                           type="text"
-                           name="stock"
-                           value="{{ rental.stock }}"
-                           placeholder="Stock">
+                <div class="column">
+                    <label class="label">Stock</label>
+                    <div class="field">
+                        <input class="input is-dark"
+                               type="text"
+                               name="stock"
+                               value="{{rental.stock}}"
+                               placeholder="Stock">
+                    </div>
                 </div>
             </div>
 
             <!--Pricing-->
             <div class="columns my-0">
-                <label class="label column py-0">Hourly Rate</label>
-                <label class="label column py-0">Price Category</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <input class="input"
-                           required
-                           type="number"
-                           value="{{ '%0.2f'|format(rental.rate|float) }}"
-                           step="0.01"
-                           name="rate"
-                           placeholder="Hourly Rate">
+                <div class="column">
+                    <label class="label">Hourly Rate</label>
+                    <div class="field">
+                        <input class="input is-dark"
+                               type="number"
+                               step="0.01"
+                               name="rate"
+                               value="{{rental.rate}}"
+                               placeholder="Hourly Rate">
+                    </div>
                 </div>
-                <div class="field column pt-0">
-                    <div class="control is-expanded">
-                        <div class="select is-fullwidth">
-                            <select name="price_range"
-                                    required>
-                                <option {%
-                                        if
-                                        rental.price_range=="Cheap"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Cheap</option>
-                                <option {%
-                                        if
-                                        rental.price_range=="Affordable"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Affordable</option>
-                                <option {%
-                                        if
-                                        rental.price_range=="Normal"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Normal</option>
-                                <option {%
-                                        if
-                                        rental.price_range=="Costly"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Costly</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Price Category</label>
+                    <div class="field">
+                        <div class="control is-expanded">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="price_range">
+                                    <option {%if
+                                            rental.price_range=='Cheap'
+                                            %}selected{%endif%}>Cheap</option>
+                                    <option {%if
+                                            rental.price_range=='Affordable'
+                                            %}selected{%endif%}>Affordable</option>
+                                    <option {%if
+                                            rental.price_range=='Normal'
+                                            %}selected{%endif%}>Normal</option>
+                                    <option {%if
+                                            rental.price_range=='Costly'
+                                            %}selected{%endif%}>Costly</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -334,51 +236,47 @@
 
             <!--Currently Rented/Available Date/Currently Available-->
             <div class="columns my-0">
-                <label class="label column py-0">Currently Rented By</label>
-                <label class="label column py-0">Date Available</label>
-                <label class="label column py-0">Currently Available</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <input type="text"
-                           class="input"
-                           value="{{ rental.rented_by }}"
-                           name="rented_by_name"
-                           placeholder="John Doe">
-                    <div class="wrapper is-size-7">
-                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.</p>
+                <div class="column">
+                    <label class="label">Currently Rented By</label>
+                    <div class="field">
+                        <input type="text"
+                               class="input is-dark"
+                               name="rented_by"
+                               value="{{rental.rented_by}}"
+                               placeholder="John Doe">
+                        <div class="wrapper is-size-7">
+                            <i class="fas fa-eye-slash mr-3"></i>This field <strong>will not </strong>be seen by customers.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="field column pt-0">
-                    <input type="date"
-                           class="input"
-                           value="{{ rental.available_on }}"
-                           name="date_available">
-                    <div class="wrapper is-size-7">
-                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.</p>
+                <div class="column">
+                    <label class="label">Date Available</label>
+                    <div class="field">
+                        <input type="date"
+                               class="input is-dark"
+                               value="{{rental.available_on}}"
+                               name="available_on">
+                        <div class="wrapper is-size-7">
+                            <i class="fas fa-eye-slash mr-3">
+                            </i>This field <strong>will not </strong>be seen by customers.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="field column pt-0">
-                    <div class="control ">
-                        <div class="select is-fullwidth">
-                            <select name="is_currently_available"
-                                    required>
-                                <option {%if
-                                        rental.is_available=="0"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Yes</option>
-                                <option {%
-                                        if
-                                        rental.is_available=="1"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>No</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Currently Available</label>
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="is_available"
+                                        required>
+                                    <option {%if
+                                            rental.is_available=='Yes'
+                                            %}selected{%endif%}>Yes</option>
+                                    <option {%if
+                                            rental.is_available=='No'
+                                            %}selected{%endif%}>No</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,143 +284,146 @@
 
             <!--Rent Queue-->
             <div class="columns my-0">
-                <label class="label column py-0 pb-3">Rent Queue</label>
-            </div>
-            <div class="columns my-0">
-                <div class="field column pt-0">
-                    <textarea class="textarea"
-                              name="queue"
-                              rows=3
-                              placeholder="Johnny Appleseed, Jane Doe, etc.">{% if rental.rent_queue != "None" %}{{ rental.rent_queue }}{% endif %}</textarea>
-                    <p class="help">
-                        <i class="fas fa-info-circle mr-3"></i>Enter names seperated by a comma.
-                    </p>
-                    <p class="help">
-                        <i class="fas fa-eye-slash mr-3"></i>This is an internal memo and <strong>will not </strong>be seen by customers.
-                    </p>
+                <div class="column">
+                    <label class="label">Rental Queue</label>
+                    <div class="field">
+                        <textarea class="textarea is-dark"
+                                  name="rent_queue"
+                                  rows=3
+                                  placeholder="Johnny Appleseed, Jane Doe, etc.">
+                            {{rental.rent_queue}}
+                        </textarea>
+                        <p class="help">
+                            <i class="fas fa-info-circle mr-3"></i>Enter names separated by a comma.
+                        </p>
+                        <p class="help">
+                            <i class="fas fa-eye-slash mr-3"></i>This field <strong>will not </strong>be seen by customers.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!--Is Hidden/Img Picker-->
-            <div class=" columns my-0 ">
-                <label class="label column py-0">Shown to Customers?</label>
-                <label class="label column py-0 ">Rental Image</label>
-            </div>
             <div class="columns my-0 ">
-                <div class="field column pt-0">
-                    <div class="control ">
-                        <div class="select is-fullwidth">
-                            <select name="is_customer_facing"
-                                    required>
-                                <option {%
-                                        if
-                                        rental.is_visible=="0"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>Yes</option>
-                                <option {%
-                                        if
-                                        rental.is_available=="1"
-                                        %}
-                                        selected
-                                        {%
-                                        endif
-                                        %}>No</option>
-                            </select>
+                <div class="column">
+                    <label class="label">Shown to Customers?</label>
+                    <div class="field">
+                        <div class="control ">
+                            <div class="select is-fullwidth is-dark">
+                                <select name="is_shown">
+                                    <option {%if
+                                            rental.is_shown=='Yes'
+                                            %}selected{%endif%}>Yes</option>
+                                    <option {%if
+                                            rental.is_shown=='No'
+                                            %}selected{%endif%}>No</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="field column pt-0 ">
-                    <div class="file">
-                        <label class="file-label ">
-                            <input class="file-input"
-                                   type="file"
-                                   name="rental_image">
-                            <span class="file-cta ">
-                                <span class="file-icon ">
-                                    <i class="fas fa-upload "></i>
-                                </span>
-                                <span class="file-label ">
-                                    Choose an image...
-                                </span>
-                            </span>
-                        </label>
+                <div class="column is-two-fifths">
+                    <label class="label">Rental Image</label>
+                    <div class="field">
+                        <div class="file">
+                            <label class="file-label">
+                                <input class="button is-dark is-outlined"
+                                       type="file"
+                                       name="files">
+                            </label>
+                        </div>
+                        <div id="selected_files"
+                             class="p-1">
+                        </div>
                     </div>
-                    <a href="{{images[0]}}"
-                       target="_blank"
-                       class="is-link">{{images[0]}}</a>
                 </div>
             </div>
 
             <!--Features-->
             <div class="columns my-0 ">
-                <label class="label column py-0 pb-3">Rental Features/Implements</label>
-            </div>
-            <div class="columns my-0 ">
-                <div class="field column pt-0 ">
-                    <textarea class="textarea "
-                              rows=3
-                              placeholder="feature1, feature2, feature3, etc. "
-                              name="features ">
-                            {{rental.description}}</textarea>
-                    <p class="help is-dark "><i class="fas fa-info-circle mr-2 "></i>Enter features seperated by a comma.</p>
+                <div class="column">
+                    <label class="label">Features, Options, Implements, etc.</label>
+                    <div class="field">
+                        <textarea class="textarea is-dark"
+                                  rows=3
+                                  placeholder="feature1, feature2, feature3, etc. "
+                                  name="features">
+                                  {{rental.features}}
+                        </textarea>
+                        <p class="help is-dark ">
+                            <i class="fas fa-info-circle mr-2 "></i>Enter features separated by a comma.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!--Description-->
-            <div class="columns my-0 ">
-                <label class="label column py-0 pb-3 ">Rental Description</label>
+            <div class="columns my-0">
+                <div class="column">
+                    <label class="label">Rental Description</label>
+                    <div class="field">
+                        <textarea class="textarea is-dark"
+                                  rows=3
+                                  placeholder="Description"
+                                  name="description">
+                                  {{rental.description}}
+                        </textarea>
+                    </div>
+                </div>
             </div>
-            <div class="columns my-0 ">
-                <div class="field column pt-0 ">
-                    <textarea class="textarea "
-                              rows=3
-                              placeholder="Description"
-                              name="description">
-                              {{rental.features}}</textarea>
+
+            <!--Implements-->
+            <label class="label">Compatible Implements</label>
+            <div class="columns my-0">
+                <div class="column">
+                    <div class="is-flex is-flex-direction-row">
+                        <input class="input is-dark is-flex-grow-1"
+                               type="text"
+                               placeholder="Enter Implement Name Here"
+                               id="implement_adder">
+                        <button class="button is-white has-text-dark"
+                                id="implement_adder_submit"
+                                type="button">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <a class="is-link"
+                       id="implement_clear">Clear List</a>
+                </div>
+                <div class="column">
+                    <div class="select is-multiple is-fullwidth is-dark">
+                        <select multiple
+                                id="implement_target"
+                                name="implements">
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <div class="my-5"
-                 style="border-top: 2px solid whitesmoke; "></div>
+                 style="border-top: 2px solid whitesmoke;"></div>
 
             <div class="columns my-0 ">
-                <div class="column is-flex is-flex-direction-row is-justify-content-flex-end">
-                    <div class="control is-fullwidth  ">
-                        <div class="dropdown is-up is-hoverable">
-                            <div class="dropdown-trigger">
-                                <a href="{{ url_for('admin.delete', id=rental.rental_id[0]) }}"
-                                   class="button is-dark is-outlined mr-5"
-                                   aria-haspopup="true"
-                                   aria-controls="dropdown-warning">
-                                    <i class="far fa-trash-alt mr-3"></i>Permanently Delete
-                                </a>
-                            </div>
-                            <div class="dropdown-menu"
-                                 id="dropdown-warning"
-                                 role="menu">
-                                <div class="dropdown-content has-background-warning">
-                                    <div class="dropdown-item">
-                                        <p><i class="fas fa-exclamation-triangle mr-3"></i>
-                                            This action <strong>cannot be reversed</strong>. Proceed with caution.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="column">
+                    <a href="{{url_for('admin.delete', id=rental.rental_id)}}"
+                       class="button is-warning">
+                       <i class="fas fa-exclamation-triangle mr-3"></i>
+                       Permanently Delete
+                    </a>
+                </div>
+                <div class="column">
+                    <div class="control is-flex is-fullwidth is-justify-content-flex-end ">
+                        <button type="submit"
+                                class="button is-info px-6">
+                            <i class="fas fa-save mr-5"></i>Add Rental
+                        </button>
                     </div>
-                    <button type="submit"
-                            class="button is-info is-outlined ml-5">
-                        <i class="fas fa-save mr-3 "></i>Save Changes
-                    </button>
                 </div>
             </div>
+
+        </form>
+
     </div>
-
-    </form>
-
 </div>
 
 {% endblock %}

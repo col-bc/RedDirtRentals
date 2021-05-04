@@ -16,7 +16,7 @@ CREATE TABLE inventory (
     is_available INTEGER DEFAULT 1,
     available_on DATE,
     rented_by TEXT,
-    rent_queue TEXT
+    rent_queue TEXT,
     is_shown INTEGER DEFAULT 1,
     description TEXT,
     features TEXT

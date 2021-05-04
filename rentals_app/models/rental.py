@@ -24,7 +24,9 @@ class Rental:
                  deck_size:str = None, 
                  implements:str = None,
                  stock:str = None,
+                 drive:str = None,
                  rate:float = None,
+                 image_paths:str = None,
                  job_category:str = None,
                  price_range:str = None,
                  is_available:int = 1,
@@ -44,7 +46,9 @@ class Rental:
         self.deck_size =        deck_size
         self.implements =       implements
         self.stock =            stock
-        self.rate =             rate
+        self.drive =            drive
+        self.rate =             rate,
+        self.image_paths =      image_paths
         self.job_category =     job_category
         self.price_range =      price_range
         self.is_available =     is_available
@@ -72,16 +76,18 @@ class Rental:
                         deck_size =     result[6], 
                         implements =    result[7],
                         stock =         result[8],
-                        rate =          result[9],
-                        job_category =  result[11],
-                        price_range =   result[12],
-                        is_available =  result[13],
-                        available_on =  result[14],
-                        rented_by =     result[15],
-                        rent_queue =    result[16],
-                        is_shown =      result[17],
-                        description =   result[18],
-                        features =      result[19]
+                        drive =         result[9],
+                        rate =          result[10],
+                        image_paths =   result[11],
+                        job_category =  result[12],
+                        price_range =   result[13],
+                        is_available =  result[14],
+                        available_on =  result[15],
+                        rented_by =     result[16],
+                        rent_queue =    result[17],
+                        is_shown =      result[18],
+                        description =   result[19],
+                        features =      result[20]
             )
             print('Found Rental -> {}'.format(rental))
             return rental
@@ -98,24 +104,26 @@ class Rental:
         sql = """
         INSERT INTO inventory (
             category, make, model,
-            fuel_type, horse_power,
+            fuel_type, horsepower,
             deck_size, implements,
-            stock, rate, job_category, 
-            price_range, is_available, 
-            available_on, rented_by, 
-            rent_queue, is_shown, 
-            description, features
+            stock, drive, rate, image_paths,
+            job_category, price_range, 
+            is_available, available_on, 
+            rented_by, rent_queue, 
+            is_shown, description, 
+            features
         ) VALUES (
-            {0}, {1}, {2},
-            {3}, {4}, {5},
-            {6}, {7}, {8},
-            {9}, {10}, {11},
-            {12}, {13}, {14},
-            {15}, {16}, {17}
+            '{0}', '{1}', '{2}',
+            '{3}', '{4}', '{5}',
+            '{6}', '{7}', '{8}',
+            '{9}', '{10}', '{11}',
+            '{12}', '{13}', '{14}',
+            '{15}', '{16}', '{17}', 
+            '{18}', '{19}'
         );
         """.format(data.category, data.make, data.model,
                     data.fuel_type, data.horse_power, data.deck_size,
-                    data.stock, data.rate, data.implements, data.job_category,
+                    data.stock, data.drive, data.rate, data.image_paths, data.implements, data.job_category,
                     data.price_range,data.is_available, data.available_on, 
                     data.rented_by, data.rent_queue, data.is_shown, data.description, 
                     data.features)
@@ -141,29 +149,31 @@ class Rental:
             make='{1}', 
             model={2},
             fuel_type='{3}', 
-            horse_power '{4}',
+            horsepower '{4}',
             deck_size='{5}', 
             implements='{6}',
             stock='{7}', 
-            rate='{8}', 
-            job_category='{9}', 
-            price_range='{10}', 
-            is_available='{11}', 
-            available_on='{12}', 
-            rented_by='{13}', 
-            rent_queue='{14}', 
-            is_shown='{15}', 
-            description='{16}', 
-            features='{17}'
+            drive='{8}',
+            rate='{9}', 
+            image_paths='{10}'
+            job_category='{11}', 
+            price_range='{12}', 
+            is_available='{13}', 
+            available_on='{14}', 
+            rented_by='{15}', 
+            rent_queue='{16}', 
+            is_shown='{17}', 
+            description='{18}', 
+            features='{19}'
         WHERE
-            id='{19}'
+            id='{20}'
         );
         """.format(data.category, data.make, data.model,
                     data.fuel_type, data.horse_power, data.deck_size,
-                    data.stock, data.rate, data.implements, data.job_category,
-                    data.price_range,data.is_available, data.available_on, 
-                    data.rented_by, data.rent_queue, data.is_shown, data.description, 
-                    data.features, rental_id)
+                    data.stock, data.drive, data.rate, data.image_paths, data.implements, 
+                    data.job_category, data.price_range,data.is_available, 
+                    data.available_on, data.rented_by, data.rent_queue, 
+                    data.is_shown, data.description, data.features, rental_id)
         print(sql)
         try:
             cur.execute(sql)

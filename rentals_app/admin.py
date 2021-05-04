@@ -43,15 +43,29 @@ def new():
 @login_required
 def create():
     rental = Rental()
-    attr = helpers.get_attributes(request)
     if request.method == 'POST':
 
-        print(helpers.get_attributes(request))
+        rental.category =       request.form.get('category')
+        rental.make =           request.form.get('make')
+        rental.model =          request.form.get('model')
+        rental.fuel_type =      request.form.get('fuel_type')
+        rental.horse_power =    request.form.get('horse_power')
+        rental.deck_size =      request.form.get('deck_size')
+        rental.implements =     request.form.get('implements')
+        rental.stock =          request.form.get('stock')
+        rental.rate =           float(request.form.get('rate'))
+        rental.drive =          request.form.get('drive')
+        rental.job_category =   request.form.get('job_category')
+        rental.price_range =    request.form.get('price_range')
+        rental.is_available =   1 if request.form.get('is_available') == 'Yes' else 0
+        rental.available_on =   datetime.datetime.strptime(request.form.get('available_on'), '%Y-%m-%d').date()
+        rental.rented_by =      request.form.get('rented_by')
+        rental.rent_queue =     request.form.get('rent_queue')
+        rental.is_shown =       1 if request.form.get('is_shown') == 'Yes' else 0
+        rental.description =    request.form.get('description')
+        rental.features =       request.form.get('features')
 
-        
-
-        
-        print(rental)
+        rental.image_paths = None
     
         if rental.insert():
             return redirect(url_for('admin.inventory'))
@@ -66,9 +80,9 @@ def create():
 def details(id):
     rental = Rental().find_rental(rental_id=id)
     paths = []
-    images = rental.image_paths
-    for image in images:
-        paths.append(image.replace('[','').replace(']','').replace('\'','').split(','))
+    # images = rental.image_paths
+    # for image in images:
+    #     paths.append(image.replace('[','').replace(']','').replace('\'','').split(','))
     return render_template('admin/details.html', rental=rental, images=paths)
 
 
