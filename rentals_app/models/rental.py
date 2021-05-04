@@ -60,6 +60,31 @@ class Rental:
         self.features =         features
 
 
+    def __str__(self):
+        return str(dict({
+            'rental_id':        self.rental_id,
+            'category':         self.category,
+            'make':             self.make,
+            'model':            self.model,
+            'fuel_type':        self.fuel_type,
+            'horse_power':      self.horse_power,
+            'deck_size':        self.deck_size,
+            'implements':       self.implements,
+            'stock':            self.stock,
+            'drive':            self.drive,
+            'rate':             self.rate,
+            'image_paths':      self.image_paths,
+            'job_category':     self.job_category,
+            'price_range':      self.price_range,
+            'is_available':     self.is_available,
+            'available_on':     self.available_on,
+            'rented_by':        self.rented_by,
+            'rent_queue':       self.rent_queue,
+            'is_shown':         self.is_shown,
+            'description':      self.description,
+            'features':         self.features
+        }))
+
     # Returns Rental Object from rental id
     def find_rental(self, rental_id):
         con, cur = helpers.connect_to_db()
@@ -89,7 +114,7 @@ class Rental:
                         description =   result[19],
                         features =      result[20]
             )
-            print('Found Rental -> {}'.format(rental))
+            print('Found Rental -> {}:\n'.format(rental))
             return rental
         except Exception as ex:
             print(ex)
@@ -103,29 +128,67 @@ class Rental:
         con, cur = helpers.connect_to_db()
         sql = """
         INSERT INTO inventory (
-            category, make, model,
-            fuel_type, horsepower,
-            deck_size, implements,
-            stock, drive, rate, image_paths,
-            job_category, price_range, 
-            is_available, available_on, 
-            rented_by, rent_queue, 
-            is_shown, description, 
-            features
+            category,       
+            make,           
+            model,          
+            fuel_type,      
+            horsepower,     
+            deck_size,      
+            implements,     
+            stock,          
+            drive,          
+            rate,           
+            image_paths,    
+            job_category,   
+            price_range,    
+            is_available,   
+            available_on,   
+            rented_by,      
+            rent_queue,     
+            is_shown,       
+            description,    
+            features        
         ) VALUES (
-            '{0}', '{1}', '{2}',
-            '{3}', '{4}', '{5}',
-            '{6}', '{7}', '{8}',
-            '{9}', '{10}', '{11}',
-            '{12}', '{13}', '{14}',
-            '{15}', '{16}', '{17}', 
-            '{18}', '{19}'
+            '{0}',
+            '{1}',
+            '{2}',
+            '{3}',
+            '{4}',
+            '{5}',
+            '{6}',
+            '{7}',
+            '{8}',
+            '{9}',
+            '{10}', 
+            '{11}',
+            '{12}', 
+            '{13}', 
+            '{14}',
+            '{15}', 
+            '{16}', 
+            '{17}', 
+            '{18}', 
+            '{19}' 
         );
-        """.format(data.category, data.make, data.model,
-                    data.fuel_type, data.horse_power, data.deck_size,
-                    data.stock, data.drive, data.rate, data.image_paths, data.implements, data.job_category,
-                    data.price_range,data.is_available, data.available_on, 
-                    data.rented_by, data.rent_queue, data.is_shown, data.description, 
+        """.format(data.category,
+                    data.make, 
+                    data.model,
+                    data.fuel_type, 
+                    data.horse_power, 
+                    data.deck_size, 
+                    data.implements, 
+                    data.stock, 
+                    data.drive, 
+                    data.rate, 
+                    data.image_paths,
+                    data.job_category, 
+                    data.price_range,
+                    data.is_available, 
+                    data.available_on, 
+                    data.rented_by, 
+                    data.rent_queue,
+                    data.is_shown, 
+                    data.description, 
                     data.features)
         print(sql)
         try:
@@ -149,13 +212,13 @@ class Rental:
             make='{1}', 
             model={2},
             fuel_type='{3}', 
-            horsepower '{4}',
+            horsepower='{4}',
             deck_size='{5}', 
             implements='{6}',
             stock='{7}', 
             drive='{8}',
             rate='{9}', 
-            image_paths='{10}'
+            image_paths='{10}',
             job_category='{11}', 
             price_range='{12}', 
             is_available='{13}', 
@@ -166,14 +229,28 @@ class Rental:
             description='{18}', 
             features='{19}'
         WHERE
-            id='{20}'
-        );
-        """.format(data.category, data.make, data.model,
-                    data.fuel_type, data.horse_power, data.deck_size,
-                    data.stock, data.drive, data.rate, data.image_paths, data.implements, 
-                    data.job_category, data.price_range,data.is_available, 
-                    data.available_on, data.rented_by, data.rent_queue, 
-                    data.is_shown, data.description, data.features, rental_id)
+            id='{20}';
+        """.format(data.category,
+                    data.make, 
+                    data.model,
+                    data.fuel_type, 
+                    data.horse_power, 
+                    data.deck_size, 
+                    data.implements, 
+                    data.stock, 
+                    data.drive, 
+                    data.rate, 
+                    data.image_paths,
+                    data.job_category, 
+                    data.price_range,
+                    data.is_available, 
+                    data.available_on, 
+                    data.rented_by, 
+                    data.rent_queue,
+                    data.is_shown, 
+                    data.description, 
+                    data.features, 
+                rental_id)
         print(sql)
         try:
             cur.execute(sql)

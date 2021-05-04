@@ -90,48 +90,42 @@ def details(id):
 @admin.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
-    attr = helpers.get_attributes(request)
     rental = Rental()
-
-    is_shown = True
-    if attr['is_shown'] == 'No':
-        is_shown = False
-
     if request.method == 'POST':
-        rental.category= attr['category'] 
-        rental.make = attr['make']
-        rental.model = attr['model']
-        rental.fuel_type = attr['fuel_type'],
-        rental.horsepower = attr['horsepower']
-        rental.decksize = attr['deck_size']
-        rental.engine = attr['engine']
-        rental.stock = attr['stock']
-        rental.drive = attr['drive']
-        rental.rate = attr['rate']
-        rental.job_category = attr['job_category']
-        rental.price_range = attr['price_range']
-        rental.is_available = attr['is_available']
-        rental.available_on = attr['date_available']
-        rental.rented_by = attr['rented_by']
-        rental.rent_queue = attr['rent_queue']
-        rental.description = attr['description']
-        rental.feature = attr['features']
-        rental.is_shown = 1 if is_shown is True else 0
+        rental.category =       request.form.get('category')
+        rental.make =           request.form.get('make')
+        rental.model =          request.form.get('model')
+        rental.fuel_type =      request.form.get('fuel_type')
+        rental.horse_power =    request.form.get('horse_power')
+        rental.deck_size =      request.form.get('deck_size')
+        rental.implements =     request.form.get('implements')
+        rental.stock =          request.form.get('stock')
+        rental.rate =           float(request.form.get('rate'))
+        rental.drive =          request.form.get('drive')
+        rental.job_category =   request.form.get('job_category')
+        rental.price_range =    request.form.get('price_range')
+        rental.is_available =   1 if request.form.get('is_available') == 'Yes' else 0
+        rental.available_on =   datetime.datetime.strptime(request.form.get('available_on'), '%Y-%m-%d').date()
+        rental.rented_by =      request.form.get('rented_by')
+        rental.rent_queue =     request.form.get('rent_queue')
+        rental.is_shown =       1 if request.form.get('is_shown') == 'Yes' else 0
+        rental.description =    request.form.get('description')
+        rental.features =       request.form.get('features')
 
-        files = request.files.getlist('rental_image')
-        relative_paths = []
-        abs_path = helpers.RENTAL_IMAGE_PATH+'/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)
+        # files = request.files.getlist('rental_image')
+        # relative_paths = []
+        # abs_path = helpers.RENTAL_IMAGE_PATH+'/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)
 
-        if not os.path.exists(abs_path):
-            os.mkdir(abs_path)
-            print('Creating dir {}'.format(abs_path))
+        # if not os.path.exists(abs_path):
+        #     os.mkdir(abs_path)
+        #     print('Creating dir {}'.format(abs_path))
 
-        for file in files: 
-            filename = secure_filename(file.filename)
-            file.save(abs_path+'/'+filename)
-            relative_paths.append(current_app.static_url_path+'/uploads/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)+filename)
-            print('Appending to paths -> {}'.format(relative_paths[len(relative_paths)]))
-        rental.image_paths = relative_paths
+        # for file in files: 
+        #     filename = secure_filename(file.filename)
+        #     file.save(abs_path+'/'+filename)
+        #     relative_paths.append(current_app.static_url_path+'/uploads/{0}_{1}_{2}/'.format(rental.make, rental.model, rental.category)+filename)
+        #     print('Appending to paths -> {}'.format(relative_paths[len(relative_paths)]))
+        # rental.image_paths = relative_paths
 
         if Rental.update(rental, id):
             flash('Record #'+str(id)+' was successfully updated')

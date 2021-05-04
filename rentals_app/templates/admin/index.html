@@ -68,7 +68,7 @@
                     <p class="is-flex-grow-5">{{ row[2] }} {{ row[3] }}</p>
                     <a href="{{ url_for( 'admin.details', id=row[0]) }} "
                        class="button is-outlined is-small is-light mx-2">
-                        <i class=" fas fa-edit mr-3 "></i>Manage
+                        <i class=" fas fa-cog mr-3 "></i>Manage
                     </a>
                     <button class="button is-outlined is-small is-light expand-toggle mx-2">
                         <i class="fas fa-chevron-down "></i>
@@ -87,11 +87,23 @@
                     <p class="panel-block "><strong>Images: &nbsp;</strong> {{ row[11] }}</p>
                     <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ row[12] }}</p>
                     <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ row[13] }}</p>
-                    <p class="panel-block "><strong>Available for Rent: &nbsp;</strong> {{ row[14] }}</p>
+                    <p class="panel-block "><strong>Available for Rent: &nbsp;</strong> 
+                        {% if row[14] == 1 %}
+                        Yes <i class="fas fa-check ml-3"></i>
+                        {% else %}
+                        No <i class="fas fa-times ml-3"></i>
+                        {% endif %}
+                    </p>
                     <p class="panel-block "><strong>Available On: &nbsp;</strong> {{ row[15] }}</p>
                     <p class="panel-block "><strong>Rented By: &nbsp;</strong> {{ row[16] }}</p>
                     <p class="panel-block "><strong>Rent Queue: &nbsp;</strong> {{ row[17] }}</p>
-                    <p class="panel-block "><strong>Customer Viewable: &nbsp;</strong> {{ row[18] }}</p>
+                    <p class="panel-block "><strong>Customer Viewable: &nbsp;</strong>
+                        {% if row[18] == 1 %}
+                        Yes <i class="fas fa-check ml-3"></i>
+                        {% else %}
+                        No <i class="fas fa-times ml-3"></i>
+                        {% endif %}
+                    </p>
                 </div>
             </nav>
 
