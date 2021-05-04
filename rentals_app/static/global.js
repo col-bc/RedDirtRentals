@@ -18,9 +18,15 @@ $(document).ready(function () {
     $('.modal-background').click(function () {
         $(this).parent().removeClass('is-active')
     });
+    
+    //Handle Radio Icon State Changes
+    $('.radio-icn input').change(function () {
+        $('.radio-icn').css('border', '2px solid whitesmoke');
+        $(this).parent().css('border', '2px solid silver');
+    });
 
     //Handle Inventory Shade
-    $('button.expand-toggle').click(function () {
+    $('.expand-toggle').click(function () {
         let shade = $(this).parent().parent().find('.shade')
         let classes = shade.attr("class").split(/\s+/);
 
@@ -32,15 +38,6 @@ $(document).ready(function () {
             $('button.expand-toggle').css("transform", "rotate(0deg)")
         }
     });
-
-    
-
-    //Handle Radio Icon State Changes
-    $('.radio-icn input').change(function () {
-        $('.radio-icn').css('border', '2px solid whitesmoke');
-        $(this).parent().css('border', '2px solid silver');
-    });
-
     //Handle Individual Shade Changes
     $('.tab-item').click(function () {
         $('.tabs ul li').removeClass('is-active')
@@ -57,13 +54,14 @@ $(document).ready(function () {
             $('#inventory_tab_view').removeClass('is-hidden');
         }
     });
-
     //Handle All Shade Changes
     $('#collapse_all_inventory').click(function () {
         $('#inventory_tab_view').find('.shade').addClass('is-hidden');
+        $('#inventory_tab_view').find('button.expand-toggle').css('transform', 'rotate(0deg)')
     });
     $('#show_all_inventory').click(function () {
         $('#inventory_tab_view').find('.shade').removeClass('is-hidden')
+        $('#inventory_tab_view').find('button.expand-toggle').css('transform', 'rotate(180deg)')
     });
 
     //Handle Display Filenames
@@ -77,7 +75,7 @@ $(document).ready(function () {
         let text = $('#implement_adder')
         let list = $('#implement_target');
         if (text.val() !== "") {
-            list.append(new Option(text.val()))
+            list.append(new Option(text.val(), text.val()))
             text.val('');
         }
     });

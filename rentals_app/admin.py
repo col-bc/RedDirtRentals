@@ -98,7 +98,7 @@ def update(id):
         rental.fuel_type =      request.form.get('fuel_type')
         rental.horse_power =    request.form.get('horse_power')
         rental.deck_size =      request.form.get('deck_size')
-        rental.implements =     request.form.get('implements')
+        rental.implements =     request.form.getlist('implements')
         rental.stock =          request.form.get('stock')
         rental.rate =           float(request.form.get('rate'))
         rental.drive =          request.form.get('drive')
@@ -129,7 +129,7 @@ def update(id):
 
         if Rental.update(rental, id):
             flash('Record #'+str(id)+' was successfully updated')
-            return redirect(url_for('admin.inventory'))
+            return redirect(url_for('admin.details',id=id))
         else:
             flash('Something went wrong while updating record #{}. Please try again.'.format(id))
             return redirect(url_for('admin.inventory'))
