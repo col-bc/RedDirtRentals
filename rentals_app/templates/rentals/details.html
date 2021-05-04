@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{%block title %}{{rental.make}}{{rental.model}}{% endblock %}
+{% block content %}
+<style>
+    .fab_container {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 999;
+    }
+
+</style>
+<div class="container is-fluid">
+
+    <div class="fab_container">
+        <button class="button box is-info is-large is-rounded is-family-secondary has-text-weight-bold">
+            <i class="fas fa-plus mr-4"></i>Select Rental
+        </button>
+    </div>
+
+    <div class="container is-max-desktop my-5"
+         style="border: 2px solid whitesmoke; border-radius: 4px;">
+        <div class="content p-3">
+            {% for path in rental.image_paths %}
+            <figure class="image is-4by3 m-0">
+                <img src="{{url_for('static', filename='uploads/'+path)}}">
+            </figure>
+            {% endfor %}
+            <h1 class="title is-3 is-family-secondary has-text-centered py-3 mt-3 mb-0 has-background-light">
+                <u>{{rental.make}} {{rental.model}}</u>
+            </h1>
+
+            <div class=""></div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

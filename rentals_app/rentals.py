@@ -6,9 +6,8 @@ from flask import (
     Blueprint, 
     render_template,
 )
-from flask.wrappers import Response
-import rentals_app.helpers as helpers
 from rentals_app.models.rental import Rental
+import rentals_app.helpers as helpers
 
 rentals = Blueprint('Rentals', __name__, url_prefix='/rentals')
 
@@ -18,7 +17,7 @@ def root():
 
 @rentals.route('/all')
 def all_rentals():
-    con, cur = connect_to_db()
+    con, cur = helpers.connect_to_db()
     ids = cur.execute('SELECT id FROM inventory WHERE is_shown == 1').fetchall()
     rentals = []
     for id_list in ids:
@@ -48,7 +47,7 @@ def all_rentals():
 def details(id):
     con, cur = helpers.connect_to_db()
     fetched_id = cur.execute("SELECT id FROM inventory WHERE id='{}';".format(id)).fetchone()
-    rental = Rental().find_rental(fetched_id)
+    rental = Rental().find_rental(fetched_id[0])
     
     rental.rate = float(rental.rate[0])
     rental.image_paths = list(

@@ -209,7 +209,7 @@ class Rental:
         SET
             category='{0}',
             make='{1}', 
-            model={2},
+            model='{2}',
             fuel_type='{3}', 
             horsepower='{4}',
             deck_size='{5}', 

@@ -92,6 +92,7 @@ def create():
                 paths.append(os.path.join(
                     current_app.static_url_path,
                     folder_format+filename))
+        rental.image_paths=paths
     
         if rental.insert():
             return redirect(url_for('admin.inventory'))
@@ -147,11 +148,15 @@ def update(id):
         for file in files:
             if file:
                 folder_format = '/{0}_{1}_{2}/'.format(rental.make,rental.model,rental.category)
+                if not os.path.exists(helpers.ABS_UPLOAD_PATH+folder_format):
+                    os.mkdir(helpers.ABS_UPLOAD_PATH+folder_format)
+
                 filename = secure_filename(file.filename)
                 file.save(helpers.ABS_UPLOAD_PATH+folder_format+'/'+filename)
                 paths.append(os.path.join(
                     current_app.static_url_path,
                     folder_format+filename))
+        rental.image_paths = paths
 
         if Rental.update(rental, id):
             flash('Record #'+str(id)+' was successfully updated')
