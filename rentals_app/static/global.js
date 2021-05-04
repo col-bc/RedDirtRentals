@@ -33,13 +33,7 @@ $(document).ready(function () {
         }
     });
 
-    //Prevent forms from being submitted when enter is pressed
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-        }
-    });
+    
 
     //Handle Radio Icon State Changes
     $('.radio-icn input').change(function () {
@@ -64,7 +58,7 @@ $(document).ready(function () {
         }
     });
 
-    //Handle All Shade CHanges
+    //Handle All Shade Changes
     $('#collapse_all_inventory').click(function () {
         $('#inventory_tab_view').find('.shade').addClass('is-hidden');
     });
@@ -78,6 +72,7 @@ $(document).ready(function () {
         $('#selected_files').append('<span>' + filename + '</span>');
     });
 
+    //Handle Implement Adder to select
     $('#implement_adder_submit').click(function () {
         let text = $('#implement_adder')
         let list = $('#implement_target');
@@ -91,6 +86,14 @@ $(document).ready(function () {
             .find('option')
             .remove()
             .end()
+    });
+
+    //Prevent forms from being submitted when enter is pressed
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
     });
 
 });

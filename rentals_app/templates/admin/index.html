@@ -61,20 +61,22 @@
             {% for row in rows %}
 
             <nav class="panel"
+                 style="box-shadow: none;"
                  id="inventory-panel-{{ row[0] }} ">
 
                 <!--Panel Header-->
-                <div class="panel-heading has-background-dark has-text-light is-flex is-flex-direction-row">
+                <div class="panel-heading is-flex is-flex-direction-row">
                     <p class="is-flex-grow-5">{{ row[2] }} {{ row[3] }}</p>
                     <a href="{{ url_for( 'admin.details', id=row[0]) }} "
-                       class="button is-outlined is-small is-light mx-2">
+                       class="button is-primary is-small mx-2">
                         <i class=" fas fa-cog mr-3 "></i>Manage
                     </a>
-                    <button class="button is-outlined is-small is-light expand-toggle mx-2">
+                    <button class="button is-primary is-small expand-toggle mx-2">
                         <i class="fas fa-chevron-down "></i>
                     </button>
                 </div>
-                <div class="shade is-hidden ">
+                <div class="shade is-hidden"
+                     style=" border: 2px solid #ededed; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
                     <p class="panel-block "><strong>ID: &nbsp;</strong>{{ row[0] }}</p>
                     <p class="panel-block "><strong>Category: &nbsp;</strong> {{ row[1] }}</p>
                     <p class="panel-block "><strong>Fuel Type: &nbsp;</strong> {{ row[4] }}</p>
@@ -87,7 +89,7 @@
                     <p class="panel-block "><strong>Images: &nbsp;</strong> {{ row[11] }}</p>
                     <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ row[12] }}</p>
                     <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ row[13] }}</p>
-                    <p class="panel-block "><strong>Available for Rent: &nbsp;</strong> 
+                    <p class="panel-block "><strong>Available for Rent: &nbsp;</strong>
                         {% if row[14] == 1 %}
                         Yes <i class="fas fa-check ml-3"></i>
                         {% else %}
