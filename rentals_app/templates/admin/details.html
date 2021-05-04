@@ -336,9 +336,12 @@
                         </div>
                         <div class="container">
                             {% for path in rental.image_paths %}
-                            <img src="{{url_for('static', filename='uploads/'+path)}}"
-                                 class="image"
-                                 height="250px">
+                            <a href="{{url_for('static', filename='uploads/'+path)}}"
+                               target="_blank">
+                                <img src="{{url_for('static', filename='uploads/'+path)}}"
+                                     class="image"
+                                     height="250px">
+                            </a>
                             {% endfor %}
                         </div>
                     </div>
