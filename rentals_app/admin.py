@@ -21,13 +21,18 @@ def root():
 @login_required
 def inventory():
     con, cur = helpers.connect_to_db()
-    con.row_factory = sqlite3.Row
-    cur.execute('SELECT * FROM inventory WHERE 1=1')
-    rows = cur.fetchall()
+    ids = list(cur.execute("SELECT id FROM inventory;").fetchall())
+    rentals = []
+    for id_list in ids:
+        for id in id_list:
+            rentals.append(Rental().find_rental(id))
+    for rental in rentals:
+        rental.implements = rental.implements.replace('[','').replace(']','').replace('\'','')
+        rental.implements = list(rental.implements.split(','))
+        print(rental.implements)
+    con.close
 
-    con.close()
-
-    return render_template('admin/index.html', rows=rows)
+    return render_template('admin/index.html', rentals=rentals)
 
 
 # Render New page
@@ -38,7 +43,7 @@ def new():
 
 
 #### CRUD FUNCTIONS ####
-# CREATE
+# - CREATE
 @admin.route('/new/create/', methods=['POST', 'GET'])
 @login_required
 def create():
@@ -51,7 +56,7 @@ def create():
         rental.fuel_type =      request.form.get('fuel_type')
         rental.horse_power =    request.form.get('horse_power')
         rental.deck_size =      request.form.get('deck_size')
-        rental.implements =     request.form.get('implements')
+        rental.implements =     request.form.getlist('implements')
         rental.stock =          request.form.get('stock')
         rental.rate =           float(request.form.get('rate'))
         rental.drive =          request.form.get('drive')
@@ -74,7 +79,7 @@ def create():
             return redirect(url_for('admin.inventory'))
 
 
-# CRUD READ
+# CRUD - READ
 @admin.route('/details/<int:id>')
 @login_required
 def details(id):
@@ -83,10 +88,11 @@ def details(id):
     # images = rental.image_paths
     # for image in images:
     #     paths.append(image.replace('[','').replace(']','').replace('\'','').split(','))
+    rental.implements = list(rental.implements.replace('[','').replace(']','').replace('\'','').split(','))
     return render_template('admin/details.html', rental=rental, images=paths)
 
 
-# CRUD UPDATE
+# CRUD - UPDATE
 @admin.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
@@ -135,7 +141,7 @@ def update(id):
             return redirect(url_for('admin.inventory'))
 
 
-# CRUD DELETE
+# CRUD - DELETE
 @admin.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete(id):

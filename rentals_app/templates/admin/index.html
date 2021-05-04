@@ -9,6 +9,8 @@
             <h1 class="title is-family-secondary">Administration Dashboard</h1>
         </div>
 
+        {{rental}}
+
         <div class="container my-5">
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
             <div class="notification is-danger is-outlined m3">
@@ -58,19 +60,19 @@
                    class="is-link has-text-link mx-3">Show All</a>
             </div>
 
-            {% for row in rows %}
+            {% for rental in rentals %}
 
             <nav class="panel"
                  style="box-shadow: none;"
-                 id="inventory-panel-{{ row[0] }}">
+                 id="inventory-panel-{{ rental.rental_id }}">
 
                 <!--Panel Header-->
                 <div class="panel-heading is-flex is-flex-direction-row"
                     style="border-radius: 4px;">
                     <p class="is-flex-grow-5 is-family-secondary expand-toggle is-size-4 is-clickable">
-                        {{ row[2] }} {{ row[3] }}
+                        {{ rental.make }} {{ rental.model }}
                     </p>
-                    <a href="{{ url_for( 'admin.details', id=row[0]) }} "
+                    <a href="{{ url_for( 'admin.details', id=rental.rental_id) }} "
                        class="button is-primary is-small mx-2">
                         <i class=" fas fa-cog mr-3 "></i>Manage
                     </a>
@@ -80,30 +82,30 @@
                 </div>
                 <div class="shade is-hidden"
                      style=" border: 2px solid #ededed; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
-                    <p class="panel-block "><strong>ID: &nbsp;</strong>{{ row[0] }}</p>
-                    <p class="panel-block "><strong>Category: &nbsp;</strong> {{ row[1] }}</p>
-                    <p class="panel-block "><strong>Fuel Type: &nbsp;</strong> {{ row[4] }}</p>
-                    <p class="panel-block "><strong>Horsepower: &nbsp;</strong> {{ row[5] }}</p>
-                    <p class="panel-block "><strong>Deck Size: &nbsp;</strong> {{ row[6] }}</p>
-                    <p class="panel-block "><strong>Engine: &nbsp;</strong> {{ row[7] }}</p>
-                    <p class="panel-block "><strong>Stock: &nbsp;</strong> {{ row[8] }}</p>
-                    <p class="panel-block "><strong>Drive Type: &nbsp;</strong> {{ row[9] }}</p>
-                    <p class="panel-block "><strong>Rate: &nbsp;</strong> ${{ row[10] }}</p>
-                    <p class="panel-block "><strong>Images: &nbsp;</strong> {{ row[11] }}</p>
-                    <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ row[12] }}</p>
-                    <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ row[13] }}</p>
+                    <p class="panel-block "><strong>ID: &nbsp;</strong>{{ rental.rental_id }}</p>
+                    <p class="panel-block "><strong>Category: &nbsp;</strong> {{ rental.category }}</p>
+                    <p class="panel-block "><strong>Fuel Type: &nbsp;</strong> {{ rental.fuel_type }}</p>
+                    <p class="panel-block "><strong>Horsepower: &nbsp;</strong> {{ rental.horse_power }}</p>
+                    <p class="panel-block "><strong>Implements: &nbsp;</strong> {{ rental.implements }} </p>
+                    <p class="panel-block "><strong>Deck Size: &nbsp;</strong> {{ rental.deck_size }}</p>
+                    <p class="panel-block "><strong>Stock: &nbsp;</strong> {{ rental.stock }}</p>
+                    <p class="panel-block "><strong>Drive Type: &nbsp;</strong> {{ rental.drive }}</p>
+                    <p class="panel-block "><strong>Rate: &nbsp;</strong> ${{ '%0.2f'%rental.rate[0] }}</p>
+                    <p class="panel-block "><strong>Images: &nbsp;</strong> {{ rental.image_paths }}</p>
+                    <p class="panel-block "><strong>Job Category: &nbsp;</strong> {{ rental.job_category }}</p>
+                    <p class="panel-block "><strong>Price Range: &nbsp;</strong> {{ rental.price_range }}</p>
                     <p class="panel-block "><strong>Available for Rent: &nbsp;</strong>
-                        {% if row[14] == 1 %}
+                        {% if rental.is_available == 1 %}
                         Yes <i class="fas fa-check ml-3"></i>
                         {% else %}
                         No <i class="fas fa-times ml-3"></i>
                         {% endif %}
                     </p>
-                    <p class="panel-block "><strong>Available On: &nbsp;</strong> {{ row[15] }}</p>
-                    <p class="panel-block "><strong>Rented By: &nbsp;</strong> {{ row[16] }}</p>
-                    <p class="panel-block "><strong>Rent Queue: &nbsp;</strong> {{ row[17] }}</p>
+                    <p class="panel-block "><strong>Available On: &nbsp;</strong> {{ rental.available_on }}</p>
+                    <p class="panel-block "><strong>Rented By: &nbsp;</strong> {{ rental.rented_by }}</p>
+                    <p class="panel-block "><strong>Rent Queue: &nbsp;</strong> {{ rental.rent_queue }}</p>
                     <p class="panel-block "><strong>Customer Viewable: &nbsp;</strong>
-                        {% if row[18] == 1 %}
+                        {% if rental.is_shown == 1 %}
                         Yes <i class="fas fa-check ml-3"></i>
                         {% else %}
                         No <i class="fas fa-times ml-3"></i>

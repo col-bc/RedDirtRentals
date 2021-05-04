@@ -89,8 +89,9 @@ class Rental:
     def find_rental(self, rental_id):
         con, cur = helpers.connect_to_db()
         try:
-            result =cur.execute("SELECT * FROM inventory WHERE id='{0}'"
+            result = cur.execute("SELECT * FROM inventory WHERE id='{}'"
                 .format(rental_id)).fetchone()
+            print(result)
             rental = Rental(
                         rental_id =     result[0],
                         category =      result[1],
@@ -155,7 +156,7 @@ class Rental:
             '{3}',
             '{4}',
             '{5}',
-            '{6}',
+            "{6}",
             '{7}',
             '{8}',
             '{9}',
@@ -214,7 +215,7 @@ class Rental:
             fuel_type='{3}', 
             horsepower='{4}',
             deck_size='{5}', 
-            implements='{6}',
+            implements="{6}",
             stock='{7}', 
             drive='{8}',
             rate='{9}', 

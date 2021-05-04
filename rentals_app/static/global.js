@@ -64,26 +64,27 @@ $(document).ready(function () {
         $('#inventory_tab_view').find('button.expand-toggle').css('transform', 'rotate(180deg)')
     });
 
-    //Handle Display Filenames
-    $('input[type=file].file-input').change(function () {
-        var filename = $('input[type=file]').val().replace(/.*(\/|\\)/, '');
-        $('#selected_files').append('<span>' + filename + '</span>');
-    });
-
     //Handle Implement Adder to select
-    $('#implement_adder_submit').click(function () {
-        let text = $('#implement_adder')
-        let list = $('#implement_target');
+    $('.implement_adder_submit').click(function () {
+        let text = $('.implement_adder')
+        let list = $('.implement_target');
         if (text.val() !== "") {
-            list.append(new Option(text.val(), text.val()))
+            option = new Option(text.val(), text.val());
+            list.append(option);
             text.val('');
         }
+        $('.implement_target option').prop('selected', true);
     });
-    $('#implement_clear').click(function () {
-        $('#implement_target')
-            .find('option')
-            .remove()
-            .end()
+    //Handle Implement clear list
+    $('.implement_clear').click(function () {
+        $('.implement_target')
+        .find('option')
+        .remove()
+        .end()
+    });
+    //Ensure Implement options are selected on submit
+    $('form.has-implement-adder').submit(function(){
+        $('.implement_target option').prop('selected', true);
     });
 
     //Prevent forms from being submitted when enter is pressed
