@@ -43,29 +43,12 @@ def new():
 @login_required
 def create():
     rental = Rental()
+    attr = helpers.get_attributes(request)
     if request.method == 'POST':
 
         print(helpers.get_attributes(request))
+
         
-        rental.category = request.form.get('category')
-        rental.make = request.form.get('make')
-        rental.model = request.form.get('model')
-        rental.fuel_type = request.form.get('fuel_type')
-        rental.horsepower = request.form.get('horsepower')
-        rental.decksize = request.form.get('deck_size')
-        rental.engine = request.form.get('engine')
-        rental.stock = request.form.get('stock')
-        rental.drive = request.form.get('drive')
-        rental.is_shown = request.form.get('is_shown') == 'No'
-        rental.rate = float(request.form.get('rate'))
-        rental.price_range = request.form.get('job_category')
-        rental.price_range = request.form.get('price_range')
-        rental.is_available= request.form.get('is_available') == 'Yes'
-        rental.available_on = request.form.get('date_available')
-        rental.rented_by = request.form.get('rented_by')
-        rental.rent_queue = request.form.get('rent_queue')
-        rental.description = request.form.get('description')
-        rental.features =  request.form.get('features')
 
         
         print(rental)
@@ -152,7 +135,7 @@ def delete(id):
         flash('Record #'+str(id)+' successfully deleted.')
         return redirect(url_for('admin.inventory'))
     else: 
-        flash('Somethig went wrong while deleting record #{}. Please contact your administrator.'.format(id))
+        flash('Something went wrong while deleting record #{}. Please contact your administrator.'.format(id))
         return redirect(url_for('admin.inventory'))
 
 # Run sql from browser, if permitted by group

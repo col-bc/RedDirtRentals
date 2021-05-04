@@ -81,10 +81,12 @@ $(document).ready(function () {
     $('#implement_adder_submit').click(function () {
         let text = $('#implement_adder')
         let list = $('#implement_target');
-        list.append(new Option(text.val()))
-        text.val('');
+        if (text.val() !== "") {
+            list.append(new Option(text.val()))
+            text.val('');
+        }
     });
-    $('#implement_clear').click(function(){
+    $('#implement_clear').click(function () {
         $('#implement_target')
             .find('option')
             .remove()

@@ -3,7 +3,7 @@
 {% block title %}New | Admin{% endblock %}
 <!---->
 {% block content %}
-<div class="container is-fluid">
+<div class="container is-fluid my-5">
     <div class="container is-max-desktop">
 
         <h1 class="title is-family-title has-background-light p-5"
@@ -15,6 +15,7 @@
             </a>
         </h1>
 
+        <!--Flashes-->
         <div class="container">
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
             <div class="notification is-danger m3">
@@ -64,7 +65,7 @@
                         <div class="select is-fullwidth is-dark">
                             <select name="fuel_type">
                                 <option>Gasoline</option>
-                                <option>Desil</option>
+                                <option>Diesel</option>
                                 <option>Hybrid</option>
                                 <option>Other</option>
                             </select>
@@ -239,7 +240,7 @@
                                   rows=3
                                   placeholder="Johnny Appleseed, Jane Doe, etc."></textarea>
                         <p class="help">
-                            <i class="fas fa-info-circle mr-3"></i>Enter names seperated by a comma.
+                            <i class="fas fa-info-circle mr-3"></i>Enter names separated by a comma.
                         </p>
                         <p class="help">
                             <i class="fas fa-eye-slash mr-3"></i>This field <strong>will not </strong>be seen by customers.
@@ -290,7 +291,7 @@
                                   placeholder="feature1, feature2, feature3, etc. "
                                   name="features "></textarea>
                         <p class="help is-dark ">
-                            <i class="fas fa-info-circle mr-2 "></i>Enter features seperated by a comma.
+                            <i class="fas fa-info-circle mr-2 "></i>Enter features separated by a comma.
                         </p>
                     </div>
                 </div>
@@ -318,7 +319,7 @@
                                type="text"
                                placeholder="Enter Implement Name Here"
                                id="implement_adder">
-                        <button class="button is-dark is-outlined"
+                        <button class="button is-white has-text-dark"
                                 id="implement_adder_submit"
                                 type="button">
                             <i class="fas fa-arrow-right"></i>
