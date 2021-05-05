@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{%block title%}All Rentals{%endblock%}
 {%block content%}
 <style>
     .menu-list li {
@@ -151,12 +152,12 @@
         </aside>
 
         <!--Rentals-->
-        <div class="column mx-3">
-            <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap">
+        <div class="column">
+            <div class="is-flex is-flex-wrap-wrap">
 
                 {%for rental in rentals%}
 
-                <div class="mx-5 column"
+                <div class="p-3 is-flex-grow-1 m-3"
                      style="border: 2px solid whitesmoke; border-radius: 4px;">
                     {% for path in rental.image_paths %}
                     <figure class="image is-4by3 mb-3">

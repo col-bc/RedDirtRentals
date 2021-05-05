@@ -30,7 +30,96 @@
                 <u>{{rental.make}} {{rental.model}}</u>
             </h1>
 
-            <div class=""></div>
+            <div class="columns">
+                <div class="column content my-3">
+                    <p class="is-size-4 has-family-secondary has-text-weight-bold">
+                        Rental Details
+                    </p>
+                    <table class="table is-hoverable">
+                        <tr>
+                            <td>Make</td>
+                            <td>{{rental.make}}</td>
+                        </tr>
+                        <tr>
+                            <td>Model</td>
+                            <td>{{rental.model}}</td>
+                        </tr>
+                        <tr>
+                            <td>Stock</td>
+                            <td>{{rental.stock}}</td>
+                        </tr>
+                        <tr>
+                            <td>Vehicle Type</td>
+                            <td>{{rental.category}}</td>
+                        </tr>
+                        <tr>
+                            <td>Horsepower / Engine</td>
+                            <td>{{rental.horse_power}}</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Job Size</td>
+                            <td>{{rental.job_category}}</td>
+                        </tr>
+                        <tr>
+                            <td>Deck Size <span class="is-size-7">(if applicable)</td>
+                            <td>{{rental.deck_size}}</td>
+                        </tr>
+                        <tr>
+                            <td>Drive Type</td>
+                            <td>{{rental.drive}}</td>
+                        </tr>
+                        <tr>
+                            <td>Available Now?</td>
+                            <td>
+                                {% if rental.is_available == 1 %}
+                                Yes
+                                {% else %}
+                                No
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date Available</td>
+                            <td>
+                                {% if rental.is_available == 1 %}
+                                Today
+                                {% else %}
+                                <a href="tel:8505263456">Call</a> for rental availability.
+                                {% endif %}
+                            </td>
+                        <tr>
+                            <td>Rental Cost</td>
+                            <td>$ {{'%0.2f'%rental.rate}} <span class="is-size-7">per machine hour</span></td>
+                        </tr>
+                        <tr>
+                            <td>Price Category</td>
+                            <td>{{rental.price_range}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="column my-3">
+                    <p class="is-size-4 has-family-secondary has-text-weight-bold">
+                        Other Information
+                    </p>
+                    <h1 class="is-size-6"><u>Description</u></h1>
+                    <p>{{rental.description}}</p>
+                    <hr>
+                    <h1 class="is-size-6"><u>Compatibility</u></h1>
+                    <div class="content">
+                        <p>Compatible with these implements</p>
+                        {% if rental.implements %}
+                        <ul>
+                            {% for implement in rental.implements %}
+                            <li>{{implement}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <h1 class="is-size-6"><u>Features</u></h1>
+                    <p>{{rental.features}}</p>
+                </div>
+            </div>
 
 
         </div>
