@@ -3,66 +3,85 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
     <!--Import Fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com">
     <!--Import Stylesheets-->
-    <link href="{{ url_for('static', filename='custom.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='global.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='global.css') }}"
+          rel="stylesheet">
     <!--Font Awesome-->
-    <script src="https://kit.fontawesome.com/4c35e1f93c.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4c35e1f93c.js"
+            crossorigin="anonymous"></script>
     <!--jQuery-->
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
     <!--Global Javascript-->
-    <script defer src="{{ url_for('static', filename='global.js') }}"></script>
+    <script defer
+            src="{{ url_for('static', filename='global.js') }}"></script>
 
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 
-<body class="" style="min-height: 100vh;">
-    <nav class="navbar is-light has-background-primary p-5" role="navigation" aria-label="main navigation">
+<body class=""
+      style="min-height: 100vh;">
+    <nav class="navbar is-light has-background-white mx-6"
+         role="navigation"
+         aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{ url_for('index.root') }}">
-                <img src="{{ url_for('static', filename='res/logo_dark.svg') }}" class="px-3">
-            </a>
+            <figure class="navbar-item">
+                <img src="{{ url_for('static', filename='res/logo_dark.svg') }}"
+                     class="px-3">
+            </figure>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+            <a role="button"
+               class="navbar-burger"
+               aria-label="menu"
+               aria-expanded="false"
+               data-target="navbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
 
-        <div id="navbar" class="navbar-menu">
+        <div id="navbar"
+             class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item px-3" href="{{ url_for('index.root') }}">Home</a>
-                <a class="navbar-item px-3" href="{{url_for('Rentals.all_rentals')}}">View Rentals</a>
-                <a class="navbar-item px-3" href="#">My Account</a>
             </div>
 
-            <div class="navbar-end mx-5">
+            <div class="navbar-end">
+                <a class="navbar-item is-size-6"
+                   href="{{ url_for('index.root') }}"><u>Home</u></a>
+                <a class="navbar-item is-size-6"
+                   href="{{url_for('Rentals.all_rentals')}}"><u>View Rentals</u></a>
+                <a class="navbar-item is-size-6"
+                   href="#"><u>My Reservation</u></a>
                 {% if session['status'] == 'AUTHENTICATED' %}
-                <a class="navbar-item mx-3" href="{{ url_for('admin.root') }}"><u>Hello, {{ session['username'] }}</u></a>
-                <a href="{{ url_for('auth.logout') }}" class="is-align-self-center navbar-item button is-small is-info is-outlined px-3">
+                <a class="navbar-item is-size-5"
+                   href="{{ url_for('admin.root') }}"><u>Hello, {{ session['username'] }}</u></a>
+                <a href="{{ url_for('auth.logout') }}"
+                   class="is-align-self-center navbar-item button is-small is-info is-outlined px-3">
                     <i class="fas fa-sign-out-alt mr-3"></i>Logout
-                </a> {% else %}
-                <a class="navbar-item button is-outlined" href="#">
-                    <i class="fas fa-shopping-cart mr-3"></i> Cart
                 </a> {% endif %}
             </div>
         </div>
     </nav>
 
-    <div style="border-top: 2px solid whitesmoke;"></div>
-
     <div style="min-height: 100vh">
         {% block content %} {% endblock %}
     </div>
-    <footer class="footer has-background-white px-5 py-0 pb-6" style="position: sticky; bottom: calc(100vh -151px); width: 100%">
-        <div class="" style="border-top: 2px solid silver;"></div>
+
+    <footer class="footer has-background-white py-6">
+        <div style="border-top: 2px solid whitesmoke;"></div>
         <div class="is-flex is-flex-wrap-wrap pt-6">
-            <img src="{{ url_for('static', filename='res/logo_square_color.png') }}" style="height:125px;">
+            <figure class="image">
+                <img src="{{ url_for('static', filename='res/logo_dark.svg') }}">
+            </figure>
             <div class="content p-0 px-6">
                 <p>Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
                 <p><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>

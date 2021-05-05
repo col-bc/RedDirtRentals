@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Contact Info{% endblock %}
+{% block content %}
+<div class="container is-fluid">
+    <div class="container is-max-desktop">
+        <h1 class="title is-3 is-family-secondary has-background-light p-6">
+            Let's get some information from you before we begin
+            <p class="is-size-6 is-family-primary mt-3">
+                We'll only use this information to contact you about your rental inquiry.
+            </p>
+        </h1>
+
+        <div class="columns is-centered my-5">
+            <form action="{{url_for('checkout.create_customer', id=id)}}"
+                  method="POST"
+                  class="column is-half"
+                  enctype="multipart/form-data">
+
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="firstname"
+                               placeholder="First Name">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="lastname"
+                               placeholder="Last Name">
+                    </div>
+                </div>
+
+                <p class="my-5 p-2 has-background-light">How can we reach you to confirm dates?</p>
+
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input type="email"
+                               class="input"
+                               name="email"
+                               placeholder="Email Address">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Phone Number</label>
+                    <div class="control">
+                        <input type="number"
+                               class="input"
+                               name="phonenumber"
+                               placeholder="Best Number to Reach you">
+                    </div>
+                </div>
+
+                <p class="my-5 p-2 has-background-light">We need to know where to deliver the rental. What's your address?</p>
+
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="address"
+                               placeholder="Street Address">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">City</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="city"
+                               placeholder="City">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">State</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="state"
+                               placeholder="State">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Zip / Postal Code</label>
+                    <div class="control">
+                        <input type="text"
+                               class="input"
+                               name="zip"
+                               placeholder="ZIP Code">
+                    </div>
+                </div>
+
+                <p class="my-5 p-2 has-background-light">
+                    That's all for now. You'll select your pick-up and drop-off dates next.
+                </p>
+
+                <div class="field">
+                    <label class="label"></label>
+                    <div class="control is-flex is-justify-content-flex-end">
+                        <button type="submit"
+                                class="button is-info px-6">
+                            Next
+                            <i class="fas fa-arrow-right ml-3"></i>
+                        </button>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -2,32 +2,32 @@ from flask import (
     Blueprint,
     render_template,
     url_for,
-    redirect
+    redirect,
+    request
 )
 
 checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
 
 @checkout.route('/')
 def index():
-    return redirect(url_for())
+    return redirect(url_for('checkout.contact', id=0))
 
 
-@checkout.route('/checkout/reserve/<int:id>')
+@checkout.route('/checkout/<int:id>')
 def reserve(id):
 
     return 200
 
 
-@checkout.route('/checkout/customer/login')
-def customer_login():
+@checkout.route('/checkout/<int:id>/contact')
+def contact(id):
+    return render_template('checkout/contact.html', id=id)
 
-    return 200
 
+@checkout.route('/checkout/<int:id>/create_customer', methods=['POST'])
+def create_customer(id):
 
-@checkout.route('/checkout/customer/register', methods=['POST'])
-def register():
-
-    return 200
+    return redirect(url_for('checkout.dates'))
 
 
 @checkout.route('/checkout/dates')
