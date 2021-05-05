@@ -18,6 +18,9 @@ app.register_blueprint(admin.admin)
 from . import rentals
 app.register_blueprint(rentals.rentals)
 
+from . import checkout
+app.register_blueprint(checkout.checkout)
+
 @app.errorhandler(404)
 def page_not_found(e):
     app.logger.warn(e)
