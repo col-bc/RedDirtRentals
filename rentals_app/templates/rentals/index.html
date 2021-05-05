@@ -1,33 +1,162 @@
 {%extends "base.html"%}
 {%block content%}
+<style>
+    .menu-list li {
+        margin: 1rem 0;
+    }
 
+</style>
 <div class="container is-fluid p-0">
 
     <h1 class="title is-3 is-family-secondary has-text-centered py-6 mb-0 has-background-light">
         <u>Our Rental Inventory</u>
+        <p class="is-size-6 is-family-primary mt-3">
+            Still not sure what's right for your job?
+            <a href="tel:8505263456"
+               class="is-link">Give us a call</a>, our experts are happy to help.
+        </p>
     </h1>
 
     <div class="columns my-3">
 
+        <!--Filters-->
         <aside class="menu column is-one-fifth pl-6">
-            <p class="menu-label">Filters</p>
-            <ul class="menu-list">
-                <li><a>Tractors</a></li>
-                <li><a>Mowers</a></li>
-                <li><a>Power tools</a></li>
-                <li><a>With Add-ons</a></li>
-                <li><a>For Small Jobs</a></li>
-                <li><a>For Medium Jobs</a></li>
-                <li><a>For Large Jobs</a></li>
-            </ul>
+            <form action="#"
+                  method="GET">
+                <p class="menu-label p-3 mb-0 has-background-light has-text-dark is-flex-grow-1">
+                    Vehicle Types
+                </p>
+                <ul class="menu-list">
+                    <li><label class="checkbox">
+                            <input type="checkbox">
+                            Tractors
+                        </label>
+                    </li>
+                    <li><label class="checkbox">
+                            <input type="checkbox">
+                            Mowers
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Power tools
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Add ons
+                        </label>
+                    </li>
+                    </li>
+                </ul>
+                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
+                    Job Size
+                </p>
+                <ul class="menu-list">
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Small
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Medium
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Large
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Heavy Duty
+                        </label>
+                    </li>
+                </ul>
+                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
+                    Price Range
+                </p>
+                <ul class="menu-list">
+                    <li><label class="checkbox">
+                            <input type="checkbox">
+                            Cheap
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Affordable
+                        </label>
+                    </li>
+                    <li><label class="checkbox">
+                            <input type="checkbox">
+                            Normal
+                        </label>
+                    </li>
+                    <li><label class="checkbox">
+                            <input type="checkbox">
+                            Costly
+                        </label>
+                    </li>
+                </ul>
+                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
+                    Other
+                </p>
+                <ul class="menu-list">
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Available Now
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            4WD
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            2WD
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Gasoline
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            Diesel
+                        </label>
+                    </li>
+                </ul>
+                <div class="has-text-right">
+                    <button type="submit"
+                            class="button is-outlined is-small is-info">
+                        Apply Filters
+                    </button>
+                </div>
+            </form>
         </aside>
 
-        <div class="column mx-5">
+        <!--Rentals-->
+        <div class="column mx-3">
             <div class="container is-flex is-flex-direction-row is-flex-wrap-wrap">
 
                 {%for rental in rentals%}
 
-                <div class="m-4 column"
+                <div class="mx-5 column"
                      style="border: 2px solid whitesmoke; border-radius: 4px;">
                     {% for path in rental.image_paths %}
                     <figure class="image is-4by3 mb-3">
