@@ -13,30 +13,33 @@
         <div class="columns is-centered my-5">
             <form action="{{url_for('checkout.create_customer', id=id)}}"
                   method="POST"
-                  class="column is-half"
+                  class="column is-two-thirds"
                   enctype="multipart/form-data">
 
-                <div class="field">
-                    <label class="label">First Name</label>
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="firstname"
-                               placeholder="First Name">
+                <div class="columns mb-0">
+                    <div class="field column">
+                        <label class="label">First Name</label>
+                        <div class="control">
+                            <input type="text"
+                                   class="input"
+                                   name="firstname"
+                                   required
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="field column">
+                        <label class="label">Last Name</label>
+                        <div class="control">
+                            <input type="text"
+                                   class="input"
+                                   name="lastname"
+                                   required
+                                   placeholder="">
+                        </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Last Name</label>
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="lastname"
-                               placeholder="Last Name">
-                    </div>
-                </div>
-
-                <p class="my-5 p-2 has-background-light">How can we reach you to confirm dates?</p>
+                <p class="mb-5 p-2 has-background-light">How can we reach you to confirm dates?</p>
 
                 <div class="field">
                     <label class="label">Email</label>
@@ -44,7 +47,8 @@
                         <input type="email"
                                class="input"
                                name="email"
-                               placeholder="Email Address">
+                               required
+                               placeholder="">
                     </div>
                 </div>
 
@@ -54,11 +58,13 @@
                         <input type="number"
                                class="input"
                                name="phonenumber"
+                               required
                                placeholder="Best Number to Reach you">
                     </div>
                 </div>
 
                 <p class="my-5 p-2 has-background-light">We need to know where to deliver the rental. What's your address?</p>
+
 
                 <div class="field">
                     <label class="label">Address</label>
@@ -66,41 +72,104 @@
                         <input type="text"
                                class="input"
                                name="address"
-                               placeholder="Street Address">
+                               required
+                               placeholder="">
                     </div>
                 </div>
-
                 <div class="field">
-                    <label class="label">City</label>
                     <div class="control">
                         <input type="text"
                                class="input"
-                               name="city"
-                               placeholder="City">
+                               name="address2"
+                               placeholder="(optional)">
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">State</label>
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="state"
-                               placeholder="State">
+                <div class="columns">
+
+                    <div class="field column is-three-fifths">
+                        <label class="label">City</label>
+                        <div class="control">
+                            <input type="text"
+                                   class="input"
+                                   name="city"
+                                   required
+                                   placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="field column is-one-fifth">
+                        <label class="label">State</label>
+                        <div class="control select is-fullwidth">
+                            <select>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field column is-one-fifth">
+                        <label class="label">Zip Code</label>
+                        <div class="control">
+                            <input type="text"
+                                   class="input"
+                                   name="zip"
+                                   required
+                                   placeholder="">
+                        </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Zip / Postal Code</label>
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="zip"
-                               placeholder="ZIP Code">
-                    </div>
-                </div>
-
-                <p class="my-5 p-2 has-background-light">
+                <p class="mb-6 p-2 has-background-light">
                     That's all for now. You'll select your pick-up and drop-off dates next.
                 </p>
 
@@ -115,7 +184,22 @@
                     </div>
             </form>
         </div>
-
     </div>
+
+    <p class="help">
+        Submitting an inquiry for rental does not guarantee availability or approval.
+        <strong>Only come to pickup your rental once a salesman has told you to do so.</strong>
+        Rentals prices are subject to change without notice. Rentals require a signed contract,
+        a credit check and potentially a deposit of up to one-half of your estimated usage hours.
+        Rentals and delivery only available in certain areas. Rental delivery is subject to a delivery fee.
+        By submitting this form for rental inquiry, you agree to our
+        <a href="#"
+           class="is-link">Privacy Policy</a>
+        and
+        <a href="#"
+           class="is-link">Terms of Service.</a>
+        For additional information about rentals, please call us at <a href="tel:8505253456">850 536 3456</a>.
+    </p>
+
 </div>
 {% endblock %}

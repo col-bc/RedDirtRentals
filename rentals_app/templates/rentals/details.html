@@ -13,9 +13,10 @@
 <div class="container is-fluid">
 
     <div class="fab_container">
-        <button class="button box is-info is-large is-rounded is-family-secondary has-text-weight-bold">
+        <a class="button box is-info is-large is-rounded is-family-secondary has-text-weight-bold"
+            href="{{url_for('checkout.reserve', id=rental.rental_id)}}">
             <i class="fas fa-plus mr-4"></i>Select Rental
-        </button>
+        </a>
     </div>
 
     <div class="container is-max-desktop my-5"

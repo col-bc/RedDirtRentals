@@ -10,13 +10,15 @@ checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
 
 @checkout.route('/')
 def index():
-    return redirect(url_for('checkout.contact', id=0))
+    return redirect(url_for('checkout.reserve', id=0))
 
 
 @checkout.route('/checkout/<int:id>')
 def reserve(id):
-
-    return 200
+    if id is not None and id > 0:
+        return redirect(url_for('checkout.contact', id=id))
+    else:
+        return redirect(url_for('Rentals.all_rentals'))
 
 
 @checkout.route('/checkout/<int:id>/contact')

@@ -145,27 +145,31 @@ def update(id):
         rental.description =    request.form.get('description')
         rental.features =       request.form.get('features')
 
-        paths = []
         files = request.files.getlist('files')
-        for file in files:
-            if file:
-                folder_format = '/{0}_{1}_{2}/'.format(rental.make,rental.model,rental.category)
-                if not os.path.exists(helpers.ABS_UPLOAD_PATH+folder_format):
-                    os.mkdir(helpers.ABS_UPLOAD_PATH+folder_format)
+        if files[0].filename is None or files[0].filename == '':
+            paths = Rental().find_rental(id).image_paths
 
-                filename = secure_filename(file.filename)
-                file.save(helpers.ABS_UPLOAD_PATH+folder_format+'/'+filename)
-                paths.append(os.path.join(
-                    current_app.static_url_path,
-                    folder_format+filename))
+        else:
+            paths = []
+            for file in files:
+                if file:
+                    folder_format = '/{0}_{1}_{2}/'.format(rental.make,rental.model,rental.category)
+                    if not os.path.exists(helpers.ABS_UPLOAD_PATH+folder_format):
+                        os.mkdir(helpers.ABS_UPLOAD_PATH+folder_format)
+
+                    filename = secure_filename(file.filename)
+                    file.save(helpers.ABS_UPLOAD_PATH+folder_format+'/'+filename)
+                    paths.append(os.path.join(
+                        current_app.static_url_path,
+                        folder_format+filename))
         rental.image_paths = paths
 
         if Rental.update(rental, id):
-            flash('Record #'+str(id)+' was successfully updated')
+            flash('Record was successfully updated')
             return redirect(url_for('admin.details',id=id))
         else:
-            flash('Something went wrong while updating record #{}. Please try again.'.format(id))
-            return redirect(url_for('admin.inventory'))
+            flash('Something went wrong while updating this record. Please try again.')
+            return redirect(url_for('admin.details', id=id))
 
 
 # CRUD - DELETE

@@ -29,7 +29,7 @@
 
 <body class=""
       style="min-height: 100vh;">
-    <nav class="navbar is-light has-background-white mx-6"
+    <nav class="navbar px-6"
          role="navigation"
          aria-label="main navigation">
         <div class="navbar-brand">
@@ -56,17 +56,17 @@
 
             <div class="navbar-end">
                 <a class="navbar-item is-size-6"
-                   href="{{ url_for('index.root') }}"><u>Home</u></a>
+                   href="{{ url_for('index.root') }}">Home</a>
                 <a class="navbar-item is-size-6"
-                   href="{{url_for('Rentals.all_rentals')}}"><u>View Rentals</u></a>
+                   href="{{url_for('Rentals.all_rentals')}}">View Rentals</a>
                 <a class="navbar-item is-size-6"
-                   href="#"><u>My Reservation</u></a>
+                   href="#">My Reservation</a>
                 {% if session['status'] == 'AUTHENTICATED' %}
-                <a class="navbar-item is-size-5"
-                   href="{{ url_for('admin.root') }}"><u>Hello, {{ session['username'] }}</u></a>
+                <a class="navbar-item is-size-6 mr-5"
+                   href="{{ url_for('admin.root') }}">Hello, {{ session['username'] }}</a>
                 <a href="{{ url_for('auth.logout') }}"
-                   class="is-align-self-center navbar-item button is-small is-info is-outlined px-3">
-                    <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                   class="is-align-self-center navbar-item button is-info is-outlined is-small is-size-7 px-5">
+                    Logout
                 </a> {% endif %}
             </div>
         </div>
@@ -78,14 +78,15 @@
 
     <footer class="footer has-background-white py-6">
         <div style="border-top: 2px solid whitesmoke;"></div>
-        <div class="is-flex is-flex-wrap-wrap pt-6">
-            <figure class="image">
+        <div class="is-flex is-flex-direction-column is-flex-wrap-wrap my-3">
+            <figure class="image my-3"
+                    style="max-width: 300px;">
                 <img src="{{ url_for('static', filename='res/logo_dark.svg') }}">
             </figure>
-            <div class="content p-0 px-6">
-                <p>Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
-                <p><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
-                <p><a href="{{ url_for('auth.login') }}">Admin Login</a></p>
+            <div class="content my-3">
+                <p class="mb-1">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
+                <p class="mb-1"><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+                <p class="mb-1"><a href="{{ url_for('auth.login') }}">Admin Login</a></p>
             </div>
         </div>
     </footer>

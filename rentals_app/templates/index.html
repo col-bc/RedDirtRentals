@@ -3,127 +3,100 @@
 {% block title %}Home{% endblock %}
 <!--Start Page Content-->
 {% block content %}
-
 <div class="container is-fluid py-5">
-    <div class="container">
-        <div class="columns mt-5">
-            <div class="column px-5 is-half is-flex is-flex-direction-column ">
-                <h1 class="is-size-3 is-flex-grow-1 has-text-weight-bold is-family-secondary">
-                    I know what I'm looking for
-                </h1>
-                <div class="my-5 is-flex-grow-1">
-                    <a href="{{url_for('Rentals.all_rentals')}}"
-                       class="button is-info is-large is-fullwidth is-outlined">
-                        See Rental Inventory
+    <div class="columns mt-5 mx-0">
+        <div class="column is-half is-flex is-flex-direction-column ">
+            <h1 class="is-size-3 is-flex-grow-1 has-text-weight-bold is-family-secondary">
+                I know what I'm looking for...
+            </h1>
+            <div class="my-5 is-flex-grow-1">
+                <a href="{{url_for('Rentals.all_rentals')}}"
+                   class="button is-info is-large px-6 is-outlined">
+                    See Rental Inventory
+                </a>
+            </div>
+            <div class="is-flex-grow-3">
+                <p class="is-size-6 pb-3">
+                    Red Dirt Rentals is a part of the Red Dirt Road Family.
+                    Located in Marianna, FL, Red Dirt Road is proud to serve the
+                    panhandle and surrounding communities with excellent customer service,
+                    in-house certified service and repairs and much more.
+                </p>
+                <p class="is-size-6 pb-3">
+                    If you are interested in
+                    purchasing equipment from the top industry brands, like Gravely, Spartan,
+                    Mahindra, and Echo, please
+                    <a href="https://www.reddirtequipment.com/"
+                       target="_blank">
+                        visit our website
                     </a>
-                </div>
-                <div class="is-flex-grow-3">
-                    <p class="is-size-6 pb-3">
-                        Red Dirt Rentals is a part of the Red Dirt Road Family.
-                        Located in Marianna, FL, Red Dirt Road is proud to serve the
-                        panhandle and surrounding communities with excellent customer service,
-                        in-house certified service and repairs and much more.
-                    </p>
-                    <p class="is-size-6 pb-3">
-                        If you are interested in
-                        purchasing equipment from the top industry brands, like Gravely, Spartan,
-                        Mahindra, and Echo, please
-                        <a href="https://www.reddirtequipment.com/"
-                           target="_blank">
-                            visit our website
-                        </a>
-                        to see all our brands as well as current deals, packages and more.
-                    </p>
-                    <p class="is-size-6 pb-3">
-                        On behalf of the entire Red Dirt Road family, we thank you for you business
-                        and look forward to meeting you in person soon!
-                    </p>
-                </div>
+                    to see all our brands as well as current deals, packages and more.
+                </p>
+                <p class="is-size-6 pb-3">
+                    On behalf of the entire Red Dirt Road family, we thank you for you business
+                    and look forward to meeting you in person soon!
+                </p>
             </div>
-            <div class="column is-half">
-                <h1 class="is-size-3 has-text-weight-bold is-family-secondary">Or...</h1>
-                <form class="p-5 my-5"
-                      style="border: 2px solid whitesmoke; border-radius: 4px;">
-                    <h1 class="is-size-4 has-text-weight-bold is-family-secondary mb-3">I need some help deciding</h1>
-                    <hr class="has-background-white-ter">
-                    <div class="field">
-                        <label class="label subtitle is-family-secondary">I need a ...</label>
-                        <div class="control">
-                            <div class="is-flex is-flex-direction-row is-justify-content-space-between mb-3">
-                                <label class="radio-icn mb-3">
-                                    <img src="{{ url_for('static', filename='res/icn_mower.png') }}"
-                                         style="max-height: 75px; max-width: 75px">
-                                    <span>Mower</span>
-                                    <input type="radio"
-                                           name="question"
-                                           class="input-icn-radio">
-                                </label>
-
-                                <label class="radio-icn mb-3">
-                                    <img src="{{ url_for('static', filename='res/icn_tractor.png') }}"
-                                         class="image"
-                                         style="max-width: 75px; max-height: 75px;">
-                                    <span>Tractor</span>
-                                    <input type="radio"
-                                           name="question"
-                                           class="input-icn-radio">
-                                </label>
-
-                                <label class="radio-icn mb-3">
-                                    <img src="{{ url_for('static', filename='res/icn_chainsaw.png') }}"
-                                         class="image"
-                                         style="max-width: 75px; max-height: 75px;">
-                                    <span>Power Tool</span>
-                                    <input type="radio"
-                                           name="question"
-                                           class="input-icn-radio">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field mb-5">
-                        <label class="label subtitle">For ...</label>
-                        <div class="select">
-                            <select>
-                                <option>A small job</option>
-                                <option>A medium sized job</option>
-                                <option>A heavy duty job</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="field is-flex is-flex-direction-column mb-3">
-                        <label class="label subtitle">With these features ...</label>
-                        <label class="checkbox py-2">
-                            <input type="checkbox"> Implement Ready
-                        </label>
-                        <label class="checkbox py-2">
-                            <input type="checkbox"> With cab
-                        </label>
-                        <label class="checkbox py-2">
-                            <input type="checkbox"> Adjustable blades
-                        </label>
-                        <label class="checkbox py-2">
-                            <input type="checkbox"> Bundled Deal
-                        </label>
-                    </div>
-
-                    <div class="field">
-                        <button type="submit"
-                                class="button is-info is-fullwidth">Find my Rental</button>
-                    </div>
-                </form>
-            </div>
+        </div>
+        <div class="column is-half has-background-light p-5">
+            <img src="{{url_for('static', filename='res/storefront.jpg')}}">
+            
         </div>
     </div>
-</div>
-<div class="modal hidden"
-     id="mahindra_modal">
-    <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-        </div>
+
+    <h1 class="title is-family-secondary has-background-info has-text-white has-text-centered p-5 my-6">
+        Our Rentals
+    </h1>
+    <div class="content mt-6">
+        <table class="table is-hoverable">
+            <thead>
+                <th></th>
+                <th>Make/Model</th>
+                <th>Rental Category</th>
+                <th>Engine Size</th>
+                <th>Deck Size</th>
+                <th>Fuel Type</th>
+                <th>Hourly Rate</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for rental in rentals %}
+                <tr>
+                    <td>
+                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}">
+                            <figure class="image is-128x128">
+                                <image src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}">
+                            </figure>
+                        </a>
+                    </td>
+                    <td>
+                        <p>
+                            {{rental.make}} {{rental.model}}
+                        </p>
+                    </td>
+                    <td>
+                        <p>{{rental.category}}</p>
+                    </td>
+                    <td>
+                        <p>{{rental.horsepower}} for {{rental.job_category}}
+                    </td>
+                    <td>
+                        <p>{{rental.deck_size}}</p>
+                    </td>
+                    <td>
+                        <p>{{rental.fuel_type}}</p>
+                    </td>
+                    <td>
+                        $ {{'%0.2f'%rental.rate}}
+                    </td>
+                    <td>
+                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                           class="button is-outlined is-primary is-small px-3">Reserve</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
