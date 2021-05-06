@@ -24,6 +24,8 @@
     <script defer
             src="{{ url_for('static', filename='global.js') }}"></script>
 
+    {% block head_end %}{% endblock %}
+    
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 

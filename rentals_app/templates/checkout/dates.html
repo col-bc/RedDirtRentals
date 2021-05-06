@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Dates{% endblock %}
+{% block content %}
+
+<h1 class="title is-family-secondary p-6 has-background-light has-text-centered">
+    When do you need your rental?
+    <p class="is-family-primary is-size-6 mt-3">
+        You'll select a couple dates for pick-up and drop-off. We'll do our best to work with your preferences.
+    </p>
+</h1>
+<div class="container is-fluid">
+    <div class="container is-max-desktop">
+        <form action="{{url_for('checkout.create_customer', id=id)}}"
+              method="POST">
+
+            <div class="columns">
+
+                <div class="column is-half">
+                    <h1 class="is-size-4 my-5 is-family-secondary has-text-weight-bold">Start Date</h1>
+                    <div class="field">
+                        <label class="label">First Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Second Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Third Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <h1 class="is-size-4 my-5 is-family-secondary has-text-weight-bold">End Date</h1>
+                    <div class="field">
+                        <label class="label">First Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Second Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Third Choice</label>
+                        <div class="control">
+                            <input type="date"
+                                   class="input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns my-5">
+                <p class="column is-half">
+                </p>
+                <div class="field column">
+                    <div class="control is-flex is-fullwidth is-justify-content-flex-end">
+                        <button class="button is-large is-info px-6">
+                            Finish and Make Reservation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

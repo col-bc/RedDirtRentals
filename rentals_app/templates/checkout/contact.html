@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Contact Info{% endblock %}
 {% block content %}
+
+<h1 class="title is-3 is-family-secondary has-background-light p-6 has-text-centered">
+    Let's get some information from you before we begin.
+    <p class="is-size-6 is-family-primary mt-3">
+        We'll only use this information to contact you about your rental inquiry.
+    </p>
+</h1>
+
 <div class="container is-fluid">
     <div class="container is-max-desktop">
-        <h1 class="title is-3 is-family-secondary has-background-light p-6">
-            Let's get some information from you before we begin
-            <p class="is-size-6 is-family-primary mt-3">
-                We'll only use this information to contact you about your rental inquiry.
-            </p>
-        </h1>
 
         <div class="columns is-centered my-5">
             <form action="{{url_for('checkout.create_customer', id=id)}}"
@@ -39,7 +41,7 @@
                     </div>
                 </div>
 
-                <p class="mb-5 p-2 has-background-light">How can we reach you to confirm dates?</p>
+                <p class="mb-5 p-2 has-background-light has-text-centered">How can we reach you to confirm dates?</p>
 
                 <div class="field">
                     <label class="label">Email</label>
@@ -63,7 +65,7 @@
                     </div>
                 </div>
 
-                <p class="my-5 p-2 has-background-light">We need to know where to deliver the rental. What's your address?</p>
+                <p class="my-5 p-2 has-background-light has-text-centered">We need to know where to deliver the rental. What's your address?</p>
 
 
                 <div class="field">
@@ -169,7 +171,7 @@
                     </div>
                 </div>
 
-                <p class="mb-6 p-2 has-background-light">
+                <p class="mb-6 p-2 has-background-light has-text-centered">
                     That's all for now. You'll select your pick-up and drop-off dates next.
                 </p>
 
