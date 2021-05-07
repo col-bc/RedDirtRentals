@@ -6,21 +6,26 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
-          crossorigin="anonymous">
-    <!--Import Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
+    <link async
+          href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+
+    <!--Bootstrap JS-->
+
+    <!--Icons-->
     <script src="https://kit.fontawesome.com/4c35e1f93c.js"
             crossorigin="anonymous"></script>
+
     <!--jQuery-->
     <script defer
             src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
+
     <!--Global Javascript-->
     <script defer
             src="{{ url_for('static', filename='global.js') }}"></script>
@@ -32,52 +37,60 @@
 
 <body class=""
       style="min-height: 100vh;">
-    <nav class="navbar px-6"
-         role="navigation"
-         aria-label="main navigation">
-        <div class="navbar-brand">
-            <figure class="navbar-item">
-                <img src="{{ url_for('static', filename='res/logo_dark.svg') }}"
-                     class="px-3">
-            </figure>
 
-            <a role="button"
-               class="navbar-burger"
-               aria-label="menu"
-               aria-expanded="false"
-               data-target="navbar">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
 
-        <div id="navbar"
-             class="navbar-menu">
-            <div class="navbar-start">
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
+                 class="px-3">
 
-            <div class="navbar-end">
-                <a class="navbar-item is-size-6"
-                   href="{{ url_for('index.root') }}">Home</a>
-                <a class="navbar-item is-size-6"
-                   href="{{url_for('Rentals.all_rentals')}}">View Rentals</a>
-                <a class="navbar-item is-size-6"
-                   href="#">My Reservation</a>
-                {% if session['status'] == 'AUTHENTICATED' %}
-                <a class="navbar-item is-size-6 mr-5"
-                   href="{{ url_for('admin.root') }}">Hello, {{ session['username'] }}</a>
-                <a href="{{ url_for('auth.logout') }}"
-                   class="is-align-self-center navbar-item button is-info is-outlined is-small is-size-7 px-5">
-                    Logout
-                </a> {% endif %}
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse w-100">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item mx-3">
+                        <a class="nav-link active"
+                           aria-current="page"
+                           href="{{ url_for('index.root') }}">Home</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link"
+                           href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link"
+                           href="#">Reservations</a>
+                    </li>
+                    {% if session['status'] == 'AUTHENTICATED' %}
+                    <li class="nav-item dropdown dropdown-dark ms-auto me-3">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            {{ session['username'] }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item"
+                                   href="{{ url_for('admin.root') }}">Manage Site</a></li>
+                            <li><a class="dropdown-item"
+                                   href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
 
-    <div style="min-height: 100vh">
-        {% block content %} {% endblock %}
-    </div>
+    {% block content %} {% endblock %}
 
     <footer class="footer has-background-white py-6">
         <div style="border-top: 2px solid whitesmoke;"></div>

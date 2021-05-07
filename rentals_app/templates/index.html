@@ -3,15 +3,19 @@
 {% block title %}Home{% endblock %}
 <!--Start Page Content-->
 {% block content %}
-<div class="container is-fluid py-5">
-    <div class="columns mt-5 mx-0">
+<div class="container-fluid p-3">
+    <div class="">
         <div class="column is-half is-flex is-flex-direction-column ">
-            <h1 class="is-size-3 is-flex-grow-1 has-text-weight-bold is-family-secondary">
-                I know what I'm looking for...
+            <h1 class="fs-1 fw-bold">
+                Welcome to Red Dirt Rentals.
             </h1>
+            <p class="">
+                By <a href="https://reddirtequipment.com/">Red Dirt Outdoor Equipment</a>.
+            </p>
+
             <div class="my-5 is-flex-grow-1">
                 <a href="{{url_for('Rentals.all_rentals')}}"
-                   class="button is-info is-large px-6 is-outlined">
+                   class="fw-lighter">
                     See Rental Inventory
                 </a>
             </div>
@@ -40,7 +44,7 @@
         </div>
         <div class="column is-half has-background-light p-5">
             <img src="{{url_for('static', filename='res/storefront.jpg')}}">
-            
+
         </div>
     </div>
 
