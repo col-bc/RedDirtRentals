@@ -3,7 +3,7 @@ import os
 import sqlite3
 
 from flask import (Blueprint, current_app, flash, redirect, render_template,
-                   request, url_for)
+                   request, url_for, jsonify)
 
 import rentals_app.helpers as helpers
 from rentals_app.auth import login_required
@@ -42,9 +42,11 @@ def inventory():
                 .split(',')
         )
 
-    con.close
+    reservations = list(cur.execute('SELECT * FROM reservations;').fetchall())
+    customers = list(cur.execute('SELECT * FROM customers;').fetchall())
+    con.close()
 
-    return render_template('admin/index.html', rentals=rentals)
+    return render_template('admin/index.html', rentals=rentals, reservations=reservations, customers=customers)
 
 
 # Render New page
@@ -185,6 +187,7 @@ def delete(id):
 
 # Run sql from browser, if permitted by group
 @admin.route('/new/fast_add', methods=['GET','POST'])
+@login_required
 def fast_add():
     print('Executing admin sql query\n{0}'.format(request.form.get('sql_query')))
     helpers.log_event('[{0}] Admin executed sql from {1}\n'.format(datetime.datetime.now(), request.remote_addr))
@@ -199,4 +202,11 @@ def fast_add():
         con.close()
         return redirect(url_for('admin.inventory'))
 
+
+@admin.route('/get_customer/<int:id>', methods=['GET'])
+def get_customer(id):
+    con, cur = helpers.connect_to_db()
+    result = cur.execute("SELECT * FROM customers WHERE id={};".format(id)).fetchone()
+    print(result)
+    return jsonify(result)
 

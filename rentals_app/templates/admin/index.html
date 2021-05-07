@@ -20,7 +20,7 @@
             {% endfor %} {% endif %} {% endwith %}
         </div>
 
-        <div class="tabs is-medium">
+        <div class="tabs">
             <ul>
                 <li class="tab-item is-active"><a id="inventory_tab">Rental Inventory</a></li>
                 <li class="tab-item "><a id="reservations_tab">Reservations</a></li>
@@ -130,6 +130,22 @@
         <div id="reservations_tab_view"
              class="is-hidden ">
             <h2 class="subtitle">Reservations</h2>
+
+            {% for reservation in reservations %}
+
+            {%set cust_id = reservation[2]%}
+            {% for customer in customers %}
+            {% if cust_id == customer[0] %}
+            {% set cust = customer %}
+            <div class="card">
+                <h1>{{cust[1]}} {{cust[2]}}</h1>
+                
+            </div>
+            {%endif%}
+            {% endfor %}
+
+
+            {%endfor%}
         </div>
 
     </div>
