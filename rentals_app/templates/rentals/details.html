@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%block title %}{{rental.make}}{{rental.model}}{% endblock %}
+{%block title %}{{rental.make}}&nbsp;{{rental.model}}{% endblock %}
 {% block content %}
 <style>
     .fab_container {
@@ -14,7 +14,7 @@
 
     <div class="fab_container">
         <a class="button box is-info is-large is-rounded is-family-secondary has-text-weight-bold"
-            href="{{url_for('checkout.reserve', id=rental.rental_id)}}">
+            href="{{url_for('checkout.reserve', r_id=rental.rental_id)}}">
             <i class="fas fa-plus mr-4"></i>Select Rental
         </a>
     </div>

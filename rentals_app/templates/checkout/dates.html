@@ -10,8 +10,22 @@
 </h1>
 <div class="container is-fluid">
     <div class="container is-max-desktop">
-        <form action="{{url_for('checkout.create_customer', id=id)}}"
+        <form action="{{url_for('checkout.make_reservation', c_id=c_id, r_id=r_id)}}"
               method="POST">
+
+            <div class="is-flex is-align-items-center is-flex-wrap-wrap mt-6 has-border-light p-3">
+                <p class="label is-flex-grow-1 mb-0">
+                    How many hours do you estimate you'll use the rental per day?
+                </p>
+                <div class="field ">
+                    <div class="control">
+                        <input type="number"
+                               class="input is-fullwidth"
+                               placeholder="Enter whole numbers only"
+                               name="hours_per_day">
+                    </div>
+                </div>
+            </div>
 
             <div class="columns">
 
@@ -21,7 +35,8 @@
                         <label class="label">First Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="start_1">
                         </div>
                     </div>
 
@@ -29,7 +44,8 @@
                         <label class="label">Second Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="start_2">
                         </div>
                     </div>
 
@@ -37,7 +53,8 @@
                         <label class="label">Third Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="start_3">
                         </div>
                     </div>
                 </div>
@@ -47,7 +64,8 @@
                         <label class="label">First Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="end_1">
                         </div>
                     </div>
 
@@ -55,7 +73,8 @@
                         <label class="label">Second Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="end_2">
                         </div>
                     </div>
 
@@ -63,17 +82,31 @@
                         <label class="label">Third Choice</label>
                         <div class="control">
                             <input type="date"
-                                   class="input">
+                                   class="input"
+                                   name="end_3">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="columns my-5">
-                <p class="column is-half">
+                <p class="column is-half help">
+                    By submitting this form, you agree to be contacted by Red Dirt Outdoor Equipment
+                    about this rental inquiry. Submitting an inquiry does not guarantee availability or approval.
+                    <strong>Only come to pickup your rental once a you have told you to do so, or a delivery date as been arranged.</strong>
+                    Rentals prices are subject to change without notice and my differ from the price listed here.
+                    Rentals require a signed contract, a credit check and a deposit of up to one-half of your estimated usage hours.
+                    Rentals and delivery only available in certain areas. Rental delivery is subject to a delivery fee.
+                    By submitting this form for rental inquiry, you agree to our
+                    <a href="#"
+                       class="is-link">Privacy Policy</a>
+                    and
+                    <a href="#"
+                       class="is-link">Terms of Service.</a>
+                    For additional information about rentals, please call us at <a href="tel:8505253456">850 536 3456</a>.
                 </p>
                 <div class="field column">
-                    <div class="control is-flex is-fullwidth is-justify-content-flex-end">
-                        <button class="button is-large is-info px-6">
+                    <div class="control">
+                        <button class="button is-fullwidth is-large is-info px-6">
                             Finish and Make Reservation
                         </button>
                     </div>

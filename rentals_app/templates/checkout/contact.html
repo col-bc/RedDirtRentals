@@ -13,7 +13,7 @@
     <div class="container is-max-desktop">
 
         <div class="columns is-centered my-5">
-            <form action="{{url_for('checkout.create_customer', id=id)}}"
+            <form action="{{url_for('checkout.create_customer', r_id=r_id)}}"
                   method="POST"
                   class="column is-two-thirds"
                   enctype="multipart/form-data">
@@ -103,7 +103,7 @@
                     <div class="field column is-one-fifth">
                         <label class="label">State</label>
                         <div class="control select is-fullwidth">
-                            <select>
+                            <select name="state">
                                 <option value="AL">AL</option>
                                 <option value="AK">AK</option>
                                 <option value="AR">AR</option>
@@ -187,21 +187,5 @@
             </form>
         </div>
     </div>
-
-    <p class="help">
-        Submitting an inquiry for rental does not guarantee availability or approval.
-        <strong>Only come to pickup your rental once a salesman has told you to do so.</strong>
-        Rentals prices are subject to change without notice. Rentals require a signed contract,
-        a credit check and potentially a deposit of up to one-half of your estimated usage hours.
-        Rentals and delivery only available in certain areas. Rental delivery is subject to a delivery fee.
-        By submitting this form for rental inquiry, you agree to our
-        <a href="#"
-           class="is-link">Privacy Policy</a>
-        and
-        <a href="#"
-           class="is-link">Terms of Service.</a>
-        For additional information about rentals, please call us at <a href="tel:8505253456">850 536 3456</a>.
-    </p>
-
 </div>
 {% endblock %}
