@@ -1,11 +1,8 @@
 $(document).ready(function () {
 
-    // Handle Mobile Menu Click
-    $(".navbar-burger").click(function () {
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-    });
 
+
+    // TODO: Change to Bootstrap.
     //Handle Developer Modal
     $('#developer_option').click(function () {
         $('#fast_add_inventory').addClass('is-active');
@@ -18,13 +15,9 @@ $(document).ready(function () {
     $('.modal-background').click(function () {
         $(this).parent().removeClass('is-active')
     });
-    
-    //Handle Radio Icon State Changes
-    $('.radio-icn input').change(function () {
-        $('.radio-icn').css('border', '2px solid whitesmoke');
-        $(this).parent().css('border', '2px solid silver');
-    });
 
+
+    // SITE SPECIFIC //
     //Handle Inventory Shade
     $('.expand-toggle').click(function () {
         let shade = $(this).parent().parent().find('.shade')
@@ -78,12 +71,12 @@ $(document).ready(function () {
     //Handle Implement clear list
     $('.implement_clear').click(function () {
         $('.implement_target')
-        .find('option')
-        .remove()
-        .end()
+            .find('option')
+            .remove()
+            .end()
     });
     //Ensure Implement options are selected on submit
-    $('form.has-implement-adder').submit(function(){
+    $('form.has-implement-adder').submit(function () {
         $('.implement_target option').prop('selected', true);
     });
 
@@ -95,14 +88,4 @@ $(document).ready(function () {
         }
     });
 
-});
-
-// Handle Notification Close
-document.addEventListener('DOMContentLoaded', () => {
-    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-        const $notification = $delete.parentNode;
-        $delete.addEventListener('click', () => {
-            $notification.parentNode.removeChild($notification);
-        });
-    });
 });

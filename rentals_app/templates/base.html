@@ -6,13 +6,14 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+          crossorigin="anonymous">
     <!--Import Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <!--Import Stylesheets-->
-    <link href="{{ url_for('static', filename='global.css') }}"
-          rel="stylesheet">
-    <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/4c35e1f93c.js"
             crossorigin="anonymous"></script>
     <!--jQuery-->
@@ -25,7 +26,7 @@
             src="{{ url_for('static', filename='global.js') }}"></script>
 
     {% block head_end %}{% endblock %}
-    
+
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 
