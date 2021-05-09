@@ -155,7 +155,6 @@
 
 <div id="reservation_tab_content"
      class="container">
-    <h3>Reservations</h3>
 
     {% for reservation in reservations %}
 
@@ -163,9 +162,16 @@
     {% for customer in customers %}
     {% if cust_id == customer[0] %}
     {% set cust = customer %}
-    <div class="card">
-        <h1>{{cust[1]}} {{cust[2]}}</h1>
-
+    <div class="card my-3 p-3">
+        <h4 class="card-title">{{cust[1]}} {{cust[2]}}</h4>
+        <div class="card-body">
+            <p>{{cust[0]}}</p>
+            <p>{{cust[3]}}</p>
+            <p>{{cust[4]}}</p>
+            <p>{{cust[5]}}</p>
+            <p>{{cust[6]}}</p>
+            <p>{{cust[7]}}</p>
+        </div>
     </div>
     {%endif%}
     {% endfor %}

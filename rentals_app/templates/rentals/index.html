@@ -106,7 +106,7 @@
             None
             {% endif %}
             
-            <a href="#"
+            <a href="{{ url_for('Rentals.details', id=rental.rental_id)}}"
                class="btn btn-primary w-100 py-2 fs-5">
                 <i class="fas fa-plus me-3"></i> Add to Cart
             </a>
