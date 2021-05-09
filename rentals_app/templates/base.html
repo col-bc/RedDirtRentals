@@ -9,15 +9,20 @@
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
     <link async
-          href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
           rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='global.css')}}">
     <!--Bootstrap JS-->
+    <script async
+            type="text/javascript"
+            src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
 
     <!--Icons-->
-    <script src="https://kit.fontawesome.com/4c35e1f93c.js"
+    <script async
+            src="https://kit.fontawesome.com/4c35e1f93c.js"
             crossorigin="anonymous"></script>
 
     <!--jQuery-->
@@ -26,35 +31,37 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
 
-    <!--Global Javascript-->
     <script defer
-            src="{{ url_for('static', filename='global.js') }}"></script>
+            src="{{url_for('static', filename='global.js')}}"></script>
 
-    {% block head_end %}{% endblock %}
+    {% block head_end %} {% endblock %}
 
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 
-<body class=""
-      style="min-height: 100vh;">
+<body>
 
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
-                 class="px-3">
+            <a href="{{url_for('index.root')}}"
+               class="navbar-brand">
+                <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
+                     class="px-3">
+            </a>
 
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
+                    data-bs-target="#nav_main"
+                    aria-controls="nav_main"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse w-100">
+            <div class="collapse navbar-collapse"
+                 id="nav_main">
                 <ul class="navbar-nav w-100">
                     <li class="nav-item mx-3">
                         <a class="nav-link active"
@@ -92,18 +99,14 @@
 
     {% block content %} {% endblock %}
 
-    <footer class="footer has-background-white py-6">
+    <footer class="p-3">
         <div style="border-top: 2px solid whitesmoke;"></div>
-        <div class="is-flex is-flex-direction-column is-flex-wrap-wrap my-3">
-            <figure class="image my-3"
-                    style="max-width: 300px;">
-                <img src="{{ url_for('static', filename='res/logo_dark.svg') }}">
-            </figure>
-            <div class="content my-3">
-                <p class="mb-1">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
-                <p class="mb-1"><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
-                <p class="mb-1"><a href="{{ url_for('auth.login') }}">Admin Login</a></p>
-            </div>
+        <div class="container mt-3">
+            <img src="{{ url_for('static', filename='res/logo_dark.svg') }}"
+                 class="img-fluid">
+            <p class="mt-2 mb-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
+            <p class="mb-2"><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+            <p class="mb-2"><a href="{{ url_for('auth.login') }}">Admin Login</a></p>
         </div>
     </footer>
 

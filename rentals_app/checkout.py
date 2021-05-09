@@ -13,12 +13,12 @@ checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
 
 @checkout.route('/')
 def index():
-    return redirect(url_for('checkout.reserve', id=0))
+    return redirect(url_for('checkout.reserve', r_id=0))
 
 
 @checkout.route('/<int:r_id>/reserve')
 def reserve(r_id):
-    if r_id is not None and r_id > 0:
+    if r_id is not None and r_id >= 0:
         return redirect(url_for('checkout.contact', r_id=r_id))
     else:
         return redirect(url_for('Rentals.all_rentals'))
@@ -31,7 +31,7 @@ def contact(r_id):
 
 @checkout.route('/<int:r_id>/create_customer', methods=['POST'])
 def create_customer(r_id):
-    if r_id is not None and r_id > 0:
+    if r_id is not None and r_id >= 0:
         con, cur = helpers.connect_to_db()
 
         data = {
@@ -95,8 +95,8 @@ def create_customer(r_id):
 
 @checkout.route('/<int:r_id>/<int:c_id>/dates/')
 def dates(r_id, c_id):
-    if r_id is not None and r_id > 0:
-        if c_id is not None and c_id > 0:
+    if r_id is not None and r_id >= 0:
+        if c_id is not None and c_id >= 0:
             return render_template('checkout/dates.html', c_id=c_id,r_id=r_id)
         else:
             return redirect(url_for('Rentals.all_rentals'))
@@ -106,8 +106,8 @@ def dates(r_id, c_id):
 
 @checkout.route('/<int:r_id>/<int:c_id>/make_reservation', methods=['POST'])
 def make_reservation(r_id, c_id):
-    if r_id is not None and r_id > 0:
-        if c_id is not None and c_id > 0:
+    if r_id is not None and r_id >= 0:
+        if c_id is not None and c_id >= 0:
 
             data = {
                 "start_1": request.form.get('start_1'),

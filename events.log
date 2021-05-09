@@ -53,3 +53,14 @@
 [2021-05-06 11:44:51.367243] Admin session spawned from 127.0.0.1
 [2021-05-06 21:52:05.941285] Admin session spawned from 127.0.0.1
 [2021-05-07 00:28:11.426991] Admin session spawned from 127.0.0.1
+[2021-05-07 11:46:31.005519] Admin session spawned from 127.0.0.1
+[2021-05-07 15:33:25.811949] Login failure from 127.0.0.1 * test:test
+[2021-05-07 15:36:59.844220] Admin session spawned from 127.0.0.1
+[2021-05-07 15:37:42.500315] Admin session spawned from 127.0.0.1
+[2021-05-07 15:37:59.192902] Login failure from 127.0.0.1 * afsd:asf
+[2021-05-07 15:41:23.066425] Login failure from 127.0.0.1 * admin:test
+[2021-05-07 15:41:36.148508] Admin session spawned from 127.0.0.1
+[2021-05-08 00:10:52.778275] Admin session spawned from 127.0.0.1
+[2021-05-08 19:19:00.271336] Login failure from 127.0.0.1 * admin:CBC00p3r~
+[2021-05-08 19:19:06.821001] Admin session spawned from 127.0.0.1
+[2021-05-08 20:40:57.007993] Admin session spawned from 127.0.0.1

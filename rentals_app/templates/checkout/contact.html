@@ -2,190 +2,171 @@
 {% block title %}Contact Info{% endblock %}
 {% block content %}
 
-<h1 class="title is-3 is-family-secondary has-background-light p-6 has-text-centered">
-    Let's get some information from you before we begin.
-    <p class="is-size-6 is-family-primary mt-3">
-        We'll only use this information to contact you about your rental inquiry.
-    </p>
-</h1>
+<div class="container-fluid">
+    <div class="row bg-dark p-3 text-white">
+        <h3>
+            Let's get some information from you before we begin.
+        </h3>
+        <p>
+            We'll only use this information to contact you about your rental inquiry.
+        </p>
+    </div>
 
-<div class="container is-fluid">
-    <div class="container is-max-desktop">
+    <div class="container is-fluid my-4">
+        <form action="{{url_for('checkout.create_customer', r_id=r_id)}}"
+              method="POST"
+              enctype="multipart/form-data">
 
-        <div class="columns is-centered my-5">
-            <form action="{{url_for('checkout.create_customer', r_id=r_id)}}"
-                  method="POST"
-                  class="column is-two-thirds"
-                  enctype="multipart/form-data">
+            <div class="form-floating mb-4">
+                <input type="text"
+                       class="form-control"
+                       id="firstname"
+                       placeholder=""
+                       required
+                       name="firstname">
+                <label for="firstname">First Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="password"
+                       class="form-control"
+                       id="lastname"
+                       required
+                       name="lastname"
+                       placeholder="Password">
+                <label for="lastname">Last Name</label>
+            </div>
 
-                <div class="columns mb-0">
-                    <div class="field column">
-                        <label class="label">First Name</label>
-                        <div class="control">
-                            <input type="text"
-                                   class="input"
-                                   name="firstname"
-                                   required
-                                   placeholder="">
-                        </div>
-                    </div>
-                    <div class="field column">
-                        <label class="label">Last Name</label>
-                        <div class="control">
-                            <input type="text"
-                                   class="input"
-                                   name="lastname"
-                                   required
-                                   placeholder="">
-                        </div>
-                    </div>
+            <p class="my-4 p-2 bg-dark text-white rounded">How can we reach you to confirm dates?</p>
+
+            <div class="form-floating mb-4">
+                <input type="email"
+                       class="form-control"
+                       name="email"
+                       id="email">
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="tel"
+                       class="form-control"
+                       id="phonenumber"
+                       name="phonenumber"
+                       required>
+                <label for="phonenumber">Phone Number</label>
+            </div>
+
+            <p class="my-4 p-2 bg-dark text-white rounded">We need to know where to deliver the rental. What's your address?</p>
+
+            <div class="form-floating mb-4">
+                <input type="text"
+                       class="form-control"
+                       name="address"
+                       required
+                       id="address">
+                <label for="address">Street Address</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="text"
+                       class="form-control"
+                       name="address2"
+                       id="address2">
+                <label for="address2">Address Continued (optional)</label>
+            </div>
+
+
+            <div class="form-floating mb-4">
+                <input type="text"
+                       class="form-control"
+                       name="city"
+                       required
+                       id="city">
+                <label for="address2">City</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <select class="form-select"
+                        id="state"
+                        name="state"
+                        aria-label="State">
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DC">DC</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="IA">IA</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                </select>
+                <label for="state">State</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="number"
+                       class="form-control"
+                       name="zip"
+                       required
+                       id="zip">
+                <label for="zip">Zip Code</label>
+            </div>
+
+            <p class="my-4 p-2 bg-dark text-white rounded">
+                That's all for now. You'll select your pick-up and drop-off dates next.
+            </p>
+
+            <div class="row align-items-right">
+                <div class="col btn-large">
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Next Step
+                        <i class="fas fa-arrow-right ms-3"></i>
+                    </button>
                 </div>
+            </div>
 
-                <p class="mb-5 p-2 has-background-light has-text-centered">How can we reach you to confirm dates?</p>
-
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input type="email"
-                               class="input"
-                               name="email"
-                               required
-                               placeholder="">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Phone Number</label>
-                    <div class="control">
-                        <input type="number"
-                               class="input"
-                               name="phonenumber"
-                               required
-                               placeholder="Best Number to Reach you">
-                    </div>
-                </div>
-
-                <p class="my-5 p-2 has-background-light has-text-centered">We need to know where to deliver the rental. What's your address?</p>
-
-
-                <div class="field">
-                    <label class="label">Address</label>
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="address"
-                               required
-                               placeholder="">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input type="text"
-                               class="input"
-                               name="address2"
-                               placeholder="(optional)">
-                    </div>
-                </div>
-
-                <div class="columns">
-
-                    <div class="field column is-three-fifths">
-                        <label class="label">City</label>
-                        <div class="control">
-                            <input type="text"
-                                   class="input"
-                                   name="city"
-                                   required
-                                   placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="field column is-one-fifth">
-                        <label class="label">State</label>
-                        <div class="control select is-fullwidth">
-                            <select name="state">
-                                <option value="AL">AL</option>
-                                <option value="AK">AK</option>
-                                <option value="AR">AR</option>
-                                <option value="AZ">AZ</option>
-                                <option value="CA">CA</option>
-                                <option value="CO">CO</option>
-                                <option value="CT">CT</option>
-                                <option value="DC">DC</option>
-                                <option value="DE">DE</option>
-                                <option value="FL">FL</option>
-                                <option value="GA">GA</option>
-                                <option value="HI">HI</option>
-                                <option value="IA">IA</option>
-                                <option value="ID">ID</option>
-                                <option value="IL">IL</option>
-                                <option value="IN">IN</option>
-                                <option value="KS">KS</option>
-                                <option value="KY">KY</option>
-                                <option value="LA">LA</option>
-                                <option value="MA">MA</option>
-                                <option value="MD">MD</option>
-                                <option value="ME">ME</option>
-                                <option value="MI">MI</option>
-                                <option value="MN">MN</option>
-                                <option value="MO">MO</option>
-                                <option value="MS">MS</option>
-                                <option value="MT">MT</option>
-                                <option value="NC">NC</option>
-                                <option value="NE">NE</option>
-                                <option value="NH">NH</option>
-                                <option value="NJ">NJ</option>
-                                <option value="NM">NM</option>
-                                <option value="NV">NV</option>
-                                <option value="NY">NY</option>
-                                <option value="ND">ND</option>
-                                <option value="OH">OH</option>
-                                <option value="OK">OK</option>
-                                <option value="OR">OR</option>
-                                <option value="PA">PA</option>
-                                <option value="RI">RI</option>
-                                <option value="SC">SC</option>
-                                <option value="SD">SD</option>
-                                <option value="TN">TN</option>
-                                <option value="TX">TX</option>
-                                <option value="UT">UT</option>
-                                <option value="VT">VT</option>
-                                <option value="VA">VA</option>
-                                <option value="WA">WA</option>
-                                <option value="WI">WI</option>
-                                <option value="WV">WV</option>
-                                <option value="WY">WY</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="field column is-one-fifth">
-                        <label class="label">Zip Code</label>
-                        <div class="control">
-                            <input type="text"
-                                   class="input"
-                                   name="zip"
-                                   required
-                                   placeholder="">
-                        </div>
-                    </div>
-                </div>
-
-                <p class="mb-6 p-2 has-background-light has-text-centered">
-                    That's all for now. You'll select your pick-up and drop-off dates next.
-                </p>
-
-                <div class="field">
-                    <label class="label"></label>
-                    <div class="control is-flex is-justify-content-flex-end">
-                        <button type="submit"
-                                class="button is-info px-6">
-                            Next
-                            <i class="fas fa-arrow-right ml-3"></i>
-                        </button>
-                    </div>
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock %}

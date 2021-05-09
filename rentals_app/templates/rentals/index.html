@@ -1,227 +1,120 @@
 {%extends "base.html"%}
 {%block title%}All Rentals{%endblock%}
 {%block content%}
-<style>
-    .menu-list li {
-        margin: 1rem 0;
-    }
+<div class="container-fluid bg-dark text-white">
 
-</style>
-<div class="container is-fluid p-0">
-
-    <h1 class="title is-3 is-family-secondary has-text-centered py-6 mb-0 has-background-light">
-        <u>Our Rental Inventory</u>
-        <p class="is-size-6 is-family-primary mt-3">
-            Still not sure what's right for your job?
-            <a href="tel:8505263456"
-               class="is-link">Give us a call</a>, our experts are happy to help.
-        </p>
+    <h1 class="p-3">
+        Our Rental Inventory
     </h1>
+    <p class="px-3 pb-3 mb-0">
+        Still not sure what's right for your job?
+        <a href="tel:8505263456"
+           class="is-link">Give us a call</a>, our experts are happy to help.
+    </p>
 
-    <div class="columns my-3">
+</div>
 
-        <!--Filters-->
-        <aside class="menu column is-one-fifth pl-6">
-            <form action="#"
-                  method="GET">
-                <p class="menu-label p-3 mb-0 has-background-light has-text-dark is-flex-grow-1">
-                    Vehicle Types
-                </p>
-                <ul class="menu-list">
-                    <li><label class="checkbox">
-                            <input type="checkbox">
-                            Tractors
-                        </label>
-                    </li>
-                    <li><label class="checkbox">
-                            <input type="checkbox">
-                            Mowers
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Power tools
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Add ons
-                        </label>
-                    </li>
-                    </li>
-                </ul>
-                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
-                    Job Size
-                </p>
-                <ul class="menu-list">
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Small
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Medium
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Large
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Heavy Duty
-                        </label>
-                    </li>
-                </ul>
-                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
-                    Price Range
-                </p>
-                <ul class="menu-list">
-                    <li><label class="checkbox">
-                            <input type="checkbox">
-                            Cheap
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Affordable
-                        </label>
-                    </li>
-                    <li><label class="checkbox">
-                            <input type="checkbox">
-                            Normal
-                        </label>
-                    </li>
-                    <li><label class="checkbox">
-                            <input type="checkbox">
-                            Costly
-                        </label>
-                    </li>
-                </ul>
-                <p class="menu-label p-3 mb-0 has-background-light has-text-dark">
-                    Other
-                </p>
-                <ul class="menu-list">
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Available Now
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            4WD
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            2WD
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Gasoline
-                        </label>
-                    </li>
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            Diesel
-                        </label>
-                    </li>
-                </ul>
-                <div class="has-text-right">
-                    <button type="submit"
-                            class="button is-outlined is-small is-info">
-                        Apply Filters
-                    </button>
-                </div>
-            </form>
-        </aside>
+<!--Filters-->
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle w-100 py-2"
+            style="border-radius: 0px;"
+            type="button"
+            id="dropdownFilters"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+        <u>Filters</u>
+    </button>
+    <ul class="dropdown-menu w-100 shadow"
+        aria-labelledby="dropdownFilters">
+        <li class="dropdown-item fw-bold">Only Show</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Tractors</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Mowers</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Power Tools</a></li>
+        <li class="dropdown-item fw-bold">Price is less than</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 150</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 300</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 500</a></li>
+        <li class="dropdown-item fw-bold">For this kind of job</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Yard Care</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Tree Clearing/Cleaning</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Commercial</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Government</a></li>
+        <li><a class="dropdown-item bg-primary text-white fw-bold"
+               href="#">All Rentals</a></li>
 
-        <!--Rentals-->
-        <div class="column">
-            <div class="is-flex is-flex-wrap-wrap">
+    </ul>
+</div>
 
-                {%for rental in rentals%}
+<!--Rentals-->
+<div class="container-fluid pb-4 px-4 bg-light">
 
-                <div class="p-3 is-flex-grow-1 m-3"
-                     style="border: 2px solid whitesmoke; border-radius: 4px;">
-                    {% for path in rental.image_paths %}
-                    <figure class="image is-4by3 mb-3">
-                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}">
-                            <img class="card-img"
-                                 src="{{url_for('static', filename='uploads/'+path)}}">
-                        </a>
-                    </figure>
-                    {% endfor %}
-                    <div class="content my-3">
-                        <div class="is-flex is-flex-direction-row is-align-items-center">
-                            <p class="is-size-4 is-family-secondary has-text-weight-bold is-flex-grow-1 mb-0">
-                                <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                                   class="is-link has-text-dark">
-                                    {{rental.make}} {{rental.model}}
-                                </a>
-                            </p>
-                            <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                               class="is-link column is-one-quarter"> See More </a>
-                        </div>
-                        <p class="subtitle is-6">
-                            {{rental.category}} - {{rental.stock}}
-                        </p>
-                    </div>
-                    <div class="content my-3">
-                        <p class="p-4 has-background-light has-text-weight-bold">
-                            ${{'%0.2f'%rental.rate}} / machine hour <span class="is-size-7">({{rental.price_range}})
-                        </p>
-                        <div class="tags are-medium">
-                            {%if rental.is_available == 1%}
-                            <span class="tag is-link">Available Now!</span>
-                            {%endif%}
-                            <span class="tag">{{rental.drive}}</span>
-                            <span class="tag">{{rental.fuel_type}}</span>
-                        </div>
-                        <p><strong>Engine</strong>: {{rental.horse_power}} horsepower. <span class="is-size-7">Perfect for <strong>{{rental.job_category}}</strong>!</p>
-                        <p><strong>Deck Size</strong>: {{rental.deck_size}}</p>
-                        <p><strong>Compatible Implements</strong>:
-                            {% if rental.implements %}
-                        <ul>
-                            {% for implement in rental.implements %}
-                            <li>{{implement}}</li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        None
-                        {% endif %}
-                        </p>
-                        <p><strong>Features</strong>: {{rental.features}}</p>
-                        <p><strong>Description</strong>: {{rental.description}}</p>
-                        <div class="has-text-right mt-5">
-                            <a href="#"
-                               class="button is-info">
-                                <i class="fas fa-plus mr-3"></i> Add to Cart
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    {%for rental in rentals%}
 
-                {%endfor%}
-
-
+    <div class="card my-3">
+        {% for path in rental.image_paths %}
+        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}">
+            <img class="card-img-top"
+                 src="{{url_for('static', filename='uploads/'+path)}}">
+        </a>
+        {% endfor %}
+        <div class="card-body p-3">
+            <div class="d-flex flex-row align-items-center">
+                <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                   class="flex-grow-1 text-dark fs-3 fw-bold text-decoration-none">
+                    {{rental.make}} {{rental.model}}
+                </a>
+                <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                   class="">See All...</a>
             </div>
+            <p>
+                {{rental.category}} - {{rental.stock}}
+            </p>
+            <div class="container bg-success rounded text-white p-2 mb-3">
+                <p class="fs-4 m-0">
+                    $&nbsp;{{'%0.2f'%rental.rate}} / machine hour <span class="fs-6 fw-light">({{rental.price_range}})</span>
+                </p>
+            </div>
+            <div class="d-flex flex-row mb-3">
+                {%if rental.is_available == 1%}
+                <span class="badge bg-secondary me-2">Available Now!</span>
+                {%endif%}
+                <span class="badge bg-secondary me-2">{{rental.drive}}</span>
+                <span class="badge bg-secondary me-2">{{rental.fuel_type}}</span>
+            </div>
+            <p><strong>Engine</strong>: {{rental.horse_power}} horsepower. <span class="fs-6">Perfect for {{rental.job_category}}!</p>
+            <p><strong>Deck Size</strong>: {{rental.deck_size}}</p>
+            <p><strong>Features</strong>: {{rental.features}}</p>
+            <p><strong>Description</strong>: {{rental.description}}</p>
+            <p><strong>Compatible Implements</strong>:</p>
+                {% if rental.implements %}
+            <ul class="list-group mb-3">
+                {% for implement in rental.implements %}
+                <li class="list-group-item">{{implement}}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            None
+            {% endif %}
+            
+            <a href="#"
+               class="btn btn-primary w-100 py-2 fs-5">
+                <i class="fas fa-plus me-3"></i> Add to Cart
+            </a>
         </div>
     </div>
 
-    {%endblock%}
+    {%endfor%}
+
+</div>
+
+{%endblock%}

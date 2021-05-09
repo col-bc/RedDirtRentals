@@ -2,117 +2,112 @@
 {% block title %}Dates{% endblock %}
 {% block content %}
 
-<h1 class="title is-family-secondary p-6 has-background-light has-text-centered">
-    When do you need your rental?
-    <p class="is-family-primary is-size-6 mt-3">
-        You'll select a couple dates for pick-up and drop-off. We'll do our best to work with your preferences.
-    </p>
-</h1>
-<div class="container is-fluid">
-    <div class="container is-max-desktop">
+<div class="container-fluid">
+    <div class="row bg-dark p-3 text-white">
+        <h3>When do you need your rental?</h3>
+        <p class="mt-3">
+            You'll select a couple dates for pick-up and drop-off. We'll do our best to work with your preferences.
+        </p>
+    </div>
+    <div class="container-fluid mt-4">
         <form action="{{url_for('checkout.make_reservation', c_id=c_id, r_id=r_id)}}"
               method="POST">
 
-            <div class="is-flex is-align-items-center is-flex-wrap-wrap mt-6 has-border-light p-3">
-                <p class="label is-flex-grow-1 mb-0">
-                    How many hours do you estimate you'll use the rental per day?
-                </p>
-                <div class="field ">
-                    <div class="control">
-                        <input type="number"
-                               class="input is-fullwidth"
-                               placeholder="Enter whole numbers only"
-                               name="hours_per_day">
-                    </div>
-                </div>
+            <div class="mb-3">
+                <label for="hours_per_day"
+                       class="form-label">
+                    How many hours do you estimate you'll use this rental per day?</label>
+                <input type="number"
+                       class="form-control"
+                       placeholder="(example: 15)"
+                       name="hours_per_day"
+                       id="hours_per_day">
             </div>
 
-            <div class="columns">
+            <p class="my-4 p-2 bg-dark text-white rounded">Choose a couple of dates that work for you. We'll do our best to accommodate.</p>
 
-                <div class="column is-half">
-                    <h1 class="is-size-4 my-5 is-family-secondary has-text-weight-bold">Start Date</h1>
-                    <div class="field">
-                        <label class="label">First Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="start_1">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Second Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="start_2">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Third Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="start_3">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-half">
-                    <h1 class="is-size-4 my-5 is-family-secondary has-text-weight-bold">End Date</h1>
-                    <div class="field">
-                        <label class="label">First Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="end_1">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Second Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="end_2">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Third Choice</label>
-                        <div class="control">
-                            <input type="date"
-                                   class="input"
-                                   name="end_3">
-                        </div>
-                    </div>
-                </div>
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="start_1"
+                       placeholder=""
+                       required
+                       name="start_1">
+                <label for="start_1">First Choice Start Day</label>
             </div>
-            <div class="columns my-5">
-                <p class="column is-half help">
-                    By submitting this form, you agree to be contacted by Red Dirt Outdoor Equipment
-                    about this rental inquiry. Submitting an inquiry does not guarantee availability or approval.
-                    <strong>Only come to pickup your rental once a you have told you to do so, or a delivery date as been arranged.</strong>
-                    Rentals prices are subject to change without notice and my differ from the price listed here.
-                    Rentals require a signed contract, a credit check and a deposit of up to one-half of your estimated usage hours.
-                    Rentals and delivery only available in certain areas. Rental delivery is subject to a delivery fee.
-                    By submitting this form for rental inquiry, you agree to our
-                    <a href="#"
-                       class="is-link">Privacy Policy</a>
-                    and
-                    <a href="#"
-                       class="is-link">Terms of Service.</a>
-                    For additional information about rentals, please call us at <a href="tel:8505253456">850 536 3456</a>.
-                </p>
-                <div class="field column">
-                    <div class="control">
-                        <button class="button is-fullwidth is-large is-info px-6">
-                            Finish and Make Reservation
-                        </button>
-                    </div>
-                </div>
+
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="start_2"
+                       placeholder=""
+                       required
+                       name="start_2">
+                <label for="start_2">Second Choice Start Day</label>
             </div>
+
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="start_3"
+                       placeholder=""
+                       required
+                       name="start_3">
+                <label for="start_3">Third Choice Start Day</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="end_1"
+                       placeholder=""
+                       required
+                       name="end_1">
+                <label for="end_1">First Choice End Day</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="end_2"
+                       placeholder=""
+                       required
+                       name="end_2">
+                <label for="end_2">Second Choice End Day</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="date"
+                       class="form-control"
+                       id="end_3"
+                       placeholder=""
+                       required
+                       name="end_3">
+                <label for="end_3">third Choice End Day</label>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+                Finish Reservation
+            </button>
         </form>
+
+        <p class="fs-7 mt-5">
+            By submitting this form, you agree to be contacted by Red Dirt Outdoor Equipment
+            about this rental inquiry. Submitting an inquiry does not guarantee availability or approval.
+            <strong>Only come to pickup your rental once a you have told you to do so, or a delivery date as been arranged.</strong>
+            Rentals prices are subject to change without notice and my differ from the price listed here.
+            Rentals require a signed contract, a credit check and a deposit of up to one-half of your estimated usage hours.
+            Rentals and delivery only available in certain areas. Rental delivery is subject to a delivery fee.
+            By submitting this form for rental inquiry, you agree to our
+            <a href="#"
+               class="is-link">Privacy Policy</a>
+            and
+            <a href="#"
+               class="is-link">Terms of Service.</a>
+            For additional information about rentals, please call us at <a href="tel:8505253456">850 536 3456</a>.
+        </p>
     </div>
+
 </div>
 {% endblock %}

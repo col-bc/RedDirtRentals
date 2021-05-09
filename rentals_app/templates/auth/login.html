@@ -3,46 +3,54 @@
 {% block title %}Login | Admin{% endblock %}
 <!---->
 {% block content %}
-<div class="container">
-    <div class="columns is-max-desktop is-centered m-5">
+<div class="container-fluid">
+    <div class="row bg-dark p-3 text-white">
+        <h3>Admin Login</h3>
+    </div>
+    <div class="container">
         <form method="POST"
               action="/auth/verify"
-              class="column is-half">
-            <h3 class="title">Admin Login</h3>
+              class="card my-5">
+            <div class="card-body">
 
-            <div class="container my-5">
-                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                <p class="has-text-dark has-text-weight-bold p-3"
-                   style="border: 2px solid silver; border-radius: 4px;">{{ message }}</p>
-                {% endfor %} {% endif %} {% endwith %}
-            </div>
+                <div class="container px-0 mb-4">
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="alert alert-light border"
+                         role="alert">
+                        {{message}}
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="alert alert-light border"
+                         role="alert">
+                        Please login to access the admin dashboard.
+                    </div>
+                    {% endif %} {% endwith %}
+                </div>
 
-            <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                    <input class="input"
-                           type="text"
+                <div class="form-floating mb-4">
+                    <input type="text"
+                           class="form-control"
+                           id="username"
+                           placeholder=""
                            required
                            name="username">
+                    <label for="username">Username</label>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input"
-                           type="password"
+                <div class="form-floating mb-4">
+                    <input type="password"
+                           class="form-control"
+                           id="password"
+                           placeholder=""
                            required
                            name="passwd">
+                    <label for="password">Password</label>
                 </div>
-            </div>
-            <div class="control my-5">
-                <button class="button is-outline is-info px-6">
-                     Login
+                <button class="btn btn-primary px-5 my-3">
+                    Login
                 </button>
             </div>
         </form>
     </div>
-
 </div>
 
 {% endblock %}

@@ -3,105 +3,155 @@
 {% block title %}Home{% endblock %}
 <!--Start Page Content-->
 {% block content %}
-<div class="container-fluid p-3">
-    <div class="">
-        <div class="column is-half is-flex is-flex-direction-column ">
-            <h1 class="fs-1 fw-bold">
-                Welcome to Red Dirt Rentals.
-            </h1>
-            <p class="">
-                By <a href="https://reddirtequipment.com/">Red Dirt Outdoor Equipment</a>.
+<div class="container-fluid bg-dark py-4 text-white">
+    <h1 class="fs-1">
+        Welcome to Red Dirt Rentals
+    </h1>
+
+    <p class="fs-6">
+        By <a href="https://reddirtequipment.com/"
+           target="_blank">Red Dirt Outdoor Equipment</a>.
+    </p>
+
+    <!--About-->
+    <p class="my-4">
+        <a class="btn btn-primary py-3 w-100 shadow"
+           data-bs-toggle="collapse"
+           href="#collapseAbout"
+           role="button"
+           aria-expanded="false"
+           aria-controls="collapseAbout">
+            Read about us
+        </a>
+    </p>
+    <div class="collapse mb-4"
+         id="collapseAbout">
+        <div class="card card-body bg-dark text-light border-light">
+            <p>
+                Red Dirt Rentals is a part of the Red Dirt Road Family.
+                Located in Marianna, FL, Red Dirt Road is proud to serve the
+                panhandle and surrounding communities with excellent customer service,
+                in-house certified service and repairs and much more.
             </p>
-
-            <div class="my-5 is-flex-grow-1">
-                <a href="{{url_for('Rentals.all_rentals')}}"
-                   class="fw-lighter">
-                    See Rental Inventory
+            <p>
+                If you are interested in
+                purchasing equipment from the top industry brands, like Gravely, Spartan,
+                Mahindra, and Echo, please
+                <a href="https://www.reddirtequipment.com/"
+                   target="_blank">
+                    visit our website
                 </a>
-            </div>
-            <div class="is-flex-grow-3">
-                <p class="is-size-6 pb-3">
-                    Red Dirt Rentals is a part of the Red Dirt Road Family.
-                    Located in Marianna, FL, Red Dirt Road is proud to serve the
-                    panhandle and surrounding communities with excellent customer service,
-                    in-house certified service and repairs and much more.
-                </p>
-                <p class="is-size-6 pb-3">
-                    If you are interested in
-                    purchasing equipment from the top industry brands, like Gravely, Spartan,
-                    Mahindra, and Echo, please
-                    <a href="https://www.reddirtequipment.com/"
-                       target="_blank">
-                        visit our website
-                    </a>
-                    to see all our brands as well as current deals, packages and more.
-                </p>
-                <p class="is-size-6 pb-3">
-                    On behalf of the entire Red Dirt Road family, we thank you for you business
-                    and look forward to meeting you in person soon!
-                </p>
-            </div>
-        </div>
-        <div class="column is-half has-background-light p-5">
-            <img src="{{url_for('static', filename='res/storefront.jpg')}}">
-
+                to see all our brands as well as current deals, packages and more.
+            </p>
+            <p>
+                On behalf of the entire Red Dirt Road family, we thank you for you business
+                and look forward to meeting you in person soon!
+            </p>
         </div>
     </div>
 
-    <h1 class="title is-family-secondary has-background-info has-text-white has-text-centered p-5 my-6">
-        Our Rentals
-    </h1>
-    <div class="content mt-6">
-        <table class="table is-hoverable">
-            <thead>
-                <th></th>
-                <th>Make/Model</th>
-                <th>Rental Category</th>
-                <th>Engine Size</th>
-                <th>Deck Size</th>
-                <th>Fuel Type</th>
-                <th>Hourly Rate</th>
-                <th></th>
-            </thead>
-            <tbody>
-                {% for rental in rentals %}
-                <tr>
-                    <td>
-                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}">
-                            <figure class="image is-128x128">
-                                <image src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}">
-                            </figure>
-                        </a>
-                    </td>
-                    <td>
-                        <p>
-                            {{rental.make}} {{rental.model}}
-                        </p>
-                    </td>
-                    <td>
-                        <p>{{rental.category}}</p>
-                    </td>
-                    <td>
-                        <p>{{rental.horsepower}} for {{rental.job_category}}
-                    </td>
-                    <td>
-                        <p>{{rental.deck_size}}</p>
-                    </td>
-                    <td>
-                        <p>{{rental.fuel_type}}</p>
-                    </td>
-                    <td>
-                        $ {{'%0.2f'%rental.rate}}
-                    </td>
-                    <td>
-                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                           class="button is-outlined is-primary is-small px-3">Reserve</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!--Store Pic-->
+    <div class="container bg-light p-3 my-3 rounded">
+        <img src="{{url_for('static', filename='res/storefront.jpg')}}"
+             class="img-fluid rounded">
     </div>
 </div>
 
+<div class="container-fluid w-100 bg-primary">
+    <h1 class="fs-1 text-white text-center p-3 mb-0">
+        Our Rentals
+    </h1>
+</div>
+
+<!--Filters-->
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle w-100 py-2"
+            style="border-radius: 0px;"
+            type="button"
+            id="dropdownFilters"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+        <u>Filters</u>
+    </button>
+    <ul class="dropdown-menu w-100 shadow"
+        aria-labelledby="dropdownFilters">
+        <li class="dropdown-item fw-bold">Only Show</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Tractors</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Mowers</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Power Tools</a></li>
+        <li class="dropdown-item fw-bold">Price is less than</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 150</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 300</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">$ 500</a></li>
+        <li class="dropdown-item fw-bold">For this kind of job</li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Yard Care</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Tree Clearing/Cleaning</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Commercial</a></li>
+        <li><a class="dropdown-item ms-3"
+               href="#">Government</a></li>
+        <li><a class="dropdown-item bg-info"
+               href="#">All Rentals</a></li>
+               
+    </ul>
+</div>
+
+<!--Rental Inventory-->
+<div class="container-fluid bg-light">
+
+    {% for rental in rentals %}
+    {% if rental.is_shown == 1 %}
+    <div class="card my-3 rounded">
+        <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
+             class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
+            <div class="card-text">
+                {% if rental.is_available == 1 %}
+                <div class="row mx-1">
+                    <span class="col badge rounded-pill p-2 shadow-sm bg-success mx-0 mt-2 mb-3">
+                        Available Now
+                        <i class="fas fa-check ms-3"></i>
+                    </span>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <p class="col"><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
+                </div>
+                {% if rental.implements %}
+                <div class="row">
+                    <ul class="col list-group list-group-flush">
+                        <li class="list-group-item fw-bold">Compatible Implements</li>
+                        {% for implement in rental.implements %}
+                        <li class="list-group-item">{{implement}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="row mt-3">
+                    <p class="col">
+                        {{rental.description}}
+                    </p>
+                </div>
+                <div class="row mx-1">
+                    <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                       class="col btn btn-primary shadow-sm">
+                       <i class="fas fa-file-invoice me-3"></i>
+                       Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}

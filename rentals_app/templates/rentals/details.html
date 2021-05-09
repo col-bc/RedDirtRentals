@@ -1,129 +1,106 @@
 {% extends "base.html" %}
 {%block title %}{{rental.make}}&nbsp;{{rental.model}}{% endblock %}
 {% block content %}
-<style>
-    .fab_container {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        z-index: 999;
-    }
+<div class="container-fluid">
 
-</style>
-<div class="container is-fluid">
-
-    <div class="fab_container">
-        <a class="button box is-info is-large is-rounded is-family-secondary has-text-weight-bold"
-            href="{{url_for('checkout.reserve', r_id=rental.rental_id)}}">
-            <i class="fas fa-plus mr-4"></i>Select Rental
-        </a>
-    </div>
-
-    <div class="container is-max-desktop my-5"
-         style="border: 2px solid whitesmoke; border-radius: 4px;">
-        <div class="content p-3">
-            {% for path in rental.image_paths %}
-            <figure class="image is-4by3 m-0">
-                <img src="{{url_for('static', filename='uploads/'+path)}}">
-            </figure>
-            {% endfor %}
-            <h1 class="title is-3 is-family-secondary has-text-centered py-3 mt-3 mb-0 has-background-light">
-                <u>{{rental.make}} {{rental.model}}</u>
+    <div class="card my-3 rounded">
+        {% for path in rental.image_paths %}
+        <img src="{{url_for('static', filename='uploads/'+path)}}"
+             class="img-fluid">
+        {% endfor %}
+        <div class="card-body">
+            <h1 class="mt-3 bg-dark text-white p-3">
+                {{rental.make}} {{rental.model}}
             </h1>
 
-            <div class="columns">
-                <div class="column content my-3">
-                    <p class="is-size-4 has-family-secondary has-text-weight-bold">
-                        Rental Details
-                    </p>
-                    <table class="table is-hoverable">
-                        <tr>
-                            <td>Make</td>
-                            <td>{{rental.make}}</td>
-                        </tr>
-                        <tr>
-                            <td>Model</td>
-                            <td>{{rental.model}}</td>
-                        </tr>
-                        <tr>
-                            <td>Stock</td>
-                            <td>{{rental.stock}}</td>
-                        </tr>
-                        <tr>
-                            <td>Vehicle Type</td>
-                            <td>{{rental.category}}</td>
-                        </tr>
-                        <tr>
-                            <td>Horsepower / Engine</td>
-                            <td>{{rental.horse_power}}</td>
-                        </tr>
-                        <tr>
-                            <td>Recommended Job Size</td>
-                            <td>{{rental.job_category}}</td>
-                        </tr>
-                        <tr>
-                            <td>Deck Size <span class="is-size-7">(if applicable)</td>
-                            <td>{{rental.deck_size}}</td>
-                        </tr>
-                        <tr>
-                            <td>Drive Type</td>
-                            <td>{{rental.drive}}</td>
-                        </tr>
-                        <tr>
-                            <td>Available Now?</td>
-                            <td>
-                                {% if rental.is_available == 1 %}
-                                Yes
-                                {% else %}
-                                No
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date Available</td>
-                            <td>
-                                {% if rental.is_available == 1 %}
-                                Today
-                                {% else %}
-                                <a href="tel:8505263456">Call</a> for rental availability.
-                                {% endif %}
-                            </td>
-                        <tr>
-                            <td>Rental Cost</td>
-                            <td>$ {{'%0.2f'%rental.rate}} <span class="is-size-7">per machine hour</span></td>
-                        </tr>
-                        <tr>
-                            <td>Price Category</td>
-                            <td>{{rental.price_range}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="column my-3">
-                    <p class="is-size-4 has-family-secondary has-text-weight-bold">
-                        Other Information
-                    </p>
-                    <h1 class="is-size-6"><u>Description</u></h1>
-                    <p>{{rental.description}}</p>
-                    <hr>
-                    <h1 class="is-size-6"><u>Compatibility</u></h1>
-                    <div class="content">
-                        <p>Compatible with these implements</p>
-                        {% if rental.implements %}
-                        <ul>
-                            {% for implement in rental.implements %}
-                            <li>{{implement}}</li>
-                            {% endfor %}
-                        </ul>
+            <p class="fs-3"><u>Rental Details</u></p>
+
+            <table class="table col">
+                <tr>
+                    <td class="fw-bold">Make</td>
+                    <td>{{rental.make}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Model</td>
+                    <td>{{rental.model}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Stock</td>
+                    <td>{{rental.stock}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Vehicle Type</td>
+                    <td>{{rental.category}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Horsepower / Engine</td>
+                    <td>{{rental.horse_power}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Recommended Job Size</td>
+                    <td>{{rental.job_category}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Deck Size <span class="is-size-7">(if applicable)</td>
+                    <td>{{rental.deck_size}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Drive Type</td>
+                    <td>{{rental.drive}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Available Now?</td>
+                    <td>
+                        {% if rental.is_available == 1 %}
+                        Yes
+                        {% else %}
+                        No
                         {% endif %}
-                    </div>
-                    <hr>
-                    <h1 class="is-size-6"><u>Features</u></h1>
-                    <p>{{rental.features}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Date Available</td>
+                    <td>
+                        {% if rental.is_available == 1 %}
+                        Today
+                        {% else %}
+                        <a href="tel:8505263456">Call</a> for rental availability.
+                        {% endif %}
+                    </td>
+                <tr>
+                    <td class="fw-bold">Rental Cost</td>
+                    <td>$ {{'%0.2f'%rental.rate}} <span class="is-size-7">per machine hour</span></td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Price Category</td>
+                    <td>{{rental.price_range}}</td>
+                </tr>
+            </table>
+
+            <div class="row">
+                <div class="col">
+                    <p class="fs-3"><u>Description</u></p>
+                    <p>{{rental.description}}</p>
+
+                    <p class="fs-3"><u>Compatibility</u></p>
+                    <p class="mb-0">Compatible with these implements:</p>
+                    {% if rental.implements %}
+                    <ul class="list-group list-group-flush">
+                        {% for implement in rental.implements %}
+                        <li class="list-group-item">{{implement}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
+                <p class="fs-3"><u>Features</u></p>
+                <p>{{rental.features}}</p>
             </div>
-
-
+            <a href="{{url_for('checkout.reserve', r_id=rental.rental_id)}}"
+               class="btn btn-success w-100 shadow">Select this rental</a>
         </div>
     </div>
+</div>
+
+
 </div>
 {% endblock %}

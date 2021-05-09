@@ -16,47 +16,6 @@ $(document).ready(function () {
         $(this).parent().removeClass('is-active')
     });
 
-
-    // SITE SPECIFIC //
-    //Handle Inventory Shade
-    $('.expand-toggle').click(function () {
-        let shade = $(this).parent().parent().find('.shade')
-        let classes = shade.attr("class").split(/\s+/);
-
-        if (~classes.indexOf("is-hidden")) {
-            shade.removeClass('is-hidden');
-            $('button.expand-toggle').css("transform", "rotate(180deg)")
-        } else {
-            shade.addClass('is-hidden')
-            $('button.expand-toggle').css("transform", "rotate(0deg)")
-        }
-    });
-    //Handle Individual Shade Changes
-    $('.tab-item').click(function () {
-        $('.tabs ul li').removeClass('is-active')
-        if ($(this).hasClass('is-active')) {
-            $(this).removeClass('is-active');
-        } else {
-            $(this).addClass('is-active');
-        }
-        if ($('.tab-item.is-active').children().attr('id') == "reservations_tab") {
-            $('#inventory_tab_view').addClass('is-hidden');
-            $('#reservations_tab_view').removeClass('is-hidden');
-        } else {
-            $('#reservations_tab_view').addClass('is-hidden');
-            $('#inventory_tab_view').removeClass('is-hidden');
-        }
-    });
-    //Handle All Shade Changes
-    $('#collapse_all_inventory').click(function () {
-        $('#inventory_tab_view').find('.shade').addClass('is-hidden');
-        $('#inventory_tab_view').find('button.expand-toggle').css('transform', 'rotate(0deg)')
-    });
-    $('#show_all_inventory').click(function () {
-        $('#inventory_tab_view').find('.shade').removeClass('is-hidden')
-        $('#inventory_tab_view').find('button.expand-toggle').css('transform', 'rotate(180deg)')
-    });
-
     //Handle Implement Adder to select
     $('.implement_adder_submit').click(function () {
         let text = $('.implement_adder')
@@ -78,6 +37,35 @@ $(document).ready(function () {
     //Ensure Implement options are selected on submit
     $('form.has-implement-adder').submit(function () {
         $('.implement_target option').prop('selected', true);
+    });
+
+    // Handle Admin Tab Changes
+    // Set reservations hidden by default
+    $('#reservation_tab_content').hide();
+    $('#customer_tab_content').hide();
+    $('#inventory_tab_selector').click(function () {
+        $('#tab_root').find('.active').removeClass('active')
+        $('#inventory_active_elem').addClass('active');
+
+        $('#customer_tab_content').hide();
+        $('#reservations_tab_content').hide(); 
+        $('#inventory_tab_content').show();
+    });
+    $('#reservations_tab_selector').click(function () {
+        $('#tab_root').find('.active').removeClass('active')
+        $('#reservations_tab_selector').addClass('active');
+
+        $('#customer_tab_content').hide();
+        $('#inventory_tab_content').hide(); 
+        $('#reservation_tab_content').show();
+    });
+    $('#customer_tab_selector').click(function () { 
+        $('#tab_root').find('.active').removeClass('active')
+        $('#customer_tab_selector').addClass('active')
+
+        $('#reservation_tab_content').hide();
+        $('#inventory_tab_content').hide();  
+        $('#customer_tab_content').show();
     });
 
     //Prevent forms from being submitted when enter is pressed
