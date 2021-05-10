@@ -5,16 +5,17 @@ import datetime
 from flask import (
     Blueprint, flash, redirect, render_template, request, session, url_for, g
 )
+from rentals_app.models.user import User
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 EVENT_LOG = '/Users/colby/RedDirtRentals/events.log'
 
 @auth.before_app_request
 def fetch_current_user():
-    if g.userid is not None:
-        
+    if session.get('userid') is not None:
+        g.user = User().find_user(session.get('userid'))
     else:
-        session['status'] = 'FAILED'
+        return redirect(url_for('auth.login'))
 
 def login_required(view):
     @functools.wraps(view)
@@ -43,11 +44,6 @@ def root():
 @auth.route('/login')
 def login():
     return render_template('auth/login.html')
-
-HASH = '5b39916ae093f507183c31b11d46da9baa1305a3c27f7129eb441fa30f017bb6'
-USR = 'reddirt'
-ADMIN_USR = 'admin'
-ADMIN_HASH = 'b64154c3b86eebbe5b353f76f9f811648654172c3e7ead77d0182bdf2af1c429'
 
 @auth.route('/verify', methods=['GET', 'POST'])
 def auth_admin():
