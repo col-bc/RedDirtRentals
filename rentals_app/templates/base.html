@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+
 
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
@@ -41,62 +44,86 @@
 
 <body class="bg-light">
 
+    <div class="row bg-dark">
+        <div class="col-md-10 mx-auto">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a href="{{url_for('index.root')}}"
-               class="navbar-brand">
-                <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
-                     class="px-3">
-            </a>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a href="{{url_for('index.root')}}"
+                       class="navbar-brand">
+                        <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
+                             class="px-3">
+                    </a>
 
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#nav_main"
-                    aria-controls="nav_main"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#nav_main"
+                            aria-controls="nav_main"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-            <div class="collapse navbar-collapse"
-                 id="nav_main">
-                <ul class="navbar-nav w-100">
-                    <li class="nav-item mx-3">
-                        <a class="nav-link active"
-                           aria-current="page"
-                           href="{{ url_for('index.root') }}">Home</a>
-                    </li>
-                    <li class="nav-item px-3">
-                        <a class="nav-link"
-                           href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link"
-                           href="#">Reservations</a>
-                    </li>
-                    {% if session['status'] == 'AUTHENTICATED' %}
-                    <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                        <a class="nav-link dropdown-toggle"
-                           href="#"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            {{ session['username'] }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item"
-                                   href="{{ url_for('admin.root') }}">Manage Site</a></li>
-                            <li><a class="dropdown-item"
-                                   href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    <div class="collapse navbar-collapse"
+                         id="nav_main">
+                        <ul class="navbar-nav w-100">
+                            <li class="nav-item mx-3">
+                                <a class="nav-link active"
+                                   aria-current="page"
+                                   href="{{ url_for('index.root') }}">Home</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link"
+                                   href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link"
+                                   href="#">Reservations</a>
+                            </li>
+                            {% if g.user != None %}
+                            <li class="nav-item dropdown dropdown-dark ms-auto me-3 d-flex flex-row">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <span class="material-icons-round me-3">
+                                        account_circle
+                                    </span>
+                                    Account Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('admin.root') }}">Manage Site</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('auth.logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="nav-item dropdown dropdown-dark ms-auto me-3 d-flex flex-row">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <span class="material-icons-round me-3">
+                                        account_circle
+                                    </span>
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('admin.root') }}">Login</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('auth.logout') }}">Register</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
                         </ul>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
-
+    </div>
     {% block content %} {% endblock %}
 
     <footer class="p-3">

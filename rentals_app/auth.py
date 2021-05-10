@@ -3,16 +3,16 @@ from functools import wraps
 import hashlib
 import datetime
 from flask import (
-    Blueprint, flash, redirect, render_template, request, session, url_for, abort
+    Blueprint, flash, redirect, render_template, request, session, url_for, g
 )
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 EVENT_LOG = '/Users/colby/RedDirtRentals/events.log'
 
 @auth.before_app_request
-def check_status():
-    if session.get('status') == 'AUTHENTICATED':
-        redirect('/admin/inventory')
+def fetch_current_user():
+    if g.userid is not None:
+        
     else:
         session['status'] = 'FAILED'
 

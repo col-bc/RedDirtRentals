@@ -1,6 +1,6 @@
 import datetime
 import os
-import sqlite3
+import shutil
 
 from flask import (Blueprint, current_app, flash, redirect, render_template,
                    request, url_for, jsonify)
@@ -43,10 +43,9 @@ def inventory():
         )
 
     reservations = list(cur.execute('SELECT * FROM reservations;').fetchall())
-    customers = list(cur.execute('SELECT * FROM customers;').fetchall())
     con.close()
 
-    return render_template('admin/index.html', rentals=rentals, reservations=reservations, customers=customers)
+    return render_template('admin/index.html', rentals=rentals, reservations=reservations)
 
 
 # Render New page
@@ -178,7 +177,10 @@ def update(id):
 @admin.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete(id):
-    if Rental().find_rental(id).delete():
+    rental = Rental().find_rental(id)
+    if rental:
+        shutil.rmtree('{0}_{1}_{2/}'.format(rental.make, rental.model, rental.category))
+    if rental.delete():
         flash('Record #'+str(id)+' successfully deleted.')
         return redirect(url_for('admin.inventory'))
     else: 
@@ -201,12 +203,3 @@ def fast_add():
     finally:
         con.close()
         return redirect(url_for('admin.inventory'))
-
-
-@admin.route('/get_customer/<int:id>', methods=['GET'])
-def get_customer(id):
-    con, cur = helpers.connect_to_db()
-    result = cur.execute("SELECT * FROM customers WHERE id={};".format(id)).fetchone()
-    print(result)
-    return jsonify(result)
-
