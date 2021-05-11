@@ -9,10 +9,32 @@
           href="{{ url_for('static', filename='favicon.ico') }}">
 
 
+    <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
     <link async
           href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+    <!-- Baseline -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+          rel="stylesheet">
+
+    <!-- Outline -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+          rel="stylesheet">
+
+    <!-- Round -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round"
+          rel="stylesheet">
+
+    <!-- Sharp -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
+          rel="stylesheet">
+
+    <!-- TwoTone -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone"
           rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -22,11 +44,6 @@
     <script async
             type="text/javascript"
             src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
-
-    <!--Icons-->
-    <script async
-            src="https://kit.fontawesome.com/4c35e1f93c.js"
-            crossorigin="anonymous"></script>
 
     <!--jQuery-->
     <script defer
@@ -44,9 +61,8 @@
 
 <body class="bg-light">
 
-    <div class="row bg-dark">
+    <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
-
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a href="{{url_for('index.root')}}"
@@ -81,40 +97,41 @@
                                 <a class="nav-link"
                                    href="#">Reservations</a>
                             </li>
+                            <!--Is User Logged In?-->
                             {% if g.user != None %}
                             <li class="nav-item dropdown dropdown-dark ms-auto me-3 d-flex flex-row">
-                                <a class="nav-link dropdown-toggle"
+                                <a class="nav-link dropdown-toggle d-flex flex-column"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    Account Name
+                                    {{g.user.firstname}}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item"
-                                           href="{{ url_for('admin.root') }}">Manage Site</a></li>
+                                           href="{{ url_for('account.index') }}">My Account</a></li>
                                     <li><a class="dropdown-item"
                                            href="{{ url_for('auth.logout') }}">Logout</a></li>
                                 </ul>
                             </li>
                             {% else %}
-                            <li class="nav-item dropdown dropdown-dark ms-auto me-3 d-flex flex-row">
-                                <a class="nav-link dropdown-toggle"
+                            <li class="nav-item dropdown dropdown-dark ms-auto me-3">
+                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    Account
+                                    <span class="me-2">Account</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item"
-                                           href="{{ url_for('admin.root') }}">Login</a></li>
+                                           href="{{ url_for('auth.login') }}">Login</a></li>
                                     <li><a class="dropdown-item"
-                                           href="{{ url_for('auth.logout') }}">Register</a></li>
+                                           href="{{ url_for('auth.register') }}">Register</a></li>
                                 </ul>
                             </li>
                             {% endif %}
@@ -133,7 +150,6 @@
                  class="img-fluid">
             <p class="mt-2 mb-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
             <p class="mb-2"><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
-            <p class="mb-2"><a href="{{ url_for('auth.login') }}">Admin Login</a></p>
         </div>
     </footer>
 

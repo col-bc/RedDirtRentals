@@ -55,3 +55,20 @@ $(document).ready(function () {
     });
 
 });
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+});
+
+function toggle_password_visibility() {
+    let field = $('.password_toggle_field');
+    let icon = $('.password_toggle_indicator');
+    if (field.prop('type') === "text") {
+        field.prop('type', 'password');
+        icon.html('visibility_off');
+    } else {
+        field.prop('type', 'text');
+        icon.html('visibility');
+    }
+}

@@ -54,7 +54,7 @@ class User():
         finally:
             con.close()
 
-    def create_user(new) -> bool:
+    def create_user(self) -> bool:
         con, cur = helpers.connect_to_db()
         sql = """
         INSERT INTO users (
@@ -81,16 +81,16 @@ class User():
             {9},
         )
         """.format(
-            new.firstname,
-            new.lastname,
-            new.phonenumber,
-            new.email,
-            new.password,
-            new.groups,
-            new.address,
-            new.city,
-            new.state,
-            new.zip
+            self.firstname,
+            self.lastname,
+            self.phonenumber,
+            self.email,
+            self.password,
+            self.groups,
+            self.address,
+            self.city,
+            self.state,
+            self.zip
         )
 
         try:
