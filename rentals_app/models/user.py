@@ -143,3 +143,6 @@ class User():
             raise ex
         finally:
             con.close()
+
+    def clone(self) -> object:
+        return self

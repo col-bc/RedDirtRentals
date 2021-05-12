@@ -1,8 +1,7 @@
 import functools
 from functools import wraps
-import datetime
 from flask import (
-    Blueprint, flash, redirect, render_template, request, session, url_for, g
+    Blueprint, flash, redirect, render_template, request, session, url_for, g, Response
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from rentals_app.models.user import User
@@ -19,7 +18,6 @@ def fetch_current_user():
     else:
         g.user = User.find_user(userid)
 
-
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -28,6 +26,7 @@ def login_required(view):
 
         return view(**kwargs)
     return wrapped_view
+
 
 @auth.route('/')
 def root():
@@ -48,7 +47,6 @@ def verify():
 
     try:
         db = cur.execute(sql).fetchone()
-        print(db)
     except Exception as ex:
         flash('Username or password does not match our records.')
         print(ex)
@@ -108,6 +106,16 @@ def enroll():
                 print(ex)
                 flash('We cannot create this account right now. Please try again in a little while.')
                 return redirect(url_for('auth.register'))
+
+
+@auth.route('/change-password', methods=['GET', 'POST'])
+def change_password(userid):
+    if request.method == 'POST':
+        user = User.find_user(userid)
+        updated_user = user.clone()
+
+        updated_user.password = generate_password_hash(request.form.get('password2'))
+        return redirect(url_for('auth.logout'))
 
 
 @auth.route('/logout')

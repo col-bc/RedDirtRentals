@@ -11,11 +11,6 @@ from rentals_app.models.rental import *
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
-@admin.before_app_request
-def check_if_admin():
-    if g.user.groups != 'admin':
-        return redirect(url_for('home.index'))
-
 @admin.route('/')
 @login_required
 def root():

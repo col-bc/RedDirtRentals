@@ -1,120 +1,169 @@
 {%extends "base.html"%}
 {%block title%}All Rentals{%endblock%}
 {%block content%}
-<div class="container-fluid bg-dark text-white">
-
-    <h1 class="p-3">
-        Our Rental Inventory
-    </h1>
-    <p class="px-3 pb-3 mb-0">
-        Still not sure what's right for your job?
-        <a href="tel:8505263456"
-           class="is-link">Give us a call</a>, our experts are happy to help.
-    </p>
-
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white ms-md-3 p-3">Rental Inventory</h3>
+            <p class=" ms-md-3 px-3 pb-3 mb-0 text-white">
+                Still not sure what's right for your job?
+                <a href="tel:8505263456">Give us a call</a>,
+                our experts are happy to help.
+            </p>
+        </div>
+    </div>
 </div>
 
 <!--Filters-->
 <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle w-100 py-2"
+    <button class="btn btn-secondary dropdown-toggle w-100 py-2 d-flex flex-row align-items-center justify-content-center"
             style="border-radius: 0px;"
             type="button"
             id="dropdownFilters"
             data-bs-toggle="dropdown"
             aria-expanded="false">
-        <u>Filters</u>
+        <span class="material-icons-round me-3">
+            filter_list
+        </span>
+        <p class="fw-bold text-decoration-underline me-3 my-0">Filters</p>
     </button>
     <ul class="dropdown-menu w-100 shadow"
         aria-labelledby="dropdownFilters">
-        <li class="dropdown-item fw-bold">Only Show</li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Tractors</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Mowers</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Power Tools</a></li>
-        <li class="dropdown-item fw-bold">Price is less than</li>
-        <li><a class="dropdown-item ms-3"
-               href="#">$ 150</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">$ 300</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">$ 500</a></li>
-        <li class="dropdown-item fw-bold">For this kind of job</li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Yard Care</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Tree Clearing/Cleaning</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Commercial</a></li>
-        <li><a class="dropdown-item ms-3"
-               href="#">Government</a></li>
-        <li><a class="dropdown-item bg-primary text-white fw-bold"
-               href="#">All Rentals</a></li>
-
+        <div class="row">
+            <div class="col-md-4">
+                <li class="dropdown-item fw-bold">
+                    Only Show
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Tractors
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">Mowers
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Power Tools
+                    </a>
+                </li>
+            </div>
+            <div class="col-md-4">
+                <li class="dropdown-item fw-bold">
+                    Price is less than
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        $ 150
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        $ 300
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        $ 500
+                    </a>
+                </li>
+            </div>
+            <div class="col-md-4">
+                <li class="dropdown-item fw-bold">
+                    For this kind of job
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Yard Care
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Tree Clearing/Cleaning
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Commercial
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item ms-3"
+                       href="#">
+                        Government
+                    </a>
+                </li>
+            </div>
+        </div>
     </ul>
 </div>
 
-<!--Rentals-->
-<div class="container-fluid pb-4 px-4 bg-light">
-
-    {%for rental in rentals%}
-
-    <div class="card my-3">
-        {% for path in rental.image_paths %}
-        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}">
-            <img class="card-img-top"
-                 src="{{url_for('static', filename='uploads/'+path)}}">
-        </a>
-        {% endfor %}
-        <div class="card-body p-3">
-            <div class="d-flex flex-row align-items-center">
-                <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                   class="flex-grow-1 text-dark fs-3 fw-bold text-decoration-none">
-                    {{rental.make}} {{rental.model}}
-                </a>
-                <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                   class="">See All...</a>
+<!--Rental Inventory-->
+<div class="container mb-5">
+    <div class="row-md my-3">
+        <div class="col-md-10 mx-auto row my-3">
+            {% for rental in rentals %}
+            {% if rental.is_shown == 1 %}
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
+                         class="card-img-top img-fluid">
+                    <div class="card-body p-3 d-flex flex-column align-items-stretch">
+                        <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
+                        {% if rental.is_available == 1 %}
+                        <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
+                            <span class="material-icons-outlined me-3">
+                                check
+                            </span>
+                            <span>Available Now</span>
+                        </span>
+                        {% endif %}
+                        <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
+                        <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
+                            {% if rental.implements %}
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item fw-bold">Compatible Implements</li>
+                            {% for implement in rental.implements %}
+                            <li class="list-group-item d-flex flex-row">
+                                <span class="material-icons-round me-3">
+                                    check
+                                </span>
+                                {{implement}}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <p class="mb-1"><strong>Description:</strong></p>
+                        <p>{{rental.description}}</p>
+                        <p class="mb-1"><strong>Features:</strong></p>
+                        <p>{{rental.features}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                           class="btn btn-primary shadow-sm d-flex flex-row justify-content-center">
+                            <span class="material-icons-round me-3">
+                                read_more
+                            </span>
+                            <span>Details</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <p>
-                {{rental.category}} - {{rental.stock}}
-            </p>
-            <div class="container bg-success rounded text-white p-2 mb-3">
-                <p class="fs-4 m-0">
-                    $&nbsp;{{'%0.2f'%rental.rate}} / machine hour <span class="fs-6 fw-light">({{rental.price_range}})</span>
-                </p>
-            </div>
-            <div class="d-flex flex-row mb-3">
-                {%if rental.is_available == 1%}
-                <span class="badge bg-secondary me-2">Available Now!</span>
-                {%endif%}
-                <span class="badge bg-secondary me-2">{{rental.drive}}</span>
-                <span class="badge bg-secondary me-2">{{rental.fuel_type}}</span>
-            </div>
-            <p><strong>Engine</strong>: {{rental.horse_power}} horsepower. <span class="fs-6">Perfect for {{rental.job_category}}!</p>
-            <p><strong>Deck Size</strong>: {{rental.deck_size}}</p>
-            <p><strong>Features</strong>: {{rental.features}}</p>
-            <p><strong>Description</strong>: {{rental.description}}</p>
-            <p><strong>Compatible Implements</strong>:</p>
-                {% if rental.implements %}
-            <ul class="list-group mb-3">
-                {% for implement in rental.implements %}
-                <li class="list-group-item">{{implement}}</li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            None
             {% endif %}
-            
-            <a href="{{ url_for('Rentals.details', id=rental.rental_id)}}"
-               class="btn btn-primary w-100 py-2 fs-5">
-                <i class="fas fa-plus me-3"></i> Add to Cart
-            </a>
+            {% endfor %}
+
         </div>
     </div>
-
-    {%endfor%}
-
 </div>
 
 {%endblock%}

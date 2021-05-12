@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Account Information</h4>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex flex-row">
+                        <li class="list-group-item d-flex flex-row align-content-center">
                             <span class="material-icons-round me-3">
                                 person
                             </span>
@@ -79,7 +79,7 @@
                                 <div class="d-flex flex-column">
                                     <span>{{user.address}}</span>
                                     <span>{{user.city}}, {{user.state}} {{user.zip}}
-                            </span>
+                                    </span>
                         </li>
                         <li class="list-group-item d-flex flex-row">
                             <span class="material-icons-round me-3">
@@ -94,11 +94,63 @@
                                 vpn_key
                             </span>
                             <span class="flex-grow-1">
-                                <a href="#">Change Password</a>
+                                <button type="button"
+                                        class="btn btn-outline-dark"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ch_pwd_modal">
+                                    Change Password
+                                </button>
                             </span>
                         </li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade"
+     id="ch_pwd_modal"
+     tabindex="-1"
+     aria-labelledby="ch_pwd_modalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="ch_pwd_modalLabel">Change Password</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url_for('auth.change_password', userid=user.userid)}}"
+                      method="POST">
+                    <input type="password"
+                           name="password1"
+                           class="form-control mb-3"
+                           placeholder="Password">
+                    <input type="password"
+                           name="password2"
+                           class="form-control"
+                           placeholder="Verify Password">
+
+                    <div class="d-flex flex-row mt-3 justify-content-between">
+                        <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button class="btn btn-primary"
+                            type="submit">
+                        Change and Logout
+                    </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
