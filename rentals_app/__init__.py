@@ -21,6 +21,9 @@ app.register_blueprint(checkout.checkout)
 from . import index
 app.register_blueprint(index.index)
 
+from . import account
+app.register_blueprint(account.account)
+
 @app.errorhandler(404)
 def page_not_found(e):
     app.logger.warn(e)

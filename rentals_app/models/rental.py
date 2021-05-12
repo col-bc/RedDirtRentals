@@ -91,7 +91,6 @@ class Rental:
         try:
             result = cur.execute("SELECT * FROM inventory WHERE id='{}'"
                 .format(rental_id)).fetchone()
-            print(result)
             rental = Rental(
                         rental_id =     result[0],
                         category =      result[1],
@@ -269,7 +268,6 @@ class Rental:
             inventory
         WHERE id='{0}';
         """.format(self.rental_id)
-        print(sql)
         try:
             con, cur = helpers.connect_to_db()
             cur.execute(sql)

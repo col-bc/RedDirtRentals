@@ -17,7 +17,7 @@ def fetch_current_user():
     if userid is None:
         g.user = None
     else:
-        g.user = User().find_user(userid)
+        g.user = User.find_user(userid)
 
 
 def login_required(view):
@@ -40,17 +40,18 @@ def login():
 
 @auth.route('/login/verify', methods=['GET','POST'])
 def verify():
-    username = str(request.form.get('username')).lower()
-    password = request.form.get('passwd')
+    username = str(request.form.get('email')).lower()
+    password = request.form.get('password')
 
     cur, con = helpers.connect_to_db()
-    sql = "SELECT (id,email,password) FROM users WHERE email='{}'".format(username)
+    sql = "SELECT id,email,password FROM users WHERE email='{}'".format(username)
 
     try:
         db = cur.execute(sql).fetchone()
+        print(db)
     except Exception as ex:
-        print(ex)
         flash('Username or password does not match our records.')
+        print(ex)
         return redirect(url_for('auth.login'))
     
     if db is not None \
@@ -90,6 +91,7 @@ def enroll():
         try:
             db = cur.execute(sql).fetchone()
         except Exception as ex:
+            print(ex)
             raise ex
         finally:
             con.close()
@@ -103,6 +105,7 @@ def enroll():
                 flash('Your account has been created, please login now.')
                 return redirect(url_for('auth.login'))
             except Exception as ex:
+                print(ex)
                 flash('We cannot create this account right now. Please try again in a little while.')
                 return redirect(url_for('auth.register'))
 

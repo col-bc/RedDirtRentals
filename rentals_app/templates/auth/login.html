@@ -17,17 +17,17 @@
             <form method="POST"
                   action="{{url_for('auth.verify')}}"
                   class="card my-5 shadow-sm">
-                <div class="card-body p-4">
-                    <p class="fs-5 fw-bold">Please login to access your account.</p>
-                    <div class="container px-0 mb-5">
-                        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-                        <div class="alert alert-light border"
-                             role="alert">
-                            {{message}}
-                        </div>
-                        {% endfor %} {% else %}
-                        {% endif %} {% endwith %}
+                <div class="card-body px-4 pt-4 pb-0">
+                    <p class="fs-5 fw-bold mb-4">Please login to access your account.</p>
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        {{message}}
                     </div>
+                    {% endfor %} {% else %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        &nbsp;
+                    </div>
+                    {% endif %} {% endwith %}
 
                     <!--Email-->
                     <div class="input-group mb-4">
@@ -47,7 +47,7 @@
                     </div>
 
                     <!--Password-->
-                    <div class="input-group mb-5">
+                    <div class="input-group mb-4">
                         <span class="input-group-text">
                             <span class="material-icons-round">
                                 vpn_key
@@ -63,9 +63,17 @@
                     </div>
 
                     <button type="submit"
-                            class="btn btn-info px-5 py-2 fw-bold w-100">
+                            class="btn btn-info py-2 fw-bold w-100">
                         Login
                     </button>
+                </div>
+                <div class="card-footer pt-4 pb-4 px-4 bg-white border-white">
+                    <div class="row">
+                        <a class="card-link col text-start"
+                           href="{{url_for('auth.register')}}">Register</a>
+                        <a class="card-link col text-end"
+                           href="#">Password Help</a>
+                    </div>
                 </div>
             </form>
         </div>

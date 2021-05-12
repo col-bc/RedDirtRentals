@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
+		"workbench.editor.showTabs": true,
 		"sqltools.connections": [
 			{
 				"previewLimit": 50,

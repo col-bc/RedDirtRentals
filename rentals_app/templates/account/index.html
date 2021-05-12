@@ -1,0 +1,107 @@
+{% extends "Base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white ms-md-3 p-3">My Account</h3>
+        </div>
+    </div>
+</div>
+
+<!--Account Nav-->
+<div class="container-fluid bg-secondary">
+
+    <div class="row mx-md-3">
+        <div class="col-md-10 mx-auto my-2">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link text-white active"
+                       aria-current="page"
+                       href="#">My Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="#">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="#">Options</a>
+                </li>
+                {% if user.groups == "admin" %}
+                <li class="nav-item ms-auto">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.root')}}">Admin Dashboard</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mx-auto my-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Account Information</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                person
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.firstname}} {{user.lastname}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                alternate_email
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.email}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                phone
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.phonenumber}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                person_pin_circle
+                            </span>
+                            <span class="flex-grow-1">
+                                <div class="d-flex flex-column">
+                                    <span>{{user.address}}</span>
+                                    <span>{{user.city}}, {{user.state}} {{user.zip}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                group_work
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.groups}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                vpn_key
+                            </span>
+                            <span class="flex-grow-1">
+                                <a href="#">Change Password</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

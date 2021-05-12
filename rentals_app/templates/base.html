@@ -100,14 +100,14 @@
                             <!--Is User Logged In?-->
                             {% if g.user != None %}
                             <li class="nav-item dropdown dropdown-dark ms-auto me-3 d-flex flex-row">
-                                <a class="nav-link dropdown-toggle d-flex flex-column"
+                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    {{g.user.firstname}}
+                                    <span class="me-2">{{g.user.firstname}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item"

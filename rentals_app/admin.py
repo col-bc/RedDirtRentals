@@ -3,13 +3,18 @@ import os
 import shutil
 
 from flask import (Blueprint, current_app, flash, redirect, render_template,
-                   request, url_for, jsonify)
+                   request, url_for, g)
 
 import rentals_app.helpers as helpers
 from rentals_app.auth import login_required
 from rentals_app.models.rental import *
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
+
+@admin.before_app_request
+def check_if_admin():
+    if g.user.groups != 'admin':
+        return redirect(url_for('home.index'))
 
 @admin.route('/')
 @login_required

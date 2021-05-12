@@ -3,8 +3,12 @@
 {% block title %}Admin | Inventory{% endblock %}
 <!---->
 {% block content %}
-<div class="container-fluid bg-dark text-light p-4">
-    <h3 class="">Administration Dashboard</h3>
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white ms-md-3 p-3">Manage Site</h3>
+        </div>
+    </div>
 </div>
 
 {{rental}}
@@ -18,47 +22,48 @@
 </div>
 
 <!--Tab Selector-->
-<div class="container-fluid p-3 border-bottom shadow-sm">
-    <ul class="nav nav-pills nav-fill"
-        id="tab_root">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active"
-               data-bs-toggle="dropdown"
-               id="inventory_active_elem"
-               role="button"
-               aria-expanded="false">
-                <i class="fas fa-tractor me-3"></i>
-                Inventory
-            </a>
-            <ul class="dropdown-menu shadow-sm w-100">
-                <li>
-                    <a class="dropdown-item"
-                       id="inventory_tab_selector"
-                       href="#">Manage</a>
+<div class="container-fluid p-3 bg-secondary shadow-sm">
+    <div class="row row mx-md-3">
+        <div class="col-md-10 mx-auto">
+            <ul class="nav nav-pills"
+                id="tab_root">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active text-white"
+                       data-bs-toggle="dropdown"
+                       id="inventory_active_elem"
+                       role="button"
+                       aria-expanded="false">
+                        Inventory
+                    </a>
+                    <ul class="dropdown-menu shadow-sm w-100">
+                        <li>
+                            <a class="dropdown-item"
+                               id="inventory_tab_selector"
+                               href="#">Manage</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.new') }}">Add</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a class="dropdown-item"
-                       href="{{ url_for('admin.new') }}">Add</a>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="#"
+                       id="reservations_tab_selector">
+                        Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       id="customer_tab_selector"
+                       href="#">
+                        Customers
+                    </a>
                 </li>
             </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               href="#"
-               id="reservations_tab_selector">
-                <i class="fas fa-calendar-check me-3"></i>
-                Reservations
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               id="customer_tab_selector"
-               href="#">
-                <i class="fas fa-users me-4"></i>
-                Customers
-            </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
 
 <div class="container p-3 mb-3"
