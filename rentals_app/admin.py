@@ -125,6 +125,7 @@ def details(id):
 @login_required
 def update(id):
     rental = Rental()
+    print("Shown is: "+request.form.get('is_available'))
     if request.method == 'POST':
         rental.category =       request.form.get('category')
         rental.make =           request.form.get('make')
@@ -138,11 +139,11 @@ def update(id):
         rental.drive =          request.form.get('drive')
         rental.job_category =   request.form.get('job_category')
         rental.price_range =    request.form.get('price_range')
-        rental.is_available =   1 if request.form.get('is_available') == 'Yes' else 0
+        rental.is_available =   1 if request.form.get('is_available') == 'on' else 0
         rental.available_on =   datetime.datetime.strptime(request.form.get('available_on'), '%Y-%m-%d').date()
         rental.rented_by =      request.form.get('rented_by')
         rental.rent_queue =     request.form.get('rent_queue')
-        rental.is_shown =       1 if request.form.get('is_shown') == 'Yes' else 0
+        rental.is_shown =       1 if request.form.get('is_shown') == 'on' else 0
         rental.description =    request.form.get('description')
         rental.features =       request.form.get('features')
 
