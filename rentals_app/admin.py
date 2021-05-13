@@ -6,19 +6,21 @@ from flask import (Blueprint, current_app, flash, redirect, render_template,
                    request, url_for, g)
 
 import rentals_app.helpers as helpers
-from rentals_app.auth import login_required
+from rentals_app.auth import login_required, admin_only
 from rentals_app.models.rental import *
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/')
 @login_required
+@admin_only
 def root():
     return redirect(url_for('admin.inventory'))
 
 # Render index page
 @admin.route('/inventory')
 @login_required
+@admin_only
 def inventory():
     con, cur = helpers.connect_to_db()
     ids = list(cur.execute("SELECT id FROM inventory;").fetchall())
@@ -51,6 +53,7 @@ def inventory():
 # Render New page
 @admin.route('/new')
 @login_required
+@admin_only
 def new():
     return render_template('admin/new.html')
 
@@ -59,6 +62,7 @@ def new():
 # - CREATE
 @admin.route('/new/create/', methods=['POST', 'GET'])
 @login_required
+@admin_only
 def create():
     rental = Rental()
     if request.method == 'POST':
@@ -107,6 +111,7 @@ def create():
 # CRUD - READ
 @admin.route('/details/<int:id>')
 @login_required
+@admin_only
 def details(id):
     rental = Rental().find_rental(rental_id=id)
     rental.image_paths = list(
@@ -123,6 +128,7 @@ def details(id):
 # CRUD - UPDATE
 @admin.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
+@admin_only
 def update(id):
     rental = Rental()
     print("Shown is: "+request.form.get('is_available'))
@@ -177,6 +183,7 @@ def update(id):
 # CRUD - DELETE
 @admin.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
+@admin_only
 def delete(id):
     rental = Rental().find_rental(id)
     if rental:
@@ -191,6 +198,7 @@ def delete(id):
 # Run sql from browser, if permitted by group
 @admin.route('/new/fast_add', methods=['GET','POST'])
 @login_required
+@admin_only
 def fast_add():
     print('Executing admin sql query\n{0}'.format(request.form.get('sql_query')))
     helpers.log_event('[{0}] Admin executed sql from {1}\n'.format(datetime.datetime.now(), request.remote_addr))

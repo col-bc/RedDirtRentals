@@ -27,6 +27,18 @@ def login_required(view):
         return view(**kwargs)
     return wrapped_view
 
+def admin_only(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        if g.user is not None and g.user.group != 'admin':
+            session.clear()
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+    return wrapped_view
+
 
 @auth.route('/')
 def root():

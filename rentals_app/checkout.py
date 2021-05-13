@@ -7,6 +7,7 @@ from flask import (
     request
 )
 import rentals_app.helpers as helpers
+from rentals_app.auth import login_required
 from uuid import uuid1
 
 checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
@@ -17,6 +18,7 @@ def index():
 
 
 @checkout.route('/<int:r_id>/reserve')
+@login_required
 def reserve(r_id):
     if r_id is not None and r_id >= 0:
         return redirect(url_for('checkout.contact', r_id=r_id))
