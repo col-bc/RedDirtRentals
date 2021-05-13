@@ -40,12 +40,81 @@
 
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-11 mx-auto my-4">
-            <div class="card shadow-sm">
+<div class="container-fluid">
+    <div class="row mx-3">
+        <div class="col-md-10 mx-auto my-4">
+
+            <!--Account Index-->
+            <div class="card shadow-sm"
+                 id="account_tab">
                 <div class="card-body">
                     <h4 class="card-title">Account Information</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex flex-row align-content-center">
+                            <span class="material-icons-round me-3">
+                                person
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.firstname}} {{user.lastname}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                alternate_email
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.email}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                phone
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.phonenumber}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                person_pin_circle
+                            </span>
+                            <span class="flex-grow-1">
+                                <div class="d-flex flex-column">
+                                    <span>{{user.address}}</span>
+                                    <span>{{user.city}}, {{user.state}} {{user.zip}}
+                                    </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                group_work
+                            </span>
+                            <span class="flex-grow-1">
+                                {{user.groups}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex flex-row">
+                            <span class="material-icons-round me-3">
+                                vpn_key
+                            </span>
+                            <span class="flex-grow-1">
+                                <button type="button"
+                                        class="btn btn-outline-dark"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ch_pwd_modal">
+                                    Change Password
+                                </button>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--Reservations-->
+            <div class="card shadow-sm"
+                 style="display:none;"
+                 id="reservations_tab">
+                <div class="card-body">
+                    <h4 class="card-title">Reservations</h4>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex flex-row align-content-center">
                             <span class="material-icons-round me-3">
@@ -141,14 +210,14 @@
 
                     <div class="d-flex flex-row mt-3 justify-content-between">
                         <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button class="btn btn-primary"
-                            type="submit">
-                        Change and Logout
-                    </button>
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="btn btn-primary"
+                                type="submit">
+                            Change and Logout
+                        </button>
                     </div>
                 </form>
             </div>

@@ -8,7 +8,7 @@ from rentals_app.models.user import User
 import rentals_app.helpers as helpers
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
-EVENT_LOG = '/Users/colby/RedDirtRentals/events.log'
+
 
 @auth.before_app_request
 def fetch_current_user():
@@ -32,7 +32,7 @@ def admin_only(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
-        if g.user is not None and g.user.group != 'admin':
+        if g.user is not None and g.user.groups != 'admin':
             session.clear()
             return redirect(url_for('auth.login'))
 
@@ -89,7 +89,7 @@ def enroll():
             email=request.form.get('email'),
             password=generate_password_hash(request.form.get('password')),
             groups='user',
-            address='{0}\n{1}'.format(request.form.get('address1'), request.form.get('address2')),
+            address='{0} {1}'.format(request.form.get('address1'), request.form.get('address2') if request.form.get('address2') is not None else ''),
             city=request.form.get('city'),
             state=request.form.get('state'),
             zip=request.form.get('zip')

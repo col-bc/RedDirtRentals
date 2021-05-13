@@ -13,16 +13,22 @@
 
 {{rental}}
 
-<div class="container">
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <div class="alert alert-light">
-        <p>{{ message }}</p>
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="container">
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <div class="alert alert-light">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+        </div>
     </div>
-    {% endfor %} {% endif %} {% endwith %}
 </div>
 
 <!--Tab Selector-->
-<div class="container-fluid p-3 bg-secondary shadow-sm">
+<div class="container-fluid p-2 bg-secondary shadow-sm">
     <div class="row row mx-md-3">
         <div class="col-md-10 mx-auto">
             <ul class="nav nav-pills"
@@ -66,127 +72,125 @@
     </div>
 </div>
 
-<div class="container p-3 mb-3"
+<div class="container-fluid p-3 mb-3"
      id="inventory_tab_content">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
 
-    <!--Search Form-->
-    <div class="container mt-3 mb-5">
-        <form action=""
-              method="">
-            <input class="form-control"
-                   type="text"
-                   name="inventory_query "
-                   placeholder="Search Inventory">
-        </form>
-    </div>
+            {% for rental in rentals %}
 
-    {% for rental in rentals %}
+            <div class="card shadow-sm my-3"
+                 id="inventory-panel-{{ rental.rental_id }}">
 
-    <div class="card my-3"
-         id="inventory-panel-{{ rental.rental_id }}">
+                <!--Card Header-->
+                <div class="card-header bg-white d-flex flex-row p-3">
+                    <div class="container">
+                        <h5 class="card-title">
+                            {{ rental.make }} {{ rental.model }}
+                        </h5>
+                        <p class="card-subtitle ff-primary text-muted">{{rental.category}}-{{rental.stock}}</p>
+                    </div>
 
-        <!--Panel Header-->
-        <div class="card-header d-flex flex-row p-3">
-            <div class="container">
-                <h5 class="card-title">
-                    {{ rental.make }} {{ rental.model }}
-                </h5>
-                <p class="card-subtitle ff-primary text-muted">{{rental.category}}-{{rental.stock}}</p>
+                    <a class="btn btn-outline-dark d-flex flex-column align-items-center p-2 mx-1 "
+                       href="{{ url_for( 'admin.details', id=rental.rental_id) }} ">
+                        <span class="material-icons-round">
+                            edit_note
+                        </span>
+                        Manage
+                    </a>
+                    <a class="btn btn-outline-dark d-flex flex-column align-items-center p-2 mx-1"
+                       data-bs-toggle="collapse"
+                       href="#collapse_rental_{{rental.rental_id}}"
+                       aria-expanded="false"
+                       aria-controls="collapse_rental_{{rental.rental_id}}">
+                        <span class="material-icons-round">
+                            expand_more
+                        </span>
+                        Expand
+                    </a>
+                </div>
+
+                <div class="collapse card-body"
+                     id="collapse_rental_{{rental.rental_id}}">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ID:</strong>&nbsp;{{ rental.rental_id }}</li>
+                        <li class="list-group-item"><strong>Category: &nbsp;</strong> {{ rental.category }}</li>
+                        <li class="list-group-item"><strong>Stock: &nbsp;</strong> {{ rental.stock }}</li>
+                        <li class="list-group-item"><strong>Fuel Type: &nbsp;</strong> {{ rental.fuel_type }}</li>
+                        <li class="list-group-item"><strong>Horsepower: &nbsp;</strong> {{ rental.horse_power }}</li>
+                        <li class="list-group-item"><strong>Implements: &nbsp;</strong> {{ rental.implements }} </li>
+                        <li class="list-group-item"><strong>Deck Size: &nbsp;</strong> {{ rental.deck_size }}</li>
+                        <li class="list-group-item"><strong>Drive Type: &nbsp;</strong> {{ rental.drive }}</li>
+                        <li class="list-group-item"><strong>Rate: &nbsp;</strong> ${{ '%0.2f'%rental.rate[0] }}</li>
+                        <li class="list-group-item"><strong>Images: &nbsp;</strong>
+                            {% if rental.image_paths != 'None' %}
+                            {% for path in rental.image_paths %}
+                            <a href="{{url_for('static', filename='uploads/'+path)}}"
+                               target="_blank">{{path}}</a>
+                            {% endfor %}
+                            {% else %}
+                            <span>None</span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item"><strong>Job Category: &nbsp;</strong> {{ rental.job_category }}</li>
+                        <li class="list-group-item"><strong>Price Range: &nbsp;</strong> {{ rental.price_range }}</li>
+                        <li class="list-group-item"><strong>Available for Rent: &nbsp;</strong>
+                            {% if rental.is_available == 1 %}
+                            Yes <i class="fas fa-check ml-3"></i>
+                            {% else %}
+                            No <i class="fas fa-times ml-3"></i>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item"><strong>Available On: &nbsp;</strong> {{ rental.available_on }}</li>
+                        <li class="list-group-item"><strong>Rented By: &nbsp;</strong> {{ rental.rented_by }}</li>
+                        <li class="list-group-item"><strong>Rent Queue: &nbsp;</strong> {{ rental.rent_queue }}</li>
+                        <li class="list-group-item"><strong>Customer Viewable: &nbsp;</strong>
+                            {% if rental.is_shown == 1 %}
+                            Yes <i class="fas fa-check ml-3"></i>
+                            {% else %}
+                            No <i class="fas fa-times ml-3"></i>
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                </div>
+
             </div>
 
-            <a class="btn btn-outline-dark d-flex flex-column align-items-center p-2 mx-1 "
-               href="{{ url_for( 'admin.details', id=rental.rental_id) }} ">
-                <i class="fas fa-cog"></i>Manage
-            </a>
-            <a class="btn btn-outline-dark d-flex flex-column align-items-center p-2 mx-1"
-               data-bs-toggle="collapse"
-               href="#collapse_rental_{{rental.rental_id}}"
-               aria-expanded="false"
-               aria-controls="collapse_rental_{{rental.rental_id}}">
-                <i class="fas fa-chevron-down"></i>
-                Expand
-            </a>
+            {% endfor %}
         </div>
 
-        <div class="collapse card-body"
-             id="collapse_rental_{{rental.rental_id}}">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>ID:</strong>&nbsp;{{ rental.rental_id }}</li>
-                <li class="list-group-item"><strong>Category: &nbsp;</strong> {{ rental.category }}</li>
-                <li class="list-group-item"><strong>Stock: &nbsp;</strong> {{ rental.stock }}</li>
-                <li class="list-group-item"><strong>Fuel Type: &nbsp;</strong> {{ rental.fuel_type }}</li>
-                <li class="list-group-item"><strong>Horsepower: &nbsp;</strong> {{ rental.horse_power }}</li>
-                <li class="list-group-item"><strong>Implements: &nbsp;</strong> {{ rental.implements }} </li>
-                <li class="list-group-item"><strong>Deck Size: &nbsp;</strong> {{ rental.deck_size }}</li>
-                <li class="list-group-item"><strong>Drive Type: &nbsp;</strong> {{ rental.drive }}</li>
-                <li class="list-group-item"><strong>Rate: &nbsp;</strong> ${{ '%0.2f'%rental.rate[0] }}</li>
-                <li class="list-group-item"><strong>Images: &nbsp;</strong>
-                    {% if rental.image_paths != 'None' %}
-                    {% for path in rental.image_paths %}
-                    <a href="{{url_for('static', filename='uploads/'+path)}}"
-                       target="_blank">{{path}}</a>
-                    {% endfor %}
-                    {% else %}
-                    <span>None</span>
-                    {% endif %}
-                </li>
-                <li class="list-group-item"><strong>Job Category: &nbsp;</strong> {{ rental.job_category }}</li>
-                <li class="list-group-item"><strong>Price Range: &nbsp;</strong> {{ rental.price_range }}</li>
-                <li class="list-group-item"><strong>Available for Rent: &nbsp;</strong>
-                    {% if rental.is_available == 1 %}
-                    Yes <i class="fas fa-check ml-3"></i>
-                    {% else %}
-                    No <i class="fas fa-times ml-3"></i>
-                    {% endif %}
-                </li>
-                <li class="list-group-item"><strong>Available On: &nbsp;</strong> {{ rental.available_on }}</li>
-                <li class="list-group-item"><strong>Rented By: &nbsp;</strong> {{ rental.rented_by }}</li>
-                <li class="list-group-item"><strong>Rent Queue: &nbsp;</strong> {{ rental.rent_queue }}</li>
-                <li class="list-group-item"><strong>Customer Viewable: &nbsp;</strong>
-                    {% if rental.is_shown == 1 %}
-                    Yes <i class="fas fa-check ml-3"></i>
-                    {% else %}
-                    No <i class="fas fa-times ml-3"></i>
-                    {% endif %}
-                </li>
-            </ul>
-            <a href="{{ url_for( 'admin.details', id=rental.rental_id) }}"
-               class="card-link">Manage</a>
+        <div id="reservation_tab_content"
+             class="container">
+
+            {% for reservation in reservations %}
+
+            {%set cust_id = reservation[2]%}
+            {% for customer in customers %}
+            {% if cust_id == customer[0] %}
+            {% set cust = customer %}
+            <div class="card my-3 p-3">
+                <h4 class="card-title">{{cust[1]}} {{cust[2]}}</h4>
+                <div class="card-body">
+                    <p>{{cust[0]}}</p>
+                    <p>{{cust[3]}}</p>
+                    <p>{{cust[4]}}</p>
+                    <p>{{cust[5]}}</p>
+                    <p>{{cust[6]}}</p>
+                    <p>{{cust[7]}}</p>
+                </div>
+            </div>
+            {%endif%}
+            {% endfor %}
+
+
+            {%endfor%}
+        </div>
+
+        <div class="container p-3 mb-3"
+             id="customer_tab_content">
+            <h3>Customers</h3>
         </div>
     </div>
-
-    {% endfor %}
-</div>
-
-<div id="reservation_tab_content"
-     class="container">
-
-    {% for reservation in reservations %}
-
-    {%set cust_id = reservation[2]%}
-    {% for customer in customers %}
-    {% if cust_id == customer[0] %}
-    {% set cust = customer %}
-    <div class="card my-3 p-3">
-        <h4 class="card-title">{{cust[1]}} {{cust[2]}}</h4>
-        <div class="card-body">
-            <p>{{cust[0]}}</p>
-            <p>{{cust[3]}}</p>
-            <p>{{cust[4]}}</p>
-            <p>{{cust[5]}}</p>
-            <p>{{cust[6]}}</p>
-            <p>{{cust[7]}}</p>
-        </div>
-    </div>
-    {%endif%}
-    {% endfor %}
-
-
-    {%endfor%}
-</div>
-
-<div class="container p-3 mb-3"
-     id="customer_tab_content">
-    <h3>Customers</h3>
 </div>
 {% endblock %}

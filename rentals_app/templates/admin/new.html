@@ -3,14 +3,21 @@
 {% block title %}New | Admin{% endblock %}
 <!---->
 {% block content %}
-<div class="container-fluid bg-dark text-white p-4 d-flex flex-row">
-    <h3 class="flex-grow-1">New Rental</h3>
+<div class="container-fluid bg-dark">
+    <div class="row p-3">
+        <div class="col-md-10 mx-auto d-flex flex-row align-items-center">
+            <h3 class="flex-grow-1 text-white">New Rental</h3>
 
-    <a href="{{ url_for('admin.inventory') }}"
-       class="btn btn-outline-light btn-small">
-        <i class="fas fa-arrow-left me-3"></i> Cancel
-    </a>
+            <a href="{{ url_for('admin.inventory') }}"
+               class="btn btn-outline-light btn-small d-flex flex-row align-items-center">
+                <span class="material-icons-round me-3">
+                    cancel
+                </span>
+                Cancel
+            </a>
 
+        </div>
+    </div>
 </div>
 
 <!--Flashes-->

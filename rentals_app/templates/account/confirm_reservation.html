@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Login | Admin{% endblock %}
+<!---->
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 text-white mx-auto">
+            <h3 class="ms-md-3 p-3">Your Account</h3>
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-white border-bottom">
+    <div class="row">
+        <div class="col-md-10 mx-auto ps-md-5 justify-content-center py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">Reservations</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+
+            <div class="card shadow-sm my-4">
+                <div class="card-body text-center p-4">
+                    <h3 class="card-title">You're all set!</h3>
+
+                    <div class="container">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_fyafbxmz.json"
+                                       background="transparent"
+                                       speed="1"
+                                       class="mx-auto"
+                                       style="width: 300px; height: 300px;"
+                                       autoplay></lottie-player>
+                    </div>
+
+                    <p class="mb-0">Your reservation ID is:</p>
+                    <p><strong>{{conf_no}}</strong></p>
+                    <strong>Next Steps:</strong>
+                    <p class="fw-light">
+                        Take note of this number, you'll need to reference it if you call.
+                        Please wait for us to contact you to confirm availability and dates.
+                        Please allow 2-3 business days before calling the store to check your status.
+                    </p>
+                    <a onclick="print();"
+                       class="text-start d-flex flex-row align-items-center text-decoration-none"
+                       href="#">
+                        <span class="material-icons-round me-3 text-dark">
+                            print
+                        </span>
+                        <span class="text-dark text-decoration-underline">Print</span>
+                    </a>
+                </div>
+                <div class="card-footer px-4">
+                    <a onclick="print();"
+                       class="d-flex flex-row align-items-center text-decoration-none"
+                       href="#">
+                        <span class="material-icons-round me-3 text-dark">
+                            account_circle
+                        </span>
+                        <span class="text-decoration-underline">Back to my account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

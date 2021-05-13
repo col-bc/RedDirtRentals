@@ -1,98 +1,29 @@
-from flask import (
-    Blueprint,
-    render_template,
-    url_for,
-    redirect,
-    flash,
-    request
-)
-import rentals_app.helpers as helpers
-from rentals_app.auth import login_required
 from uuid import uuid1
 
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   url_for)
+
+import rentals_app.helpers as helpers
+from rentals_app.auth import login_required
+
 checkout = Blueprint('checkout', __name__, url_prefix='/checkout')
+
+
 
 @checkout.route('/')
 def index():
     return redirect(url_for('checkout.reserve', r_id=0))
 
 
-@checkout.route('/<int:r_id>/reserve')
-@login_required
-def reserve(r_id):
-    if r_id is not None and r_id >= 0:
-        return redirect(url_for('checkout.contact', r_id=r_id))
-    else:
-        return redirect(url_for('Rentals.all_rentals'))
+# @checkout.route('/<int:r_id>/reserve')
+# def reserve(r_id):
+#     if g.user is None:
+#         return redirect(url_for('auth.register'), next='')
 
 
-@checkout.route('/<int:r_id>/contact')
-def contact(r_id):
-    return render_template('checkout/contact.html', r_id=r_id)
-
-
-@checkout.route('/<int:r_id>/create_customer', methods=['POST'])
-def create_customer(r_id):
-    if r_id is not None and r_id >= 0:
-        con, cur = helpers.connect_to_db()
-
-        data = {
-            "firstname": request.form.get('firstname'),
-            "lastname": request.form.get('lastname'),
-            "email": request.form.get('email'),
-            "phonenumber": request.form.get('phonenumber'),
-            "address": request.form.get('address')+' '+request.form.get('address2'),
-            "city": request.form.get('city'),
-            "state": request.form.get('state'),
-            "zip": request.form.get('zip')
-        }
-
-        sql = """
-        INSERT INTO customers (
-            firstname,
-            lastname,
-            email,
-            phonenumber,
-            address,
-            city,
-            state,
-            zip
-        )
-        VALUES (
-            '{0}',
-            '{1}',
-            '{2}',
-            '{3}',
-            '{4}',
-            '{5}',
-            '{6}',
-            '{7}'
-        );
-        """.format(data['firstname'], data['lastname'], data['email'], data['phonenumber'],
-            data['address'], data['city'], data['state'], data['zip'])
-
-        try:
-            cur.execute(sql)
-            con.commit()
-            fetched_id = cur.execute("""
-            SELECT 
-                id 
-            FROM 
-                customers 
-            
-            WHERE 
-                firstname='{0}' AND
-                lastname='{1}' AND
-                phonenumber='{2}';
-            """.format(data['firstname'], data['lastname'], data['phonenumber'])).fetchone()
-            print(fetched_id)
-            return redirect(url_for('checkout.dates', r_id=r_id, c_id=fetched_id[0]))
-        except Exception as ex:
-            raise ex
-    
-    else:
-        flash('Please select a rental first.')
-        return redirect(url_for('Rentals.all_rentals'))
+# @checkout.route('/<int:r_id>/contact')
+# def contact(r_id):
+#     return render_template('checkout/contact.html', r_id=r_id)
 
 
 @checkout.route('/<int:r_id>/<int:c_id>/dates/')

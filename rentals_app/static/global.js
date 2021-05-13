@@ -42,25 +42,20 @@ $(document).ready(function () {
             field.focus();
         }
     });
+    // Clear Implement Adder list
     $('.ia_clear').click(function () {
         $(this).parent().find('ul').empty();
-     });
-
-    //Prevent forms from being submitted when enter is pressed
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-        }
     });
 
 });
 
+// Handle tooltips
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
+    return new bootstrap.Tooltip(tooltipTriggerEl)
 });
 
+// Handle password visibility
 function toggle_password_visibility() {
     let field = $('.password_toggle_field');
     let icon = $('.password_toggle_indicator');

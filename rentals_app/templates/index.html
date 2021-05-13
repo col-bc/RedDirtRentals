@@ -13,13 +13,13 @@
 
                 <p class="fs-6">
                     By <a href="https://reddirtequipment.com/"
-                       class="text-white"
+                       class="fw-light"
                        target="_blank">Red Dirt Outdoor Equipment</a>.
                 </p>
 
                 <!--About-->
                 <p class="my-4">
-                    <a class="btn btn-primary py-3 w-100 shadow d-flex flex-row justify-content-center"
+                    <a class="btn btn-outline-danger border-2 py-3 w-100 fw-bold d-flex flex-row justify-content-center"
                        data-bs-toggle="collapse"
                        href="#collapseAbout"
                        role="button"
@@ -31,9 +31,9 @@
                         </span>
                     </a>
                 </p>
-                <div class="collapse mb-4"
+                <div class="collapse border border-danger rounded border-2 mb-4"
                      id="collapseAbout">
-                    <div class="card card-body bg-dark text-light border-light">
+                    <div class="p-3">
                         <p>
                             Red Dirt Rentals is a part of the Red Dirt Road Family.
                             Located in Marianna, FL, Red Dirt Road is proud to serve the
@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<div class="container-fluid w-100 bg-primary">
+<div class="container-fluid w-100 bg-danger">
     <h1 class="fs-1 text-white text-center p-3 mb-0">
         Our Rentals
     </h1>
@@ -116,107 +116,59 @@
 
 <!--Rental Inventory-->
 <div class="container mb-5">
-    <div class="row-md my-3">
-        <div class="col-md-10 mx-auto row my-3">
-            {% for rental in rentals %}
-            {% if rental.is_shown == 1 %}
-            <div class="col-md-6">
-                <div class="card shadow-sm h-100">
-                    <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
-                         class="card-img-top img-fluid">
-                    <div class="card-body p-3 d-flex flex-column align-items-stretch">
-                        <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
-                        {% if rental.is_available == 1 %}
-                        <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
-                            <span class="material-icons-outlined me-3">
-                                check
-                            </span>
-                            <span>Available Now</span>
-                        </span>
-                        {% endif %}
-                        <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
-                        <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
-                            {% if rental.implements %}
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item fw-bold">Compatible Implements</li>
-                            {% for implement in rental.implements %}
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
+    <div class="row">
+        <div class="col-md-10 mx-auto my-3">
+            <div class="row">
+                {% for rental in rentals %}
+                {% if rental.is_shown == 1 %}
+                <div class="col-md my-3">
+                    <div class="card shadow-sm h-100">
+                        <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
+                             class="card-img-top img-fluid">
+                        <div class="card-body p-3 d-flex flex-column align-items-stretch">
+                            <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
+                            {% if rental.is_available == 1 %}
+                            <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
+                                <span class="material-icons-outlined me-3">
                                     check
                                 </span>
-                                {{implement}}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        <p class="mb-1"><strong>Description:</strong></p>
-                        <p>{{rental.description}}</p>
-                        <p class="mb-1"><strong>Features:</strong></p>
-                        <p>{{rental.features}}</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                           class="btn btn-primary shadow-sm d-flex flex-row justify-content-center">
-                            <span class="material-icons-round me-3">
-                                read_more
+                                <span>Available Now</span>
                             </span>
-                            <span>Details</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-            {% for rental in rentals %}
-            {% if rental.is_shown == 1 %}
-            <div class="col-md-6">
-                <div class="card shadow-sm h-100 my-3">
-                    <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
-                         class="card-img-top img-fluid">
-                    <div class="card-body p-3 d-flex flex-column align-items-stretch">
-                        <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
-                        {% if rental.is_available == 1 %}
-                        <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
-                            <span class="material-icons-outlined me-3">
-                                check
-                            </span>
-                            <span>Available Now</span>
-                        </span>
-                        {% endif %}
-                        <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
-                        <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
-                            {% if rental.implements %}
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item fw-bold">Compatible Implements</li>
-                            {% for implement in rental.implements %}
-                            <li class="list-group-item d-flex flex-row">
+                            {% endif %}
+                            <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
+                            <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
+                                {% if rental.implements %}
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item fw-bold">Compatible Implements</li>
+                                {% for implement in rental.implements %}
+                                <li class="list-group-item d-flex flex-row">
+                                    <span class="material-icons-round me-3">
+                                        check
+                                    </span>
+                                    {{implement}}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <p class="mb-1"><strong>Description:</strong></p>
+                            <p>{{rental.description}}</p>
+                            <p class="mb-1"><strong>Features:</strong></p>
+                            <p>{{rental.features}}</p>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
+                               class="btn btn-outline-danger border-2 fw-bold d-flex flex-row justify-content-center">
                                 <span class="material-icons-round me-3">
-                                    check
+                                    read_more
                                 </span>
-                                {{implement}}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        <p class="mb-1"><strong>Description:</strong></p>
-                        <p>{{rental.description}}</p>
-                        <p class="mb-1"><strong>Features:</strong></p>
-                        <p>{{rental.features}}</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                           class="btn btn-primary shadow-sm d-flex flex-row justify-content-center">
-                            <span class="material-icons-round me-3">
-                                read_more
-                            </span>
-                            <span>Details</span>
-                        </a>
+                                <span>Details</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
 
         </div>
     </div>

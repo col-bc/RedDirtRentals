@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
+
+    <!--Favicon-->
     <link rel="shortcut icon"
           href="{{ url_for('static', filename='favicon.ico') }}">
-
 
     <!--Fonts-->
     <link rel="preconnect"
@@ -37,19 +38,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone"
           rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          href="{{url_for('static', filename='global.css')}}">
-    <!--Bootstrap JS-->
-    <script async
-            type="text/javascript"
-            src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
-
     <!--jQuery-->
     <script defer
             src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='global.css')}}">
+
+    <!--Bootstrap JS-->
+    <script async
+            type="text/javascript"
+            src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
 
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
@@ -95,7 +97,7 @@
                             </li>
                             <li class="nav-item mx-3">
                                 <a class="nav-link"
-                                   href="#">Reservations</a>
+                                   href="{{url_for('account.reservations', id=None)}}">Reservations</a>
                             </li>
                             <!--Is User Logged In?-->
                             {% if g.user != None %}
@@ -141,6 +143,7 @@
             </nav>
         </div>
     </div>
+
     {% block content %} {% endblock %}
 
     <footer class="p-3">

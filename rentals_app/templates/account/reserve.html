@@ -1,0 +1,174 @@
+{% extends "Base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white ms-md-3 p-3">My Account</h3>
+        </div>
+    </div>
+</div>
+
+<!--Account Nav-->
+<div class="container-fluid bg-secondary">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <p class="text-white ms-md-4 p-2 m-0 fw-bold">We'll import your information from your account.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mx-md-4">
+        <div class="col-md-10 mx-auto my-4">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title">Make a Reservation</h3>
+                    <form action="{{url_for('account.make_reservation', r_id=rental_id)}}"
+                          method="POST">
+
+                        <p class="form-text mb-3">
+                            This is automatically filled from your account details.
+                            If you'd like to update your information, <a href="{{url_for('account.index')}}">click here</a>.
+                        </p>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text material-icons-round">
+                                person
+                            </span>
+                            <input type="text"
+                                   value="{{g.user.firstname}}"
+                                   class="form-control bg-light"
+                                   disabled>
+                            <input type="text"
+                                   class="form-control bg-light"
+                                   value="{{g.user.lastname}}"
+                                   disabled>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text material-icons-round">
+                                person_pin_circle
+                            </span>
+                            <input type="text"
+                                   value="{{g.user.address}}"
+                                   class="form-control bg-light"
+                                   disabled>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <span class="input-group-text material-icons-round">
+                                location_city
+                            </span>
+                            <input type="text"
+                                   value="{{g.user.city}}"
+                                   class="form-control bg-light"
+                                   disabled>
+                            <input type="text"
+                                   class="form-control bg-light"
+                                   value="{{g.user.state}}"
+                                   disabled>
+                            <input type="text"
+                                   class="form-control bg-light"
+                                   value="{{g.user.zip}}"
+                                   disabled>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <span class="input-group-text material-icons-round">
+                                phone
+                            </span>
+                            <input type="text"
+                                   value="{{g.user.phonenumber}}"
+                                   class="form-control bg-light"
+                                   disabled>
+                            <span class="input-group-text material-icons-round">
+                                alternate_email
+                            </span>
+                            <input type="text"
+                                   class="form-control bg-light"
+                                   value="{{g.user.email}}"
+                                   disabled>
+                        </div>
+
+                        <p class="form-text mb-4 text-dark">
+                            Select your first, second and third preference for this reservation.
+                            We'll do our best to accommodate.
+                        </p>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text material-icons-round">
+                                looks_one
+                            </span>
+                            <input type="date"
+                                   name="start_1"
+                                   required
+                                   class="form-control">
+                            <input type="date"
+                                   class="form-control"
+                                   required
+                                   name="end_1">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text material-icons-round">
+                                looks_two
+                            </span>
+                            <input type="date"
+                                   name="start_2"
+                                   required
+                                   class="form-control">
+                            <input type="date"
+                                   class="form-control"
+                                   required
+                                   name="end_3">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text material-icons-round">
+                                looks_3
+                            </span>
+                            <input type="date"
+                                   required
+                                   name="start_3"
+                                   class="form-control">
+                            <input type="date"
+                                   required
+                                   class="form-control"
+                                   name="end_3">
+                        </div>
+                        <div class="input-group mb-4">
+                            <label for="usage_slider"
+                                   class="input-group-text">How many hours do you estimate you'll use this rental per day?</label>
+                            <input type="number"
+                                   name="usage_hours"
+                                   placeholder="15"
+                                   required
+                                   class="form-control">
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <button type="submit"
+                                        class="btn btn-outline-danger border border-danger border-2 px-5">
+                                    Submit Reservation Request
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="form-text">
+                            Submitting a rental reservation request indicates your agreement with the following.
+                            You have read and agree with our <a href="#">Privacy Policy</a> and our <a href="#">Terms and Conditions</a>.
+                            You agree to be contacted by Red Dirt Outdoor equipment and to receive correspondence from the same.
+                            You understand that submitting a reservation request does not guarantee that the rental will be available
+                            on one or any of your requested reservation dates. You understand that renting vehicles or equipment
+                            from Red Dirt Outdoor Equipment requires signing a rental agreement contract, a consumer credit report check,
+                            and a deposit of up to the cost one-half of your estimated rental usage per hour.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

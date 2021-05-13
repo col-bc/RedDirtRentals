@@ -14,107 +14,117 @@
     </div>
 </div>
 
-<!--Filters-->
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle w-100 py-2 d-flex flex-row align-items-center justify-content-center"
-            style="border-radius: 0px;"
-            type="button"
-            id="dropdownFilters"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-        <span class="material-icons-round me-3">
-            filter_list
-        </span>
-        <p class="fw-bold text-decoration-underline me-3 my-0">Filters</p>
-    </button>
-    <ul class="dropdown-menu w-100 shadow"
-        aria-labelledby="dropdownFilters">
+<!--Page Option-->
+<div class="container-fluid bg-white border-bottom">
+    <div class="dropdown">
         <div class="row">
-            <div class="col-md-4">
-                <li class="dropdown-item fw-bold">
-                    Only Show
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Tractors
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">Mowers
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Power Tools
-                    </a>
-                </li>
-            </div>
-            <div class="col-md-4">
-                <li class="dropdown-item fw-bold">
-                    Price is less than
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        $ 150
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        $ 300
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        $ 500
-                    </a>
-                </li>
-            </div>
-            <div class="col-md-4">
-                <li class="dropdown-item fw-bold">
-                    For this kind of job
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Yard Care
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Tree Clearing/Cleaning
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Commercial
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item ms-3"
-                       href="#">
-                        Government
-                    </a>
-                </li>
+            <div class="col-md-10 mx-auto d-flex flex-row align-items-center px-md-5">
+                <div class="flex-fill">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"
+                                aria-current="page">Rentals</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="p-2">
+                    <button class="btn btn-outline-secondary px-5 rounded dropdown-toggle  py-2 d-flex flex-row align-items-center justify-content-center"
+                            style="border-radius: 0px;"
+                            type="button"
+                            id="dropdownFilters"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <span class="material-icons-round me-3">
+                            filter_list
+                        </span>
+                        <p class="fw-bold text-decoration-underline me-3 my-0">Filters</p>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow"
+                        aria-labelledby="dropdownFilters">
+                        <li class="dropdown-item fw-bold bg-white">
+                            Only Show
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Tractors
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">Mowers
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Power Tools
+                            </a>
+                        </li>
+                        <li class="dropdown-item fw-bold bg-white">
+                            Price is less than
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                $ 150
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                $ 300
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                $ 500
+                            </a>
+                        </li>
+                        <li class="dropdown-item fw-bold bg-white">
+                            For this kind of job
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Yard Care
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Tree Clearing/Cleaning
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Commercial
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item ps-5"
+                               href="#">
+                                Government
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </ul>
+    </div>
 </div>
 
 <!--Rental Inventory-->
-<div class="container mb-5">
-    <div class="row-md my-3">
-        <div class="col-md-10 mx-auto row my-3">
+<div class="container-fluid mb-5">
+    <div class="row-md my-4 px-5">
+        <div class="col-md-10 mx-auto row">
             {% for rental in rentals %}
             {% if rental.is_shown == 1 %}
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <div class="card shadow-sm h-100">
                     <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
                          class="card-img-top img-fluid">

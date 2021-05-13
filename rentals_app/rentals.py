@@ -13,7 +13,7 @@ rentals = Blueprint('Rentals', __name__, url_prefix='/rentals')
 
 @rentals.route('/')
 def root():
-    return redirect(url_for('rentals.all_rentals'))
+    return redirect(url_for('Rentals.all_rentals'))
 
 @rentals.route('/all')
 def all_rentals():
@@ -64,5 +64,6 @@ def details(id):
             .replace('\'','')
             .split(',')
     )
+    print(rental)
     
     return render_template('rentals/details.html', rental=rental)
