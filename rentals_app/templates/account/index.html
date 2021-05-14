@@ -1,7 +1,7 @@
 {% extends "Base.html" %}
 {% block title %}Account{% endblock %}
 {% block content %}
-<div class="container-fluid bg-dark">
+<div class="container-fluid bg-danger">
     <div class="row">
         <div class="col-md-10 mx-auto">
             <h3 class="text-white ms-md-3 p-3">My Account</h3>
@@ -10,18 +10,21 @@
 </div>
 
 <!--Account Nav-->
-<div class="container-fluid bg-secondary">
+<div class="container-fluid bg-dark">
 
     <div class="row mx-md-3">
         <div class="col-md-10 mx-auto my-2">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills"
+                id="account_tabs_root">
                 <li class="nav-item">
                     <a class="nav-link text-white active"
                        aria-current="page"
+                       id="tab_switcher_index"
                        href="#">My Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white"
+                       id="tab_switcher_reservations"
                        href="#">Reservations</a>
                 </li>
                 <li class="nav-item">
@@ -30,8 +33,13 @@
                 </li>
                 {% if user.groups == "admin" %}
                 <li class="nav-item ms-auto">
-                    <a class="nav-link text-white"
-                       href="{{url_for('admin.root')}}">Admin Dashboard</a>
+                    <a class="nav-link text-white d-flex flex-row"
+                       href="{{url_for('admin.root')}}">
+                        <span class="material-icons-round me-3">
+                            admin_panel_settings
+                        </span>
+                        Manage Site
+                    </a>
                 </li>
                 {% endif %}
             </ul>
@@ -46,7 +54,7 @@
 
             <!--Account Index-->
             <div class="card shadow-sm"
-                 id="account_tab">
+                 id="index_tab">
                 <div class="card-body">
                     <h4 class="card-title">Account Information</h4>
                     <ul class="list-group list-group-flush">
@@ -172,6 +180,16 @@
                             </span>
                         </li>
                     </ul>
+                </div>
+            </div>
+
+            <!--Account Options-->
+            <div class="card shadow-sm"
+                 style="display:none;"
+                 id="account_options_tab">
+                <div class="card-body">
+                    <h3 class="card-title">Account Options</h3>
+
                 </div>
             </div>
         </div>

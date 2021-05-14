@@ -29,6 +29,23 @@ $(document).ready(function () {
         $('#customer_tab_content').show();
     });
 
+    // Handle Account tab changes 
+    // Hide other tabs by default
+    $('#reservations_tab').hide()
+    // Switch to reservations
+    $('#tab_switcher_reservations').click(function () {
+        $('#account_tabs_root').find('li .active').removeClass('active');
+        $(this).addClass('active');
+        $('#reservations_tab').show();
+        $('#index_tab').hide();
+    });
+    $('#tab_switcher_index').click(function () {
+        $('#account_tabs_root').find('li a.active').removeClass('active');
+        $(this).addClass('active');
+        $('#reservations_tab').hide();
+        $('#index_tab').show();
+    });
+
     // Handle Implement Adder
     $('.ia_submit').click(function () {
         let field = $(this).parent().find('.ia_input');

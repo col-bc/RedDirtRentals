@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import timedelta
 import functools
 from functools import wraps
 from flask import (
@@ -22,6 +24,10 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
+            return redirect(url_for('auth.login'))
+        if session.get('expire') < datetime.now():
+            session.clear()
+            flash('We care about your security. Please login again.')
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
@@ -68,6 +74,7 @@ def verify():
     and db[1] == username \
     and check_password_hash(db[2], password):
         session['userid'] = db[0]
+        session['expire'] = datetime.now() + timedelta(hours=2)
         return redirect(url_for('account.index'))
     
     con.close()

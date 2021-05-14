@@ -63,9 +63,9 @@
 
 <body class="bg-light">
 
-    <div class="row mx-0 bg-dark">
+    <div class="row mx-0 bg-danger">
         <div class="col-md-10 mx-auto">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
                 <div class="container-fluid">
                     <a href="{{url_for('index.root')}}"
                        class="navbar-brand">
@@ -87,22 +87,22 @@
                          id="nav_main">
                         <ul class="navbar-nav w-100">
                             <li class="nav-item mx-3">
-                                <a class="nav-link active"
+                                <a class="nav-link fw-bold {%if url_for(request.endpoint) == '/'%}active{%endif%}"
                                    aria-current="page"
                                    href="{{ url_for('index.root') }}">Home</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link"
+                                <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint)%}active{%endif%}"
                                    href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
                             </li>
-                            <li class="nav-item mx-3">
-                                <a class="nav-link"
+                            <li class="nav-item mx-3 {%if '/account/reservations/' in url_for(request.endpoint)%}active{%endif%}">
+                                <a class="nav-link fw-bold"
                                    href="{{url_for('account.reservations', id=None)}}">Reservations</a>
                             </li>
                             <!--Is User Logged In?-->
                             {% if g.user != None %}
                             <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center"
+                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint)%}active{%endif%}"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
@@ -112,27 +112,31 @@
                                     <span class="me-2">{{g.user.firstname}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item"
+                                    <li><a class="dropdown-item fw-bold"
                                            href="{{ url_for('account.index') }}">My Account</a></li>
-                                    <li><a class="dropdown-item"
+                                    {% if g.user.groups == "admin" %}
+                                    <li><a class="dropdown-item fw-bold"
+                                           href="{{ url_for('admin.root') }}">Manage Site</a></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item fw-bold"
                                            href="{{ url_for('auth.logout') }}">Logout</a></li>
                                 </ul>
                             </li>
                             {% else %}
                             <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center"
+                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    <span class="me-2">Account</span>
+                                    <span class="me-2 fw-bold">Account</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item"
+                                    <li><a class="dropdown-item fw-bold"
                                            href="{{ url_for('auth.login') }}">Login</a></li>
-                                    <li><a class="dropdown-item"
+                                    <li><a class="dropdown-item fw-bold"
                                            href="{{ url_for('auth.register') }}">Register</a></li>
                                 </ul>
                             </li>
