@@ -1,10 +1,10 @@
 {% extends "Base.html" %}
 {% block title %}Account{% endblock %}
 {% block content %}
-<div class="container-fluid bg-danger">
+<div class="container-fluid bg-dark shadow">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h3 class="text-white ms-md-3 p-3">My Account</h3>
+            <h3 class="text-white ms-md-4 p-3 fw-bold">My Account</h3>
         </div>
     </div>
 </div>
@@ -17,19 +17,15 @@
             <ul class="nav nav-pills"
                 id="account_tabs_root">
                 <li class="nav-item">
-                    <a class="nav-link text-white active"
+                    <a class="nav-link text-white bg-info"
                        aria-current="page"
                        id="tab_switcher_index"
-                       href="#">My Information</a>
+                       href="{{url_for('account.index')}}">My Information</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white"
                        id="tab_switcher_reservations"
-                       href="#">Reservations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white"
-                       href="#">Options</a>
+                       href="{{url_for('account.reservations')}}">Reservations</a>
                 </li>
                 {% if user.groups == "admin" %}
                 <li class="nav-item ms-auto">
@@ -50,147 +46,68 @@
 
 <div class="container-fluid">
     <div class="row mx-3">
-        <div class="col-md-10 mx-auto my-4">
+        <div class="col-md-10 mx-auto my-5">
 
             <!--Account Index-->
-            <div class="card shadow-sm"
-                 id="index_tab">
-                <div class="card-body">
-                    <h4 class="card-title">Account Information</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex flex-row align-content-center">
-                            <span class="material-icons-round me-3">
-                                person
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.firstname}} {{user.lastname}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                alternate_email
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.email}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                phone
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.phonenumber}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                person_pin_circle
-                            </span>
-                            <span class="flex-grow-1">
-                                <div class="d-flex flex-column">
-                                    <span>{{user.address}}</span>
-                                    <span>{{user.city}}, {{user.state}} {{user.zip}}
-                                    </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                group_work
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.groups}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                vpn_key
-                            </span>
-                            <span class="flex-grow-1">
-                                <button type="button"
-                                        class="btn btn-outline-dark"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#ch_pwd_modal">
-                                    Change Password
-                                </button>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!--Reservations-->
-            <div class="card shadow-sm"
-                 style="display:none;"
-                 id="reservations_tab">
-                <div class="card-body">
-                    <h4 class="card-title">Reservations</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex flex-row align-content-center">
-                            <span class="material-icons-round me-3">
-                                person
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.firstname}} {{user.lastname}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                alternate_email
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.email}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                phone
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.phonenumber}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                person_pin_circle
-                            </span>
-                            <span class="flex-grow-1">
-                                <div class="d-flex flex-column">
-                                    <span>{{user.address}}</span>
-                                    <span>{{user.city}}, {{user.state}} {{user.zip}}
-                                    </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                group_work
-                            </span>
-                            <span class="flex-grow-1">
-                                {{user.groups}}
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex flex-row">
-                            <span class="material-icons-round me-3">
-                                vpn_key
-                            </span>
-                            <span class="flex-grow-1">
-                                <button type="button"
-                                        class="btn btn-outline-dark"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#ch_pwd_modal">
-                                    Change Password
-                                </button>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!--Account Options-->
-            <div class="card shadow-sm"
-                 style="display:none;"
-                 id="account_options_tab">
-                <div class="card-body">
-                    <h3 class="card-title">Account Options</h3>
-
-                </div>
+            <div class="p-3 shadow-sm bg-white d-flex flex-column">
+                <h4 class="fw-bold">Account Information</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex flex-row align-content-center">
+                        <span class="material-icons-round me-3">
+                            person
+                        </span>
+                        <span class="flex-grow-1">
+                            {{user.firstname}} {{user.lastname}}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex flex-row">
+                        <span class="material-icons-round me-3">
+                            alternate_email
+                        </span>
+                        <span class="flex-grow-1">
+                            {{user.email}}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex flex-row">
+                        <span class="material-icons-round me-3">
+                            phone
+                        </span>
+                        <span class="flex-grow-1">
+                            {{user.phonenumber}}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex flex-row">
+                        <span class="material-icons-round me-3">
+                            person_pin_circle
+                        </span>
+                        <span class="flex-grow-1">
+                            <div class="d-flex flex-column">
+                                <span>{{user.address}}</span>
+                                <span>{{user.city}}, {{user.state}} {{user.zip}}
+                                </span>
+                    </li>
+                    <li class="list-group-item d-flex flex-row">
+                        <span class="material-icons-round me-3">
+                            group_work
+                        </span>
+                        <span class="flex-grow-1">
+                            {{user.groups}}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex flex-row">
+                        <span class="material-icons-round me-3">
+                            vpn_key
+                        </span>
+                        <span class="flex-grow-1">
+                            <button type="button"
+                                    class="btn btn-outline-dark"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#ch_pwd_modal">
+                                Change Password
+                            </button>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -218,21 +135,25 @@
                 <form action="{{url_for('auth.change_password', userid=user.userid)}}"
                       method="POST">
                     <input type="password"
+                           name="current_password"
+                           class="form-control mb-3"
+                           placeholder="Current Password">
+                    <input type="password"
                            name="password1"
                            class="form-control mb-3"
-                           placeholder="Password">
+                           placeholder="New Password">
                     <input type="password"
                            name="password2"
                            class="form-control"
-                           placeholder="Verify Password">
+                           placeholder="Verify New Password">
 
                     <div class="d-flex flex-row mt-3 justify-content-between">
                         <button type="button"
-                                class="btn btn-secondary"
+                                class="btn btn-outline-secondary"
                                 data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <button class="btn btn-primary"
+                        <button class="btn btn-info"
                                 type="submit">
                             Change and Logout
                         </button>

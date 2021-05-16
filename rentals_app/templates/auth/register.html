@@ -1,177 +1,168 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<div class="container-fluid bg-dark">
-    <div class="row">
-        <div class="col-md-10 mx-auto">
-            <h3 class="text-white ms-md-3 p-3">Register</h3>
-        </div>
-    </div>
-</div>
-
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto my-5">
-            <div class="card">
-                <div class="card-body shadow-sm p-4">
-                    <p class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.</p>
-                    <form action="{{url_for('auth.enroll')}}"
-                          method="POST">
+            <div class="p-4 shadow-sm bg-white">
+                <h6 class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.</h6>
+                <form action="{{url_for('auth.enroll')}}"
+                      method="POST">
 
-                        {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                        <div class="alert alert-danger">
-                            {% for message in messages %}
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                        {% else %}
-                        {% endif %}
-                        {% endwith %}
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    {% endif %}
+                    {% endwith %}
 
-                        <!--Full Name-->
-                        <div class="input-group mb-5">
-                            <span class="input-group-text">
-                                <span class="material-icons-outlined">
-                                    perm_identity
-                                </span>
+                    <!--Full Name-->
+                    <div class="input-group mb-5">
+                        <span class="input-group-text">
+                            <span class="material-icons-outlined">
+                                perm_identity
                             </span>
-                            <input type="text"
-                                   name="firstname"
-                                   aria-label="First name"
-                                   placeholder="First Name"
-                                   class="form-control"
-                                   required>
-                            <input type="text"
-                                   name="lastname"
-                                   aria-label="Last name"
-                                   placeholder="Last Name"
-                                   class="form-control"
-                                   required>
-                        </div>
+                        </span>
+                        <input type="text"
+                               name="firstname"
+                               aria-label="First name"
+                               placeholder="First Name"
+                               class="form-control"
+                               required>
+                        <input type="text"
+                               name="lastname"
+                               aria-label="Last name"
+                               placeholder="Last Name"
+                               class="form-control"
+                               required>
+                    </div>
 
-                        <!--Street Address1-->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"
-                                  id="address1">
-                                <span class="material-icons-round">
-                                    person_pin_circle
-                                </span>
+                    <!--Street Address1-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"
+                              id="address1">
+                            <span class="material-icons-round">
+                                person_pin_circle
                             </span>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Street Address"
-                                   aria-label="Address Address"
-                                   name="address1"
-                                   required>
-                        </div>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Street Address"
+                               aria-label="Address Address"
+                               name="address1"
+                               required>
+                    </div>
 
-                        <!--City/State/Zip-->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">
-                                <span class="material-icons-round">
-                                    location_city
-                                </span>
+                    <!--City/State/Zip-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <span class="material-icons-round">
+                                location_city
                             </span>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="City"
-                                   aria-label="City"
-                                   name="city"
-                                   required>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="City"
+                               aria-label="City"
+                               name="city"
+                               required>
 
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="State"
-                                   aria-label="State"
-                                   name="state"
-                                   required>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="State"
+                               aria-label="State"
+                               name="state"
+                               required>
 
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Zip Code"
-                                   aria-label="Zip Code"
-                                   name="zip"
-                                   required>
-                        </div>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Zip Code"
+                               aria-label="Zip Code"
+                               name="zip"
+                               required>
+                    </div>
 
-                        <!--Phone-->
-                        <div class="input-group mb-5">
-                            <span class="input-group-text"
-                                  id="phone">
-                                <span class="material-icons-round">
-                                    phone
-                                </span>
+                    <!--Phone-->
+                    <div class="input-group mb-5">
+                        <span class="input-group-text"
+                              id="phone">
+                            <span class="material-icons-round">
+                                phone
                             </span>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Phone Number"
-                                   aria-label="Phone Number"
-                                   name="phone"
-                                   required>
-                        </div>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Phone Number"
+                               aria-label="Phone Number"
+                               name="phone"
+                               required>
+                    </div>
 
-                        <!--Email-->
-                        <div class="input-group">
-                            <span class="input-group-text"
-                                  id="email">
-                                <span class="material-icons-outlined">
-                                    alternate_email
-                                </span>
+                    <!--Email-->
+                    <div class="input-group">
+                        <span class="input-group-text"
+                              id="email">
+                            <span class="material-icons-outlined">
+                                alternate_email
                             </span>
-                            <input type="email"
-                                   class="form-control"
-                                   placeholder="Email"
-                                   aria-label="Email"
-                                   name="email"
-                                   required
-                                   aria-describedby="email">
-                        </div>
-                        <div class="form-text mb-3">This will be your username to login.</div>
+                        </span>
+                        <input type="email"
+                               class="form-control"
+                               placeholder="Email"
+                               aria-label="Email"
+                               name="email"
+                               required
+                               aria-describedby="email">
+                    </div>
+                    <div class="form-text mb-3">This will be your username to login.</div>
 
-                        <!--Password-->
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <span class="material-icons-round">
-                                    vpn_key
-                                </span>
+                    <!--Password-->
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <span class="material-icons-round">
+                                vpn_key
                             </span>
-                            <input type="password"
-                                   class="form-control password_toggle_field"
-                                   placeholder="Password"
-                                   aria-label="Password"
-                                   name="password"
-                                   required
-                                   aria-describedby="username">
-                            <button class="input-group-text"
-                                    type="button"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Show/Hide Password">
-                                <span class="material-icons-outlined password_toggle_indicator"
-                                      style="cursor:pointer;"
-                                      onclick="toggle_password_visibility()">
-                                    visibility_off
-                                </span>
-                            </button>
-                        </div>
-                        <div class="form-text mb-3">
-                            You'll only type this once, make sure it's right.
-                        </div>
-
-                        <button type="submit"
-                                id="enroll_btn"
-                                class="btn btn-primary px-5 py-2 d-flex flex-row">
-                            <span class="material-icons-outlined me-3">
-                                check_circle_outline
+                        </span>
+                        <input type="password"
+                               class="form-control password_toggle_field"
+                               placeholder="Password"
+                               aria-label="Password"
+                               name="password"
+                               required
+                               aria-describedby="username">
+                        <button class="input-group-text"
+                                type="button"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                title="Show/Hide Password">
+                            <span class="material-icons-outlined password_toggle_indicator"
+                                  style="cursor:pointer;"
+                                  onclick="toggle_password_visibility()">
+                                visibility_off
                             </span>
-                            Submit and Register
                         </button>
+                    </div>
+                    <div class="form-text mb-3">
+                        You'll only type this once, make sure it's right.
+                    </div>
 
-                    </form>
-                </div>
+                    <button type="submit"
+                            id="enroll_btn"
+                            class="btn btn-outline-info border-info border-2 px-5 py-2 d-flex flex-row">
+                        <span class="material-icons-outlined me-3">
+                            check_circle_outline
+                        </span>
+                        Submit and Register
+                    </button>
+
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

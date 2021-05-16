@@ -1,11 +1,11 @@
 {%extends "base.html"%}
 {%block title%}All Rentals{%endblock%}
 {%block content%}
-<div class="container-fluid bg-danger">
+<div class="container-fluid bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h3 class="text-white ms-md-3 p-3">Rental Inventory</h3>
-            <p class=" ms-md-3 px-3 pb-3 mb-0 text-white">
+            <h3 class="text-white ms-md-4 p-3 fw-bold">Rental Inventory</h3>
+            <p class=" ms-md-4 px-3 pb-3 mb-0 text-white">
                 Still not sure what's right for your job?
                 <a href="tel:8505263456" class="text-white">Give us a call</a>,
                 our experts are happy to help.
@@ -120,16 +120,16 @@
 
 <!--Rental Inventory-->
 <div class="container-fluid mb-5">
-    <div class="row-md my-4 px-5">
+    <div class="row-md my-5 px-5">
         <div class="col-md-10 mx-auto row">
             {% for rental in rentals %}
             {% if rental.is_shown == 1 %}
             <div class="col-md-6 mb-3">
-                <div class="card shadow-sm h-100">
+                <div class="card bg-white rounded-0 border-0 shadow-sm h-100">
                     <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
                          class="card-img-top img-fluid">
                     <div class="card-body p-3 d-flex flex-column align-items-stretch">
-                        <h5 class="card-title">{{rental.make}}&nbsp;{{rental.model}}</h5>
+                        <h5 class="card-title fw-bold">{{rental.make}}&nbsp;{{rental.model}}</h5>
                         {% if rental.is_available == 1 %}
                         <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
                             <span class="material-icons-outlined me-3">
@@ -158,9 +158,9 @@
                         <p class="mb-1"><strong>Features:</strong></p>
                         <p>{{rental.features}}</p>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer bg-white border-0">
                         <a href="{{url_for('Rentals.details', id=rental.rental_id)}}"
-                           class="btn btn-danger shadow-sm d-flex flex-row justify-content-center">
+                           class="btn btn-outline-info border-info border-2 d-flex flex-row justify-content-center">
                             <span class="material-icons-round me-3">
                                 read_more
                             </span>

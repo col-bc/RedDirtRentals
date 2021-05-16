@@ -58,6 +58,33 @@ def new():
     return render_template('admin/new.html')
 
 
+# Render Customers Page
+@admin.route('/reservations')
+@login_required
+@admin_only
+def reservations():
+    con, cur = helpers.connect_to_db()
+    resv_sql = "SELECT * FROM reservations;".format(g.user.userid)
+    try:
+        reservations = cur.execute(resv_sql).fetchall()
+
+        rental_ids = list()
+        for x in reservations:
+            rental_ids.append(x[2])
+        
+        rentals = dict()
+        for id in rental_ids:
+            rentals[str(id)] = Rental().find_rental(id)
+            rentals[str(id)].image_paths = rentals[str(id)].image_paths[2:len(rentals[str(id)].image_paths)-2]
+
+
+        return render_template('admin/reservations.html', reservations=reservations, rentals=rentals)
+    except Exception as ex:
+        print(ex)
+        raise ex
+    finally:
+        con.close()
+
 #### CRUD FUNCTIONS ####
 # - CREATE
 @admin.route('/new/create/', methods=['POST', 'GET'])

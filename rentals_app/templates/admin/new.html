@@ -4,9 +4,9 @@
 <!---->
 {% block content %}
 <div class="container-fluid bg-dark">
-    <div class="row p-3">
+    <div class="row p-3 mx-md-4">
         <div class="col-md-10 mx-auto d-flex flex-row align-items-center">
-            <h3 class="flex-grow-1 text-white">New Rental</h3>
+            <h3 class="flex-grow-1 text-white fw-bold">New Rental</h3>
 
             <a href="{{ url_for('admin.inventory') }}"
                class="btn btn-outline-light btn-small d-flex flex-row align-items-center">
@@ -23,7 +23,7 @@
 <!--Flashes-->
 <div class="container">
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <div class="notification is-danger m3">
+    <div class="notification is-danger">
         <button class="delete"></button>
         <p>{{ message }}</p>
     </div>
@@ -31,284 +31,293 @@
 </div>
 
 <div class="container">
+    <div class="row my-4">
+        <div class="col-md-8 mx-auto">
 
-    <form method="POST"
-          action="{{ url_for('admin.create') }}"
-          enctype="multipart/form-data"
-          class="p-5">
+            <form method="POST"
+                  action="{{ url_for('admin.create') }}"
+                  enctype="multipart/form-data"
+                  class="p-3">
 
-        <!--Make-->
-        <div class="form-floating mb-3">
-            <input type="text"
-                   class="form-control"
-                   id="make"
-                   name="make"
-                   required
-                   placeholder="Make">
-            <label for="make">Make</label>
-        </div>
+                <h5 class="mb-3 fw-bold">Unit Details</h5>
 
-        <!--Model-->
-        <div class="form-floating mb-3">
-            <input type="text"
-                   class="form-control"
-                   id="model"
-                   name="model"
-                   required
-                   placeholder="Model">
-            <label for="model">Model</label>
-        </div>
+                <!--Make-->
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="make"
+                           name="make"
+                           required
+                           placeholder="Make">
+                    <label for="make">Make</label>
+                </div>
 
-        <!--Vehicle Category-->
-        <select class="form-select py-3 mb-3"
-                name="category"
-                aria-label="Select Vehicle Category">
-            <option selected>Select Vehicle Category</option>
-            <option>Tractor</option>
-            <option>Mower</option>
-            <option>Power Tool</option>
-            <option>Add on</option>
-        </select>
+                <!--Model-->
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="model"
+                           name="model"
+                           required
+                           placeholder="Model">
+                    <label for="model">Model</label>
+                </div>
 
-        <!--Job Category-->
-        <select class="form-select py-3 mb-3"
-                name="job_category"
-                aria-label="Select Job Category">
-            <option>Select Job Category</option>
-            <option>Small Jobs</option>
-            <option>Medium Jobs</option>
-            <option>Large Jobs</option>
-            <option>Heavy Duty Jobs</option>
-        </select>
+                <!--Vehicle Category-->
+                <select class="form-select py-3 mb-3"
+                        name="category"
+                        aria-label="Select Vehicle Category">
+                    <option selected>Select Vehicle Category</option>
+                    <option>Tractor</option>
+                    <option>Mower</option>
+                    <option>Power Tool</option>
+                    <option>Add on</option>
+                </select>
 
-        <!--Job Category-->
-        <select class="form-select py-3 mb-3"
-                name="drive"
-                aria-label="Select Drive Type">
-            <option>Select Drive Type</option>
-            <option>4WD</option>
-            <option>2WD</option>
-            <option>Other</option>
-            <option>NA</option>
-        </select>
+                <!--Job Category-->
+                <select class="form-select py-3 mb-3"
+                        name="job_category"
+                        aria-label="Select Job Category">
+                    <option>Select Job Category</option>
+                    <option>Small Jobs</option>
+                    <option>Medium Jobs</option>
+                    <option>Large Jobs</option>
+                    <option>Heavy Duty Jobs</option>
+                </select>
 
-        <!--Engine-->
-        <div class="form-floating mb-3">
-            <input type="text"
-                   class="form-control"
-                   id="horse_power"
-                   name="horse_power"
-                   required
-                   placeholder="Engine Description">
-            <label for="horse_power">Engine Description</label>
-        </div>
+                <!--Job Category-->
+                <select class="form-select py-3 mb-3"
+                        name="drive"
+                        aria-label="Select Drive Type">
+                    <option>Select Drive Type</option>
+                    <option>4WD</option>
+                    <option>2WD</option>
+                    <option>Other</option>
+                    <option>NA</option>
+                </select>
 
-        <!--Deck Size-->
-        <div class="form-floating mb-3">
-            <input type="text"
-                   class="form-control"
-                   id="deck_size"
-                   name="deck_size"
-                   required
-                   placeholder="Deck Size">
-            <label for="deck_size">Deck Size</label>
-        </div>
+                <!--Engine-->
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="horse_power"
+                           name="horse_power"
+                           required
+                           placeholder="Engine Description">
+                    <label for="horse_power">Engine Description</label>
+                </div>
 
-        <!--Stock #-->
-        <div class="form-floating mb-3">
-            <input type="text"
-                   class="form-control"
-                   id="stock"
-                   name="stock"
-                   required
-                   placeholder="Unit Stock">
-            <label for="stock">Unit Stock</label>
-        </div>
+                <!--Deck Size-->
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="deck_size"
+                           name="deck_size"
+                           required
+                           placeholder="Deck Size">
+                    <label for="deck_size">Deck Size</label>
+                </div>
 
-        <!--Hourly Rate-->
-        <div class="form-floating mb-3">
-            <input type="number"
-                   class="form-control"
-                   id="rate"
-                   name="rate"
-                   required
-                   placeholder="Hourly Rate">
-            <label for="rate">Hourly Rate</label>
-        </div>
+                <!--Stock #-->
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="stock"
+                           name="stock"
+                           required
+                           placeholder="Unit Stock">
+                    <label for="stock">Unit Stock</label>
+                </div>
 
-        <!--Price Range-->
-        <select class="form-select py-3 mb-3"
-                name="price_range"
-                aria-label="Select Drive Type">
-            <option>Select Price Range</option>
-            <option>Cheap</option>
-            <option>Affordable</option>
-            <option>Normal</option>
-            <option>Costly</option>
-        </select>
+                <!--Hourly Rate-->
+                <div class="form-floating mb-3">
+                    <input type="number"
+                           class="form-control"
+                           id="rate"
+                           name="rate"
+                           required
+                           placeholder="Hourly Rate">
+                    <label for="rate">Hourly Rate</label>
+                </div>
 
-        <!--Rented By-->
-        <div class="form-floating mb-3">
-            <input type="number"
-                   class="form-control"
-                   id="rented_by"
-                   name="rented_by"
-                   required
-                   placeholder="Currently Rented By">
-            <label for="rented_by">Currently Rented By</label>
-            <div class="form-text">
-                <i class="fas fa-eye-slash mr-3"></i>
-                This field <strong>will not </strong>be seen by customers.
-            </div>
-        </div>
+                <!--Price Range-->
+                <select class="form-select py-3 mb-3"
+                        name="price_range"
+                        aria-label="Select Drive Type">
+                    <option>Select Price Range</option>
+                    <option>Cheap</option>
+                    <option>Affordable</option>
+                    <option>Normal</option>
+                    <option>Costly</option>
+                </select>
 
-        <!--Rented By-->
-        <div class="form-floating mb-3">
-            <input type="date"
-                   class="form-control"
-                   id="available_on"
-                   name="available_on"
-                   required
-                   placeholder="Date Available">
-            <label for="available_on">Date Available</label>
-            <div class="form-text">
-                <i class="fas fa-eye-slash mr-3"></i>
-                This field <strong>will not </strong>be seen by customers.
-            </div>
-        </div>
+                <!--Rented By-->
+                <div class="form-floating mb-3">
+                    <input type="number"
+                           class="form-control"
+                           id="rented_by"
+                           name="rented_by"
+                           required
+                           placeholder="Currently Rented By">
+                    <label for="rented_by">Currently Rented By</label>
+                    <div class="form-text">
+                        <i class="fas fa-eye-slash mr-3"></i>
+                        This field <strong>will not </strong>be seen by customers.
+                    </div>
+                </div>
 
-        <!--Available Now-->
-        <p class="mb-2">Is this unit available for rent now?</p>
-        <div class="form-check">
-            <input class="form-check-input"
-                   type="radio"
-                   name="is_available"
-                   id="is_available_yes">
-            <label class="form-check-label"
-                   for="is_available_yes">
-                Yes
-            </label>
-        </div>
-        <div class="form-check mb-3">
-            <input class="form-check-input"
-                   type="radio"
-                   name="is_available"
-                   id="is_available_no"
-                   checked>
-            <label class="is_available_no"
-                   for="is_available_2">
-                No
-            </label>
-        </div>
+                <!--Rented By-->
+                <div class="form-floating mb-3">
+                    <input type="date"
+                           class="form-control"
+                           id="available_on"
+                           name="available_on"
+                           required
+                           placeholder="Date Available">
+                    <label for="available_on">Date Available</label>
+                    <div class="form-text">
+                        <i class="fas fa-eye-slash mr-3"></i>
+                        This field <strong>will not </strong>be seen by customers.
+                    </div>
+                </div>
 
-        <!--Queue-->
-        <div class="form-floating mb-3">
-            <textarea class="form-control"
-                      placeholder="Unit Queue"
-                      id="rent_queue"
-                      name="rent_queue"
-                      rows=3
-                      placeholder="Johnny Appleseed, Jane Doe, etc."
-                      style="height: 100px"></textarea>
-            <label for="rent_queue">Unit Queue</label>
-            <div class="form-text">
-                <p class="mb-1"><i class="fas fa-info-circle me-2"></i>Enter names separated by a comma.</p>
-                <p><i class="fas fa-eye-slash me-2"></i>This field <strong>will not </strong>be seen by customers.</p>
-            </div>
-        </div>
+                <!--Available Now-->
+                <p class="mb-2">Is this unit available for rent now?</p>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="is_available"
+                           id="is_available_yes">
+                    <label class="form-check-label"
+                           for="is_available_yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="is_available"
+                           id="is_available_no"
+                           checked>
+                    <label class="is_available_no"
+                           for="is_available_2">
+                        No
+                    </label>
+                </div>
 
-        <!--Image-->
-        <div class="mb-3">
-            <label for="files"
-                   class="form-label">Unit Images</label>
-            <input class="form-control"
-                   type="file"
-                   id="files"
-                   name="files"
-                   multiple>
-        </div>
+                <!--Queue-->
+                <div class="form-floating mb-3">
+                    <textarea class="form-control"
+                              placeholder="Unit Queue"
+                              id="rent_queue"
+                              name="rent_queue"
+                              rows=3
+                              placeholder="Johnny Appleseed, Jane Doe, etc."
+                              style="height: 100px"></textarea>
+                    <label for="rent_queue">Unit Queue</label>
+                    <div class="form-text">
+                        <p class="mb-1"><i class="fas fa-info-circle me-2"></i>Enter names separated by a comma.</p>
+                        <p><i class="fas fa-eye-slash me-2"></i>This field <strong>will not </strong>be seen by customers.</p>
+                    </div>
+                </div>
 
-        <!--Shown to Customers-->
-        <p class="mb-2">Should customers be able to view this unit?</p>
-        <div class="form-check">
-            <input class="form-check-input"
-                   type="radio"
-                   name="is_shown"
-                   id="is_shown_yes"
-                   checked>
-            <label class="form-check-label"
-                   for="is_shown_yes">
-                Yes
-            </label>
-        </div>
-        <div class="form-check mb-3">
-            <input class="form-check-input"
-                   type="radio"
-                   name="is_shown"
-                   id="is_shown_no">
-            <label class="is_shown_no"
-                   for="is_shown_2">
-                No
-            </label>
-        </div>
+                <!--Image-->
+                <div class="mb-3">
+                    <label for="files"
+                           class="form-label">Unit Images</label>
+                    <input class="form-control"
+                           type="file"
+                           id="files"
+                           name="files"
+                           multiple>
+                </div>
 
-        <!--Features-->
-        <div class="form-floating mb-3">
-            <textarea class="form-control"
-                      placeholder="Unit Queue"
-                      id="features"
-                      name="features"
-                      rows=3
-                      placeholder="Feature 1, Feature 2, Feature3"
-                      style="height: 100px"></textarea>
-            <label for="features">Features</label>
-        </div>
+                <!--Shown to Customers-->
+                <p class="mb-2">Should customers be able to view this unit?</p>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="is_shown"
+                           id="is_shown_yes"
+                           checked>
+                    <label class="form-check-label"
+                           for="is_shown_yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="is_shown"
+                           id="is_shown_no">
+                    <label class="is_shown_no"
+                           for="is_shown_2">
+                        No
+                    </label>
+                </div>
 
-        <!--Description-->
-        <div class="form-floating mb-3">
-            <textarea class="form-control"
-                      placeholder="Unit Queue"
-                      id="description"
-                      name="description"
-                      rows=3
-                      placeholder="Description"
-                      style="height: 100px"></textarea>
-            <label for="description">Description</label>
-        </div>
+                <!--Features-->
+                <div class="form-floating mb-3">
+                    <textarea class="form-control"
+                              placeholder="Unit Queue"
+                              id="features"
+                              name="features"
+                              rows=3
+                              placeholder="Feature 1, Feature 2, Feature3"
+                              style="height: 100px"></textarea>
+                    <label for="features">Features</label>
+                </div>
 
-        <!--Implements-->
-        <div class="mb-5"
-             id="implements">
-            <div class="form-floating mb-3 d-flex flex-row">
-                <input class="form-control flex-grow-1 ia_input"
-                       type="text"
-                       placeholder="Compatible Implements">
-                <label for="implement_input">Compatible Implements</label>
-                <button class="btn btn-outline-secondary ml-1 ia_submit"
-                        type="button">
-                    <i class="fas fa-arrow-down"></i>
+                <!--Description-->
+                <div class="form-floating mb-3">
+                    <textarea class="form-control"
+                              placeholder="Unit Queue"
+                              id="description"
+                              name="description"
+                              rows=3
+                              placeholder="Description"
+                              style="height: 100px"></textarea>
+                    <label for="description">Description</label>
+                </div>
+
+                <!--Implements-->
+                <div class="mb-5"
+                     id="implements">
+                    <div class="form-floating mb-3 d-flex flex-row">
+                        <input class="form-control flex-grow-1 ia_input"
+                               type="text"
+                               placeholder="Compatible Implements">
+                        <label for="implement_input">Compatible Implements</label>
+                        <button class="btn btn-outline-secondary ml-1 ia_submit d-flex align-items-center"
+                                type="button">
+                            <span class="material-icons-outlined">
+                                arrow_downward
+                            </span>
+                    </div>
+                    <div class="shadow-sm card">
+                        <p class="text-muted rounded bg-white p-2 mb-0">
+                            Added implements will show here
+                        </p>
+                        <ul class="list-group list-group-flush ia_target">
+                        </ul>
+                    </div>
+
+                    <a href="#implements"
+                       class="btn btn-outline-secondary mt-3 ia_clear">
+                        Clear List
+                    </a>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-outline-info w-100 justify-content-center border-info border-2 py-3 d-flex flex-row">
+                    <span class="material-icons-round me-3">
+                        post_add
+                    </span>
+                    Add Unit to Inventory
                 </button>
-            </div>
-            <div class="shadow-sm card">
-                <p class="text-muted rounded bg-white p-2 mb-0">
-                    Added implements will show here
-                </p>
-                <ul class="list-group list-group-flush ia_target">
-                </ul>
-            </div>
 
-            <a href="#implements"
-               class="btn btn-outline-secondary mt-3 ia_clear">
-                Clear List
-            </a>
+            </form>
         </div>
-
-        <button type="submit"
-                class="btn btn-primary py-3 w-100">
-            <i class="fas fa-save me-2"></i>
-            Add Unit to Inventory
-        </button>
-
-    </form>
+    </div>
 </div>
 {% endblock %}

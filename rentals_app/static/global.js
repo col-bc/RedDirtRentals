@@ -1,51 +1,5 @@
 $(document).ready(function () {
 
-    // Handle Admin Tab Changes
-    // Set reservations hidden by default
-    $('#reservation_tab_content').hide();
-    $('#customer_tab_content').hide();
-    $('#inventory_tab_selector').click(function () {
-        $('#tab_root').find('.active').removeClass('active')
-        $('#inventory_active_elem').addClass('active');
-
-        $('#customer_tab_content').hide();
-        $('#reservations_tab_content').hide();
-        $('#inventory_tab_content').show();
-    });
-    $('#reservations_tab_selector').click(function () {
-        $('#tab_root').find('.active').removeClass('active')
-        $('#reservations_tab_selector').addClass('active');
-
-        $('#customer_tab_content').hide();
-        $('#inventory_tab_content').hide();
-        $('#reservation_tab_content').show();
-    });
-    $('#customer_tab_selector').click(function () {
-        $('#tab_root').find('.active').removeClass('active')
-        $('#customer_tab_selector').addClass('active')
-
-        $('#reservation_tab_content').hide();
-        $('#inventory_tab_content').hide();
-        $('#customer_tab_content').show();
-    });
-
-    // Handle Account tab changes 
-    // Hide other tabs by default
-    $('#reservations_tab').hide()
-    // Switch to reservations
-    $('#tab_switcher_reservations').click(function () {
-        $('#account_tabs_root').find('li .active').removeClass('active');
-        $(this).addClass('active');
-        $('#reservations_tab').show();
-        $('#index_tab').hide();
-    });
-    $('#tab_switcher_index').click(function () {
-        $('#account_tabs_root').find('li a.active').removeClass('active');
-        $(this).addClass('active');
-        $('#reservations_tab').hide();
-        $('#index_tab').show();
-    });
-
     // Handle Implement Adder
     $('.ia_submit').click(function () {
         let field = $(this).parent().find('.ia_input');

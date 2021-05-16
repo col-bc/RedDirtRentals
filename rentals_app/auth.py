@@ -95,7 +95,7 @@ def enroll():
             phonenumber=request.form.get('phonenumber'),
             email=request.form.get('email'),
             password=generate_password_hash(request.form.get('password')),
-            groups='user',
+            groups='Customer',
             address='{0} {1}'.format(request.form.get('address1'), request.form.get('address2') if request.form.get('address2') is not None else ''),
             city=request.form.get('city'),
             state=request.form.get('state'),

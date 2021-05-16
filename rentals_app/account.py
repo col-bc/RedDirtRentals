@@ -1,3 +1,4 @@
+from rentals_app.models.rental import Rental
 from rentals_app.auth import login_required
 from flask import (
     Blueprint, flash, redirect, render_template, request, session, url_for, g
@@ -16,12 +17,32 @@ def index():
 @account.route('/reservations')
 @login_required
 def reservations():
-    return "200", 200
+    con, cur = helpers.connect_to_db()
+    resv_sql = "SELECT * FROM reservations WHERE customer_id = '{}';".format(g.user.userid)
+    try:
+        reservations = cur.execute(resv_sql).fetchall()
+
+        rental_ids = list()
+        for x in reservations:
+            rental_ids.append(x[2])
+        
+        rentals = dict()
+        for id in rental_ids:
+            rentals[str(id)] = Rental().find_rental(id)
+            rentals[str(id)].image_paths = rentals[str(id)].image_paths[2:len(rentals[str(id)].image_paths)-2]
+
+
+        return render_template('account/reservations.html', reservations=reservations, rentals=rentals)
+    except Exception as ex:
+        print(ex)
+        raise ex
+    finally:
+        con.close()
 
 @account.route('/reserve/<int:id>')
 @login_required
 def reserve(id):
-    return render_template('account/reserve.html', rental_id=id)
+    return render_template('account/reserve.html', id=id)
 
 @account.route('/reserve/<int:r_id>/', methods=['POST'])
 @login_required

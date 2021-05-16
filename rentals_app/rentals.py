@@ -2,9 +2,11 @@ import sqlite3
 from flask import (
     url_for,
     redirect, 
-    session, 
     Blueprint, 
     render_template,
+    jsonify,
+    Response,
+    abort
 )
 from rentals_app.models.rental import Rental
 import rentals_app.helpers as helpers
@@ -67,3 +69,27 @@ def details(id):
     print(rental)
     
     return render_template('rentals/details.html', rental=rental)
+
+@rentals.route('/get-rental/<int:id>', methods=['GET'])
+def get_rental(id):
+    rental = Rental().find_rental(id)
+    if not rental:
+        return abort(500)
+        
+    rental.rate = float(rental.rate[0])
+    rental.image_paths = list(
+    rental.image_paths
+        .replace('[','')
+        .replace(']','')
+        .replace("'",'')
+        .split(',')
+    )
+    rental.implements = list(
+    rental.implements
+        .replace('[','')
+        .replace(']','')
+        .replace('\'','')
+        .split(',')
+    )
+
+    return Response(jsonify(rental), 200)

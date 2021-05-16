@@ -13,8 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link async
-          href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet">
 
     <!-- Icons -->
@@ -55,6 +54,12 @@
 
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
+    <style>
+        .dropdown-toggle::after {
+            content: none;
+        }
+
+    </style>
 
     {% block head_end %} {% endblock %}
 
@@ -63,9 +68,9 @@
 
 <body class="bg-light">
 
-    <div class="row mx-0 bg-danger">
+    <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a href="{{url_for('index.root')}}"
                        class="navbar-brand">
@@ -87,29 +92,29 @@
                          id="nav_main">
                         <ul class="navbar-nav w-100">
                             <li class="nav-item mx-3">
-                                <a class="nav-link fw-bold {%if url_for(request.endpoint) == '/'%}active{%endif%}"
+                                <a class="nav-link fw-bold {%if url_for(request.endpoint, id=0) == '/'%}active{%endif%}"
                                    aria-current="page"
                                    href="{{ url_for('index.root') }}">Home</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint)%}active{%endif%}"
+                                <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint, id=0)%}active{%endif%}"
                                    href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
                             </li>
-                            <li class="nav-item mx-3 {%if '/account/reservations/' in url_for(request.endpoint)%}active{%endif%}">
+                            <li class="nav-item mx-3 {%if '/account/reservations/' in url_for(request.endpoint, id=0)%}active{%endif%}">
                                 <a class="nav-link fw-bold"
                                    href="{{url_for('account.reservations', id=None)}}">Reservations</a>
                             </li>
                             <!--Is User Logged In?-->
                             {% if g.user != None %}
                             <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint)%}active{%endif%}"
+                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint, id=0)%}active{%endif%}"
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
+                                    <span class="me-2">{{g.user.firstname}}</span>
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    <span class="me-2">{{g.user.firstname}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item fw-bold"
@@ -128,10 +133,10 @@
                                    href="#"
                                    data-bs-toggle="dropdown"
                                    aria-expanded="false">
+                                    <span class="me-2 fw-bold">Account</span>
                                     <span class="material-icons-round me-3">
                                         account_circle
                                     </span>
-                                    <span class="me-2 fw-bold">Account</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item fw-bold"

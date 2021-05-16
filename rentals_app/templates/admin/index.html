@@ -3,10 +3,10 @@
 {% block title %}Admin | Inventory{% endblock %}
 <!---->
 {% block content %}
-<div class="container-fluid bg-danger">
+<div class="container-fluid bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h3 class="text-white ms-md-3 p-3">Manage Site</h3>
+            <h3 class="text-white ms-md-4 p-3 fw-bold">Manage Site</h3>
         </div>
     </div>
 </div>
@@ -29,12 +29,12 @@
 
 <!--Tab Selector-->
 <div class="container-fluid p-2 bg-dark shadow-sm">
-    <div class="row row mx-md-3">
+    <div class="row row mx-md-4">
         <div class="col-md-10 mx-auto">
             <ul class="nav nav-pills"
                 id="tab_root">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active text-white"
+                    <a class="nav-link dropdown-toggle active bg-info text-white"
                        data-bs-toggle="dropdown"
                        id="inventory_active_elem"
                        role="button"
@@ -45,7 +45,7 @@
                         <li>
                             <a class="dropdown-item"
                                id="inventory_tab_selector"
-                               href="#">Manage</a>
+                               href="{{url_for('admin.inventory')}}">Manage</a>
                         </li>
                         <li>
                             <a class="dropdown-item"
@@ -55,16 +55,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white"
-                       href="#"
+                       href="{{url_for('admin.reservations') }}"
                        id="reservations_tab_selector">
                         Reservations
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white"
-                       id="customer_tab_selector"
-                       href="#">
-                        Customers
                     </a>
                 </li>
             </ul>
@@ -75,17 +68,17 @@
 <div class="container-fluid p-3 mb-3"
      id="inventory_tab_content">
     <div class="row">
-        <div class="col-md-10 mx-auto">
+        <div class="col-md-8 mx-auto">
 
             {% for rental in rentals %}
 
-            <div class="card shadow-sm my-3"
+            <div class="card border-0 rounded-0 shadow-sm my-3"
                  id="inventory-panel-{{ rental.rental_id }}">
 
                 <!--Card Header-->
-                <div class="card-header bg-white d-flex flex-row p-3">
+                <div class="card-header bg-white d-flex flex-row p-3 ">
                     <div class="container">
-                        <h5 class="card-title">
+                        <h5 class="card-title fw-bold">
                             {{ rental.make }} {{ rental.model }}
                         </h5>
                         <p class="card-subtitle ff-primary text-muted">{{rental.category}}-{{rental.stock}}</p>
@@ -160,37 +153,6 @@
             {% endfor %}
         </div>
 
-        <div id="reservation_tab_content"
-             class="container">
-
-            {% for reservation in reservations %}
-
-            {%set cust_id = reservation[2]%}
-            {% for customer in customers %}
-            {% if cust_id == customer[0] %}
-            {% set cust = customer %}
-            <div class="card my-3 p-3">
-                <h4 class="card-title">{{cust[1]}} {{cust[2]}}</h4>
-                <div class="card-body">
-                    <p>{{cust[0]}}</p>
-                    <p>{{cust[3]}}</p>
-                    <p>{{cust[4]}}</p>
-                    <p>{{cust[5]}}</p>
-                    <p>{{cust[6]}}</p>
-                    <p>{{cust[7]}}</p>
-                </div>
-            </div>
-            {%endif%}
-            {% endfor %}
-
-
-            {%endfor%}
-        </div>
-
-        <div class="container p-3 mb-3"
-             id="customer_tab_content">
-            <h3>Customers</h3>
-        </div>
     </div>
 </div>
 {% endblock %}
