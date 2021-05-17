@@ -1,0 +1,132 @@
+{% extends "Base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white ms-md-4 p-3 fw-bold">My Account</h3>
+        </div>
+    </div>
+</div>
+
+<!--Account Nav-->
+<div class="container-fluid bg-dark">
+
+    <div class="row mx-md-3">
+        <div class="col-md-10 mx-auto my-2">
+            <ul class="nav nav-pills"
+                id="account_tabs_root">
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       aria-current="page"
+                       id="tab_switcher_index"
+                       href="{{url_for('account.index')}}">My Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white bg-info"
+                       id="tab_switcher_reservations"
+                       href="{{url_for('account.reservations')}}">Reservations</a>
+                </li>
+                {% if g.user.groups == "admin" %}
+                <li class="nav-item ms-auto">
+                    <a class="nav-link text-white d-flex flex-row"
+                       href="{{url_for('admin.root')}}">
+                        <span class="material-icons-round me-3">
+                            admin_panel_settings
+                        </span>
+                        Manage Site
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <div class="row mx-3">
+        <div class="col-md-8 mx-auto my-4">
+
+            <!--Reservations-->
+            <div class="p-3 my-4 bg-white shadow-sm d-flex flex-row align-items-center">
+                <h4 class="card-title flex-grow-1 fw-bold">Reservations</h4>
+                <a href="{{url_for('Rentals.all_rentals')}}"
+                   class="btn btn-outline-info border-2 border-info d-flex flex-row">
+                    <span class="material-icons-round me-3">
+                        add_circle
+                    </span>
+                    Make a new reservation
+                </a>
+            </div>
+            {% if reservations %}
+            {% for reservation in reservations %}
+            <ul class="list-group list-group-flush bg-white shadow-sm my-3">
+                <li class="list-group-item py-3">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="badge bg-dark fs-6"><code class="text-white">{{reservation[1]}}</code></p>
+                            <p class="badge bg-dark fs-6">{{reservation[10]}}
+                        </div>
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <div class="row fw-bold">
+                                    <p class="col">Preference</p>
+                                    <p class="col">Start Date</p>
+                                    <p class="col">End Date</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_one
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[4]}}</p>
+                                    <p class="col">{{reservation[5]}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_two
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[6]}}</p>
+                                    <p class="col">{{reservation[7]}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_3
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[8]}}</p>
+                                    <p class="col">{{reservation[9]}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column align-items-center">
+                                {% set rental = rentals['%s' % reservation[2]] %}
+                                {% set path = rental['image_paths'] %}
+                                <img src="/static/uploads/{{path}}"
+                                     class="img-fluid align-self-end"
+                                     style="height: auto; width: 300px;">
+                                <p class="mb-0 fw-bold">
+                                    <a href="{{url_for('Rentals.details', id=reservation[2]) }}">
+                                        {{ rental['make'] }} {{ rental['model'] }}
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#"
+                       class="btn btn-outline-danger">Cancel Reservation</a>
+                </li>
+            </ul>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
