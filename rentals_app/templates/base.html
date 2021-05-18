@@ -13,7 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
           rel="stylesheet">
 
     <!-- Icons -->
@@ -71,83 +71,80 @@
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a href="{{url_for('index.root')}}"
-                       class="navbar-brand">
-                        <img src="{{ url_for('static', filename='res/logo_white.svg') }}"
-                             class="px-3">
-                    </a>
+                <a href="{{url_for('index.root')}}"
+                   class="navbar-brand">
+                    <img src="{{ url_for('static', filename='img/logo_white.svg') }}">
+                </a>
 
-                    <button class="navbar-toggler"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#nav_main"
-                            aria-controls="nav_main"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#nav_main"
+                        aria-controls="nav_main"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse"
-                         id="nav_main">
-                        <ul class="navbar-nav w-100">
-                            <li class="nav-item mx-3">
-                                <a class="nav-link fw-bold {%if url_for(request.endpoint, id=0) == '/'%}active{%endif%}"
-                                   aria-current="page"
-                                   href="{{ url_for('index.root') }}">Home</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint, id=0)%}active{%endif%}"
-                                   href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
-                            </li>
-                            <li class="nav-item mx-3 {%if '/account/reservations/' in url_for(request.endpoint, id=0)%}active{%endif%}">
-                                <a class="nav-link fw-bold"
-                                   href="{{url_for('account.reservations', id=None)}}">Reservations</a>
-                            </li>
-                            <!--Is User Logged In?-->
-                            {% if g.user != None %}
-                            <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint, id=0)%}active{%endif%}"
-                                   href="#"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <span class="me-2">{{g.user.firstname}}</span>
-                                    <span class="material-icons-round me-3">
-                                        account_circle
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item fw-bold"
-                                           href="{{ url_for('account.index') }}">My Account</a></li>
-                                    {% if g.user.groups == "admin" %}
-                                    <li><a class="dropdown-item fw-bold"
-                                           href="{{ url_for('admin.root') }}">Manage Site</a></li>
-                                    {% endif %}
-                                    <li><a class="dropdown-item fw-bold"
-                                           href="{{ url_for('auth.logout') }}">Logout</a></li>
-                                </ul>
-                            </li>
-                            {% else %}
-                            <li class="nav-item dropdown dropdown-dark ms-auto me-3">
-                                <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
-                                   href="#"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <span class="me-2 fw-bold">Account</span>
-                                    <span class="material-icons-round me-3">
-                                        account_circle
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item fw-bold"
-                                           href="{{ url_for('auth.login') }}">Login</a></li>
-                                    <li><a class="dropdown-item fw-bold"
-                                           href="{{ url_for('auth.register') }}">Register</a></li>
-                                </ul>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
+                <div class="collapse navbar-collapse"
+                     id="nav_main">
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link fw-bold {%if url_for(request.endpoint, id=0) == '/'%}active{%endif%}"
+                               aria-current="page"
+                               href="{{ url_for('index.root') }}">Home</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint, id=0)%}active{%endif%}"
+                               href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
+                        </li>
+                        <li class="nav-item mx-3 {%if '/account/reservations/' in url_for(request.endpoint, id=0)%}active{%endif%}">
+                            <a class="nav-link fw-bold"
+                               href="{{url_for('account.reservations', id=None)}}">Reservations</a>
+                        </li>
+                        <!--Is User Logged In?-->
+                        {% if g.user != None %}
+                        <li class="nav-item dropdown dropdown-dark ms-lg-auto">
+                            <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint, id=0)%}active{%endif%}"
+                               href="#"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="me-2">{{g.user.firstname}}</span>
+                                <span class="material-icons-round">
+                                    account_circle
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item fw-bold"
+                                       href="{{ url_for('account.index') }}">My Account</a></li>
+                                {% if g.user.groups == "admin" %}
+                                <li><a class="dropdown-item fw-bold"
+                                       href="{{ url_for('admin.root') }}">Manage Site</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item fw-bold"
+                                       href="{{ url_for('auth.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item dropdown dropdown-dark ms-auto me-3">
+                            <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
+                               href="#"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="me-2 fw-bold">Account</span>
+                                <span class="material-icons-round me-3">
+                                    account_circle
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item fw-bold"
+                                       href="{{ url_for('auth.login') }}">Login</a></li>
+                                <li><a class="dropdown-item fw-bold"
+                                       href="{{ url_for('auth.register') }}">Register</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </nav>
         </div>
@@ -158,7 +155,7 @@
     <footer class="p-3">
         <div style="border-top: 2px solid whitesmoke;"></div>
         <div class="container mt-3">
-            <img src="{{ url_for('static', filename='res/logo_dark.svg') }}"
+            <img src="{{ url_for('static', filename='img/logo_dark.svg') }}"
                  class="img-fluid">
             <p class="mt-2 mb-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
             <p class="mb-2"><strong>RedDirt Rentals</strong> by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>

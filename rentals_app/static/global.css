@@ -5,6 +5,13 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+@font-face {
+  font-family: "Gilroy";
+  src: url('fonts/gilroy-bold.woff') format('woff');
+
+}
+
 :root {
   --bs-blue: #33658A;
   --bs-indigo: #2F4858;
@@ -71,7 +78,7 @@ hr:not([size]) {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Roboto";
+  font-family: "Gilroy";
   font-weight: 700;
   line-height: 1.2;
 }
