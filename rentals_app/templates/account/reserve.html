@@ -13,7 +13,7 @@
 <div class="container-fluid bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <p class="text-white ms-md-4 p-2 m-0 fw-bold">We'll import your information from your account.</p>
+            <p class="text-white py-2 m-0 fw-bold">We'll import your information from your account.</p>
         </div>
     </div>
 </div>
@@ -24,7 +24,7 @@
             <div class="card shadow-sm">
                 <div class="card-body p-4">
                     <h3 class="card-title">Make a Reservation</h3>
-                    <form action="{{url_for('account.make_reservation', r_id=rental_id)}}"
+                    <form action="{{url_for('account.make_reservation', r_id=id)}}"
                           method="POST">
 
                         <p class="form-text mb-3">
