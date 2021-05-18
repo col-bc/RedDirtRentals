@@ -13,6 +13,9 @@
 				"name": "inv",
 				"database": "${workspaceFolder:RedDirtRentals}/database.db"
 			}
+		],
+		"cSpell.words": [
+			"resv"
 		]
 	},
 	"launch": {

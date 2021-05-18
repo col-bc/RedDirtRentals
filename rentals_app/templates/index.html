@@ -31,9 +31,9 @@
                         </span>
                     </a>
                 </p>
-                <div class="collapse rounded mb-4 text-white"
+                <div class="collapse rounded mb-4 text-dark"
                      id="collapseAbout">
-                    <div class="p-3">
+                    <div class="p-3 bg-light rounded">
                         <p>
                             Red Dirt Rentals is a part of the Red Dirt Road Family.
                             Located in Marianna, FL, Red Dirt Road is proud to serve the
@@ -45,15 +45,15 @@
                             purchasing equipment from the top industry brands, like Gravely, Spartan,
                             Mahindra, and Echo, please
                             <a href="https://www.reddirtequipment.com/"
-                               class="text-white"
+                               class="text-success"
                                target="_blank">
                                 visit our website
                             </a>
                             to see all our brands as well as current deals, packages and more.
                         </p>
                         <p>
-                            On behalf of the entire Red Dirt Road family, we thank you for you business
-                            and look forward to meeting you in person soon!
+                            On behalf of the entire Red Dirt Road team, we thank you for you business
+                            and look forward to meeting you face to face (or mask to mask, if you'd prefer)!
                         </p>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 {% for rental in rentals %}
                 {% if rental.is_shown == 1 %}
                 <div class="col-md my-3">
-                    <div class="card shadow-sm h-100 rounded-0 border-0">
+                    <div class="card h-100">
                         <img src="{{url_for('static', filename='uploads/'+rental.image_paths[0])}}"
                              class="card-img-top rounded-0 img-fluid">
                         <div class="card-body p-3 d-flex flex-column align-items-stretch">

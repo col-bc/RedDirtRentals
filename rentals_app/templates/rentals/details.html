@@ -19,7 +19,7 @@
     <div class="row my-4">
         <div class="col-md-8 mx-auto">
 
-            <div class="bg-white shadow-sm p-3">
+            <div class="card bg-white p-3">
                 {% for path in rental.image_paths %}
                 <img src="{{url_for('static', filename='uploads/'+path)}}"
                      class="img-fluid">
