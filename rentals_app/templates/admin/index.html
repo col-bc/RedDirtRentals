@@ -11,8 +11,6 @@
     </div>
 </div>
 
-{{rental}}
-
 <div class="container-fluid bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
@@ -28,18 +26,21 @@
 </div>
 
 <!--Tab Selector-->
-<div class="container-fluid p-2 bg-dark shadow-sm">
+<div class="container-fluid p-2 bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
             <ul class="nav nav-pills"
                 id="tab_root">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active bg-info text-white"
+                    <a class="nav-link dropdown-toggle active bg-info text-white d-flex flex-row"
                        data-bs-toggle="dropdown"
                        id="inventory_active_elem"
                        role="button"
                        aria-expanded="false">
                         Inventory
+                        <span class="material-icons-sharp ms-3">
+                            expand_more
+                        </span>
                     </a>
                     <ul class="dropdown-menu shadow-sm w-100">
                         <li>
@@ -61,6 +62,20 @@
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white border-bottom">
+    <div class="row">
+        <div class="col-md-10 mx-auto justify-content-center py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">Manage Site</li>
+                </ol>
+            </nav>
         </div>
     </div>
 </div>
