@@ -194,7 +194,7 @@ class User():
         cur, con = helpers.connect_to_db()
         try:
             cur.execute("UPDATE users SET token='{0}' WHERE id={1}".format(token, self.userid))
-            con.commit()
+            cur.commit()
         except Exception as ex:
             raise ex
         finally:

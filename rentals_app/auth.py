@@ -155,40 +155,43 @@ def change_password(userid):
         return redirect(url_for('auth.logout'))
 
 
-email = None
-
 
 @auth.route('/reset-password')
 def reset_password():
-    random = ''.join(choice(string.ascii_uppercase + string.digits)
-            for i in range(265))
-    print(sha256(random.encode()).hexdigest())
     return render_template('auth/reset.html')
 
 
-@auth.route('/reset-password/request')
+@auth.route('/reset-password/request', methods=['POST'])
 def reset_request():
-    email = request.form.get('email')
+    g.email = request.form.get('email')
     # Run async to prevent account enumeration
-    asyncio.run(main())
+    # asyncio.run(main())
     return render_template('auth/reset_confirm.html')
 
+# Verify email and send reset request
 
-async def main():
-    if email is not None:
-        usr = User.find_user_by_email(email)
-        if usr is not None:
-            random = ''.join(choice(string.ascii_uppercase + string.digits)
-                             for i in range(265))
-            usr.start_reset(sha256(random))
-            mail = Mail(current_app)
-            msg = Message(
-                subject='A password reset was requested for you account at Red Dirt Rentals',
-                recipients=usr.email,
 
-            )
+# async def main():
+#     await check_and_reset()
 
-    pass
+
+# async def check_and_reset():
+#     if g.email is not None:
+#         print(g.email)
+#         usr = User.find_user_by_email(g.email)
+#         if usr is not None:
+#             random = ''.join(choice(string.ascii_lowercase + string.digits)
+#                              for i in range(265))
+#             usr.start_reset(sha256(random.encode()))
+#             mail = Mail(current_app)
+#             msg = Message(
+#                 subject='A password reset was requested for you account at Red Dirt Rentals',
+#                 recipients=[usr.email],
+#                 html=render_template('auth/pass_reset.html', temp=random)
+#             )
+#             mail.send(msg)
+#             print('Reset email sent to: '+g.email)
+#     pass
 
 
 @auth.route('/logout')
