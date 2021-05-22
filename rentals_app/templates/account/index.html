@@ -17,15 +17,32 @@
             <ul class="nav nav-pills"
                 id="account_tabs_root">
                 <li class="nav-item">
-                    <a class="nav-link text-white bg-info"
+                    <a class="nav-link text-white active d-flex flex-row"
                        aria-current="page"
                        id="tab_switcher_index"
-                       href="{{url_for('account.index')}}">My Information</a>
+                       href="{{url_for('account.index')}}">
+                        <span class="material-icons-round me-3">
+                            contact_phone
+                        </span>My Information
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white"
+                    <a class="nav-link text-white d-flex flex-row"
                        id="tab_switcher_reservations"
-                       href="{{url_for('account.reservations')}}">Reservations</a>
+                       href="{{url_for('account.reservations')}}">
+                        <span class="material-icons-round me-3">
+                            local_activity
+                        </span>Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex flex-row"
+                       id="tab_switcher_reservations"
+                       href="{{url_for('account.render_messages')}}">
+                        <span class="material-icons-round me-3">
+                            question_answer
+                        </span>Messages
+                    </a>
                 </li>
                 {% if user.groups == "admin" %}
                 <li class="nav-item ms-auto">
@@ -41,7 +58,6 @@
             </ul>
         </div>
     </div>
-
 </div>
 
 <div class="container-fluid">

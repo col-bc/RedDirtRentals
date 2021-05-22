@@ -1,0 +1,262 @@
+{% extends "Base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white py-3 fw-bold">My Account</h3>
+        </div>
+    </div>
+</div>
+
+<!--Account Nav-->
+<div class="container-fluid bg-dark">
+
+    <div class="row">
+        <div class="col-md-10 mx-auto my-2">
+            <ul class="nav nav-pills"
+                id="account_tabs_root">
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex flex-row"
+                       aria-current="page"
+                       id="tab_switcher_index"
+                       href="{{url_for('account.index')}}">
+                        <span class="material-icons-round me-3">
+                            contact_phone
+                        </span>My Information
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex flex-row"
+                       id="tab_switcher_reservations"
+                       href="{{url_for('account.reservations')}}">
+                        <span class="material-icons-round me-3">
+                            local_activity
+                        </span>Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active d-flex flex-row"
+                       id="tab_switcher_reservations"
+                       href="{{url_for('account.render_messages')}}">
+                        <span class="material-icons-round me-3">
+                            question_answer
+                        </span>Messages
+                    </a>
+                </li>
+                {% if g.user.groups == "admin" %}
+                <li class="nav-item ms-auto">
+                    <a class="nav-link text-white d-flex flex-row"
+                       href="{{url_for('admin.root')}}">
+                        <span class="material-icons-round me-3">
+                            admin_panel_settings
+                        </span>
+                        Manage Site
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mx-3">
+        <div class="col-md-10 mx-auto my-5">
+
+            <!--Message Center-->
+            <div class="row bg-white border">
+                <div class="d-flex flex-row bg-dark">
+                    <h4 class="text-light mb-0 p-3 flex-fill">Message Center</h4>
+                </div>
+                <div class="col-md-3 p-0 border border-right border-bottom-0 border-start-0">
+                    <!--Mailbox Menu-->
+                    <ul class="nav flex-column bg-white">
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link d-flex flex-row fw-bold"
+                               id="new-message-target"
+                               href="javascript:{}">
+                                <span class="material-icons-round me-3">
+                                    edit
+                                </span>
+                                New Message
+                            </a>
+                        </li>
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link d-flex flex-row"
+                               id="inbox-target"
+                               href="javascript:{}">
+                                <span class="material-icons-round me-3">
+                                    inbox
+                                </span>
+                                Inbox</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col px-4 py-3 h-100">
+                    <!--Server Messages-->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert border fw-bold"
+                         role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <!--New Message-->
+                    <div id="compose-view">
+                        <form method="POST"
+                              action="{{url_for('account.send_message')}}">
+                            <div class="mb-3">
+                                <label class="form-label">To:</label>
+                                <input class="form-control"
+                                       id="msg-to"
+                                       list="email_recipient"
+                                       name="msg_to"
+                                       placeholder="Type to search emails...">
+                                {% if g.user.groups != 'admin' %}
+                                <datalist id="email_recipient">
+                                    <option value="Red Dirt Rentals">
+                                </datalist>
+                                {% else %}
+                                <!--TODO: implement-->
+                                <datalist id="email_recipient">
+                                    {% for email in emails %}
+                                    <option value="{{email}}">
+                                        {% endfor %}
+                                </datalist>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">From:</label>
+                                <input type="text"
+                                       disabled
+                                       required
+                                       name="msg_from"
+                                       value="{{g.user.firstname}}&nbsp;{{g.user.lastname}}"
+                                       class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject: </label>
+                                <input type="text"
+                                       required
+                                       id="msg-subject"
+                                       name="msg_subject"
+                                       class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Message:</label>
+                                <textarea class="form-control"
+                                          name="msg_body"
+                                          id="msg-body"
+                                          required
+                                          rows="5"></textarea>
+                                <p class="form-text">Do not include any sensitive information like social security numbers, credit card numbers, etc.</p>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between">
+                                <a href="#"
+                                   id="discard-message"
+                                   onclick="discard_msg()"
+                                   class="btn btn-outline-dark">Discard</a>
+                                <button type="submit"
+                                        class="btn btn-info">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Inbox-->
+                    <div id="inbox-view"
+                         style="display:none;">
+                        <div class="accordion-flush"
+                             id="inbox-messages">
+                            {% for msg in messages %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header"
+                                    id="heading-{{msg[0]}}">
+                                    <button class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#msg-{{msg[0]}}"
+                                            aria-expanded="false"
+                                            aria-controls="msg-{{msg[0]}}">
+                                        {{msg[3]}}
+                                    </button>
+                                </h2>
+                                <div id="msg-{{msg[0]}}"
+                                     class="accordion-collapse collapse"
+                                     aria-labelledby="heading-{{msg[0]}}"
+                                     data-bs-parent="#inbox-messages">
+                                    <div class="accordion-body">
+                                        <div class="row py-2 m-0 border-bottom bg-light">
+                                            <p class="col mb-0"><strong>From:</strong> {{users_friendly[msg[2]]}}</p>
+                                            <p class="col mb-0"><strong>To: </strong>You</p>
+                                        </div>
+                                        <p class="fw-bold mt-2 mb-1">Message: </p>
+                                        <p class="p-3 border rounded">{{msg[4]}}</p>
+                                        <div class="text-end">
+                                            {% set body = msg[4] %}
+                                            {% set subj = msg[3] %}
+                                            {% set email = users_friendly[msg[2]] %}
+                                            <a href="javascript:{}"
+                                               onclick="reply_to_msg('{{body}}', '{{subj}}', '{{email}}');"
+                                               class="btn btn-outline-dark">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    let inbox_target = document.querySelector('#inbox-target');
+    let compose_target = document.querySelector('#new-message-target');
+    let inbox_view = document.querySelector('#inbox-view');
+    let compose_view = document.querySelector('#compose-view');
+
+    inbox_target.addEventListener('click', (e) => {
+        compose_view.style.display = "none";
+        inbox_view.style.display = "block";
+        inbox_target.classList.add('fw-bold');
+        compose_target.classList.remove('fw-bold');
+    });
+
+    compose_target.addEventListener('click', (e) => {
+        compose_view.style.display = "block";
+        compose_target.classList.add('fw-bold');
+        inbox_view.style.display = "none";
+        inbox_target.classList.remove('fw-bold');
+    });
+
+    function reply_to_msg(msg, subject, from) {
+        compose_view.style.display = "block";
+        compose_target.classList.add('fw-bold');
+        inbox_view.style.display = "none";
+        inbox_target.classList.remove('fw-bold');
+
+        let subject_field = document.querySelector('#msg-subject');
+        let body_field = document.querySelector('#msg-body');
+        let to_field = document.querySelector('#msg-to');
+        subject_field.value = "RE: " + subject;
+        body_field.value = "\n\n--- Replying to message --- \n" + msg;
+        to_field.value = from;
+        to_field.disabled = true;
+    }
+
+    function discard_msg() {
+        document.querySelector('#msg-subject').value = "";
+        document.querySelector('#msg-body').value = "";
+        document.querySelector('#msg-to').value = "";
+    }
+</script>
+{% endblock %}

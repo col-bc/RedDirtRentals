@@ -54,12 +54,6 @@
 
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
-    <style>
-        .dropdown-toggle::after {
-            content: none;
-        }
-
-    </style>
 
     {% block head_end %} {% endblock %}
 
@@ -70,7 +64,7 @@
 
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
                 <a href="{{url_for('index.root')}}"
                    class="navbar-brand">
                     <img src="{{ url_for('static', filename='img/logo_white.svg') }}">

@@ -1,37 +1,66 @@
+from flask.globals import current_app
 import rentals_app.helpers as helpers
+
 
 class User():
 
     def __init__(self,
-            userid:int=None,
-            firstname:str=None,
-            lastname:str=None,
-            phonenumber:str=None,
-            email:str=None,
-            password:str=None,
-            groups:str=None,
-            address:str=None,
-            city:str=None,
-            state:str=None,
-            zip:str=None) -> None:
-        self.userid=userid
-        self.firstname=firstname
-        self.lastname=lastname
-        self.phonenumber=phonenumber
-        self.email=email
-        self.password=password
-        self.groups=groups
-        self.address=address
-        self.city=city
-        self.state=state
-        self.zip=zip
+                 userid: int = None,
+                 firstname: str = None,
+                 lastname: str = None,
+                 phonenumber: str = None,
+                 email: str = None,
+                 password: str = None,
+                 groups: str = None,
+                 address: str = None,
+                 city: str = None,
+                 state: str = None,
+                 zip: str = None) -> None:
+        self.userid = userid
+        self.firstname = firstname
+        self.lastname = lastname
+        self.phonenumber = phonenumber
+        self.email = email
+        self.password = password
+        self.groups = groups
+        self.address = address
+        self.city = city
+        self.state = state
+        self.zip = zip
 
-    def find_user(id) -> object:
+    def find_user(id) -> 'User':
         con, cur = helpers.connect_to_db()
-        sql ="""
+        sql = """
         SELECT * FROM users WHERE id='{}'
         """.format(id)
 
+        try:
+            db = cur.execute(sql).fetchone()
+            con.commit()
+            return User(
+                userid=db[0],
+                firstname=db[1],
+                lastname=db[2],
+                phonenumber=db[3],
+                email=db[4],
+                password=db[5],
+                groups=db[6],
+                address=db[7],
+                city=db[8],
+                state=db[9],
+                zip=db[10]
+            )
+        except Exception as ex:
+            con.rollback()
+            raise ex
+        finally:
+            con.close()
+
+    def find_user_by_email(email) -> 'User':
+        con, cur = helpers.connect_to_db()
+        sql = """
+        SELECT * FROM users WHERE email='{}';
+        """.format(email)
         try:
             db = cur.execute(sql).fetchone()
             con.commit()
@@ -144,5 +173,19 @@ class User():
         finally:
             con.close()
 
-    def clone(self) -> object:
+    def get_all_users() -> list():
+        cur, con = helpers.connect_to_db()
+        sql = """
+            SELECT * FROM users WHERE 1=1;
+        """
+        try:
+            rows = list(cur.execute(sql).fetchall())
+            return rows
+        except Exception as ex:
+            current_app.log_exception(ex)
+            raise ex
+        finally:
+            con.close()
+
+    def clone(self) -> 'User':
         return self
