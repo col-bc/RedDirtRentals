@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <!--Favicon-->
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <style>
+        body {
+            max-width: 75%;
+            margin: 3rem auto;
+            background: #edf2f4;
+            font-family: sans-serif;
+            color: #2b2d42;
+        }
+
+        img {
+            padding: .5rem 0;
+        }
+
+        .content {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        a {
+            background: #d90429;
+            display: inline-block;
+            padding: .75rem 1rem;
+            color: white;
+            border-radius: 4px;
+            margin: .5rem 0 !important;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <img src="../../static/img/logo_dark.svg">
+
+        <h2 style="padding: .5rem 0;">Hi User!</h2>
+        <p>
+            Someone has requested a <strong>password reset</strong> for your account on Red Dirt Rentals.
+            If this was not you, please login with the following credentials and change
+            your password. If you think your account has been compromised, contact us immediately.
+        </p>
+
+        <p><u>Your password has temporarily reset to:</u></p>
+        <p><strong>{{temp}}</strong></p>
+        <p>
+            Please click the link below and reset your password using the temporary password provided.
+        </p>
+        <a href="http://localhost:5000/auth/password-reset-change/">Reset Password</a>
+        <p>If you have problems with the button, copy and paste this into the browser</p>
+        <p style="color:blue">http://localhost:5000/auth/password-reset-change/</p>
+    </div>
+</body>
+
+</html>
