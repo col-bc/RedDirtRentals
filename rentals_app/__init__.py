@@ -5,6 +5,12 @@ from flask import (
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = 'development*041921'
 
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'yourId@gmail.com'
+app.config['MAIL_PASSWORD'] = '*****'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 from . import auth
 app.register_blueprint(auth.auth)
@@ -14,9 +20,6 @@ app.register_blueprint(admin.admin)
 
 from . import rentals
 app.register_blueprint(rentals.rentals)
-
-from . import checkout
-app.register_blueprint(checkout.checkout)
 
 from . import index
 app.register_blueprint(index.index)

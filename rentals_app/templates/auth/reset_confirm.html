@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <!--Favicon-->
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!--Fonts-->
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+    <!-- Baseline -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+          rel="stylesheet">
+
+    <!-- Outline -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+          rel="stylesheet">
+
+    <!-- Round -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round"
+          rel="stylesheet">
+
+    <!-- Sharp -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
+          rel="stylesheet">
+
+    <!-- TwoTone -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone"
+          rel="stylesheet">
+
+    <!--jQuery-->
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='global.css')}}">
+
+    <!--Bootstrap JS-->
+    <script async
+            type="text/javascript"
+            src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
+
+    <script defer
+            src="{{url_for('static', filename='global.js')}}"></script>
+
+    <title>Register - RedDirtRentals</title>
+</head>
+
+<body class="bg-light">
+    <div class="container"
+         style="min-height: 100vh !important;">
+        <div class="row my-5">
+            <div class="col-md-6 mx-auto my-5">
+
+                <a href="{{url_for('index.root')}}">
+                    <img src="{{url_for('static', filename='img/logo_dark.svg')}}"
+                         class="my-4">
+                </a>
+
+                <div class="p-4 bg-white card">
+                    <h3>Got it</h3>
+                    <p>
+                        If an account exists with the email address provided, we'll email you
+                        instructions on how to reset your password.
+                    </p>
+                    <p>
+                        Please allow 5-10 minutes for this email to arrive. If you cannot find it,
+                        check you spam/junk folder before requesting another rest.
+                    </p>
+                    <a href="{{ url_for('index.root') }}"
+                    class="btn btn-primary btn-large">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

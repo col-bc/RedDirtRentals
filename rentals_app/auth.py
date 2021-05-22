@@ -1,5 +1,11 @@
+import string
+from secrets import choice
 from datetime import datetime
 from datetime import timedelta
+from hashlib import sha256
+from flask.globals import current_app
+from flask_mail import Mail, Message
+import asyncio
 import functools
 from functools import wraps
 from flask import (
@@ -20,6 +26,7 @@ def fetch_current_user():
     else:
         g.user = User.find_user(userid)
 
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -33,6 +40,7 @@ def login_required(view):
         return view(**kwargs)
     return wrapped_view
 
+
 def admin_only(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -45,6 +53,8 @@ def admin_only(view):
         return view(**kwargs)
     return wrapped_view
 
+# Routes
+
 
 @auth.route('/')
 def root():
@@ -55,13 +65,15 @@ def root():
 def login():
     return render_template('auth/login.html')
 
-@auth.route('/login/verify', methods=['GET','POST'])
+
+@auth.route('/login/verify', methods=['GET', 'POST'])
 def verify():
     username = str(request.form.get('email')).lower()
     password = request.form.get('password')
 
     cur, con = helpers.connect_to_db()
-    sql = "SELECT id,email,password FROM users WHERE email='{}'".format(username)
+    sql = "SELECT id,email,password FROM users WHERE email='{}'".format(
+        username)
 
     try:
         db = cur.execute(sql).fetchone()
@@ -69,14 +81,14 @@ def verify():
         flash('Username or password does not match our records.')
         print(ex)
         return redirect(url_for('auth.login'))
-    
+
     if db is not None \
-    and db[1] == username \
-    and check_password_hash(db[2], password):
+            and db[1] == username \
+            and check_password_hash(db[2], password):
         session['userid'] = db[0]
         session['expire'] = datetime.now() + timedelta(hours=2)
         return redirect(url_for('account.index'))
-    
+
     con.close()
     flash('Username or password does not match our records')
     return redirect(url_for('auth.login'))
@@ -85,8 +97,9 @@ def verify():
 @auth.route('/register')
 def register():
     return render_template('auth/register.html', user=User())
-    
-@auth.route('/register/enroll', methods=['GET','POST'])
+
+
+@auth.route('/register/enroll', methods=['GET', 'POST'])
 def enroll():
     if request.method == 'POST':
         user = User(
@@ -96,14 +109,16 @@ def enroll():
             email=request.form.get('email'),
             password=generate_password_hash(request.form.get('password')),
             groups='Customer',
-            address='{0} {1}'.format(request.form.get('address1'), request.form.get('address2') if request.form.get('address2') is not None else ''),
+            address='{0} {1}'.format(request.form.get('address1'), request.form.get(
+                'address2') if request.form.get('address2') is not None else ''),
             city=request.form.get('city'),
             state=request.form.get('state'),
             zip=request.form.get('zip')
         )
-        
+
         cur, con = helpers.connect_to_db()
-        sql = "SELECT * FROM users WHERE email='{}'".format(request.form.get('email'))
+        sql = "SELECT * FROM users WHERE email='{}'".format(
+            request.form.get('email'))
 
         try:
             db = cur.execute(sql).fetchone()
@@ -123,18 +138,57 @@ def enroll():
                 return redirect(url_for('auth.login'))
             except Exception as ex:
                 print(ex)
-                flash('We cannot create this account right now. Please try again in a little while.')
+                flash(
+                    'We cannot create this account right now. Please try again in a little while.')
                 return redirect(url_for('auth.register'))
 
 
+# Service
 @auth.route('/change-password', methods=['GET', 'POST'])
 def change_password(userid):
     if request.method == 'POST':
         user = User.find_user(userid)
         updated_user = user.clone()
 
-        updated_user.password = generate_password_hash(request.form.get('password2'))
+        updated_user.password = generate_password_hash(
+            request.form.get('password2'))
         return redirect(url_for('auth.logout'))
+
+
+email = None
+
+
+@auth.route('/reset-password')
+def reset_password():
+    random = ''.join(choice(string.ascii_uppercase + string.digits)
+            for i in range(265))
+    print(sha256(random.encode()).hexdigest())
+    return render_template('auth/reset.html')
+
+
+@auth.route('/reset-password/request')
+def reset_request():
+    email = request.form.get('email')
+    # Run async to prevent account enumeration
+    asyncio.run(main())
+    return render_template('auth/reset_confirm.html')
+
+
+async def main():
+    if email is not None:
+        usr = User.find_user_by_email(email)
+        if usr is not None:
+            random = ''.join(choice(string.ascii_uppercase + string.digits)
+                             for i in range(265))
+            usr.start_reset(sha256(random))
+            mail = Mail(current_app)
+            msg = Message(
+                subject='A password reset was requested for you account at Red Dirt Rentals',
+                recipients=usr.email,
+
+            )
+
+    pass
 
 
 @auth.route('/logout')
