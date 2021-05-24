@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Admin | Inventory{% endblock %}
+<!---->
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white py-3 fw-bold">Manage Site</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="container">
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <div class="alert alert-light">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab Selector-->
+<div class="container-fluid p-2 bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <ul class="nav nav-pills"
+                id="tab_root">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white d-flex flex-row"
+                       data-bs-toggle="dropdown"
+                       id="inventory_active_elem"
+                       role="button"
+                       aria-expanded="false">
+                        Inventory
+                        <span class="material-icons-sharp ms-3">
+                            expand_more
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu shadow-sm w-100">
+                        <li>
+                            <a class="dropdown-item"
+                               id="inventory_tab_selector"
+                               href="{{url_for('admin.inventory')}}">Manage</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.new') }}">Add</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.reservations') }}"
+                       id="reservations_tab_selector">
+                        Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active"
+                       href="{{url_for('admin.customers') }}"
+                       id="reservations_tab_selector">
+                        Customers
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white border-bottom">
+    <div class="row">
+        <div class="col-md-10 mx-auto justify-content-center py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Manage Site</a></li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">Registered Customers</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-3 mb-3"
+     id="inventory_tab_content">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+
+            <div class="accordion"
+                 id="customer-list">
+
+                {% for customer in customers %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header"
+                        id="customer-heading-{{customer.userid}}">
+                        <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#customer-{{customer.userid}}"
+                                aria-expanded="false"
+                                aria-controls="customer-{{customer.userid}}">
+                            {{customer.firstname}} {{customer.lastname}}
+                        </button>
+                    </h2>
+                    <div id="customer-{{customer.userid}}"
+                         class="accordion-collapse collapse"
+                         aria-labelledby="customer-heading-{{customer.userid}}"
+                         data-bs-parent="#customer-list">
+                        <div class="accordion-body">
+                            <div class="row border-light border-bottom mb-2">
+                                <div class="col-4">
+                                    Customer Name:
+                                </div>
+                                <div class="col">
+                                    {{customer.firstname}} {{customer.lastname}}
+                                </div>
+                            </div>
+                            <div class="row border-light border-bottom mb-2">
+                                <div class="col-4">
+                                    Phone Number:
+                                </div>
+                                <div class="col">
+                                    {{customer.phonenumber}}
+                                </div>
+                            </div>
+                            <div class="row border-light border-bottom mb-2">
+                                <div class="col-4">
+                                    Address:
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">{{customer.address}}</p>
+                                    <p class="mb-1">{{customer.city}}, {{customer.state}} {{customer.zip}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
