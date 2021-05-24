@@ -90,17 +90,36 @@ def reservations():
         customers = dict()
         for id in customers_ids:
             customers[str(id)] = User.find_user(id=x[3])
-        
+
     except Exception as ex:
         print(ex)
         raise ex
-        
+
     finally:
         con.close()
-        return render_template('admin/reservations.html', 
-            reservations=reservations, 
-            rentals=rentals, 
-            customers=customers)
+        return render_template('admin/reservations.html',
+                               reservations=reservations,
+                               rentals=rentals,
+                               customers=customers)
+
+@admin.route('/customers')
+@login_required
+@admin_only
+def customers():
+    cur, con = helpers.connect_to_db()
+    sql = """
+    SELECT id FROM users WHERE 1=1;
+    """
+    try:
+        ids = cur.execute(sql).fetchall()
+        customers = list()
+        for id in ids:
+            customers.append(User.find_user(id[0]))
+    except Exception as ex:
+        current_app.log_exception(ex)
+        raise ex
+
+    return render_template('admin/customers.html', customers=customers)
 
 
 #### CRUD FUNCTIONS ####

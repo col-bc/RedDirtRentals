@@ -1,19 +1,14 @@
-import string
-from secrets import choice
-from datetime import datetime
-from datetime import timedelta
-from hashlib import sha256
-from flask.globals import current_app
-from flask_mail import Mail, Message
 import asyncio
 import functools
-from functools import wraps
-from flask import (
-    Blueprint, flash, redirect, render_template, request, session, url_for, g, Response
-)
+import string
+from datetime import datetime, timedelta
+
+from flask import (Blueprint, Response, flash, g, redirect, render_template,
+                   request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
-from rentals_app.models.user import User
+
 import rentals_app.helpers as helpers
+from rentals_app.models.user import User
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -167,31 +162,6 @@ def reset_request():
     # Run async to prevent account enumeration
     # asyncio.run(main())
     return render_template('auth/reset_confirm.html')
-
-# Verify email and send reset request
-
-
-# async def main():
-#     await check_and_reset()
-
-
-# async def check_and_reset():
-#     if g.email is not None:
-#         print(g.email)
-#         usr = User.find_user_by_email(g.email)
-#         if usr is not None:
-#             random = ''.join(choice(string.ascii_lowercase + string.digits)
-#                              for i in range(265))
-#             usr.start_reset(sha256(random.encode()))
-#             mail = Mail(current_app)
-#             msg = Message(
-#                 subject='A password reset was requested for you account at Red Dirt Rentals',
-#                 recipients=[usr.email],
-#                 html=render_template('auth/pass_reset.html', temp=random)
-#             )
-#             mail.send(msg)
-#             print('Reset email sent to: '+g.email)
-#     pass
 
 
 @auth.route('/logout')
