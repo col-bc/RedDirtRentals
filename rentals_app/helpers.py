@@ -3,18 +3,19 @@ from flask import current_app
 import os
 from rentals_app.models.rental import Rental
 
-ABS_UPLOAD_PATH = '/Users/colby/RedDirtRentals/rentals_app/static/uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'tiff', 'jpeg'}
+ABS_UPLOAD_PATH = "/Users/colby/Work/RedDirtRentals/rentals_app/static/uploads"
+DB_PATH = "/Users/colby/Work/RedDirtRentals/database.db"
+ALLOWED_EXTENSIONS = {"png", "jpg", "tiff", "jpeg"}
 
 
 def connect_to_db():
-    con = sqlite3.connect('/Users/colby/RedDirtRentals/database.db')
+    con = sqlite3.connect(DB_PATH)
     return con, con.cursor()
 
 
-def run_sql(qry,args=''):
-    con = sqlite3.connect('/Users/colby/RedDirtRentals/database.db')
-    result = con.cursor().execute(qry,args)
+def run_sql(qry, args=""):
+    con = sqlite3.connect(DB_PATH)
+    result = con.cursor().execute(qry, args)
     con.commit()
     if result != None:
         con.close()
@@ -24,7 +25,7 @@ def run_sql(qry,args=''):
 
 
 def get_attributes(request):
-    return { # dict with request objects
+    return {  # dict with request objects
         "make": request.form.get("make"),
         "model": request.form.get("model"),
         "fuel_type": request.form.get("fuel_type"),
@@ -49,13 +50,10 @@ def get_attributes(request):
 
 
 def log_event(msg):
-    with open('/Users/colby/RedDirtRentals/events.log', 'a+') as log:
+    with open("/Users/colby/Work/RedDirtRentals/events.log", "a+") as log:
         log.write(msg)
         log.close()
 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS

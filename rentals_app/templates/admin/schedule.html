@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Admin | Inventory{% endblock %}
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white py-3 fw-bold">Manage Site</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="container">
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <div class="alert alert-light">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab Selector-->
+<div class="container-fluid p-2 bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <ul class="nav nav-pills"
+                id="tab_root">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white d-flex flex-row"
+                       data-bs-toggle="dropdown"
+                       id="inventory_active_elem"
+                       role="button"
+                       aria-expanded="false">
+                        Inventory
+                        <span class="material-icons-sharp ms-3">
+                            expand_more
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu shadow-sm w-100">
+                        <li>
+                            <a class="dropdown-item"
+                               id="inventory_tab_selector"
+                               href="{{url_for('admin.inventory')}}">Manage</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.new') }}">Add</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.reservations') }}"
+                       id="reservations_tab_selector">
+                        Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.customers') }}"
+                       id="reservations_tab_selector">
+                        Customers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active"
+                       href="{{url_for('admin.customers') }}"
+                       id="reservations_tab_selector">
+                        Schedule
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white border-bottom">
+    <div class="row">
+        <div class="col-md-10 mx-auto justify-content-center py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Manage Site</a></li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">Rental Schedule</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-3 my-3">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div id="calendar"
+                 class="p-3 rounded border bg-white w-100"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                { // this object will be "parsed" into an Event Object
+                    title: 'The Title', // a property!
+                    start: '2021-06-20', // a property!
+                    end: '2021-06-27' // a property! ** see important note below about 'end' **
+                }
+            ]
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

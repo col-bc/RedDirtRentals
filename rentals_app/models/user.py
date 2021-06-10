@@ -2,20 +2,21 @@ from flask.globals import current_app
 import rentals_app.helpers as helpers
 
 
-class User():
-
-    def __init__(self,
-                 userid: int = None,
-                 firstname: str = None,
-                 lastname: str = None,
-                 phonenumber: str = None,
-                 email: str = None,
-                 password: str = None,
-                 groups: str = None,
-                 address: str = None,
-                 city: str = None,
-                 state: str = None,
-                 zip: str = None) -> None:
+class User:
+    def __init__(
+        self,
+        userid: int = None,
+        firstname: str = None,
+        lastname: str = None,
+        phonenumber: str = None,
+        email: str = None,
+        password: str = None,
+        groups: str = None,
+        address: str = None,
+        city: str = None,
+        state: str = None,
+        zip: str = None,
+    ) -> None:
         self.userid = userid
         self.firstname = firstname
         self.lastname = lastname
@@ -28,11 +29,13 @@ class User():
         self.state = state
         self.zip = zip
 
-    def find_user(id) -> 'User':
+    def find_user(id) -> "User":
         con, cur = helpers.connect_to_db()
         sql = """
         SELECT * FROM users WHERE id='{}'
-        """.format(id)
+        """.format(
+            id
+        )
 
         try:
             db = cur.execute(sql).fetchone()
@@ -48,7 +51,7 @@ class User():
                 address=db[7],
                 city=db[8],
                 state=db[9],
-                zip=db[10]
+                zip=db[10],
             )
         except Exception as ex:
             con.rollback()
@@ -56,11 +59,13 @@ class User():
         finally:
             con.close()
 
-    def find_user_by_email(email) -> 'User':
+    def find_user_by_email(email) -> "User":
         con, cur = helpers.connect_to_db()
         sql = """
         SELECT * FROM users WHERE email='{}';
-        """.format(email)
+        """.format(
+            email
+        )
         try:
             db = cur.execute(sql).fetchone()
             con.commit()
@@ -75,7 +80,7 @@ class User():
                 address=db[7],
                 city=db[8],
                 state=db[9],
-                zip=db[10]
+                zip=db[10],
             )
         except Exception as ex:
             con.rollback()
@@ -119,7 +124,7 @@ class User():
             self.address,
             self.city,
             self.state,
-            self.zip
+            self.zip,
         )
 
         try:
@@ -156,7 +161,7 @@ class User():
             new.city,
             new.state,
             new.zip,
-            id
+            id,
         )
 
     def delete_user(self) -> bool:
@@ -187,13 +192,15 @@ class User():
         finally:
             con.close()
 
-    def clone(self) -> 'User':
+    def clone(self) -> "User":
         return self
 
     def start_reset(self, token):
         cur, con = helpers.connect_to_db()
         try:
-            cur.execute("UPDATE users SET token='{0}' WHERE id={1}".format(token, self.userid))
+            cur.execute(
+                "UPDATE users SET token='{0}' WHERE id={1}".format(token, self.userid)
+            )
             cur.commit()
         except Exception as ex:
             raise ex

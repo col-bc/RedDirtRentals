@@ -4,6 +4,11 @@
   font-family: "Gilroy";
   src: url(fonts/gilroy-bold.woff);
 }
+@font-face {
+  font-family: "ethnocentric";
+  src: url(fonts/ethnocentric\ rg.ttf);
+}
+
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

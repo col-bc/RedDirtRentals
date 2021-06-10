@@ -113,7 +113,7 @@
                                         <input type="text"
                                                value="{{reservation[10]}}"
                                                class="form-control">
-                                        <button class="form-group-text border btn btn-small btn-link"
+                                        <button class="form-group-text btn btn-small btn-light border"
                                                 type="submit">Update
                                         </button>
                                     </div>
@@ -229,6 +229,34 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div>
+
+                        <div class="row col">
+                            <h5>Schedule Reservation</h5>
+                            <form method="POST"
+                                  action="">
+                                <div class="row mt-2">
+                                    <div class="input-group col">
+                                        <span class="input-group-text">Pickup Date</span>
+                                        <input type="date"
+                                               class="form-control"
+                                               name="scheduled_start">
+                                    </div>
+                                    <div class="input-group col">
+                                        <span class="input-group-text">Dropoff Date</span>
+                                        <input type="date"
+                                               name="scheduled_end"
+                                               class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button type="submit"
+                                                class="btn btn-light px-5">Schedule & Confirm</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

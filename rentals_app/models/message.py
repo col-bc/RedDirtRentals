@@ -2,15 +2,22 @@ from flask.globals import current_app
 import rentals_app.helpers as helpers
 from rentals_app.models.user import *
 
-class Message():
 
-    def __init__(self, from_user:User, to_user:User, subject:str, message: str, status:str = "New") -> None:
+class Message:
+    def __init__(
+        self,
+        from_user: User,
+        to_user: User,
+        subject: str,
+        message: str,
+        status: str = "New",
+    ) -> None:
         self.from_user = from_user
         self.to_user = to_user
         self.subject = subject
         self.message = message
         self.status = status
-    
+
     # Commits message contents to database
     def send_message(self) -> bool:
         con, cur = helpers.connect_to_db()
@@ -29,7 +36,9 @@ class Message():
             '{3}',
             '{4}'
         );
-        """.format(self.from_user, self.to_user, self.subject, self.message, self.status)
+        """.format(
+            self.from_user, self.to_user, self.subject, self.message, self.status
+        )
 
         try:
             cur.execute(sql)
@@ -42,12 +51,14 @@ class Message():
             con.close()
 
     # Returns number of messages sent to User
-    def check_num_messages(user:User) -> int:
+    def check_num_messages(user: User) -> int:
         cur, con = helpers.connect_to_db()
 
         sql = """
         SELECT * FROM messages WHERE to_id = '{}';
-        """.format(user.userid)
+        """.format(
+            user.userid
+        )
 
         try:
             messages = cur.execute(sql).fetchall()
@@ -61,12 +72,14 @@ class Message():
             con.close()
 
     # Returns number of new messages send to User
-    def check_new_messages(user:User) -> int:
+    def check_new_messages(user: User) -> int:
         cur, con = helpers.connect_to_db()
 
         sql = """
         SELECT * FROM messages WHERE to_id = '{}', status='New';
-        """.format(user.userid)
+        """.format(
+            user.userid
+        )
 
         try:
             messages = cur.execute(sql).fetchall()
@@ -80,11 +93,13 @@ class Message():
             con.close()
 
     # Returns list of messages to provided user obj
-    def get_messages(user:User) -> list():
-        con, cur = helpers.connect_to_db();
+    def get_messages(user: User) -> list():
+        con, cur = helpers.connect_to_db()
         sql = """
             SELECT * FROM messages WHERE to_id='{}'
-        """.format(user.userid)
+        """.format(
+            user.userid
+        )
         try:
             results = cur.execute(sql).fetchall()
             return list(results)
@@ -93,5 +108,3 @@ class Message():
             raise ex
         finally:
             con.close()
-            
-
