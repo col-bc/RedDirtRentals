@@ -116,6 +116,30 @@ def reservations():
         )
 
 
+@admin.route("/reservations/<int:id>", methods=["GET"])
+@login_required
+@admin_only
+def reservation_details(id):
+    SQL = """SELECT * FROM reservations WHERE id={}""".format(id)
+    con, cur = helpers.connect_to_db()
+    try:
+        reservation = cur.execute(SQL).fetchone()
+    except Exception as ex:
+        print(ex)
+        raise ex
+    print(reservation, type(reservation))
+    customer = User.find_user(reservation[3])
+    rental = Rental().find_rental(reservation[2])
+    image = rental.image_paths.strip('[').strip(']').strip("'")
+    return render_template(
+        "admin/reservation_detail.html",
+        reservation=reservation,
+        customer=customer,
+        rental=rental,
+        image=image
+    )
+
+
 @admin.route("/customers")
 @login_required
 @admin_only
@@ -318,9 +342,15 @@ def schedule():
     return render_template("admin/schedule.html")
 
 
+# TODO:
 # Add schedule_confirm route
 # Update rental to not available
 # Update rented_by
 # Update available_on
 # Add appt to calendar
 # Message user
+@admin.route("/schedule/confirm", methods=["POST"])
+@login_required
+@admin_only
+def schedule_confirm():
+    pass

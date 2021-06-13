@@ -26,6 +26,19 @@ account = Blueprint("account", __name__, url_prefix="/account")
 def index():
     return render_template("account/index.html", user=g.user)
 
+@account.route('/delete-account', methods=['POST'])
+@login_required
+def delete_account():
+    if request.method == 'POST':
+        user = User.find_user(g.user.userid)
+        if user.delete_user():
+            flash('Your account has been deleted. We\'ll miss you.')
+            session.clear()
+            return redirect(url_for('auth.login'))
+        else:
+            flash('There as a problem processing your request. Please call us for assistance.')
+            return redirect(url_for('account.index'))
+
 
 @account.route("/reservations")
 @login_required
@@ -90,7 +103,7 @@ def make_reservation(r_id):
 
             con, cur = helpers.connect_to_db()
             sql = """
-            INSERT INTO RESERVATIONS (
+            INSERT INTO SERVATIONS (
                 confirmation_num,
                 rental_id,
                 customer_id,

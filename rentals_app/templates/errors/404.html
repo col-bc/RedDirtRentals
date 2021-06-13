@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 <!---->
 {% block content %}
-<div class="hero is-fullheight is-max-desktop p-5 has-background-white">
-    <div class="hero-body is-flex is-flex-direction-column">
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-        <lottie-player src="https://assets10.lottiefiles.com/temp/lf20_LJK4oD.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-        <div class="my-5"></div>
-        <h1 class="title is-size-1 is-family-code">Error 404</h1>
-        <h2 class="subtitle">The requested page cannot be found. <a href="{{ url_for('index.root') }}" class="is-link">Go to homepage</a>.</h2>
+<div class="container">
+    <div class="row my-5">
+        <div class="col col-md-10 mx-auto text-center">
+            <h1 class="text-primary">Error 404</h1>
+            <h4 class="text-muted">The requested page cannot be found.</h4>
+            <a href="{{ url_for('index.root') }}"
+               class="btn btn-link">Go to homepage</a>
+        </div>
     </div>
 </div>
 {% endblock %}

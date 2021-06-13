@@ -68,11 +68,19 @@
                         Customers
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.schedule') }}"
+                       id="reservations_tab_selector">
+                        Schedule
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
+<!--Breadcrumb-->
 <div class="container-fluid bg-white border-bottom">
     <div class="row">
         <div class="col-md-10 mx-auto justify-content-center py-2">
@@ -88,6 +96,7 @@
     </div>
 </div>
 
+<!--Content-->
 <div class="container-fluid p-3 mb-3"
      id="inventory_tab_content">
     <div class="row">
@@ -142,10 +151,10 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
 
 
-            {% endfor %}
         </div>
 
     </div>

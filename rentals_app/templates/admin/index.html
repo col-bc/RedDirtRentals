@@ -80,6 +80,7 @@
     </div>
 </div>
 
+<!--Breadcrumb-->
 <div class="container-fluid bg-white border-bottom">
     <div class="row">
         <div class="col-md-10 mx-auto justify-content-center py-2">
@@ -99,9 +100,7 @@
      id="inventory_tab_content">
     <div class="row">
         <div class="col-md-8 mx-auto">
-
             {% for rental in rentals %}
-
             <div class="card my-3"
                  id="inventory-panel-{{ rental.rental_id }}">
 
@@ -179,10 +178,9 @@
                 </div>
 
             </div>
-
             {% endfor %}
         </div>
-
     </div>
+
 </div>
 {% endblock %}
