@@ -107,6 +107,36 @@
     </div>
 </div>
 
+<div class="modal"
+     id="event_modal"
+     tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="event_title">Reservation Details</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><b>Customer Name: </b><span id="event_name"></span></p>
+                <p><b>Start Date: </b><span id="event_start"></span></p>
+                <p><b>End Date: </b><span id="event_end"></span></p>
+                <p><b>Reservation Details: </b><a href=""
+                       id="event_details">click here</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-primary fw-bold"
+                        data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
@@ -114,11 +144,24 @@
             initialView: 'dayGridMonth',
             selectable: true,
             eventClick: function (info) {
-                console.log(info.event.title)
+                console.log(info.event)
+                var myModal = new bootstrap.Modal(document.getElementById('event_modal'))
+                var d = info.event.start.getDate()
+                var m = info.event.start.getMonth()
+                var y = info.event.start.getFullYear()
+                document.getElementById('event_name').innerHTML = info.event.title
+                document.getElementById('event_start').innerHTML = m + '/' + d + '/' + y
+                var d = info.event.end.getDate()
+                var m = info.event.end.getMonth()
+                var y = info.event.end.getFullYear()
+                document.getElementById('event_end').innerHTML = m + '/' + d + '/' + y
+                document.getElementById('event_details').href = '/admin/reservations/' + info.event.id
+                myModal.show()
             },
             events: [
                 {% for e in events %}
                 {
+                id: '{{e.reservation_id}}',
                 start: '{{e.start_date}}',
                 end: '{{e.end_date}}',
                 title: '{{e.customer.firstname}} {{e.customer.lastname}}'
@@ -127,9 +170,6 @@
             ],
         });
     calendar.render();
-    calendar.on('dateClick', function (info) {
-        console.log('clicked on ' + info.event);
-    });
     });
 </script>
 {% endblock %}

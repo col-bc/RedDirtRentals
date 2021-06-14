@@ -377,16 +377,22 @@ def schedule():
         raise ex
 
     class Event:
-        def __init__(self, start_date, end_date, customer) -> None:
+        def __init__(self, start_date, end_date, customer, reservation_id) -> None:
             self.start_date = start_date
             self.end_date = end_date
             self.customer = customer
+            self.reservation_id = reservation_id
 
     events = list()
 
     for x in reservations:
         events.append(
-            Event(start_date=x[12], end_date=x[13], customer=User.find_user(x[3]))
+            Event(
+                start_date=x[12],
+                end_date=x[13],
+                customer=User.find_user(x[3]),
+                reservation_id=x[0],
+            )
         )
 
     return render_template("admin/schedule.html", events=events)
