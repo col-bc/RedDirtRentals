@@ -9,6 +9,7 @@
     </div>
 </div>
 
+<!--Server Messages-->
 <div class="container-fluid bg-dark">
     <div class="row">
         <div class="col-md-10 mx-auto">
@@ -78,6 +79,7 @@
     </div>
 </div>
 
+<!--Breadcrumb-->
 <div class="container-fluid bg-white border-bottom">
     <div class="row">
         <div class="col-md-10 mx-auto justify-content-center py-2">
@@ -96,6 +98,9 @@
 <div class="container-fluid p-3 my-3">
     <div class="row">
         <div class="col-md-8 mx-auto">
+            <div class="row col my-3">
+                <h2 class="border-bottom border-3">Reservation Schedule</h2>
+            </div>
             <div id="calendar"
                  class="p-3 rounded border bg-white w-100"></div>
         </div>
@@ -107,15 +112,24 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            selectable: true,
+            eventClick: function (info) {
+                console.log(info.event.title)
+            },
             events: [
-                { // this object will be "parsed" into an Event Object
-                    title: 'The Title', // a property!
-                    start: '2021-06-20', // a property!
-                    end: '2021-06-27' // a property! ** see important note below about 'end' **
-                }
-            ]
+                {% for e in events %}
+                {
+                start: '{{e.start_date}}',
+                end: '{{e.end_date}}',
+                title: '{{e.customer.firstname}} {{e.customer.lastname}}'
+            }
+                {% endfor %}
+            ],
         });
-        calendar.render();
+    calendar.render();
+    calendar.on('dateClick', function (info) {
+        console.log('clicked on ' + info.event);
+    });
     });
 </script>
 {% endblock %}

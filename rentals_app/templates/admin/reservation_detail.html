@@ -117,15 +117,51 @@
                     <div class="d-flex flex-column">
                         <div class="row my-3">
                             <div class="col">
-                                <form>
-                                    <!--TODO: Implement-->
+                                <form action="{{url_for('admin.update_resv_status', id=reservation[0]) }}"
+                                      method="POST">
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           value="{{ csrf_token() }}">
                                     <div class="input-group">
                                         <select class="form-select"
+                                                name="new_status"
                                                 aria-label="Default select example">
-                                            <option selected>Pending</option>
-                                            <option value="1">Reviewed</option>
-                                            <option value="2">Scheduled</option>
-                                            <option value="3">Returned</option>
+                                            <option value="Pending"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Pending'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Pending</option>
+                                            <option value="Reviewed"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Reviewed'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Reviewed</option>
+                                            <option value="Scheduled"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Scheduled'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Scheduled</option>
+                                            <option value="Returned"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Returned'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Returned</option>
                                         </select>
                                         <button class="form-group-text btn btn-small btn-light border"
                                                 type="submit">Update
@@ -170,6 +206,13 @@
                                     <p class="col">{{reservation[8]}}</p>
                                     <p class="col">{{reservation[9]}}</p>
                                 </div>
+
+                                <div class="row">
+                                    <p class="fs-6 mb-1"><b>Rental Rate:</b> $ {{ '%0.2f'%rental.rate[0] }}</p>
+                                    <p class="fs-6 mb-1"><b>Estimated Hours per day: </b>{{reservation[11]}}</p>
+                                    <p class="fs-6 mb-1"><b>Daily Cost: </b> $ {{ '%0.2f'%(rental.rate[0] | float * reservation[11] | int) }}
+                                </div>
+
                             </div>
                             <div class="col-6">
                                 <img src="/static/uploads/{{image}}"
@@ -244,17 +287,20 @@
                         <div class="row col">
                             <h5>Schedule Reservation</h5>
                             <form method="POST"
-                                  action="">
+                                  action="{{ url_for('admin.schedule_confirm', r_id=reservation[2], c_id=reservation[3], rsvr_id=reservation[0]) }}">
+                                <input type="hidden" name="csrf_token" value={{ csrf_token() }}>
                                 <div class="row mt-2">
                                     <div class="input-group col">
                                         <span class="input-group-text">Pickup Date</span>
                                         <input type="date"
+                                               required
                                                class="form-control"
                                                name="scheduled_start">
                                     </div>
                                     <div class="input-group col">
                                         <span class="input-group-text">Dropoff Date</span>
                                         <input type="date"
+                                               required
                                                name="scheduled_end"
                                                class="form-control">
                                     </div>

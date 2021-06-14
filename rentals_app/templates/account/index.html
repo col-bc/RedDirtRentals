@@ -63,11 +63,23 @@
 <!--Content-->
 <div class="container-fluid">
     <div class="row mx-3">
-        <div class="col-md-10 mx-auto my-5">
+        <div class="col-md-10 mx-auto my-3">
             <div class="row">
                 <div class="col col-md-6">
+
+                    <h2 class="row fw-bold border-bottom border-3 pb-2 my-3">Account Information</h2>
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        {{message}}
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        &nbsp;
+                    </div>
+                    {% endif %} {% endwith %}
+
+
                     <div class="card p-3 bg-white d-flex flex-column">
-                        <h4 class="fw-bold">Account Information</h4>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex flex-row align-content-center">
                                 <span class="material-icons-round me-3">
@@ -111,36 +123,37 @@
                                     {{user.groups}}
                                 </span>
                             </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    vpn_key
-                                </span>
-                                <span class="flex-grow-1">
-                                    <button type="button"
-                                            class="btn btn-outline-dark"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#ch_pwd_modal">
-                                        Change Password
-                                    </button>
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    warning
-                                </span>
-                                <span class="flex-grow-1">
-                                    <button type="button"
-                                            class="btn btn-outline-warning"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#del_acct_modal">
-                                        Delete my account
-                                    </button>
-                                </span>
-                            </li>
                         </ul>
+                        <h6 class="my-3">Account Options</h6>
+                        <div class="row ps-3">
+                            <span class="col-auto material-icons-round me-3">
+                                vpn_key
+                            </span>
+                            <span class="col-auto">
+                                <button type="button"
+                                        class="btn btn-outline-dark w-100"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ch_pwd_modal">
+                                    Change my password
+                                </button>
+                            </span>
+                        </div>
+                        <div class="row mt-3 ps-3">
+                            <span class="col-auto material-icons-round me-3">
+                                person_remove
+                            </span>
+                            <span class="col-auto flex-grow-1">
+                                <button type="button"
+                                        class="btn btn-link ps-0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#del_acct_modal">
+                                    Delete my account
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="col col-md-6 d-flex flex-column justify-content-center">
+                <div class="d-none d-md-flex col-md-6 flex-column justify-content-center">
                     <img src="{{ url_for('static', filename='img/account_ils.svg') }}"
                          class="img-fluid">
                 </div>
@@ -159,42 +172,83 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"
-                    id="ch_pwd_modalLabel">Change Password</h5>
+                <h5 class="modal-title d-flex flex-row align-items-center"
+                    id="ch_pwd_modalLabel">
+                    <span class="material-icons-outlined me-3">
+                        https
+                    </span>
+                    Change Password
+                </h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url_for('auth.change_password', userid=user.userid)}}"
+                <form action="{{url_for('auth.change_password')}}"
                       method="POST">
                     <input type="hidden"
                            name="csrf_token"
                            value="{{ csrf_token() }}" />
+                    <label class="form-label fw-bold">Current Password</label>
                     <input type="password"
                            name="current_password"
+                           placeholder="••••••••••••••••••"
                            class="form-control mb-3"
-                           placeholder="Current Password">
+                           required>
+
+                    <b>Password Requirements</b>
+                    <ul>
+                        <li>8 characters length or more</li>
+                        <li>1 digit or more</li>
+                        <li>1 symbol or more</li>
+                        <li>1 uppercase letter or more</li>
+                        <li>1 lowercase letter or more</li>
+                    </ul>
+                    <label class="form-label fw-bold">New Password</label>
                     <input type="password"
                            name="password1"
-                           class="form-control mb-3"
-                           placeholder="New Password">
+                           id="password1"
+                           placeholder="••••••••••••••••••"
+                           required
+                           class="form-control mb-3">
+                    <label class="form-text">Please verify</label>
                     <input type="password"
                            name="password2"
-                           class="form-control"
-                           placeholder="Verify New Password">
+                           id="password2"
+                           placeholder="••••••••••••••••••"
+                           required
+                           class="form-control">
+                    <label class="form-text fw-bold text-danger d-none"
+                           id="err_text">Passwords do not match.</label>
 
-                    <div class="d-flex flex-row mt-3 justify-content-between">
+                    <div class="d-flex flex-row mt-4 justify-content-between">
                         <button type="button"
                                 class="btn btn-outline-secondary"
                                 data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <button class="btn btn-info"
-                                type="submit">
+                        <button class="btn btn-info disabled"
+                                type="submit"
+                                id="submit_btn">
                             Change and Logout
                         </button>
+                        <script>
+                            var p1 = document.getElementById('password1');
+                            var p2 = document.getElementById('password2');
+                            p2.onkeyup = function () {
+                                if (p1.value != p2.value) {
+                                    document.getElementById('err_text').classList.remove('d-none')
+                                    document.getElementById('err_text').classList.remove('disabled')
+                                    document.getElementById('submit_btn').classList.add('disabled')
+                                }
+                                else {
+                                    document.getElementById('err_text').classList.add('d-none')
+                                    document.getElementById('err_text').classList.add('disabled')
+                                    document.getElementById('submit_btn').classList.remove('disabled')
+                                }
+                            }
+                        </script>
                     </div>
                 </form>
             </div>
@@ -211,21 +265,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"
-                    id="del_acct_modalLabel">Delete Account</h5>
+                <h5 class="modal-title d-flex flex-row align-items-center"
+                    id="del_acct_modalLabel">
+                    <span class="material-icons-outlined me-3">
+                        delete_forever
+                    </span>Delete Account
+                </h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url_for('auth.change_password', userid=user.userid)}}"
+                <form action="{{url_for('auth.delete_account', userid=user.userid)}}"
                       method="POST">
                     <input type="hidden"
                            name="csrf_token"
                            value="{{ csrf_token() }}" />
                     <h4>Are you sure you want to delete your account?</h4>
-                    <p class="p-3 border border-danger rounded text-center"><b>This cannot be reversed</b></p>
+                    <p class="my-3 p-3 border border-danger rounded text-center"><b>This cannot be reversed!</b></p>
 
                     <p>Deleting your account will permanently delete all your data from our records.
                         You'll lose access to your reservations, messages, etc. If you're experiencing

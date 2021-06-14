@@ -100,6 +100,9 @@
      id="inventory_tab_content">
     <div class="row">
         <div class="col-md-8 mx-auto">
+            <div class="row col-auto">
+                <h2 class="border-bottom border-3">Rental Inventory</h2>
+            </div>
             {% for rental in rentals %}
             <div class="card my-3"
                  id="inventory-panel-{{ rental.rental_id }}">

@@ -46,7 +46,7 @@ def admin_only(view):
             return redirect(url_for("auth.login"))
         if g.user is not None and g.user.groups != "admin":
             session.clear()
-            return redirect(url_for("auth.login"))
+            return redirect(render_template("errors/401.html"))
 
         return view(**kwargs)
 
@@ -98,6 +98,9 @@ def register():
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
+        if not helpers.password_check(request.form.get('password')):
+            flash('Password does not meet complexity requirements')
+            return redirect(url_for('auth.register'))
         user = User(
             firstname=request.form.get("firstname"),
             lastname=request.form.get("lastname"),
@@ -145,13 +148,30 @@ def enroll():
 
 # Service
 @auth.route("/change-password", methods=["GET", "POST"])
-def change_password(userid):
+def change_password():
     if request.method == "POST":
-        user = User.find_user(userid)
-        updated_user = user.clone()
+        user = User.find_user(g.user.userid)
+        if check_password_hash(user.password, request.form.get("current_password")):
+            if request.form.get("password1") == request.form.get("password2"):
+                if helpers.password_check(request.form.get("password2")):
+                    updated_user = user.clone()
 
-        updated_user.password = generate_password_hash(request.form.get("password2"))
-        return redirect(url_for("auth.logout"))
+                    updated_user.password = generate_password_hash(
+                        request.form.get("password2")
+                    )
+                    User.update_user(updated_user.userid, updated_user)
+
+                    flash("Your password has been changed. Please login again.")
+                    return redirect(url_for("auth.logout"))
+                else:
+                    flash("Password does not meet complexity requirements.")
+                    return redirect(url_for("account.index"))
+            else:
+                flash("New passwords did not match. Try again.")
+                return redirect(url_for("account.index"))
+        else:
+            flash("Your current password was incorrect. Try again")
+            return redirect(url_for("account.index"))
 
 
 @auth.route("/reset-password")
@@ -167,10 +187,31 @@ def reset_request():
     return render_template("auth/reset_confirm.html")
 
 
+@auth.route("/delete-account", methods=["POST"])
+@login_required
+def delete_account():
+    if request.method == "POST":
+        user = User.find_user(g.user.userid)
+        if user.firstname == "admin":
+            flash(
+                "You cannot delete an admin account. Please contact your administrator."
+            )
+            return redirect(url_for("account.index"))
+        if user.delete_user():
+            flash("Your account has been deleted. We'll miss you.")
+            session.clear()
+            return redirect(url_for("auth.login"))
+        else:
+            flash(
+                "There as a problem processing your request. Please call us for assistance."
+            )
+            return redirect(url_for("account.index"))
+
+
 @auth.route("/logout")
 def logout():
     session.clear()
-    return redirect("/")
+    return redirect(url_for("auth.login"))
 
 
 @auth.after_request

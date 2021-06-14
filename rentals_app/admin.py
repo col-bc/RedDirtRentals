@@ -94,6 +94,7 @@ def reservations():
                 2 : len(rentals[str(id)].image_paths) - 2
             ]
 
+        print(reservations)
         customers_ids = list()
         for x in reservations:
             customers_ids.append(x[3])
@@ -130,14 +131,39 @@ def reservation_details(id):
     print(reservation, type(reservation))
     customer = User.find_user(reservation[3])
     rental = Rental().find_rental(reservation[2])
-    image = rental.image_paths.strip('[').strip(']').strip("'")
+    image = rental.image_paths.strip("[").strip("]").strip("'")
     return render_template(
         "admin/reservation_detail.html",
         reservation=reservation,
         customer=customer,
         rental=rental,
-        image=image
+        image=image,
     )
+
+
+@admin.route("/reservations/update-status/<int:id>", methods=["POST"])
+@login_required
+@admin_only
+def update_resv_status(id):
+    if request.method == "POST":
+        status = request.form.get("new_status")
+        con, cur = helpers.connect_to_db()
+        SQL = """
+        UPDATE reservations SET status="{0}" WHERE id={1}
+        """.format(
+            status, id
+        )
+
+        try:
+            cur.execute(SQL)
+            con.commit()
+            return redirect(url_for("admin.reservation_details", id=id))
+        except Exception as ex:
+            con.rollback()
+            print(ex)
+            raise (ex)
+        finally:
+            con.close()
 
 
 @admin.route("/customers")
@@ -160,7 +186,7 @@ def customers():
     return render_template("admin/customers.html", customers=customers)
 
 
-#### CRUD FUNCTIONS ####
+#### INVENTORY CRUD FUNCTIONS ####
 # - CREATE
 @admin.route("/new/create/", methods=["POST", "GET"])
 @login_required
@@ -310,9 +336,6 @@ def delete(id):
         return redirect(url_for("admin.inventory"))
 
 
-# Run sql from browser, if permitted by group
-
-
 @admin.route("/new/fast_add", methods=["GET", "POST"])
 @login_required
 @admin_only
@@ -339,18 +362,72 @@ def fast_add():
 @login_required
 @admin_only
 def schedule():
-    return render_template("admin/schedule.html")
+    con, cur = helpers.connect_to_db()
+    SQL = """
+    SELECT * FROM reservations 
+    WHERE 
+        actual_start IS NOT NULL 
+    AND 
+        actual_end IS NOT NULL;"""
+    try:
+        reservations = cur.execute(SQL).fetchall()
+        con.close()
+    except Exception as ex:
+        print(ex)
+        raise ex
+
+    class Event:
+        def __init__(self, start_date, end_date, customer) -> None:
+            self.start_date = start_date
+            self.end_date = end_date
+            self.customer = customer
+
+    events = list()
+
+    for x in reservations:
+        events.append(
+            Event(start_date=x[12], end_date=x[13], customer=User.find_user(x[3]))
+        )
+
+    return render_template("admin/schedule.html", events=events)
 
 
-# TODO:
-# Add schedule_confirm route
-# Update rental to not available
-# Update rented_by
-# Update available_on
-# Add appt to calendar
-# Message user
-@admin.route("/schedule/confirm", methods=["POST"])
+@admin.route("/schedule/confirm/<int:r_id>/<int:c_id>/<int:rsvr_id>", methods=["POST"])
 @login_required
 @admin_only
-def schedule_confirm():
-    pass
+def schedule_confirm(r_id, c_id, rsvr_id):
+    if request.method == "POST":
+        # Update Rental
+        rental = Rental().find_rental(r_id)
+        user = User.find_user(c_id)
+        updated_rental = rental.clone(rental)
+        updated_rental.is_available = 0
+        updated_rental.rented_by = "%s %s" % (user.firstname, user.lastname)
+        updated_rental.is_shown = 0
+        rental.available_on = request.form.get("scheduled_end")
+        Rental.update(updated_rental, updated_rental.rental_id)
+
+        con, cur = helpers.connect_to_db()
+        SQL = """
+        UPDATE reservations 
+        SET 
+            actual_start="{0}", 
+            actual_end="{1}"
+        WHERE id={2}
+        """.format(
+            request.form.get("scheduled_start"),
+            request.form.get("scheduled_end"),
+            rsvr_id,
+        )
+        try:
+            cur.execute(SQL)
+            con.commit()
+            return redirect(url_for("admin.reservations", id=rsvr_id))
+        except Exception as ex:
+            print(ex)
+            con.rollback()
+            raise ex
+        finally:
+            con.close()
+
+        # Message User

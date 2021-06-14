@@ -136,10 +136,10 @@ class User:
             raise ex
 
     def update_user(id, new) -> bool:
-        cur, con = helpers.connect_to_db()
-        sql = """
+        con, cur = helpers.connect_to_db()
+        SQL = """
         UPDATE users SET
-            firstname='{}',
+            firstname='{0}',
             lastname='{1}',
             phonenumber='{2}',
             email='{3}',
@@ -149,7 +149,7 @@ class User:
             city='{7}',
             state='{8}',
             zip='{9}'
-        WHERE userid='{10}'
+        WHERE id='{10}'
         """.format(
             new.firstname,
             new.lastname,
@@ -163,6 +163,18 @@ class User:
             new.zip,
             id,
         )
+        print(SQL)
+        try:
+            cur.execute(SQL)
+            con.commit()
+        except Exception as ex:
+            print(ex)
+            con.rollback()
+            raise ex
+        finally:
+            con.close()
+        
+
 
     def delete_user(self) -> bool:
         cur, con = helpers.connect_to_db()
