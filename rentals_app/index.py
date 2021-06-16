@@ -20,6 +20,7 @@ def root():
         for id in id_list:
             rentals.append(Rental().find_rental(id))
     for rental in rentals:
+        print(str(rental))
         rental.rate = float(rental.rate[0])
         rental.image_paths = list(
             rental.image_paths.replace("[", "")

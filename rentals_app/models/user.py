@@ -173,22 +173,37 @@ class User:
             raise ex
         finally:
             con.close()
-        
-
 
     def delete_user(self) -> bool:
-        cur, con = helpers.connect_to_db()
-        sql = "DELETE FROM users WHERE userid='{}'".format(self.userid)
+        con, cur = helpers.connect_to_db()
 
+        #Delete user records from databases.
         try:
-            cur.execute(sql)
+            SQL = "DELETE FROM users WHERE id='{}'".format(self.userid)
+            cur.execute(SQL)
             con.commit()
-            return True
+
+            SQL = """
+            UPDATE reservations 
+            SET status='DELETED ACCOUNT' 
+            WHERE customer_id={}""".format(
+                self.userid
+            )
+            cur.execute(SQL)
+            con.commit()
+
+            SQL = """
+            DELETE FROM messages
+            WHERE to_id={0} OR from_id={1};""".format(
+                self.userid, self.userid
+            )
+
+            cur.execute(SQL)
+            con.commit()
+
         except Exception as ex:
             con.rollback()
             raise ex
-        finally:
-            con.close()
 
     def get_all_users() -> list():
         cur, con = helpers.connect_to_db()

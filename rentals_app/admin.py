@@ -15,6 +15,7 @@ from flask import (
 
 import rentals_app.helpers as helpers
 from rentals_app.models.user import *
+from rentals_app.models.message import Message
 from rentals_app.auth import login_required, admin_only
 from rentals_app.models.rental import *
 
@@ -323,13 +324,16 @@ def update(id):
 def delete(id):
     rental = Rental().find_rental(id)
     if rental:
-        shutil.rmtree("{0}_{1}_{2/}".format(rental.make, rental.model, rental.category))
+        try:
+            shutil.rmtree("{0}_{1}_{2}".format(rental.make, rental.model, rental.category))
+        except FileNotFoundError or IOError:
+            pass
     if rental.delete():
         flash("Record #" + str(id) + " successfully deleted.")
         return redirect(url_for("admin.inventory"))
     else:
         flash(
-            "Something went wrong while deleting record #{}. Please contact your administrator.".format(
+            "Something went wrong while deleting record #{}. Please contact your webmaster.".format(
                 id
             )
         )
@@ -368,7 +372,8 @@ def schedule():
     WHERE 
         actual_start IS NOT NULL 
     AND 
-        actual_end IS NOT NULL;"""
+        actual_end IS NOT NULL
+    AND status IS NOT 'DELETED ACCOUNT';"""
     try:
         reservations = cur.execute(SQL).fetchall()
         con.close()
@@ -384,13 +389,13 @@ def schedule():
             self.reservation_id = reservation_id
 
     events = list()
-
     for x in reservations:
+        print(x)
         events.append(
             Event(
                 start_date=x[12],
                 end_date=x[13],
-                customer=User.find_user(x[3]),
+                customer=x[3],
                 reservation_id=x[0],
             )
         )
@@ -412,6 +417,14 @@ def schedule_confirm(r_id, c_id, rsvr_id):
         updated_rental.is_shown = 0
         rental.available_on = request.form.get("scheduled_end")
         Rental.update(updated_rental, updated_rental.rental_id)
+
+        msg = Message(
+            from_user=User.find_user(2).userid,
+            to_user=user.userid,
+            subject="Your reservation has been updated.",
+            message="Your reservation has been confirmed for {0} to {1}. You will receive another message with your documents soon. If you have questions, please contact us. ",
+        )
+        msg.send_message()
 
         con, cur = helpers.connect_to_db()
         SQL = """
@@ -435,5 +448,3 @@ def schedule_confirm(r_id, c_id, rsvr_id):
             raise ex
         finally:
             con.close()
-
-        # Message User

@@ -86,7 +86,7 @@ def make_reservation(r_id):
 
             con, cur = helpers.connect_to_db()
             sql = """
-            INSERT INTO SERVATIONS (
+            INSERT INTO reservations (
                 confirmation_num,
                 rental_id,
                 customer_id,
@@ -147,8 +147,8 @@ def render_messages():
     messages = Message.get_messages(User.find_user(g.user.userid))
     users_friendly = dict()
     for msg in messages:
-        users_friendly[msg[2]] = (
-            User.find_user(msg[2]).firstname + " " + User.find_user(msg[2]).lastname
+        users_friendly[msg[1]] = (
+            User.find_user(msg[1]).firstname
         )
 
     emails = list()
@@ -173,7 +173,6 @@ def render_messages():
 @login_required
 def send_message():
     if request.method == "POST":
-        print(request.form.getlist("msg_to"))
         if g.user.groups != "admin":
             msg_to = 2
         else:

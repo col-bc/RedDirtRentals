@@ -59,20 +59,33 @@
 </head>
 
 <body class="">
-      <div class="container-fluid row">
-            <div class="col vh-100 vw-100 d-flex flex-column justify-content-center align-items-center">
-                  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                  <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_bc4ugzhr.json"
-                                 background="transparent"
-                                 speed="1"
-                                 style="width: 300px; height: 300px;"
-                                 autoplay></lottie-player>
-                  <h1 class="pb border-danger border-bottom border-5 mt-5">Error 401 - Unauthorized</h1>
-                  <h4 class="text-muted">There was a problem authenticating your account.</h4>
-                  <h4 class="text-muted">Please try again.</h4>
-                  <a href="{{ url_for('index.root') }}"
-                     class="is-link">Go to homepage</a>.
+      <div class="container-fluid">
+            <div class="row col-10 mx-auto vh-100 align-items-center">
+
+                  <div class="col-6 justify-content-center">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_bc4ugzhr.json"
+                                       background="transparent"
+                                       speed="1"
+                                       style="width: 300px; height: 300px;"
+                                       autoplay></lottie-player>
+                  </div>
+                  <div class="col-6">
+
+                        <h1 class="border-danger border-bottom border-5 mt-5">Error 401 - Unauthorized</h1>
+                        <h4 class="text-muted text-center">
+                              There was something suspicious about your activity.
+                              As a security measure, we have stopped your request and logged you out.
+                        </h4>
+                        <h4 class="text-center">Please login and try again.</h4>
+                        <div class="row g-3 mt-3">
+                              <a href="{{ url_for('index.root') }}"
+                                 class="btn btn-outline-secondary col text-center">Go to homepage</a>
+                              <a href="{{ url_for('auth.login') }}"
+                                 class="btn btn-outline-primary col text-center">Login</a>
+                        </div>
+                  </div>
             </div>
       </div>
 </body>

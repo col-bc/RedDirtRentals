@@ -26,123 +26,169 @@
                     <h3 class="card-title">Make a Reservation</h3>
                     <form action="{{url_for('account.make_reservation', r_id=id)}}"
                           method="POST">
+                        <input type="hidden"
+                               name="csrf_token"
+                               value="{{ csrf_token() }}">
 
                         <p class="form-text mb-3">
                             This is automatically filled from your account details.
                             If you'd like to update your information, <a href="{{url_for('account.index')}}">click here</a>.
                         </p>
                         <div class="input-group mb-3">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 person
                             </span>
                             <input type="text"
                                    value="{{g.user.firstname}}"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    disabled>
                             <input type="text"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    value="{{g.user.lastname}}"
                                    disabled>
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 person_pin_circle
                             </span>
                             <input type="text"
                                    value="{{g.user.address}}"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    disabled>
                         </div>
 
                         <div class="input-group mb-4">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 location_city
                             </span>
                             <input type="text"
                                    value="{{g.user.city}}"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    disabled>
                             <input type="text"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    value="{{g.user.state}}"
                                    disabled>
                             <input type="text"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    value="{{g.user.zip}}"
                                    disabled>
                         </div>
 
                         <div class="input-group mb-4">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 phone
                             </span>
                             <input type="text"
                                    value="{{g.user.phonenumber}}"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    disabled>
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 alternate_email
                             </span>
                             <input type="text"
-                                   class="form-control bg-light"
+                                   class="form-control border-dark"
                                    value="{{g.user.email}}"
                                    disabled>
                         </div>
 
-                        <p class="form-text mb-4 text-dark">
+                        <p class="form-text mb-4">
                             Select your first, second and third preference for this reservation.
                             We'll do our best to accommodate.
                         </p>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 looks_one
                             </span>
                             <input type="date"
                                    name="start_1"
                                    required
-                                   class="form-control">
+                                   class="form-control border-dark">
                             <input type="date"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    required
                                    name="end_1">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 looks_two
                             </span>
                             <input type="date"
                                    name="start_2"
                                    required
-                                   class="form-control">
+                                   class="form-control border-dark">
                             <input type="date"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    required
                                    name="end_3">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text material-icons-round">
+                            <span class="input-group-text material-icons-outlined border-dark bg-dark text-white">
                                 looks_3
                             </span>
                             <input type="date"
                                    required
                                    name="start_3"
-                                   class="form-control">
+                                   class="form-control border-dark">
                             <input type="date"
                                    required
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    name="end_3">
                         </div>
-                        <div class="input-group mb-4">
-                            <label for="usage_slider"
-                                   class="input-group-text">How many hours do you estimate you'll use this rental per day?</label>
-                            <input type="number"
-                                   name="usage_hours"
-                                   placeholder="15"
-                                   required
-                                   class="form-control">
+                        <div class="mb-4">
+                            <div class="row me-0">
+                                <label class="col-auto flex-fill form-label me-auto mb-0">How many hours do you estimate you'll use this rental per day?</label>
+                                <input class="col p-2 rounded border border-dark text-center mb-0"
+                                       id="range_value"
+                                       type="number"
+                                       name="usage_hours"
+                                       max="20"
+                                       min="0"
+                                       value="10">
+                            </div>
+                            <input type="range"
+                                   class="form-range"
+                                   min="1"
+                                   value="10"
+                                   max="20"
+                                   step="1"
+                                   list="ticks"
+                                   id="slider">
+                            <datalist id="ticks">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </datalist>
+                            <script>
+                                let range = document.getElementById('slider')
+                                let range_value = document.getElementById('range_value')
+                                slider.addEventListener('input', (e) => {
+                                    range_value.value = range.value
+                                })
+                                range_value.addEventListener('input', (e) => {
+                                    range.value = range_value.value
+                                })
+                            </script>
                         </div>
 
                         <div class="row mb-4">

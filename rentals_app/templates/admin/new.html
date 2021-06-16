@@ -53,6 +53,10 @@
                   enctype="multipart/form-data"
                   class="p-3">
 
+                <input type="hidden"
+                       name="csrf_token"
+                       value="{{ csrf_token() }}">
+
                 <h5 class="mb-3 fw-bold">Unit Details</h5>
 
                 <!--Make-->
@@ -78,6 +82,7 @@
                 </div>
 
                 <!--Vehicle Category-->
+                <label class="form-text">Vehicle Category</label>
                 <select class="form-select py-3 mb-3"
                         name="category"
                         aria-label="Select Vehicle Category">

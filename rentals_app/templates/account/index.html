@@ -9,56 +9,7 @@
     </div>
 </div>
 
-<!--Account Nav-->
-<div class="container-fluid bg-dark">
-
-    <div class="row">
-        <div class="col-md-10 mx-auto my-2">
-            <ul class="nav nav-pills"
-                id="account_tabs_root">
-                <li class="nav-item">
-                    <a class="nav-link text-white active d-flex flex-row"
-                       aria-current="page"
-                       id="tab_switcher_index"
-                       href="{{url_for('account.index')}}">
-                        <span class="material-icons-round me-3">
-                            contact_phone
-                        </span>My Information
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.reservations')}}">
-                        <span class="material-icons-round me-3">
-                            agriculture
-                        </span>Reservations
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.render_messages')}}">
-                        <span class="material-icons-round me-3">
-                            question_answer
-                        </span>Messages
-                    </a>
-                </li>
-                {% if user.groups == "admin" %}
-                <li class="nav-item ms-auto">
-                    <a class="nav-link text-white d-flex flex-row"
-                       href="{{url_for('admin.root')}}">
-                        <span class="material-icons-round me-3">
-                            admin_panel_settings
-                        </span>
-                        Manage Site
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</div>
+{% include 'account_nav.html' %}
 
 <!--Content-->
 <div class="container-fluid">
@@ -78,82 +29,76 @@
                     </div>
                     {% endif %} {% endwith %}
 
-
-                    <div class="card p-3 bg-white d-flex flex-column">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex flex-row align-content-center">
-                                <span class="material-icons-round me-3">
-                                    person
-                                </span>
-                                <span class="flex-grow-1">
-                                    {{user.firstname}} {{user.lastname}}
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    alternate_email
-                                </span>
-                                <span class="flex-grow-1">
-                                    {{user.email}}
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    phone
-                                </span>
-                                <span class="flex-grow-1">
-                                    {{user.phonenumber}}
-                                </span>
-                            </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    person_pin_circle
-                                </span>
-                                <span class="flex-grow-1">
-                                    <div class="d-flex flex-column">
-                                        <span>{{user.address}}</span>
-                                        <span>{{user.city}}, {{user.state}} {{user.zip}}
-                                        </span>
-                            </li>
-                            <li class="list-group-item d-flex flex-row">
-                                <span class="material-icons-round me-3">
-                                    group_work
-                                </span>
-                                <span class="flex-grow-1">
-                                    {{user.groups}}
-                                </span>
-                            </li>
-                        </ul>
-                        <h6 class="my-3">Account Options</h6>
-                        <div class="row ps-3">
-                            <span class="col-auto material-icons-round me-3">
-                                vpn_key
+                    <div class="card card-body d-flex flex-column">
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                person
                             </span>
-                            <span class="col-auto">
-                                <button type="button"
-                                        class="btn btn-outline-dark w-100"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#ch_pwd_modal">
-                                    Change my password
-                                </button>
+                            <span class="col">
+                                {{user.firstname}} {{user.lastname}}
                             </span>
                         </div>
-                        <div class="row mt-3 ps-3">
-                            <span class="col-auto material-icons-round me-3">
-                                person_remove
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                email
                             </span>
-                            <span class="col-auto flex-grow-1">
+                            <span class="col">
+                                {{user.email}}
+                            </span>
+                        </div>
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                phone
+                            </span>
+                            <span class="col">
+                                {{user.phonenumber}}
+                            </span>
+                        </div>
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                place
+                            </span>
+                            <span class="col">
+                                <span class="m-0 row">{{user.address}}</span>
+                                <span class="m-0 row">{{user.city}}, {{user.state}} {{user.zip}}</span>
+                            </span>
+                        </div>
+                        <div class="row py-3">
+                            <span class="col-auto material-icons-outlined">
+                                category
+                            </span>
+                            <span class="col">
+                                {{user.groups}}
+                            </span>
+                            </p>
+                            <h6 class="my-3">Account Options</h6>
+                            <div class="row ps-3">
                                 <button type="button"
-                                        class="btn btn-link ps-0"
+                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ch_pwd_modal">
+                                    <span class="col-auto material-icons-outlined me-3">
+                                        https
+                                    </span>
+                                    Change my password
+                                </button>
+                            </div>
+                            <div class="row mt-2 ps-3">
+                                <button type="button"
+                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
                                         data-bs-toggle="modal"
                                         data-bs-target="#del_acct_modal">
+                                    <span class="col-auto material-icons-outlined me-3"
+                                          class="font-size: 12px;">
+                                        delete_forever
+                                    </span>
                                     Delete my account
                                 </button>
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="d-none d-md-flex col-md-6 flex-column justify-content-center">
+                <div class="d-none d-md-flex col-md-6 flex-column mt-5">
                     <img src="{{ url_for('static', filename='img/account_ils.svg') }}"
                          class="img-fluid">
                 </div>
@@ -185,6 +130,17 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                {% if g.user.userid == 2 %}
+                <h5 class="text-danger">
+                    You cannot change the password for this account.
+                </h5>
+                <p class="text-muted">Please contact your webmaster.</p>
+                <button type="button"
+                        class="btn btn-outline-dark ms-auto px-5"
+                        data-bs-dismiss="modal">
+                    Ok
+                </button>
+                {% else %}
                 <form action="{{url_for('auth.change_password')}}"
                       method="POST">
                     <input type="hidden"
@@ -250,6 +206,7 @@
                             }
                         </script>
                     </div>
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -291,12 +248,14 @@
                         resolve your problems without deleting your account.
                     </p>
 
-                    <p><b>To delete you account, please type your username: </b></p>
+                    <p><b>To delete you account, please type your username and password.</b></p>
                     <p>{{g.user.email}}</p>
 
-                    <div class="input-group mb-5">
+                    <label class="form-text">Username</label>
+                    <div class="input-group mb-3">
                         <input type="email"
                                class="form-control"
+                               name="del_username"
                                id="del_confirmation">
                         <span class="input-group-text">
                             <span class="material-icons-outlined"
@@ -305,6 +264,14 @@
                             </span>
                         </span>
                     </div>
+
+                    <div class="mb-5">
+                        <label class="form-text">Password</label>
+                        <input type="password"
+                               name="del_password"
+                               class="form-control">
+                    </div>
+
 
                     <div class="d-flex flex-row mt-3 justify-content-between">
                         <button type="button"

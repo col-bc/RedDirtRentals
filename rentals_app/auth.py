@@ -98,9 +98,9 @@ def register():
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
-        if not helpers.password_check(request.form.get('password')):
-            flash('Password does not meet complexity requirements')
-            return redirect(url_for('auth.register'))
+        if not helpers.password_check(request.form.get("password")):
+            flash("Password does not meet complexity requirements")
+            return redirect(url_for("auth.register"))
         user = User(
             firstname=request.form.get("firstname"),
             lastname=request.form.get("lastname"),
@@ -192,19 +192,27 @@ def reset_request():
 def delete_account():
     if request.method == "POST":
         user = User.find_user(g.user.userid)
-        if user.firstname == "admin":
-            flash(
-                "You cannot delete an admin account. Please contact your administrator."
-            )
-            return redirect(url_for("account.index"))
-        if user.delete_user():
-            flash("Your account has been deleted. We'll miss you.")
-            session.clear()
-            return redirect(url_for("auth.login"))
+        print(g.user.email)
+        print(request.form.get('del_username'))
+        if request.form.get("del_username") == g.user.email and check_password_hash(
+            g.user.password, request.form.get('del_password')
+        ):
+            if user.firstname == "admin":
+                flash(
+                    "You cannot delete this account. Please contact your administrator."
+                )
+                return redirect(url_for("account.index"))
+            if user.delete_user():
+                flash("Your account has been deleted. We'll miss you.")
+                session.clear()
+                return redirect(url_for("auth.login"))
+            else:
+                flash(
+                    "There as a problem processing your request. Please call us for assistance."
+                )
+                return redirect(url_for("account.index"))
         else:
-            flash(
-                "There as a problem processing your request. Please call us for assistance."
-            )
+            flash("You username or password was incorrect.")
             return redirect(url_for("account.index"))
 
 

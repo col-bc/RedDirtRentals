@@ -38,7 +38,7 @@
                        role="button"
                        aria-expanded="false">
                         Inventory
-                        <span class="material-icons-sharp ms-3">
+                        <span class="material-icons-outlined ms-3">
                             expand_more
                         </span>
                     </a>
@@ -137,11 +137,10 @@
                     </a>
                 </div>
             </div>
+            {% endfor %}
+            {%else%}
         </div>
     </div>
-
-    {% endfor %}
-    {%else%}
     <div class="card rounded-0 my-4">
         <h3>There are not any reservations to review</h3>
     </div>

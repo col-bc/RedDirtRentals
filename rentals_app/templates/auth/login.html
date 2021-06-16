@@ -58,15 +58,15 @@
     <title>Login - RedDirtRentals</title>
 </head>
 
-<body class="">
+<body class="bg-light">
     <div class="container-fluid px-0"
          style="min-height: 100vh !important;">
         <div class="row vh-100 g-0">
-            <div class="col-md-5 my-5">
-                <div class="p-4 bg-white mt-4">
+            <div class="col-10 mx-auto mx-md-auto col-md-5 my-5">
+                <div class="p-5 mt-4">
                     <a href="{{url_for('index.root')}}"
                        class="text-decoration-none">
-                        <h4 class="mb-5 text-dark"
+                        <h4 class="mb-3 text-dark"
                             style="font-family: ethnocentric;">RedDirt Rentals</h4>
                     </a>
 
@@ -90,14 +90,14 @@
 
                             <!--Email-->
                             <div class="input-group mb-4">
-                                <span class="input-group-text"
+                                <span class="input-group-text bg-dark text-light border-dark"
                                       id="email">
                                     <span class="material-icons-outlined">
-                                        alternate_email
+                                        account_circle
                                     </span>
                                 </span>
                                 <input type="email"
-                                       class="form-control"
+                                       class="form-control border-dark"
                                        placeholder="Email"
                                        aria-label="Email"
                                        name="email"
@@ -107,13 +107,13 @@
 
                             <!--Password-->
                             <div class="input-group mb-4">
-                                <span class="input-group-text">
+                                <span class="input-group-text bg-dark text-light border-dark">
                                     <span class="material-icons-round">
-                                        vpn_key
+                                        https
                                     </span>
                                 </span>
                                 <input type="password"
-                                       class="form-control password_toggle_field"
+                                       class="form-control password_toggle_field border-dark"
                                        placeholder="Password"
                                        aria-label="Password"
                                        name="password"
@@ -140,7 +140,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col d-none d-md-block border-start border-2">
+            <div class="col-7 d-none d-md-block border-start border-2">
                 <img src="{{ url_for('static', filename='img/storefront.jpg') }}"
                      class="img-fluid h-100">
             </div>
