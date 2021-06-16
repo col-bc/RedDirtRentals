@@ -8,36 +8,36 @@ from rentals_app.models.rental import Rental
 import rentals_app.helpers as helpers
 
 
-index = Blueprint('index', __name__, url_prefix='/')
+index = Blueprint("index", __name__, url_prefix="/")
 
-@index.route('/')
+
+@index.route("/")
 def root():
-    con , cur = helpers.connect_to_db()
+    con, cur = helpers.connect_to_db()
     ids = cur.execute("SELECT id FROM INVENTORY").fetchall()
     rentals = []
     for id_list in ids:
         for id in id_list:
             rentals.append(Rental().find_rental(id))
     for rental in rentals:
+        print(str(rental))
         rental.rate = float(rental.rate[0])
         rental.image_paths = list(
-            rental.image_paths
-                .replace('[','')
-                .replace(']','')
-                .replace("'",'')
-                .split(',')
+            rental.image_paths.replace("[", "")
+            .replace("]", "")
+            .replace("'", "")
+            .split(",")
         )
         rental.implements = list(
-            rental.implements
-                .replace('[','')
-                .replace(']','')
-                .replace('\'','')
-                .split(',')
+            rental.implements.replace("[", "")
+            .replace("]", "")
+            .replace("'", "")
+            .split(",")
         )
 
-    return render_template('index.html', rentals = rentals)
+    return render_template("index.html", rentals=rentals)
 
-@index.route('/root/')
+
+@index.route("/root/")
 def application_root():
-    return redirect(url_for('index.index'))
-    
+    return redirect(url_for("index.index"))

@@ -54,26 +54,28 @@
 
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
-            
-    <title>Register - RedDirtRentals</title>
+
+    <title>Login - RedDirtRentals</title>
 </head>
 
 <body class="bg-light">
-    <div class="container"
+    <div class="container-fluid px-0"
          style="min-height: 100vh !important;">
-        <div class="row my-5">
-            <div class="col-md-6 mx-auto my-5">
-
-                <a href="{{url_for('index.root')}}">
-                    <img src="{{url_for('static', filename='img/logo_dark.svg')}}"
-                         class="my-4">
-                </a>
-
-                <div class="p-4 bg-white card">
+        <div class="row vh-100 g-0">
+            <div class="col-10 mx-auto mx-md-auto col-md-5 my-5">
+                <div class="p-5 mt-4">
+                    <a href="{{url_for('index.root')}}"
+                       class="text-decoration-none">
+                        <h4 class="mb-3 text-dark"
+                            style="font-family: ethnocentric;">RedDirt Rentals</h4>
+                    </a>
 
                     <form method="POST"
                           action="{{url_for('auth.verify')}}"
                           class="">
+                        <input type="hidden"
+                               name="csrf_token"
+                               value="{{ csrf_token() }}" />
                         <div class="pb-0">
                             <h5 class="mb-4">Login to your account</h5>
                             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
@@ -88,14 +90,14 @@
 
                             <!--Email-->
                             <div class="input-group mb-4">
-                                <span class="input-group-text"
+                                <span class="input-group-text bg-dark text-light border-dark"
                                       id="email">
                                     <span class="material-icons-outlined">
-                                        alternate_email
+                                        account_circle
                                     </span>
                                 </span>
                                 <input type="email"
-                                       class="form-control"
+                                       class="form-control border-dark"
                                        placeholder="Email"
                                        aria-label="Email"
                                        name="email"
@@ -105,13 +107,13 @@
 
                             <!--Password-->
                             <div class="input-group mb-4">
-                                <span class="input-group-text">
+                                <span class="input-group-text bg-dark text-light border-dark">
                                     <span class="material-icons-round">
-                                        vpn_key
+                                        https
                                     </span>
                                 </span>
                                 <input type="password"
-                                       class="form-control password_toggle_field"
+                                       class="form-control password_toggle_field border-dark"
                                        placeholder="Password"
                                        aria-label="Password"
                                        name="password"
@@ -121,9 +123,9 @@
                             <div class="d-flex flex-row justify-content-between">
 
                                 <div class="d-flex flex-column mt-3">
-                                    <a class=""
+                                    <a class="fw-bold"
                                        href="{{url_for('auth.register')}}">Register</a>
-                                    <a class=""
+                                    <a class="fw-bold"
                                        href="{{url_for('auth.reset_password')}}">Password Help</a>
                                 </div>
 
@@ -137,6 +139,10 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="col-7 d-none d-md-block border-start border-2">
+                <img src="{{ url_for('static', filename='img/storefront.jpg') }}"
+                     class="img-fluid h-100">
             </div>
         </div>
     </div>

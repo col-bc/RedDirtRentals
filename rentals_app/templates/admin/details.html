@@ -10,7 +10,7 @@
 
             <a href="{{ url_for('admin.inventory') }}"
                class="btn btn-outline-light btn-small d-flex flex-row align-items-center">
-                <span class="material-icons-round me-3">
+                <span class="material-icons-outlined me-3">
                     cancel
                 </span>
                 Cancel
@@ -38,7 +38,6 @@
 <div class="container">
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
     <div class="notification is-danger m3">
-        <button class="delete"></button>
         <p>{{ message }}</p>
     </div>
     {% endfor %} {% endif %} {% endwith %}
@@ -53,6 +52,10 @@
                   action="{{ url_for('admin.update', id=rental.rental_id) }}"
                   enctype="multipart/form-data"
                   class="p-3">
+
+                <input type="hidden"
+                       name="csrf_token"
+                       value="{{ csrf_token() }}">
 
                 <h5 class="mb-3 fw-bold">Unit Details</h5>
                 <!--Make-->
@@ -80,8 +83,28 @@
                 </div>
 
                 <!--Vehicle Category-->
+                <label class="form-text">Vehicle Category</label>
                 <select class="form-select py-3 mb-3"
-                        name="category"
+                        name="job_category"
+                        aria-label="Select Job Category">
+                    <option {%if
+                            rental.job_category=='Tractor'
+                            %}selected{%endif%}>Tractor</option>
+                    <option {%if
+                            rental.job_category=='Mower'
+                            %}selected{%endif%}>Mower</option>
+                    <option {%if
+                            rental.job_category=='Power Tool'
+                            %}selected{%endif%}>Power Tool</option>
+                    <option {%if
+                            rental.job_category=='Add on'
+                            %}selected{%endif%}>Add on</option>
+                </select>
+
+                <!--Vehicle Fuel-->
+                <label class="form-text">Fuel Category</label>
+                <select class="form-select py-3 mb-3"
+                        name="fuel_type"
                         aria-label="Select Vehicle Category">
                     <option {%if
                             rental.fuel_type=='Gasoline'
@@ -98,24 +121,7 @@
                 </select>
 
                 <!--Job Category-->
-                <select class="form-select py-3 mb-3"
-                        name="job_category"
-                        aria-label="Select Job Category">
-                    <option {%if
-                            rental.category=='Tractor'
-                            %}selected{%endif%}>Tractor</option>
-                    <option {%if
-                            rental.category=='Mower'
-                            %}selected{%endif%}>Mower</option>
-                    <option {%if
-                            rental.category=='Power Tool'
-                            %}selected{%endif%}>Power Tool</option>
-                    <option {%if
-                            rental.category=='Add on'
-                            %}selected{%endif%}>Add on</option>
-                </select>
-
-                <!--Job Category-->
+                <label class="form-text">Job Category</label>
                 <select class="form-select py-3 mb-3"
                         name="drive"
                         aria-label="Select Drive Type">
@@ -182,6 +188,7 @@
                 </div>
 
                 <!--Price Range-->
+                <label class="form-text">Price Category</label>
                 <select class="form-select py-3 mb-3"
                         name="price_range"
                         aria-label="Select Drive Type">
@@ -210,7 +217,6 @@
                            placeholder="Currently Rented By">
                     <label for="rented_by">Currently Rented By</label>
                     <div class="form-text">
-                        <i class="fas fa-eye-slash mr-3"></i>
                         This field <strong>will not </strong>be seen by customers.
                     </div>
                 </div>
@@ -226,7 +232,6 @@
                            placeholder="Date Available">
                     <label for="available_on">Date Available</label>
                     <div class="form-text">
-                        <i class="fas fa-eye-slash mr-3"></i>
                         This field <strong>will not </strong>be seen by customers.
                     </div>
                 </div>
@@ -266,8 +271,8 @@
                               style="height: 100px">{{rental.rent_queue}}</textarea>
                     <label for="rent_queue">Unit Queue</label>
                     <div class="form-text">
-                        <p class="mb-1"><i class="fas fa-info-circle me-2"></i>Enter names separated by a comma.</p>
-                        <p><i class="fas fa-eye-slash me-2"></i>This field <strong>will not </strong>be seen by customers.</p>
+                        <p class="mb-0">Enter names separated by a comma.</p>
+                        <p>This field <strong>will not </strong>be seen by customers.</p>
                     </div>
                 </div>
 
@@ -347,9 +352,11 @@
                                type="text"
                                placeholder="Compatible Implements">
                         <label for="implement_input">Compatible Implements</label>
-                        <button class="btn btn-outline-secondary ml-1 ia_submit"
+                        <button class="btn btn-outline-secondary ml-1 ia_submit d-flex flex-row align-items-center"
                                 type="button">
-                            <i class="fas fa-arrow-down"></i>
+                            <span class="material-icons-outlined">
+                                arrow_downward
+                            </span>
                         </button>
                     </div>
                     <div class="shadow-sm card">
@@ -367,10 +374,18 @@
                 </div>
 
                 <button type="submit"
-                        class="btn btn-primary py-3 w-100">
-                    <i class="fas fa-save me-2"></i>
-                    Add Unit to Inventory
+                        class="btn btn-primary py-3 w-100 d-flex flex-row align-items-center justify-content-center fw-bold">
+                    <span class="material-icons-outlined me-3">
+                        save
+                    </span>
+                    Update Rental Unit
                 </button>
+
+                <div class="row col my-4">
+                    <a href="{{ url_for('admin.delete', id=rental.rental_id) }}">
+                        Delete Rental
+                    </a>
+                </div>
 
 
             </form>

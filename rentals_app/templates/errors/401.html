@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport"
+            content="width=device-width, initial-scale=1">
+
+      <!--Favicon-->
+      <link rel="shortcut icon"
+            href="{{ url_for('static', filename='favicon.ico') }}">
+
+      <!--Fonts-->
+      <link rel="preconnect"
+            href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+            rel="stylesheet">
+
+      <!-- Icons -->
+      <!-- Baseline -->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+            rel="stylesheet">
+
+      <!-- Outline -->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+            rel="stylesheet">
+
+      <!-- Round -->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round"
+            rel="stylesheet">
+
+      <!-- Sharp -->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
+            rel="stylesheet">
+
+      <!-- TwoTone -->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone"
+            rel="stylesheet">
+
+      <!--jQuery-->
+      <script defer
+              src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+              integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+              crossorigin="anonymous"></script>
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet"
+            href="{{url_for('static', filename='global.css')}}">
+
+      <!--Bootstrap JS-->
+      <script async
+              type="text/javascript"
+              src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
+
+      <script defer
+              src="{{url_for('static', filename='global.js')}}"></script>
+
+      <title>Login - RedDirtRentals</title>
+</head>
+
+<body class="">
+      <div class="container-fluid">
+            <div class="row col-10 mx-auto vh-100 align-items-center">
+
+                  <div class="col-6 justify-content-center">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_bc4ugzhr.json"
+                                       background="transparent"
+                                       speed="1"
+                                       style="width: 300px; height: 300px;"
+                                       autoplay></lottie-player>
+                  </div>
+                  <div class="col-6">
+
+                        <h1 class="border-danger border-bottom border-5 mt-5">Error 401 - Unauthorized</h1>
+                        <h4 class="text-muted text-center">
+                              There was something suspicious about your activity.
+                              As a security measure, we have stopped your request and logged you out.
+                        </h4>
+                        <h4 class="text-center">Please login and try again.</h4>
+                        <div class="row g-3 mt-3">
+                              <a href="{{ url_for('index.root') }}"
+                                 class="btn btn-outline-secondary col text-center">Go to homepage</a>
+                              <a href="{{ url_for('auth.login') }}"
+                                 class="btn btn-outline-primary col text-center">Login</a>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</body>
+
+</html>

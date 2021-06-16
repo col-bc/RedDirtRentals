@@ -14,27 +14,13 @@
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+          await
           rel="stylesheet">
 
     <!-- Icons -->
-    <!-- Baseline -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
-          rel="stylesheet">
-
-    <!-- Outline -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
-          rel="stylesheet">
-
     <!-- Round -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round"
-          rel="stylesheet">
-
-    <!-- Sharp -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp"
-          rel="stylesheet">
-
-    <!-- TwoTone -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+          await
           rel="stylesheet">
 
     <!--jQuery-->
@@ -42,6 +28,18 @@
             src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
+
+    <!--Calendar-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.js"
+            integrity="sha256-yirUYbNvdsLHfZcQDyDMB51pfQ0Mn8siGDZOvtBgCFw="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.js"
+            integrity="sha256-Oyp/4tji6HLakABSiZQzkPYLWpztt76xolGkwJx49oE="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.css"
+          integrity="sha256-RCJT6YvohmGy+rWQe3hpPZez8iaPnirFVfiwaBVCk1k="
+          crossorigin="anonymous">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
@@ -52,6 +50,7 @@
             type="text/javascript"
             src="{{url_for('static', filename='bootstrap.bundle.js')}}"></script>
 
+    <!--App.js-->
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
 
@@ -60,14 +59,16 @@
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 
-<body class="bg-light">
+<body class="bg-white"
+      style="overflow-x: hidden;">
 
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
                 <a href="{{url_for('index.root')}}"
                    class="navbar-brand">
-                    <img src="{{ url_for('static', filename='img/logo_white.svg') }}">
+                    <h6 class="m-0"
+                        style="font-family:ethnocentric;">RedDirt Rentals</h6>
                 </a>
 
                 <button class="navbar-toggler"
@@ -84,27 +85,27 @@
                      id="nav_main">
                     <ul class="navbar-nav w-100">
                         <li class="nav-item mx-3">
-                            <a class="nav-link fw-bold {%if url_for(request.endpoint, id=0) == '/'%}active{%endif%}"
+                            <a class="nav-link fw-bold"
                                aria-current="page"
                                href="{{ url_for('index.root') }}">Home</a>
                         </li>
                         <li class="nav-item px-3">
-                            <a class="nav-link fw-bold {%if '/rentals/' in url_for(request.endpoint, id=0)%}active{%endif%}"
+                            <a class="nav-link fw-bold"
                                href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
                         </li>
-                        <li class="nav-item mx-3 {%if'/account/reservations/' in url_for(request.endpoint, id=0)%}active{%endif%}">
+                        <li class="nav-item mx-3">
                             <a class="nav-link fw-bold"
                                href="{{url_for('account.reservations', id=None)}}">Reservations</a>
                         </li>
                         <!--Is User Logged In?-->
                         {% if g.user != None %}
-                        <li class="nav-item dropdown dropdown-dark ms-lg-auto">
-                            <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold {%if '/account' in url_for(request.endpoint, id=0)%}active{%endif%}"
+                        <li class="nav-item dropdown dropdown-dark ms-lg-auto ms-3">
+                            <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                href="#"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <span class="me-2">{{g.user.firstname}}</span>
-                                <span class="material-icons-round">
+                                <span class="material-icons-outlined">
                                     account_circle
                                 </span>
                             </a>
@@ -126,7 +127,7 @@
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <span class="me-2 fw-bold">Account</span>
-                                <span class="material-icons-round me-3">
+                                <span class="material-icons-outlined me-3">
                                     account_circle
                                 </span>
                             </a>
@@ -150,8 +151,8 @@
         <div class="col-md-10 mx-auto">
             <footer class="p-3">
                 <div class="container mt-3 border-top border-dark pt-3">
-                    <img src="{{ url_for('static', filename='img/logo_dark.svg') }}"
-                         class="img-fluid">
+                    <h6 class="m-0"
+                        style="font-family: ethnocentric;">RedDirt Rentals</h6>
                     <p class="my-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
                     <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
                            target="_blank">Red Dirt Equipment</a>.</p>

@@ -9,56 +9,7 @@
     </div>
 </div>
 
-<!--Account Nav-->
-<div class="container-fluid bg-dark">
-
-    <div class="row">
-        <div class="col-md-10 mx-auto my-2">
-            <ul class="nav nav-pills"
-                id="account_tabs_root">
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       aria-current="page"
-                       id="tab_switcher_index"
-                       href="{{url_for('account.index')}}">
-                        <span class="material-icons-round me-3">
-                            contact_phone
-                        </span>My Information
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.reservations')}}">
-                        <span class="material-icons-round me-3">
-                            local_activity
-                        </span>Reservations
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white active d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.render_messages')}}">
-                        <span class="material-icons-round me-3">
-                            question_answer
-                        </span>Messages
-                    </a>
-                </li>
-                {% if g.user.groups == "admin" %}
-                <li class="nav-item ms-auto">
-                    <a class="nav-link text-white d-flex flex-row"
-                       href="{{url_for('admin.root')}}">
-                        <span class="material-icons-round me-3">
-                            admin_panel_settings
-                        </span>
-                        Manage Site
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</div>
+{% include 'account_nav.html' %}
 
 <div class="container-fluid">
     <div class="row mx-3">
@@ -67,7 +18,7 @@
             <!--Message Center-->
             <div class="row bg-white border">
                 <div class="d-flex flex-row bg-dark">
-                    <h4 class="text-light mb-0 p-3 flex-fill">Message Center</h4>
+                    <h4 class="text-white mb-0 p-3 flex-fill">Message Center</h4>
                 </div>
                 <div class="col-md-3 p-0 border border-right border-bottom-0 border-start-0">
                     <!--Mailbox Menu-->
@@ -76,7 +27,7 @@
                             <a class="nav-link d-flex flex-row fw-bold"
                                id="new-message-target"
                                href="javascript:{}">
-                                <span class="material-icons-round me-3">
+                                <span class="material-icons-outlined me-3">
                                     edit
                                 </span>
                                 New Message
@@ -86,7 +37,7 @@
                             <a class="nav-link d-flex flex-row"
                                id="inbox-target"
                                href="javascript:{}">
-                                <span class="material-icons-round me-3">
+                                <span class="material-icons-outlined me-3">
                                     inbox
                                 </span>
                                 Inbox</a>
@@ -110,6 +61,11 @@
                     <div id="compose-view">
                         <form method="POST"
                               action="{{url_for('account.send_message')}}">
+
+                            <input type="hidden"
+                                   name="csrf_token"
+                                   value="{{ csrf_token() }}">
+
                             <div class="mb-3">
                                 <label class="form-label">To:</label>
                                 <input class="form-control"
@@ -160,9 +116,9 @@
                                 <a href="#"
                                    id="discard-message"
                                    onclick="discard_msg()"
-                                   class="btn btn-outline-dark">Discard</a>
+                                   class="btn btn-outline-dark px-5">Discard</a>
                                 <button type="submit"
-                                        class="btn btn-info">Send Message</button>
+                                        class="btn btn-info px-5">Send Message</button>
                             </div>
                         </form>
                     </div>
@@ -202,7 +158,7 @@
                                             {% set email = users_friendly[msg[2]] %}
                                             <a href="javascript:{}"
                                                onclick="reply_to_msg('{{body}}', '{{subj}}', '{{email}}');"
-                                               class="btn btn-outline-dark">Reply</a>
+                                               class="btn btn-outline-dark px-5">Reply</a>
                                         </div>
                                     </div>
                                 </div>

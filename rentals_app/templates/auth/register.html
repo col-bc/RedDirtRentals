@@ -69,17 +69,22 @@
 <body class="bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto my-3">
+            <div class="col-md-8 mx-auto my-5">
 
-                <a href="{{url_for('index.root')}}">
-                    <img src="{{url_for('static', filename='img/logo_dark.svg')}}"
-                         class="my-4">
+                <a href="{{url_for('index.root')}}"
+                   class="text-decoration-none">
+                    <h6 class="mb-3 text-dark"
+                        style="font-family: ethnocentric;">RedDirt Rentals</h6>
                 </a>
 
                 <div class="card p-4 bg-white">
                     <h6 class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.</h6>
                     <form action="{{url_for('auth.enroll')}}"
                           method="POST">
+
+                        <input type="hidden"
+                               name="csrf_token"
+                               value="{{ csrf_token() }}">
 
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
@@ -96,7 +101,7 @@
                         <div class="input-group mb-5">
                             <span class="input-group-text">
                                 <span class="material-icons-outlined">
-                                    perm_identity
+                                    badge
                                 </span>
                             </span>
                             <input type="text"
@@ -118,7 +123,7 @@
                             <span class="input-group-text"
                                   id="address1">
                                 <span class="material-icons-round">
-                                    person_pin_circle
+                                    place
                                 </span>
                             </span>
                             <input type="text"
@@ -179,7 +184,7 @@
                             <span class="input-group-text"
                                   id="email">
                                 <span class="material-icons-outlined">
-                                    alternate_email
+                                    mail
                                 </span>
                             </span>
                             <input type="email"
@@ -192,11 +197,20 @@
                         </div>
                         <div class="form-text mb-3">This will be your username to login.</div>
 
+                        <b>Password Requirements</b>
+                        <ul>
+                            <li>8 characters length or more</li>
+                            <li>1 digit or more</li>
+                            <li>1 symbol or more</li>
+                            <li>1 uppercase letter or more</li>
+                            <li>1 lowercase letter or more</li>
+                        </ul>
+
                         <!--Password-->
                         <div class="input-group">
                             <span class="input-group-text">
                                 <span class="material-icons-round">
-                                    vpn_key
+                                    https
                                 </span>
                             </span>
                             <input type="password"
@@ -223,7 +237,8 @@
                         </div>
 
                         <div class="d-flex flex-row justify-content-between align-items-end">
-                            <a href="{{url_for('auth.login')}}">Login</a>
+                            <a href="{{url_for('auth.login')}}"
+                               class="fw-bold">Login</a>
                             <button type="submit"
                                     id="enroll_btn"
                                     class="btn btn-outline-info border-info border-2 px-5 py-2 d-flex flex-row">

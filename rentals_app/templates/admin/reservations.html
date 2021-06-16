@@ -38,7 +38,7 @@
                        role="button"
                        aria-expanded="false">
                         Inventory
-                        <span class="material-icons-sharp ms-3">
+                        <span class="material-icons-outlined ms-3">
                             expand_more
                         </span>
                     </a>
@@ -68,11 +68,19 @@
                         Customers
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.schedule') }}"
+                       id="reservations_tab_selector">
+                        Schedule
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
+<!--Breadcrumb-->
 <div class="container-fluid bg-white border-bottom">
     <div class="row">
         <div class="col-md-10 mx-auto justify-content-center py-2">
@@ -88,162 +96,59 @@
     </div>
 </div>
 
+<!--Content-->
 <div class="container-fluid p-3 mb-3"
      id="inventory_tab_content">
     <div class="row">
-        <div class="col-md-8 mx-auto mt-2 mb-3">
+        <div class="col-md-8 mx-auto mt-2">
+
+            <h2 class="border-bottom border-3">Customer Reservations</h2>
 
             {% if reservations %}
             {% for reservation in reservations %}
-            <div class="card my-4">
+            <div class="card my-4 rounded-0">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h4>Reservation Details</h4>
+                            {% set customer = customers['%s' % reservation[3]] %}
+                            <h4>{{reservation[1]}}</h4>
                         </div>
-                        <div class="col text-center">
-                            <p class="rounded bg-success text-white">{{reservation[1]}}</span></p>
+                        <div class="col">
+                            <p class="rounded bg-success text-white fw-bold text-center">{{reservation[1]}}</span></p>
                         </div>
                     </div>
-                    <div class="d-flex flex-column">
-                        <div class="row my-3">
-                            <div class="col">
-                                <form>
-                                    <div class="input-group">
-                                        <input type="text"
-                                               value="{{reservation[10]}}"
-                                               class="form-control">
-                                        <button class="form-group-text border btn btn-small btn-link"
-                                                type="submit">Update
-                                        </button>
-                                    </div>
-                                    <p class="form-text">The customer's status will be updated to what you type here.</p>
-                                </form>
-                            </div>
-                        </div>
-                        <!--Dates+Image-->
-                        <div class="d-flex">
-                            <div class="flex-grow-1 align-content-center">
-                                <div class="row fw-bold">
-                                    <p class="col">Preference</p>
-                                    <p class="col">Start Date</p>
-                                    <p class="col">End Date</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col">
-                                        <span class="material-icons-round">
-                                            looks_one
-                                        </span>
-                                    </p>
-                                    <p class="col">{{reservation[4]}}</p>
-                                    <p class="col">{{reservation[5]}}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col">
-                                        <span class="material-icons-round">
-                                            looks_two
-                                        </span>
-                                    </p>
-                                    <p class="col">{{reservation[6]}}</p>
-                                    <p class="col">{{reservation[7]}}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col">
-                                        <span class="material-icons-round">
-                                            looks_3
-                                        </span>
-                                    </p>
-                                    <p class="col">{{reservation[8]}}</p>
-                                    <p class="col">{{reservation[9]}}</p>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column">
-                                {% set rental = rentals['%s' % reservation[2]] %}
-                                {% set path = rental['image_paths'] %}
-                                <img src="/static/uploads/{{path}}"
-                                     class="img-thumbnail align-self-end"
-                                     style="height: auto; width: 300px;">
-                                <p class="mb-0 fw-bold text-center">
-                                    <a href="{{url_for('Rentals.details', id=reservation[2]) }}"
-                                       class="text-success">
-                                        {{ rental['make'] }} {{ rental['model'] }}
-                                    </a>
-                                </p>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                {% set customer = customers['%s' % reservation[3]] %}
-                                <h5>Customer</h5>
-                                <table class="table">
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
-                                                    emoji_people
-                                                </span>
-                                                Name
-                                            </div>
-                                        </td>
-                                        <td>{{customer.firstname}} {{customer.lastname}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
-                                                    call
-                                                </span>
-                                                Phone Number
-                                            </div>
-                                        </td>
-                                        <td><a href="tel:{{customer.phonenumber}}"
-                                               class="text-success">{{customer.phonenumber}}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
-                                                    alternate_email
-                                                </span>
-                                                Email
-                                            </div>
-                                        </td>
-                                        <td><a href="mailto:{{customer.email}}"
-                                               class="text-success">{{customer.email}}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
-                                                    person_pin_circle
-                                                </span>
-                                                Address
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">{{customer.address}}</p>
-                                            <p class="mb-0">{{customer.city}}, {{customer.state}} {{customer.zip}}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="row">
+                        <p class="col"><b>Reservation for</b>: {{customer.firstname}} {{customer.lastname}}</p>
+                        <p class="col"><b>Preferred Dates</b>: {{reservation[4]}}&nbsp;&nbsp;<b>to</b>&nbsp;&nbsp;{{reservation[5]}}
+                    </div>
+                    <div class="row col">
+                        <p>Status: <span class="badge bg-info">{{reservation[10]}}</span></p>
                     </div>
                 </div>
-                <div class="card-footer border-0 bg-white text-end">
-                    <a href="#"
-                       class="btn btn-outline-secondary me-3">Print</a>
-                    <a href="#"
-                       class="btn btn-primary">Cancel Reservation</a>
+                <div class="card-footer border-0 bg-white pb-3 pt-0 text-end">
+                    <a href="{{ url_for('admin.reservation_details', id=reservation[0]) }}"
+                       class="d-block w-100 btn btn-danger px-5">
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <span class="material-icons-outlined me-3">
+                                read_more
+                            </span>
+                            Reservation Details
+                        </div>
+                    </a>
                 </div>
             </div>
-
             {% endfor %}
-            {%endif%}
+            {%else%}
         </div>
-
     </div>
+    <div class="card rounded-0 my-4">
+        <h3>There are not any reservations to review</h3>
+    </div>
+    {%endif%}
 </div>
+
 {% endblock %}
+
+
+
+<!-- TODO: Move to own page, adjust reservations index to show list of conf_nos-->

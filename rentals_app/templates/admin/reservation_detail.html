@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Admin | Reservations{% endblock %}
+<!---->
+{% block content %}
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <h3 class="text-white py-3 fw-bold">Manage Site</h3>
+        </div>
+    </div>
+</div>
+
+<!--Messages-->
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="container">
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <div class="alert alert-light">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab Selector-->
+<div class="container-fluid p-2 bg-dark shadow-sm">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <ul class="nav nav-pills"
+                id="tab_root">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white d-flex flex-row"
+                       data-bs-toggle="dropdown"
+                       id="inventory_active_elem"
+                       role="button"
+                       aria-expanded="false">
+                        Inventory
+                        <span class="material-icons-sharp ms-3">
+                            expand_more
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu shadow-sm w-100">
+                        <li>
+                            <a class="dropdown-item"
+                               id="inventory_tab_selector"
+                               href="{{url_for('admin.inventory') }}">Manage</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.new') }}">Add</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white bg-info active"
+                       href="{{url_for('admin.reservations') }}"
+                       id="reservations_tab_selector">
+                        Reservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.customers') }}"
+                       id="reservations_tab_selector">
+                        Customers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="{{url_for('admin.schedule') }}"
+                       id="reservations_tab_selector">
+                        Schedule
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--Breadcrumb-->
+<div class="container-fluid bg-white border-bottom">
+    <div class="row">
+        <div class="col-md-10 mx-auto justify-content-center py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item"><a href="/admin">Manage Site</a></li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">Reservations</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!--Content-->
+<div class="container-fluid p-3 mb-3"
+     id="inventory_tab_content">
+    <div class="row">
+        <div class="col-md-8 mx-auto mt-2 mb-3">
+
+            {% if reservation %}
+            <div class="card my-4 rounded-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Reservation Details</h4>
+                        </div>
+                        <div class="col text-center">
+                            <p class="rounded bg-success text-white fw-bold">{{reservation[1]}}</span></p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="row my-3">
+                            <div class="col">
+                                <form action="{{url_for('admin.update_resv_status', id=reservation[0]) }}"
+                                      method="POST">
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           value="{{ csrf_token() }}">
+                                    <div class="input-group">
+                                        <select class="form-select"
+                                                name="new_status"
+                                                aria-label="Default select example">
+                                            <option value="Pending"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Pending'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Pending</option>
+                                            <option value="Reviewed"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Reviewed'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Reviewed</option>
+                                            <option value="Scheduled"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Scheduled'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Scheduled</option>
+                                            <option value="Returned"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='Returned'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}">Returned</option>
+                                        </select>
+                                        <button class="form-group-text btn btn-small btn-light border"
+                                                type="submit">Update
+                                        </button>
+                                    </div>
+                                    <p class="form-text">The customer's status will be updated to what you type here.</p>
+                                </form>
+                            </div>
+                        </div>
+                        <!--Dates+Image-->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row fw-bold">
+                                    <p class="col">Preference</p>
+                                    <p class="col">Start Date</p>
+                                    <p class="col">End Date</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_one
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[4]}}</p>
+                                    <p class="col">{{reservation[5]}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_two
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[6]}}</p>
+                                    <p class="col">{{reservation[7]}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col">
+                                        <span class="material-icons-round">
+                                            looks_3
+                                        </span>
+                                    </p>
+                                    <p class="col">{{reservation[8]}}</p>
+                                    <p class="col">{{reservation[9]}}</p>
+                                </div>
+
+                                <div class="row">
+                                    <p class="fs-6 mb-1"><b>Rental Rate:</b> $ {{ '%0.2f'%rental.rate[0] }}</p>
+                                    <p class="fs-6 mb-1"><b>Estimated Hours per day: </b>{{reservation[11]}}</p>
+                                    <p class="fs-6 mb-1"><b>Daily Cost: </b> $ {{ '%0.2f'%(rental.rate[0] | float * reservation[11] | int) }}
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                <img src="/static/uploads/{{image}}"
+                                     class="img-thumbnail align-self-end">
+                                <p class="mb-0 fw-bold text-center">
+                                    <a href="{{url_for('Rentals.details', id=reservation[2]) }}"
+                                       class="text-success">
+                                        {{ rental['make'] }} {{ rental['model'] }}
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <h5>Customer</h5>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <span class="material-icons-round me-3">
+                                                    emoji_people
+                                                </span>
+                                                Name
+                                            </div>
+                                        </td>
+                                        <td>{{customer.firstname}} {{customer.lastname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <span class="material-icons-round me-3">
+                                                    call
+                                                </span>
+                                                Phone Number
+                                            </div>
+                                        </td>
+                                        <td><a href="tel:{{customer.phonenumber}}"
+                                               class="text-success">{{customer.phonenumber}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <span class="material-icons-round me-3">
+                                                    alternate_email
+                                                </span>
+                                                Email
+                                            </div>
+                                        </td>
+                                        <td><a href="mailto:{{customer.email}}"
+                                               class="text-success">{{customer.email}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <span class="material-icons-round me-3">
+                                                    person_pin_circle
+                                                </span>
+                                                Address
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0">{{customer.address}}</p>
+                                            <p class="mb-0">{{customer.city}}, {{customer.state}} {{customer.zip}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row col">
+                            <h5>Schedule Reservation</h5>
+                            <form method="POST"
+                                  action="{{ url_for('admin.schedule_confirm', r_id=reservation[2], c_id=reservation[3], rsvr_id=reservation[0]) }}">
+                                <input type="hidden" name="csrf_token" value={{ csrf_token() }}>
+                                <div class="row mt-2">
+                                    <div class="input-group col">
+                                        <span class="input-group-text">Pickup Date</span>
+                                        <input type="date"
+                                               required
+                                               class="form-control"
+                                               name="scheduled_start">
+                                    </div>
+                                    <div class="input-group col">
+                                        <span class="input-group-text">Dropoff Date</span>
+                                        <input type="date"
+                                               required
+                                               name="scheduled_end"
+                                               class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="row mt-3 mb-5 align-items-end">
+                                    <div class="col me-auto">
+                                        <p class="form-text">
+                                            Scheduling / Confirming this reservation will add the reservation to the calendar,
+                                            send a message to the customer letting them know their reservation has been confirmed,
+                                            and update the reserved rental's rented by, date available, and available now properties.
+                                            This will also hide the rental from customers until it has been returned.
+                                        </p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit"
+                                                class="btn btn-light px-5 border-dark">
+                                            <div class="d-flex flex-row align-items-center fw-bold">
+                                                <span class="material-icons-outlined me-3">
+                                                    event_available
+                                                </span>
+                                                Schedule & Confirm
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-0 bg-dark py-3 text-end">
+                    <a href="#"
+                       class="btn btn-outline-light me-3 px-5">
+                        <div class="d-flex flex-row align-items-center fw-bold">
+                            <span class="material-icons-outlined me-3">
+                                print
+                            </span>
+                            Print
+                        </div>
+                    </a>
+                    <a href="#"
+                       class="btn btn-danger px-5">
+                        <div class="d-flex flex-row align-items-center fw-bold">
+                            <span class="material-icons-outlined me-3">
+                                warning
+                            </span>
+                            Cancel Reservation
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

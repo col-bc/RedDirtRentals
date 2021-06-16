@@ -9,129 +9,106 @@
     </div>
 </div>
 
-<!--Account Nav-->
-<div class="container-fluid bg-dark">
+{% include 'account_nav.html' %}
 
-    <div class="row">
-        <div class="col-md-10 mx-auto my-2">
-            <ul class="nav nav-pills"
-                id="account_tabs_root">
-                <li class="nav-item">
-                    <a class="nav-link text-white active d-flex flex-row"
-                       aria-current="page"
-                       id="tab_switcher_index"
-                       href="{{url_for('account.index')}}">
-                        <span class="material-icons-round me-3">
-                            contact_phone
-                        </span>My Information
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.reservations')}}">
-                        <span class="material-icons-round me-3">
-                            local_activity
-                        </span>Reservations
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex flex-row"
-                       id="tab_switcher_reservations"
-                       href="{{url_for('account.render_messages')}}">
-                        <span class="material-icons-round me-3">
-                            question_answer
-                        </span>Messages
-                    </a>
-                </li>
-                {% if user.groups == "admin" %}
-                <li class="nav-item ms-auto">
-                    <a class="nav-link text-white d-flex flex-row"
-                       href="{{url_for('admin.root')}}">
-                        <span class="material-icons-round me-3">
-                            admin_panel_settings
-                        </span>
-                        Manage Site
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</div>
-
+<!--Content-->
 <div class="container-fluid">
     <div class="row mx-3">
-        <div class="col-md-10 mx-auto my-5">
+        <div class="col-md-10 mx-auto my-3">
+            <div class="row">
+                <div class="col col-md-6">
 
-            <!--Account Index-->
-            <div class="card p-3 bg-white d-flex flex-column">
-                <h4 class="fw-bold">Account Information</h4>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex flex-row align-content-center">
-                        <span class="material-icons-round me-3">
-                            person
-                        </span>
-                        <span class="flex-grow-1">
-                            {{user.firstname}} {{user.lastname}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex flex-row">
-                        <span class="material-icons-round me-3">
-                            alternate_email
-                        </span>
-                        <span class="flex-grow-1">
-                            {{user.email}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex flex-row">
-                        <span class="material-icons-round me-3">
-                            phone
-                        </span>
-                        <span class="flex-grow-1">
-                            {{user.phonenumber}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex flex-row">
-                        <span class="material-icons-round me-3">
-                            person_pin_circle
-                        </span>
-                        <span class="flex-grow-1">
-                            <div class="d-flex flex-column">
-                                <span>{{user.address}}</span>
-                                <span>{{user.city}}, {{user.state}} {{user.zip}}
-                                </span>
-                    </li>
-                    <li class="list-group-item d-flex flex-row">
-                        <span class="material-icons-round me-3">
-                            group_work
-                        </span>
-                        <span class="flex-grow-1">
-                            {{user.groups}}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex flex-row">
-                        <span class="material-icons-round me-3">
-                            vpn_key
-                        </span>
-                        <span class="flex-grow-1">
-                            <button type="button"
-                                    class="btn btn-outline-dark"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#ch_pwd_modal">
-                                Change Password
-                            </button>
-                        </span>
-                    </li>
-                </ul>
+                    <h2 class="row fw-bold border-bottom border-3 pb-2 my-3">Account Information</h2>
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        {{message}}
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        &nbsp;
+                    </div>
+                    {% endif %} {% endwith %}
+
+                    <div class="card card-body d-flex flex-column">
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                person
+                            </span>
+                            <span class="col">
+                                {{user.firstname}} {{user.lastname}}
+                            </span>
+                        </div>
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                email
+                            </span>
+                            <span class="col">
+                                {{user.email}}
+                            </span>
+                        </div>
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                phone
+                            </span>
+                            <span class="col">
+                                {{user.phonenumber}}
+                            </span>
+                        </div>
+                        <div class="row border-bottom py-3">
+                            <span class="col-auto material-icons-outlined">
+                                place
+                            </span>
+                            <span class="col">
+                                <span class="m-0 row">{{user.address}}</span>
+                                <span class="m-0 row">{{user.city}}, {{user.state}} {{user.zip}}</span>
+                            </span>
+                        </div>
+                        <div class="row py-3">
+                            <span class="col-auto material-icons-outlined">
+                                category
+                            </span>
+                            <span class="col">
+                                {{user.groups}}
+                            </span>
+                            </p>
+                            <h6 class="my-3">Account Options</h6>
+                            <div class="row ps-3">
+                                <button type="button"
+                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ch_pwd_modal">
+                                    <span class="col-auto material-icons-outlined me-3">
+                                        https
+                                    </span>
+                                    Change my password
+                                </button>
+                            </div>
+                            <div class="row mt-2 ps-3">
+                                <button type="button"
+                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#del_acct_modal">
+                                    <span class="col-auto material-icons-outlined me-3"
+                                          class="font-size: 12px;">
+                                        delete_forever
+                                    </span>
+                                    Delete my account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-md-flex col-md-6 flex-column mt-5">
+                    <img src="{{ url_for('static', filename='img/account_ils.svg') }}"
+                         class="img-fluid">
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-
-<!-- Modal -->
+<!--ch_pwd Modal -->
 <div class="modal fade"
      id="ch_pwd_modal"
      tabindex="-1"
@@ -140,28 +117,161 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"
-                    id="ch_pwd_modalLabel">Change Password</h5>
+                <h5 class="modal-title d-flex flex-row align-items-center"
+                    id="ch_pwd_modalLabel">
+                    <span class="material-icons-outlined me-3">
+                        https
+                    </span>
+                    Change Password
+                </h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url_for('auth.change_password', userid=user.userid)}}"
+                {% if g.user.userid == 2 %}
+                <h5 class="text-danger">
+                    You cannot change the password for this account.
+                </h5>
+                <p class="text-muted">Please contact your webmaster.</p>
+                <button type="button"
+                        class="btn btn-outline-dark ms-auto px-5"
+                        data-bs-dismiss="modal">
+                    Ok
+                </button>
+                {% else %}
+                <form action="{{url_for('auth.change_password')}}"
                       method="POST">
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token() }}" />
+                    <label class="form-label fw-bold">Current Password</label>
                     <input type="password"
                            name="current_password"
+                           placeholder="••••••••••••••••••"
                            class="form-control mb-3"
-                           placeholder="Current Password">
+                           required>
+
+                    <b>Password Requirements</b>
+                    <ul>
+                        <li>8 characters length or more</li>
+                        <li>1 digit or more</li>
+                        <li>1 symbol or more</li>
+                        <li>1 uppercase letter or more</li>
+                        <li>1 lowercase letter or more</li>
+                    </ul>
+                    <label class="form-label fw-bold">New Password</label>
                     <input type="password"
                            name="password1"
-                           class="form-control mb-3"
-                           placeholder="New Password">
+                           id="password1"
+                           placeholder="••••••••••••••••••"
+                           required
+                           class="form-control mb-3">
+                    <label class="form-text">Please verify</label>
                     <input type="password"
                            name="password2"
-                           class="form-control"
-                           placeholder="Verify New Password">
+                           id="password2"
+                           placeholder="••••••••••••••••••"
+                           required
+                           class="form-control">
+                    <label class="form-text fw-bold text-danger d-none"
+                           id="err_text">Passwords do not match.</label>
+
+                    <div class="d-flex flex-row mt-4 justify-content-between">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="btn btn-info disabled"
+                                type="submit"
+                                id="submit_btn">
+                            Change and Logout
+                        </button>
+                        <script>
+                            var p1 = document.getElementById('password1');
+                            var p2 = document.getElementById('password2');
+                            p2.onkeyup = function () {
+                                if (p1.value != p2.value) {
+                                    document.getElementById('err_text').classList.remove('d-none')
+                                    document.getElementById('err_text').classList.remove('disabled')
+                                    document.getElementById('submit_btn').classList.add('disabled')
+                                }
+                                else {
+                                    document.getElementById('err_text').classList.add('d-none')
+                                    document.getElementById('err_text').classList.add('disabled')
+                                    document.getElementById('submit_btn').classList.remove('disabled')
+                                }
+                            }
+                        </script>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- del_acct Modal -->
+<div class="modal fade"
+     id="del_acct_modal"
+     tabindex="-1"
+     aria-labelledby="del_acct_modalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex flex-row align-items-center"
+                    id="del_acct_modalLabel">
+                    <span class="material-icons-outlined me-3">
+                        delete_forever
+                    </span>Delete Account
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url_for('auth.delete_account', userid=user.userid)}}"
+                      method="POST">
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token() }}" />
+                    <h4>Are you sure you want to delete your account?</h4>
+                    <p class="my-3 p-3 border border-danger rounded text-center"><b>This cannot be reversed!</b></p>
+
+                    <p>Deleting your account will permanently delete all your data from our records.
+                        You'll lose access to your reservations, messages, etc. If you're experiencing
+                        technical problems, please call us before deleting your account, we may be able to
+                        resolve your problems without deleting your account.
+                    </p>
+
+                    <p><b>To delete you account, please type your username and password.</b></p>
+                    <p>{{g.user.email}}</p>
+
+                    <label class="form-text">Username</label>
+                    <div class="input-group mb-3">
+                        <input type="email"
+                               class="form-control"
+                               name="del_username"
+                               id="del_confirmation">
+                        <span class="input-group-text">
+                            <span class="material-icons-outlined"
+                                  id="delete_indicator">
+                                close
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="form-text">Password</label>
+                        <input type="password"
+                               name="del_password"
+                               class="form-control">
+                    </div>
+
 
                     <div class="d-flex flex-row mt-3 justify-content-between">
                         <button type="button"
@@ -169,10 +279,25 @@
                                 data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <button class="btn btn-info"
-                                type="submit">
-                            Change and Logout
+                        <button class="btn btn-info disabled"
+                                type="submit"
+                                id="delete_btn">
+                            I'm sure, delete my account.
                         </button>
+
+                        <script>
+                            var conf = document.getElementById('del_confirmation');
+
+                            conf.onkeyup = function () {
+                                if (conf.value === '{{g.user.email}}') {
+                                    document.getElementById('delete_btn').classList.remove('disabled');
+                                    document.getElementById('delete_indicator').innerHTML = 'check';
+                                } else {
+                                    document.getElementById('delete_btn').classList.add('disabled');
+                                    document.getElementById('delete_indicator').innerHTML = 'close';
+                                }
+                            }
+                        </script>
                     </div>
                 </form>
             </div>

@@ -1,20 +1,21 @@
 import sqlite3
 from flask import current_app
-import os
+import re
 from rentals_app.models.rental import Rental
 
-ABS_UPLOAD_PATH = '/Users/colby/RedDirtRentals/rentals_app/static/uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'tiff', 'jpeg'}
+ABS_UPLOAD_PATH = "/Users/colby/Work/RedDirtRentals/rentals_app/static/uploads"
+DB_PATH = "/Users/colby/Work/RedDirtRentals/database.db"
+ALLOWED_EXTENSIONS = {"png", "jpg", "tiff", "jpeg"}
 
 
 def connect_to_db():
-    con = sqlite3.connect('/Users/colby/RedDirtRentals/database.db')
+    con = sqlite3.connect(DB_PATH)
     return con, con.cursor()
 
 
-def run_sql(qry,args=''):
-    con = sqlite3.connect('/Users/colby/RedDirtRentals/database.db')
-    result = con.cursor().execute(qry,args)
+def run_sql(qry, args=""):
+    con = sqlite3.connect(DB_PATH)
+    result = con.cursor().execute(qry, args)
     con.commit()
     if result != None:
         con.close()
@@ -23,39 +24,96 @@ def run_sql(qry,args=''):
     return False
 
 
-def get_attributes(request):
-    return { # dict with request objects
-        "make": request.form.get("make"),
-        "model": request.form.get("model"),
-        "fuel_type": request.form.get("fuel_type"),
-        "category": request.form.get("category"),
-        "job_category": request.form.get("job_category"),
-        "horsepower": request.form.get("horsepower"),
-        "deck_size": request.form.get("deck_size"),
-        "engine": request.form.get("engine"),
-        "stock": request.form.get("stock"),
-        "drive": request.form.get("drive"),
-        "rate": request.form.get("rate"),
-        "price_range": request.form.get("price_range"),
-        "rented_by": request.form.get("rented_by_name"),
-        "date_available": request.form.get("date_available"),
-        "rent_queue": request.form.get("queue"),
-        "is_shown": request.form.get("is_customer_facing"),
-        "image": request.form.get("files"),
-        "features": request.form.get("features"),
-        "is_available": request.form.get("is_currently_available"),
-        "description": request.form.get("description"),
-    }
-
-
 def log_event(msg):
-    with open('/Users/colby/RedDirtRentals/events.log', 'a+') as log:
+    with open("/Users/colby/Work/RedDirtRentals/events.log", "a+") as log:
         log.write(msg)
         log.close()
 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def password_check(password):
+    """
+    Verify the strength of 'password'
+    Returns a dict indicating the wrong criteria
+    A password is considered strong if:
+        8 characters length or more
+        1 digit or more
+        1 symbol or more
+        1 uppercase letter or more
+        1 lowercase letter or more
+    """
+
+    # calculating the length
+    length_error = len(password) < 8
+
+    # searching for digits
+    digit_error = re.search(r"\d", password) is None
+
+    # searching for uppercase
+    uppercase_error = re.search(r"[A-Z]", password) is None
+
+    # searching for lowercase
+    lowercase_error = re.search(r"[a-z]", password) is None
+
+    # searching for symbols
+    symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]', password) is None
+
+    # overall result
+    password_ok = not (
+        length_error
+        or digit_error
+        or uppercase_error
+        or lowercase_error
+        or symbol_error
+    )
+
+    return {
+        "password_ok": password_ok,
+        "length_error": length_error,
+        "digit_error": digit_error,
+        "uppercase_error": uppercase_error,
+        "lowercase_error": lowercase_error,
+        "symbol_error": symbol_error,
+    }
+
+def password_check(password):
+    """
+    Verify the strength of 'password'
+    Returns a dict indicating the wrong criteria
+    A password is considered strong if:
+        8 characters length or more
+        1 digit or more
+        1 symbol or more
+        1 uppercase letter or more
+        1 lowercase letter or more
+    """
+
+    # calculating the length
+    length_error = len(password) < 8
+
+    # searching for digits
+    digit_error = re.search(r"\d", password) is None
+
+    # searching for uppercase
+    uppercase_error = re.search(r"[A-Z]", password) is None
+
+    # searching for lowercase
+    lowercase_error = re.search(r"[a-z]", password) is None
+
+    # searching for symbols
+    symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~"+r'"]', password) is None
+
+    # overall result
+    password_ok = not ( length_error or digit_error or uppercase_error or lowercase_error or symbol_error )
+
+    return {
+        'password_ok' : password_ok,
+        'length_error' : length_error,
+        'digit_error' : digit_error,
+        'uppercase_error' : uppercase_error,
+        'lowercase_error' : lowercase_error,
+        'symbol_error' : symbol_error,
+    }
