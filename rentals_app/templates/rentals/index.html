@@ -156,16 +156,13 @@
                     <div class="card-body p-3 d-flex flex-column align-items-stretch">
                         <h5 class="card-title fw-bold">{{rental.make}}&nbsp;{{rental.model}}</h5>
                         {% if rental.is_available == 1 %}
-                        <span class="badge rounded-pill py-2 px-4 shadow-sm bg-success d-flex flex-row align-items-center mt-2 mb-3">
-                            <span class="material-icons-outlined me-3">
-                                check
-                            </span>
+                        <span class="badge rounded-pill py-1 px-2 bg-success mt-2 mb-3">
                             <span>Available Now</span>
                         </span>
                         {% endif %}
                         <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
                         <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
-                            {% if rental.implements %}
+                            {% if rental.implements|length >= 1 %}
                         <ul class="list-group list-group-flush mb-3">
                             <li class="list-group-item fw-bold">Compatible Implements</li>
                             {% for implement in rental.implements %}

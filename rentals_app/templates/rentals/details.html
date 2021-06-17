@@ -29,7 +29,7 @@
                     {{rental.make}} {{rental.model}}
                 </h1>
 
-                <p class="fs-3"><u>Rental Details</u></p>
+                <h5>Rental Details</h5>
 
                 <table class="table">
                     <tr>
@@ -53,16 +53,16 @@
                         <td>{{rental.horse_power}}</td>
                     </tr>
                     <tr>
-                        <td class="fw-bold">Recommended Job Size</td>
-                        <td>{{rental.job_category}}</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Deck Size <span class="is-size-7">(if applicable)</td>
+                        <td><span class="fw-bold">Deck Size</span> <span class="text-muted"><small>(if applicable)</small></span></td>
                         <td>{{rental.deck_size}}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">Drive Type</td>
                         <td>{{rental.drive}}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Recommended Job Size</td>
+                        <td>{{rental.job_category}}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">Available Now?</td>
@@ -95,10 +95,13 @@
 
                 <div class="row">
                     <div class="col">
-                        <p class="fs-3"><u>Description</u></p>
-                        <p>{{rental.description}}</p>
+                        <h5>Description</h4>
+                            <p>{{rental.description}}</p>
 
-                        <p class="fs-3"><u>Compatibility</u></p>
+                            {% if rental.implements|length < 0%}
+                              <h5
+                              class="fs-3">Compatibility
+                        </h5>
                         <p class="mb-0">Compatible with these implements:</p>
                         {% if rental.implements %}
                         <ul class="list-group list-group-flush">
@@ -107,8 +110,9 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
+                        {% endif %}
                     </div>
-                    <p class="fs-3"><u>Features</u></p>
+                    <h5>Features</h5>
                     <p>{{rental.features}}</p>
                 </div>
                 <a href="{{url_for('account.reserve', id=rental.rental_id)}}"

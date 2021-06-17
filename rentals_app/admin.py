@@ -204,8 +204,8 @@ def create():
         rental.deck_size = request.form.get("deck_size")
         rental.implements = request.form.getlist("implements")
         rental.stock = request.form.get("stock")
-        rental.rate = float(request.form.get("rate"))
         rental.drive = request.form.get("drive")
+        rental.rate = float(request.form.get("rate"))
         rental.job_category = request.form.get("job_category")
         rental.price_range = request.form.get("price_range")
         rental.is_available = 1 if request.form.get("is_available") == "Yes" else 0

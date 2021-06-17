@@ -10,7 +10,7 @@
 
             <a href="{{ url_for('admin.inventory') }}"
                class="btn btn-outline-light btn-small d-flex flex-row align-items-center">
-                <span class="material-icons-round me-3">
+                <span class="material-icons-outlined me-3">
                     cancel
                 </span>
                 Cancel
@@ -37,7 +37,7 @@
 <!--Flashes-->
 <div class="container">
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <div class="notification is-danger">
+    <div class="notification">
         <button class="delete"></button>
         <p>{{ message }}</p>
     </div>
@@ -48,6 +48,8 @@
     <div class="row my-4">
         <div class="col-md-8 mx-auto">
 
+            <h5 class="mb-3 fw-bold">Rental Details</h5>
+
             <form method="POST"
                   action="{{ url_for('admin.create') }}"
                   enctype="multipart/form-data"
@@ -57,12 +59,10 @@
                        name="csrf_token"
                        value="{{ csrf_token() }}">
 
-                <h5 class="mb-3 fw-bold">Unit Details</h5>
-
                 <!--Make-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="make"
                            name="make"
                            required
@@ -73,7 +73,7 @@
                 <!--Model-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="model"
                            name="model"
                            required
@@ -81,44 +81,58 @@
                     <label for="model">Model</label>
                 </div>
 
-                <!--Vehicle Category-->
+                <!--Vehicle Type-->
                 <label class="form-text">Vehicle Category</label>
-                <select class="form-select py-3 mb-3"
+                <select class="form-select py-3 mb-3 border-dark"
                         name="category"
                         aria-label="Select Vehicle Category">
-                    <option selected>Select Vehicle Category</option>
-                    <option>Tractor</option>
-                    <option>Mower</option>
-                    <option>Power Tool</option>
-                    <option>Add on</option>
+                    <option selected>-- Select Vehicle Category --</option>
+                    <option value="Tractor">Tractor</option>
+                    <option value="Mower">Mower</option>
+                    <option value="Power Tool">Power Tool</option>
                 </select>
 
-                <!--Job Category-->
-                <select class="form-select py-3 mb-3"
+                <!--Fuel Type-->
+                <label class="form-text">Fuel Type</label>
+                <select class="form-select py-3 mb-3 border-dark"
+                        name="fuel_type">
+                    <option selected>-- Select Fuel Type --</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Other">Other</option>
+                    <option value="NA">NA</option>
+                </select>
+
+                <!--Job Type-->
+                <label class="form-text">Job Category</label>
+                <select class="form-select py-3 mb-3 border-dark"
                         name="job_category"
                         aria-label="Select Job Category">
-                    <option>Select Job Category</option>
-                    <option>Small Jobs</option>
-                    <option>Medium Jobs</option>
-                    <option>Large Jobs</option>
-                    <option>Heavy Duty Jobs</option>
+                    <option selected>-- Select Job Category --</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Government">Government</option>
                 </select>
 
-                <!--Job Category-->
-                <select class="form-select py-3 mb-3"
+                <!--Drive Type-->
+                <label class="form-text">Drive Type</label>
+                <select class="form-select py-3 mb-3 border-dark"
                         name="drive"
                         aria-label="Select Drive Type">
-                    <option>Select Drive Type</option>
-                    <option>4WD</option>
-                    <option>2WD</option>
-                    <option>Other</option>
-                    <option>NA</option>
+                    <option selected>-- Select Drive Type --</option>
+                    <option value="4WD">4WD</option>
+                    <option value="2WD">2WD</option>
+                    <option value="Other">Other</option>
+                    <option value="NA">NA</option>
                 </select>
 
                 <!--Engine-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="horse_power"
                            name="horse_power"
                            required
@@ -129,7 +143,7 @@
                 <!--Deck Size-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="deck_size"
                            name="deck_size"
                            required
@@ -140,7 +154,7 @@
                 <!--Stock #-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="stock"
                            name="stock"
                            required
@@ -151,7 +165,7 @@
                 <!--Hourly Rate-->
                 <div class="form-floating mb-3">
                     <input type="number"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="rate"
                            name="rate"
                            required
@@ -160,42 +174,41 @@
                 </div>
 
                 <!--Price Range-->
-                <select class="form-select py-3 mb-3"
+                <label class="form-text">Price Range</label>
+                <select class="form-select py-3 mb-3 border-dark"
                         name="price_range"
                         aria-label="Select Drive Type">
-                    <option>Select Price Range</option>
-                    <option>Cheap</option>
-                    <option>Affordable</option>
-                    <option>Normal</option>
-                    <option>Costly</option>
+                    <option selected>-- Select Price Range --</option>
+                    <option value="Competitive">Competitive</option>
+                    <option value="Affordable">Affordable</option>
+                    <option value="Average">Average</option>
+                    <option value="Costly">Costly</option>
                 </select>
 
                 <!--Rented By-->
                 <div class="form-floating mb-3">
                     <input type="number"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="rented_by"
                            name="rented_by"
                            required
                            placeholder="Currently Rented By">
                     <label for="rented_by">Currently Rented By</label>
                     <div class="form-text">
-                        <i class="fas fa-eye-slash mr-3"></i>
                         This field <strong>will not </strong>be seen by customers.
                     </div>
                 </div>
 
-                <!--Rented By-->
+                <!--Date Available-->
                 <div class="form-floating mb-3">
                     <input type="date"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="available_on"
                            name="available_on"
                            required
                            placeholder="Date Available">
                     <label for="available_on">Date Available</label>
                     <div class="form-text">
-                        <i class="fas fa-eye-slash mr-3"></i>
                         This field <strong>will not </strong>be seen by customers.
                     </div>
                 </div>
@@ -226,7 +239,7 @@
 
                 <!--Queue-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="rent_queue"
                               name="rent_queue"
@@ -235,8 +248,8 @@
                               style="height: 100px"></textarea>
                     <label for="rent_queue">Unit Queue</label>
                     <div class="form-text">
-                        <p class="mb-1"><i class="fas fa-info-circle me-2"></i>Enter names separated by a comma.</p>
-                        <p><i class="fas fa-eye-slash me-2"></i>This field <strong>will not </strong>be seen by customers.</p>
+                        <p class="mb-1">Enter names separated by a comma.</p>
+                        <p>This field <strong>will not </strong>be seen by customers.</p>
                     </div>
                 </div>
 
@@ -244,7 +257,7 @@
                 <div class="mb-3">
                     <label for="files"
                            class="form-label">Unit Images</label>
-                    <input class="form-control"
+                    <input class="form-control border-dark"
                            type="file"
                            id="files"
                            name="files"
@@ -277,7 +290,7 @@
 
                 <!--Features-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="features"
                               name="features"
@@ -289,7 +302,7 @@
 
                 <!--Description-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="description"
                               name="description"
@@ -303,7 +316,7 @@
                 <div class="mb-5"
                      id="implements">
                     <div class="form-floating mb-3 d-flex flex-row">
-                        <input class="form-control flex-grow-1 ia_input"
+                        <input class="form-control border-dark flex-grow-1 ia_input"
                                type="text"
                                placeholder="Compatible Implements">
                         <label for="implement_input">Compatible Implements</label>
@@ -328,8 +341,8 @@
                 </div>
 
                 <button type="submit"
-                        class="btn btn-outline-info w-100 justify-content-center border-info border-2 py-3 d-flex flex-row">
-                    <span class="material-icons-round me-3">
+                        class="btn btn-outline-info w-100 align-items-center justify-content-center border-info border-2 py-3 d-flex flex-row fw-bold">
+                    <span class="material-icons-outlined me-3">
                         post_add
                     </span>
                     Add Unit to Inventory

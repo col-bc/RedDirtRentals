@@ -68,16 +68,20 @@
 
                             <div class="mb-3">
                                 <label class="form-label">To:</label>
+                                {% if g.user.groups != 'admin' %}
+                                <input class="form-control disabled"
+                                       id="msg-to"
+                                       disabled
+                                       list="email_recipient"
+                                       name="msg_to"
+                                       value="Red Dirt Rentals"
+                                       placeholder="Type to search emails...">
+                                {% else %}
                                 <input class="form-control"
                                        id="msg-to"
                                        list="email_recipient"
                                        name="msg_to"
                                        placeholder="Type to search emails...">
-                                {% if g.user.groups != 'admin' %}
-                                <datalist id="email_recipient">
-                                    <option value="Red Dirt Rentals">
-                                </datalist>
-                                {% else %}
                                 <!--TODO: implement-->
                                 <datalist id="email_recipient">
                                     {% for email in emails %}

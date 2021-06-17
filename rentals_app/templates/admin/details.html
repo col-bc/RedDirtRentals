@@ -53,15 +53,10 @@
                   enctype="multipart/form-data"
                   class="p-3">
 
-                <input type="hidden"
-                       name="csrf_token"
-                       value="{{ csrf_token() }}">
-
-                <h5 class="mb-3 fw-bold">Unit Details</h5>
                 <!--Make-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="make"
                            name="make"
                            value="{{rental.make}}"
@@ -73,76 +68,114 @@
                 <!--Model-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="model"
                            name="model"
-                           value="{{rental.model}}"
                            required
+                           value="{{rental.model}}"
                            placeholder="Model">
                     <label for="model">Model</label>
                 </div>
 
-                <!--Vehicle Category-->
+                <!--Vehicle Type-->
                 <label class="form-text">Vehicle Category</label>
-                <select class="form-select py-3 mb-3"
-                        name="job_category"
-                        aria-label="Select Job Category">
-                    <option {%if
-                            rental.job_category=='Tractor'
+                <select class="form-select py-3 mb-3 border-dark"
+                        name="category"
+                        aria-label="Select Vehicle Category">
+                    <option value="Tractor"
+                            {%if
+                            rental.category=='Tractor'
                             %}selected{%endif%}>Tractor</option>
-                    <option {%if
-                            rental.job_category=='Mower'
+                    <option value="Mower"
+                            {%if
+                            rental.category=='Mower'
                             %}selected{%endif%}>Mower</option>
-                    <option {%if
-                            rental.job_category=='Power Tool'
+                    <option value="Power Tool"
+                            {%if
+                            rental.category=='Power Tool'
                             %}selected{%endif%}>Power Tool</option>
-                    <option {%if
-                            rental.job_category=='Add on'
-                            %}selected{%endif%}>Add on</option>
                 </select>
 
-                <!--Vehicle Fuel-->
-                <label class="form-text">Fuel Category</label>
-                <select class="form-select py-3 mb-3"
-                        name="fuel_type"
-                        aria-label="Select Vehicle Category">
-                    <option {%if
+                <!--Fuel Type-->
+                <label class="form-text">Fuel Type</label>
+                <select class="form-select py-3 mb-3 border-dark"
+                        name="fuel_type">
+                    <option value="Gasoline"
+                            {%if
                             rental.fuel_type=='Gasoline'
                             %}selected{%endif%}>Gasoline</option>
-                    <option {%if
+                    <option value="Diesel"
+                            {%if
                             rental.fuel_type=='Diesel'
                             %}selected{%endif%}>Diesel</option>
-                    <option {%if
+                    <option value="Hybrid"
+                            {%if
                             rental.fuel_type=='Hybrid'
                             %}selected{%endif%}>Hybrid</option>
-                    <option {%if
+                    <option value="Electric"
+                            {%if
+                            rental.fuel_type=='Electric'
+                            %}selected{%endif%}>Electric</option>
+                    <option value="Other"
+                            {%if
                             rental.fuel_type=='Other'
                             %}selected{%endif%}>Other</option>
+                    <option value="NA"
+                            {%if
+                            rental.fuel_type=='NA'
+                            %}selected{%endif%}>NA</option>
                 </select>
 
-                <!--Job Category-->
+                <!--Job Type-->
                 <label class="form-text">Job Category</label>
-                <select class="form-select py-3 mb-3"
+                <select class="form-select py-3 mb-3 border-dark"
+                        name="job_category"
+                        aria-label="Select Job Category">
+                    <option value="Residential"
+                            {%if
+                            rental.job_category=='Residential'
+                            %}selected{%endif%}>Residential</option>
+                    <option value="Commercial"
+                            {%if
+                            rental.job_category=='Commercial'
+                            %}selected{%endif%}>Commercial</option>
+                    <option value="Agriculture"
+                            {%if
+                            rental.job_category=='Commercial'
+                            %}selected{%endif%}>Commercial</option>
+                    <option value="Government"
+                            {%if
+                            rental.job_category=='Government'
+                            %}selected{%endif%}>Government</option>
+                </select>
+
+                <!--Drive Type-->
+                <label class="form-text">Drive Type</label>
+                <select class="form-select py-3 mb-3 border-dark"
                         name="drive"
                         aria-label="Select Drive Type">
-                    <option {%if
-                            rental.job_category=='Small Jobs'
-                            %}selected{%endif%}>Small Jobs</option>
-                    <option {%if
-                            rental.job_category=='Medium Jobs'
-                            %}selected{%endif%}>Medium Jobs</option>
-                    <option {%if
-                            rental.job_category=='Large Jobs'
-                            %}selected{%endif%}>Large Jobs</option>
-                    <option {%if
-                            rental.job_category=='Heavy Duty Jobs'
-                            %}selected{%endif%}>Heavy Duty Jobs</option>
+                    <option value="4WD"
+                            {%if
+                            rental.drive=='4WD'
+                            %}selected{%endif%}>4WD</option>
+                    <option value="2WD"
+                            {%if
+                            rental.drive=='2WD'
+                            %}selected{%endif%}>2WD</option>
+                    <option value="Other"
+                            {%if
+                            rental.drive=='Other'
+                            %}selected{%endif%}>Other</option>
+                    <option value="NA"
+                            {%if
+                            rental.drive=='NA'
+                            %}selected{%endif%}>NA</option>
                 </select>
 
                 <!--Engine-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="horse_power"
                            name="horse_power"
                            value="{{rental.horse_power}}"
@@ -154,7 +187,7 @@
                 <!--Deck Size-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="deck_size"
                            name="deck_size"
                            value="{{rental.deck_size}}"
@@ -166,50 +199,54 @@
                 <!--Stock #-->
                 <div class="form-floating mb-3">
                     <input type="text"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="stock"
                            name="stock"
                            value="{{rental.stock}}"
                            required
-                           placeholder="Unit Stock #">
-                    <label for="stock">Unit Stock #</label>
+                           placeholder="Unit Stock">
+                    <label for="stock">Unit Stock</label>
                 </div>
 
                 <!--Hourly Rate-->
                 <div class="form-floating mb-3">
                     <input type="number"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="rate"
                            name="rate"
-                           value="{{'%0.2f'%rental.rate}}"
                            required
+                           value="{{'%.2f'%rental.rate[0]}}"
                            placeholder="Hourly Rate">
                     <label for="rate">Hourly Rate</label>
                 </div>
 
                 <!--Price Range-->
-                <label class="form-text">Price Category</label>
-                <select class="form-select py-3 mb-3"
+                <label class="form-text">Price Range</label>
+                <select class="form-select py-3 mb-3 border-dark"
                         name="price_range"
                         aria-label="Select Drive Type">
-                    <option {%if
-                            rental.price_range=='Cheap'
-                            %}selected{%endif%}>Cheap</option>
-                    <option {%if
+                    <option value="Competitive"
+                            {%if
+                            rental.price_range=='Competitive'
+                            %}selected{%endif%}>Competitive</option>
+                    <option value="Affordable"
+                            {%if
                             rental.price_range=='Affordable'
                             %}selected{%endif%}>Affordable</option>
-                    <option {%if
-                            rental.price_range=='Normal'
-                            %}selected{%endif%}>Normal</option>
-                    <option {%if
+                    <option value="Average"
+                            {%if
+                            rental.price_range=='Average'
+                            %}selected{%endif%}>Average</option>
+                    <option value="Costly"
+                            {%if
                             rental.price_range=='Costly'
                             %}selected{%endif%}>Costly</option>
                 </select>
 
-                <!--Available Date-->
+                <!--Rented By-->
                 <div class="form-floating mb-3">
-                    <input type="text"
-                           class="form-control"
+                    <input type="number"
+                           class="form-control border-dark"
                            id="rented_by"
                            name="rented_by"
                            value="{{rental.rented_by}}"
@@ -221,10 +258,10 @@
                     </div>
                 </div>
 
-                <!--Rented By-->
+                <!--Date Available-->
                 <div class="form-floating mb-3">
                     <input type="date"
-                           class="form-control"
+                           class="form-control border-dark"
                            id="available_on"
                            name="available_on"
                            value="{{rental.available_on}}"
@@ -241,6 +278,8 @@
                 <div class="form-check">
                     <input class="form-check-input"
                            type="radio"
+                           {%if
+                           rental.is_available==1%}checked{%endif%}
                            name="is_available"
                            id="is_available_yes">
                     <label class="form-check-label"
@@ -251,9 +290,10 @@
                 <div class="form-check mb-3">
                     <input class="form-check-input"
                            type="radio"
+                           {%if
+                           rental.is_available==0%}checked{%endif%}
                            name="is_available"
-                           id="is_available_no"
-                           checked>
+                           id="is_available_no">
                     <label class="is_available_no"
                            for="is_available_2">
                         No
@@ -262,16 +302,20 @@
 
                 <!--Queue-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="rent_queue"
                               name="rent_queue"
                               rows=3
-                              placeholder=""
-                              style="height: 100px">{{rental.rent_queue}}</textarea>
+                              placeholder="Johnny Appleseed, Jane Doe, etc."
+                              style="height: 100px">
+                        {%- if rental.rent_queue -%}
+                        {{rental.rent_queue}}
+                        {%- endif -%}
+                    </textarea>
                     <label for="rent_queue">Unit Queue</label>
                     <div class="form-text">
-                        <p class="mb-0">Enter names separated by a comma.</p>
+                        <p class="mb-1">Enter names separated by a comma.</p>
                         <p>This field <strong>will not </strong>be seen by customers.</p>
                     </div>
                 </div>
@@ -280,20 +324,19 @@
                 <div class="mb-3">
                     <label for="files"
                            class="form-label">Unit Images</label>
-                    <input class="form-control"
+                    <input class="form-control border-dark"
                            type="file"
                            id="files"
                            name="files"
                            multiple>
-                </div>
-
-                <div class="d-flex flex-row flex-wrap mb-3">
-                    {% for path in rental.image_paths %}
-                    <div class="card p-3 shadow-sm">
-                        <img src="{{ url_for('static', filename='uploads/'+path) }}"
-                             class="img-fluid">
+                    {% if rental.image_paths %}
+                    <div class="d-flex flex-row flex-wrap py-2">
+                        {% for path in rental.image_paths %}
+                        <img src="{{url_for('static', filename='uploads/'+path)}}"
+                             class="img-thumbnail">
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
 
                 <!--Shown to Customers-->
@@ -301,6 +344,8 @@
                 <div class="form-check">
                     <input class="form-check-input"
                            type="radio"
+                           {%if
+                           rental.is_shown==0%}checked{%endif%}
                            name="is_shown"
                            id="is_shown_yes"
                            checked>
@@ -312,6 +357,8 @@
                 <div class="form-check mb-3">
                     <input class="form-check-input"
                            type="radio"
+                           {%if
+                           rental.is_shown==0%}checked{%endif%}
                            name="is_shown"
                            id="is_shown_no">
                     <label class="is_shown_no"
@@ -322,48 +369,56 @@
 
                 <!--Features-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="features"
                               name="features"
                               rows=3
                               placeholder="Feature 1, Feature 2, Feature3"
-                              style="height: 100px">{{rental.features}}</textarea>
-                    <label for="features">Unit Features</label>
+                              style="height: 100px">
+                        {%- if rental.features -%}
+                        {{rental.features}}
+                        {%- endif -%}</textarea>
+                    <label for="features">Features</label>
                 </div>
 
                 <!--Description-->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control"
+                    <textarea class="form-control border-dark"
                               placeholder="Unit Queue"
                               id="description"
                               name="description"
                               rows=3
                               placeholder="Description"
-                              style="height: 100px">{{rental.description}}</textarea>
-                    <label for="description">Unit Description</label>
+                              style="height: 100px">
+                        {%- if rental.description -%}
+                        {{rental.description}}
+                        {%- endif -%}</textarea>
+                    <label for="description">Description</label>
                 </div>
 
                 <!--Implements-->
                 <div class="mb-5"
                      id="implements">
                     <div class="form-floating mb-3 d-flex flex-row">
-                        <input class="form-control flex-grow-1 ia_input"
+                        <input class="form-control border-dark flex-grow-1 ia_input"
                                type="text"
                                placeholder="Compatible Implements">
                         <label for="implement_input">Compatible Implements</label>
-                        <button class="btn btn-outline-secondary ml-1 ia_submit d-flex flex-row align-items-center"
+                        <button class="btn btn-outline-secondary ml-1 ia_submit d-flex align-items-center"
                                 type="button">
                             <span class="material-icons-outlined">
                                 arrow_downward
                             </span>
-                        </button>
                     </div>
                     <div class="shadow-sm card">
                         <p class="text-muted rounded bg-white p-2 mb-0">
                             Added implements will show here
                         </p>
                         <ul class="list-group list-group-flush ia_target">
+                            {% if rental.implements|length < 0 %}
+                            {{rental.implements}}
+                            {% endif %}
                         </ul>
                     </div>
 

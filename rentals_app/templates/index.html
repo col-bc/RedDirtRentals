@@ -36,10 +36,10 @@
                        role="button"
                        aria-expanded="false"
                        aria-controls="collapseAbout">
+                       <span class="material-icons-outlined me-3">
+                           store
+                       </span>
                         Read about us
-                        <span class="material-icons-outlined ms-3">
-                            expand_more
-                        </span>
                     </a>
                 </p>
                 <div class="collapse rounded mb-4 text-dark"
@@ -177,16 +177,13 @@
                                                 </div>
                                                 <div class="bg-white border p-3">
                                                     {% if rental.is_available == 1 %}
-                                                    <span class="badge rounded-pill py-2 px-4 bg-success d-flex flex-row align-items-center mt-2 mb-3">
-                                                        <span class="material-icons-outlined me-3">
-                                                            check
-                                                        </span>
+                                                    <span class="badge rounded-pill py-1 text-center px-4 bg-success mt-2 mb-3">
                                                         <span>Available Now</span>
                                                     </span>
                                                     {% endif %}
-                                                    <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_type}}</p>
-                                                    <p><strong>Fuel Type:</strong> {{rental.category}}
-                                                        {% if rental.implements %}
+                                                    <p><strong>Engine</strong>: {{rental.horse_power}} for {{rental.job_type}}</p>
+                                                    <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
+                                                        {% if rental.implements|length < 0 %}
                                                     <ul class="list-group list-group-flush mb-3">
                                                         <li class="list-group-item fw-bold">Compatible Implements</li>
                                                         {% for implement in rental.implements %}

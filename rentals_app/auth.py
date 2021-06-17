@@ -94,11 +94,11 @@ def verify():
 def register():
     return render_template("auth/register.html", user=User())
 
-
+# TODO: fix password_check compliance bug
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
-        if not helpers.password_check(request.form.get("password")):
+        if not helpers.password_check(request.form.get("password")) != 'password_ok':
             flash("Password does not meet complexity requirements")
             return redirect(url_for("auth.register"))
         user = User(
@@ -147,13 +147,14 @@ def enroll():
 
 
 # Service
+# TODO: fix password_check compliance bug
 @auth.route("/change-password", methods=["GET", "POST"])
 def change_password():
     if request.method == "POST":
         user = User.find_user(g.user.userid)
         if check_password_hash(user.password, request.form.get("current_password")):
             if request.form.get("password1") == request.form.get("password2"):
-                if helpers.password_check(request.form.get("password2")):
+                if helpers.password_check(request.form.get("password2")) != 'password_ok':
                     updated_user = user.clone()
 
                     updated_user.password = generate_password_hash(
@@ -193,13 +194,14 @@ def delete_account():
     if request.method == "POST":
         user = User.find_user(g.user.userid)
         print(g.user.email)
-        print(request.form.get('del_username'))
+        print(request.form.get("del_username"))
         if request.form.get("del_username") == g.user.email and check_password_hash(
-            g.user.password, request.form.get('del_password')
+            g.user.password, request.form.get("del_password")
         ):
             if user.firstname == "admin":
                 flash(
-                    "You cannot delete this account. Please contact your administrator."
+                    "There was a problem deleting your account.\
+                        You cannot delete this account because you are a site administrator."
                 )
                 return redirect(url_for("account.index"))
             if user.delete_user():
@@ -208,11 +210,11 @@ def delete_account():
                 return redirect(url_for("auth.login"))
             else:
                 flash(
-                    "There as a problem processing your request. Please call us for assistance."
+                    "There was a problem deleting your account. Please call us for assistance."
                 )
                 return redirect(url_for("account.index"))
         else:
-            flash("You username or password was incorrect.")
+            flash("There was a problem deleting your account. Your username or password was incorrect.")
             return redirect(url_for("account.index"))
 
 
