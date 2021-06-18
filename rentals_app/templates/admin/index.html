@@ -99,6 +99,17 @@
             <div class="row col-auto">
                 <h2 class="border-bottom border-3">Rental Inventory</h2>
             </div>
+            {% if rentals|length == 0 %}
+            <div class="card card-body">
+                <div class="row">
+                    <h5>You haven't added any rental units</h5>
+                    <p>
+                        <a href="{{ url_for('admin.new') }}">Click here</a> 
+                        to add your first unit. Or Click inventory, then add.
+                    </p>
+                </div>
+            </div>
+            {% else %}
             {% for rental in rentals %}
             <div class="card my-3"
                  id="inventory-panel-{{ rental.rental_id }}">
@@ -176,6 +187,7 @@
 
             </div>
             {% endfor %}
+            {% endif %}
         </div>
     </div>
 

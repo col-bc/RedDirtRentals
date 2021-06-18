@@ -1,0 +1,136 @@
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 112, in reservations
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 93, in reservations
+    rentals[str(id)] = Rental().find_rental(id)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 125, in find_rental
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 100, in find_rental
+    rental_id=result[0],
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2088, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.handle_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 37, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 51, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 120, in reservations
+    customers=customers,
+UnboundLocalError: local variable 'customers' referenced before assignment
+127.0.0.1 - - [17/Jun/2021 23:03:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:57] "GET /admin/inventory HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:57] "GET /static/bootstrap.bundle.js HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:03:57] "GET /static/global.css HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:03:57] "GET /static/global.js HTTP/1.1" 304 -
+'NoneType' object is not subscriptable
+'NoneType' object is not subscriptable
+127.0.0.1 - - [17/Jun/2021 23:03:59] "GET /admin/reservations HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 112, in reservations
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 93, in reservations
+    rentals[str(id)] = Rental().find_rental(id)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 125, in find_rental
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 100, in find_rental
+    rental_id=result[0],
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2088, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.handle_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 37, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 51, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 120, in reservations
+    customers=customers,
+UnboundLocalError: local variable 'customers' referenced before assignment
+127.0.0.1 - - [17/Jun/2021 23:03:59] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:59] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:59] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:03:59] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:04:00] "GET /admin/customers HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:04:00] "GET /static/global.css HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:04:00] "GET /static/global.js HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:04:00] "GET /static/bootstrap.bundle.js HTTP/1.1" 304 -
+(28, '2021614-10-7', 10, 0, '2021-06-21', '2021-06-22', '2021-06-23', '2021-06-22', 'None', '2021-06-23', 'CANCELED BY CUSTOMER', '10', '2021-06-21', '2021-06-22')
+127.0.0.1 - - [17/Jun/2021 23:04:01] "GET /admin/schedule HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:04:02] "GET /static/global.css HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:04:02] "GET /static/bootstrap.bundle.js HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:04:02] "GET /static/global.js HTTP/1.1" 304 -
+(28, '2021614-10-7', 10, 0, '2021-06-21', '2021-06-22', '2021-06-23', '2021-06-22', 'None', '2021-06-23', 'CANCELED BY CUSTOMER', '10', '2021-06-21', '2021-06-22')
+127.0.0.1 - - [17/Jun/2021 23:05:52] "GET /admin/schedule HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:05:52] "GET /static/global.css HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:05:52] "GET /static/bootstrap.bundle.js HTTP/1.1" 304 -
+127.0.0.1 - - [17/Jun/2021 23:05:52] "GET /static/global.js HTTP/1.1" 304 -
+'NoneType' object is not subscriptable
+'NoneType' object is not subscriptable
+127.0.0.1 - - [17/Jun/2021 23:05:54] "GET /admin/reservations HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 112, in reservations
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 93, in reservations
+    rentals[str(id)] = Rental().find_rental(id)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 125, in find_rental
+    raise ex
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/models/rental.py", line 100, in find_rental
+    rental_id=result[0],
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2088, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.handle_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/colby/Work/RedDirtRentals/venv/lib/python3.9/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 37, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/auth.py", line 51, in wrapped_view
+    return view(**kwargs)
+  File "/Users/colby/Work/RedDirtRentals/rentals_app/admin.py", line 120, in reservations
+    customers=customers,
+UnboundLocalError: local variable 'customers' referenced before assignment
+127.0.0.1 - - [17/Jun/2021 23:05:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:05:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:05:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2021 23:05:54] "GET /admin/reservations?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
