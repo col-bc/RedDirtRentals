@@ -160,15 +160,17 @@
             },
             events: [
                 {% for e in events %}
+                {% if e.status != 'CANCELED BY CUSTOMER' and e.status != 'DELETED ACCOUNT' %}
                 {
-                id: '{{e.reservation_id}}',
-                start: '{{e.start_date}}',
-                end: '{{e.end_date}}',
-                title: '{{e.customer.firstname}} {{e.customer.lastname}}'
-            }
-                {% endfor %}
-            ],
-        });
+            id: '{{e.reservation_id}}',
+            start: '{{e.start_date}}',
+            end: '{{e.end_date}}',
+            title: '{{e.customer.firstname}} {{e.customer.lastname}}'
+        }
+                {% endif %}
+        {% endfor %}
+                ],
+         });
     calendar.render();
     });
 </script>

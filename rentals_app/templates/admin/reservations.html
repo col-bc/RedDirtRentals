@@ -106,6 +106,16 @@
 
             {% if reservations %}
             {% for reservation in reservations %}
+            {% if reservation[2] == 0 %}
+            <div class="card my-4 rounded-0">
+                <div class="card-body">
+                    <div class="row row-cols-2">
+                        <h4>{{reservation[1]}}</h4>
+                        <p class="col">Status: <span class="badge bg-info">{{reservation[10]}}</span></p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <div class="card my-4 rounded-0">
                 <div class="card-body">
                     <div class="row">
@@ -137,6 +147,7 @@
                     </a>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
             {%else%}
         </div>

@@ -102,7 +102,10 @@ def reservations():
 
         customers = dict()
         for id in customers_ids:
-            customers[str(id)] = User.find_user(id=x[3])
+            if id == 0:
+                customers[str(id)] = None
+            else:
+                customers[str(id)] = User.find_user(id)
 
     except Exception as ex:
         print(ex)
@@ -325,7 +328,9 @@ def delete(id):
     rental = Rental().find_rental(id)
     if rental:
         try:
-            shutil.rmtree("{0}_{1}_{2}".format(rental.make, rental.model, rental.category))
+            shutil.rmtree(
+                "{0}_{1}_{2}".format(rental.make, rental.model, rental.category)
+            )
         except FileNotFoundError or IOError:
             pass
     if rental.delete():
@@ -382,11 +387,14 @@ def schedule():
         raise ex
 
     class Event:
-        def __init__(self, start_date, end_date, customer, reservation_id) -> None:
+        def __init__(
+            self, start_date, end_date, customer, reservation_id, status
+        ) -> None:
             self.start_date = start_date
             self.end_date = end_date
             self.customer = customer
             self.reservation_id = reservation_id
+            self.status = status
 
     events = list()
     for x in reservations:
@@ -397,6 +405,7 @@ def schedule():
                 end_date=x[13],
                 customer=x[3],
                 reservation_id=x[0],
+                status=x[10],
             )
         )
 

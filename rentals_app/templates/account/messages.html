@@ -77,17 +77,16 @@
                                        value="Red Dirt Rentals"
                                        placeholder="Type to search emails...">
                                 {% else %}
-                                <input class="form-control"
-                                       id="msg-to"
-                                       list="email_recipient"
-                                       name="msg_to"
-                                       placeholder="Type to search emails...">
-                                <!--TODO: implement-->
-                                <datalist id="email_recipient">
+                                <select class="form-control"
+                                        id="msg-to"
+                                        name="msg_to"
+                                        placeholder="Type to search emails...">
+                                        <option selected>-- Select User --</option>
                                     {% for email in emails %}
-                                    <option value="{{email}}">
-                                        {% endfor %}
-                                </datalist>
+                                    <option value="{{email}}">{{email}}</option>
+                                    {% endfor %}
+                                    </datalist>
+                                </select>
                                 {% endif %}
                             </div>
                             <div class="mb-3">

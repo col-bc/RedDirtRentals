@@ -39,7 +39,8 @@ class User:
 
         try:
             db = cur.execute(sql).fetchone()
-            con.commit()
+            if not db:
+                return None
             return User(
                 userid=db[0],
                 firstname=db[1],

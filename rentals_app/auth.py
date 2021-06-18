@@ -98,8 +98,8 @@ def register():
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
-        if not helpers.password_check(request.form.get("password")) != 'password_ok':
-            flash("Password does not meet complexity requirements")
+        if not helpers.password_check(request.form.get("password"))['password_ok']:
+            flash("Password does not meet complexity requirements. Try again.")
             return redirect(url_for("auth.register"))
         user = User(
             firstname=request.form.get("firstname"),
@@ -154,7 +154,7 @@ def change_password():
         user = User.find_user(g.user.userid)
         if check_password_hash(user.password, request.form.get("current_password")):
             if request.form.get("password1") == request.form.get("password2"):
-                if helpers.password_check(request.form.get("password2")) != 'password_ok':
+                if helpers.password_check(request.form.get("password2"))['password_ok']:
                     updated_user = user.clone()
 
                     updated_user.password = generate_password_hash(
@@ -165,7 +165,7 @@ def change_password():
                     flash("Your password has been changed. Please login again.")
                     return redirect(url_for("auth.logout"))
                 else:
-                    flash("Password does not meet complexity requirements.")
+                    flash("Password does not meet complexity requirements. Try again.")
                     return redirect(url_for("account.index"))
             else:
                 flash("New passwords did not match. Try again.")

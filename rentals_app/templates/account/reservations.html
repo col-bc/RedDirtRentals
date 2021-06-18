@@ -21,6 +21,15 @@
                 </div>
                 <div class="col col-md-8">
                     <h2 class="border-bottom border-3">Reservations</h2>
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        {{message}}
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="form-text text-danger mb-2 fw-bold">
+                        &nbsp;
+                    </div>
+                    {% endif %} {% endwith %}
                     <!--Reservations-->
                     {% if reservations %}
                     {% for reservation in reservations %}
@@ -83,8 +92,14 @@
                                     </div>
                                 </div>
 
-                                <a href="#"
-                                   class="btn btn-outline-danger">Cancel Reservation</a>
+                                <form method="POST"
+                                      action="{{ url_for('account.cancel_reservation', conf_no=reservation[1]) }}">
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           value="{{ csrf_token() }}">
+                                    <button type="submit"
+                                            class="btn btn-outline-danger">Cancel Reservation</a>
+                                </form>
                             </li>
                         </ul>
                     </div>

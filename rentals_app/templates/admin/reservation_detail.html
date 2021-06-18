@@ -134,7 +134,7 @@
                                                     selected
                                                     {%
                                                     endif
-                                                    %}">Pending</option>
+                                                    %}>Pending</option>
                                             <option value="Reviewed"
                                                     {%
                                                     if
@@ -143,7 +143,7 @@
                                                     selected
                                                     {%
                                                     endif
-                                                    %}">Reviewed</option>
+                                                    %}>Reviewed</option>
                                             <option value="Scheduled"
                                                     {%
                                                     if
@@ -152,7 +152,7 @@
                                                     selected
                                                     {%
                                                     endif
-                                                    %}">Scheduled</option>
+                                                    %}>Scheduled</option>
                                             <option value="Returned"
                                                     {%
                                                     if
@@ -161,13 +161,31 @@
                                                     selected
                                                     {%
                                                     endif
-                                                    %}">Returned</option>
+                                                    %}>Returned</option>
+                                            <option value="DELETED ACCOUNT"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='DELETED ACCOUNT'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}>Deleted Account</option>
+                                            <option value="CANCELED BY CUSTOMER"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='CANCELED BY CUSTOMER'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}>Canceled by Customer</option>
                                         </select>
                                         <button class="form-group-text btn btn-small btn-light border"
                                                 type="submit">Update
                                         </button>
                                     </div>
-                                    <p class="form-text">The customer's status will be updated to what you type here.</p>
+                                    <p class="form-text">The customer's status will be updated to what you select.</p>
                                 </form>
                             </div>
                         </div>
@@ -181,7 +199,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col">
-                                        <span class="material-icons-round">
+                                        <span class="material-icons-outlined">
                                             looks_one
                                         </span>
                                     </p>
@@ -190,7 +208,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col">
-                                        <span class="material-icons-round">
+                                        <span class="material-icons-outlined">
                                             looks_two
                                         </span>
                                     </p>
@@ -199,7 +217,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col">
-                                        <span class="material-icons-round">
+                                        <span class="material-icons-outlined">
                                             looks_3
                                         </span>
                                     </p>
@@ -234,7 +252,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
+                                                <span class="material-icons-outlined me-3">
                                                     emoji_people
                                                 </span>
                                                 Name
@@ -245,7 +263,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
+                                                <span class="material-icons-outlined me-3">
                                                     call
                                                 </span>
                                                 Phone Number
@@ -257,7 +275,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
+                                                <span class="material-icons-outlined me-3">
                                                     alternate_email
                                                 </span>
                                                 Email
@@ -269,7 +287,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-row">
-                                                <span class="material-icons-round me-3">
+                                                <span class="material-icons-outlined me-3">
                                                     person_pin_circle
                                                 </span>
                                                 Address
@@ -288,7 +306,11 @@
                             <h5>Schedule Reservation</h5>
                             <form method="POST"
                                   action="{{ url_for('admin.schedule_confirm', r_id=reservation[2], c_id=reservation[3], rsvr_id=reservation[0]) }}">
-                                <input type="hidden" name="csrf_token" value={{ csrf_token() }}>
+                                <input type="hidden"
+                                       name="csrf_token"
+                                       value={{
+                                       csrf_token()
+                                       }}>
                                 <div class="row mt-2">
                                     <div class="input-group col">
                                         <span class="input-group-text">Pickup Date</span>
@@ -317,7 +339,7 @@
                                     </div>
                                     <div class="col-auto">
                                         <button type="submit"
-                                                class="btn btn-light px-5 border-dark">
+                                                class="btn btn-light px-5 border-dark {% if reservation[10]=='CANCELED BY CUSTOMER' or reservation[10]=='DELETED ACCOUNT' %} disabled {% endif %}">
                                             <div class="d-flex flex-row align-items-center fw-bold">
                                                 <span class="material-icons-outlined me-3">
                                                     event_available

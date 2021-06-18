@@ -141,15 +141,64 @@ def reserve_confirm(conf_no):
         return render_template("account/confirm_reservation.html", conf_no=conf_no)
 
 
+@account.route("/reserve/cancel-reservation/<conf_no>", methods=["POST"])
+@login_required
+def cancel_reservation(conf_no):
+    if request.method == "POST":
+        con, cur = helpers.connect_to_db()
+
+        try:
+            # Update reservation status
+            SQL = """
+            UPDATE reservations 
+            SET 
+                status='CANCELED BY CUSTOMER',
+                customer_id='0'
+            WHERE confirmation_num='{}';
+            """.format(
+                conf_no
+            )
+
+            cur.execute(SQL)
+            con.commit()
+
+            # Change rental attributes
+            SQL = """
+            SELECT rental_id FROM reservations WHERE confirmation_num='{}';
+            """.format(
+                conf_no
+            )
+
+            id = con.execute(SQL).fetchone()
+            rental = Rental().find_rental(id[0])
+
+            # Update Rental
+            updated_rental = rental.clone(rental)
+            updated_rental.is_available = 1
+            updated_rental.rented_by = None
+            updated_rental.is_shown = 1
+            rental.available_on = None
+            Rental.update(updated_rental, updated_rental.rental_id)
+
+            flash("Successfully cancelled reservation.")
+            return redirect(url_for("account.reservations"))
+
+        except Exception as ex:
+            print(ex)
+            con.rollback()
+            raise ex
+
+        finally:
+            con.close()
+
+
 @account.route("/messages")
 @login_required
 def render_messages():
     messages = Message.get_messages(User.find_user(g.user.userid))
     users_friendly = dict()
     for msg in messages:
-        users_friendly[msg[1]] = (
-            User.find_user(msg[1]).firstname
-        )
+        users_friendly[msg[1]] = User.find_user(msg[1]).firstname
 
     emails = list()
     if g.user.groups == "admin":
@@ -168,7 +217,6 @@ def render_messages():
     )
 
 
-# API Endpoint
 @account.route("/messages/send", methods=["POST"])
 @login_required
 def send_message():
@@ -177,9 +225,9 @@ def send_message():
             msg_to = 2
         else:
             msg_to = User.find_user_by_email(request.form.get("msg_to")).userid
-        msg_from = g.user.userid
-        msg_subject = request.form.get("msg_subject")
-        msg_body = request.form.get("msg_body")
+            msg_from = g.user.userid
+            msg_subject = request.form.get("msg_subject")
+            msg_body = request.form.get("msg_body")
 
         msg = Message(
             from_user=msg_from, to_user=msg_to, subject=msg_subject, message=msg_body
