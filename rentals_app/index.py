@@ -13,6 +13,8 @@ index = Blueprint("index", __name__, url_prefix="/")
 
 @index.route("/")
 def root():
+    helpers.send_mail()
+
     con, cur = helpers.connect_to_db()
     ids = cur.execute("SELECT id FROM INVENTORY").fetchall()
     rentals = []

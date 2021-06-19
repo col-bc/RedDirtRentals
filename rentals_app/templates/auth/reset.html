@@ -73,6 +73,11 @@
                 <div class="p-4 bg-white card">
                     <form action="{{url_for('auth.reset_request')}}"
                           method="POST">
+
+                        <input type="hidden"
+                               name="csrf_token"
+                               value="{{ csrf_token() }}">
+                               
                         <div class="pb-0">
                             <h5 class="mb-4">Account Recovery</h5>
                             <p class="form-text">

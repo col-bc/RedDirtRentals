@@ -21,7 +21,7 @@ from rentals_app.models.rental import *
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
-
+# Root route for blueprint
 @admin.route("/")
 @login_required
 @admin_only
@@ -29,9 +29,7 @@ def root():
     return redirect(url_for("admin.inventory"))
 
 
-# Render index page
-
-
+# Render Rental Index page
 @admin.route("/inventory")
 @login_required
 @admin_only
@@ -65,8 +63,6 @@ def inventory():
 
 
 # Render New page
-
-
 @admin.route("/new")
 @login_required
 @admin_only
@@ -121,6 +117,7 @@ def reservations():
         )
 
 
+# Render Detailed Rental Pages
 @admin.route("/reservations/<int:id>", methods=["GET"])
 @login_required
 @admin_only
@@ -145,6 +142,7 @@ def reservation_details(id):
     )
 
 
+# Update Rental status
 @admin.route("/reservations/update-status/<int:id>", methods=["POST"])
 @login_required
 @admin_only
@@ -170,6 +168,7 @@ def update_resv_status(id):
             con.close()
 
 
+# Render customer
 @admin.route("/customers")
 @login_required
 @admin_only
@@ -191,7 +190,7 @@ def customers():
 
 
 #### INVENTORY CRUD FUNCTIONS ####
-# - CREATE
+# CREATE
 @admin.route("/new/create/", methods=["POST", "GET"])
 @login_required
 @admin_only
@@ -226,7 +225,7 @@ def create():
         for file in files:
             if file:
                 folder_format = "/{0}_{1}_{2}/".format(
-                    rental.make, rental.model, rental.category
+                    rental.make.strip(' '), rental.model.strip(' '), rental.category.strip(' ')
                 )
                 if not os.path.exists(helpers.ABS_UPLOAD_PATH + folder_format):
                     os.mkdir(helpers.ABS_UPLOAD_PATH + folder_format)
@@ -244,7 +243,14 @@ def create():
             return redirect(url_for("admin.inventory"))
 
 
-# CRUD - READ
+@admin.route("/new/create/add-photo", methods=["POST"])
+@login_required
+@admin_only
+def add_photo():
+    if request.method == 'POST':
+        pass
+
+# READ
 @admin.route("/details/<int:id>")
 @login_required
 @admin_only
@@ -259,7 +265,7 @@ def details(id):
     return render_template("admin/details.html", rental=rental)
 
 
-# CRUD - UPDATE
+# UPDATE
 @admin.route("/update/<int:id>", methods=["GET", "POST"])
 @login_required
 @admin_only
@@ -320,7 +326,7 @@ def update(id):
             return redirect(url_for("admin.details", id=id))
 
 
-# CRUD - DELETE
+# DELETE
 @admin.route("/delete/<int:id>", methods=["GET", "POST"])
 @login_required
 @admin_only
@@ -345,6 +351,7 @@ def delete(id):
         return redirect(url_for("admin.inventory"))
 
 
+# CREATE WITH SQL
 @admin.route("/new/fast_add", methods=["GET", "POST"])
 @login_required
 @admin_only
@@ -367,6 +374,7 @@ def fast_add():
         return redirect(url_for("admin.inventory"))
 
 
+# Render schedule
 @admin.route("/schedule", methods=["GET"])
 @login_required
 @admin_only
