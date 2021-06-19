@@ -225,7 +225,9 @@ def create():
         for file in files:
             if file:
                 folder_format = "/{0}_{1}_{2}/".format(
-                    rental.make.strip(' '), rental.model.strip(' '), rental.category.strip(' ')
+                    rental.make.strip(" "),
+                    rental.model.strip(" "),
+                    rental.category.strip(" "),
                 )
                 if not os.path.exists(helpers.ABS_UPLOAD_PATH + folder_format):
                     os.mkdir(helpers.ABS_UPLOAD_PATH + folder_format)
@@ -247,8 +249,9 @@ def create():
 @login_required
 @admin_only
 def add_photo():
-    if request.method == 'POST':
+    if request.method == "POST":
         pass
+
 
 # READ
 @admin.route("/details/<int:id>")
@@ -435,13 +438,25 @@ def schedule_confirm(r_id, c_id, rsvr_id):
         rental.available_on = request.form.get("scheduled_end")
         Rental.update(updated_rental, updated_rental.rental_id)
 
-        msg = Message(
-            from_user=User.find_user(2).userid,
-            to_user=user.userid,
-            subject="Your reservation has been updated.",
-            message="Your reservation has been confirmed for {0} to {1}. You will receive another message with your documents soon. If you have questions, please contact us. ",
+        body = """
+            <!doctype html>
+            <html>
+            <head></head>
+            <body>
+                <h3>Your reservation has been confirmed by Red Dirt Rentals</h3>
+                <p><b>Your rental is scheduled for {0} to {1}</b></p>
+                <p>
+                    To view your messages, reply and see status updates, sign in to your account
+                    at <a href="rentals.reddirtequipment.com/account/">Red Dirt Rentals</a>
+                </p>
+            </body>
+            </html>            
+        """.format(
+            request.form.get("scheduled_start"), request.form.get("scheduled_end")
         )
-        msg.send_message()
+        helpers.send_mail(
+            to=user.email, body=body, subject="You have an update from Red Dirt Rentals"
+        )
 
         con, cur = helpers.connect_to_db()
         SQL = """

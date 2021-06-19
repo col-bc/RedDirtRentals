@@ -13,8 +13,6 @@ index = Blueprint("index", __name__, url_prefix="/")
 
 @index.route("/")
 def root():
-    helpers.send_mail()
-
     con, cur = helpers.connect_to_db()
     ids = cur.execute("SELECT id FROM INVENTORY").fetchall()
     rentals = []
@@ -22,7 +20,6 @@ def root():
         for id in id_list:
             rentals.append(Rental().find_rental(id))
     for rental in rentals:
-        print(str(rental))
         rental.rate = float(rental.rate[0])
         rental.image_paths = list(
             rental.image_paths.replace("[", "")

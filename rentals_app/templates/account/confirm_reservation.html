@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
 
-            <div class="card shadow-sm my-4">
+            <div class="card shadow-0 my-4">
                 <div class="card-body text-center p-4">
                     <h3 class="card-title">You're all set!</h3>
 
@@ -41,33 +41,36 @@
                                        style="width: 300px; height: 300px;"
                                        autoplay></lottie-player>
                     </div>
-
-                    <p class="mb-0">Your reservation ID is:</p>
-                    <p><strong>{{conf_no}}</strong></p>
-                    <strong>Next Steps:</strong>
-                    <p class="fw-light">
-                        Take note of this number, you'll need to reference it if you call.
-                        Please wait for us to contact you to confirm availability and dates.
-                        Please allow 2-3 business days before calling the store to check your status.
-                    </p>
-                    <a onclick="print();"
-                       class="text-start d-flex flex-row align-items-center text-decoration-none"
-                       href="#">
-                        <span class="material-icons-round me-3 text-dark">
-                            print
-                        </span>
-                        <span class="text-dark text-decoration-underline">Print</span>
-                    </a>
+                    <div class="d-flex flex-column justify-content-start">
+                        <h5>Next Steps:</h5>
+                        <p class="mb-0">Your reservation ID is: <strong>{{conf_no}}</strong></p>
+                        <hr>
+                        <p class="fw-light">
+                            Take note of this number, you'll need to reference it if you call.
+                            Please wait for us to contact you to confirm availability and dates.
+                            Please allow 2-3 business days before calling the store to check your status.
+                        </p>
+                    </div>
                 </div>
                 <div class="card-footer px-4">
-                    <a href="{{ url_for('account.index') }}"
-                       class="d-flex flex-row align-items-center text-decoration-none"
-                       href="#">
-                        <span class="material-icons-round me-3 text-dark">
-                            account_circle
-                        </span>
-                        <span class="text-decoration-underline">Back to my account</span>
-                    </a>
+                    <div class="row">
+                        <a href="{{ url_for('account.index') }}"
+                           class="col d-flex flex-row align-items-center text-decoration-none"
+                           href="#">
+                            <span class="material-icons-outlined me-3 text-dark">
+                                account_circle
+                            </span>
+                            <span class="text-decoration-underline fw-bold">Back to my account</span>
+                        </a>
+                        <a onclick="print();"
+                           class="col d-flex flex-row align-items-center justify-content-end text-decoration-none"
+                           href="#">
+                            <span class="material-icons-outlined me-3 text-dark">
+                                print
+                            </span>
+                            <span class="text-dark text-decoration-underline">Print</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

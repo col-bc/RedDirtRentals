@@ -180,6 +180,32 @@ def cancel_reservation(conf_no):
             rental.available_on = None
             Rental.update(updated_rental, updated_rental.rental_id)
 
+            body = """
+            <!doctype html>
+            <html>
+            <head></head>
+            <body>
+                <h3>Your reservation has been successfully cancelled.</h3>
+                <p><b>Confirmation Number: {0}</b></p>
+                <p>
+                    To view your messages, reply and see status updates, sign in to your account
+                    at <a href="rentals.reddirtequipment.com/account/">Red Dirt Rentals</a>
+                </p>
+                <br>
+                <br>
+                <p>Best Regards,</p>
+                <p>Red Dirt Rentals</p>
+            </body>
+            </html>            
+            """.format(
+                conf_no
+            )
+            helpers.send_mail(
+                to=[g.user.email],
+                body=body,
+                subject="You have canceled your reservation at Red Dirt Rentals.",
+            )
+
             flash("Successfully cancelled reservation.")
             return redirect(url_for("account.reservations"))
 

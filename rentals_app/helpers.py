@@ -12,6 +12,7 @@ def connect_to_db():
     con = sqlite3.connect(DB_PATH)
     return con, con.cursor()
 
+
 def log_event(msg):
     with open("/Users/colby/Work/RedDirtRentals/events.log", "a+") as log:
         log.write(msg)
@@ -53,27 +54,29 @@ def password_check(password):
     }
 
 
-def send_mail():
+def send_mail(to: list, body: str, subject: str) -> None:
     from rentals_app import app
+
+    mail_settings = {
+        "MAIL_SERVER": "smtp.office365.com",
+        "MAIL_PORT": "587",
+        "MAIL_USE_TLS": True,
+        "MAIL_USE_SSL": False,
+        "MAIL_USERNAME": "ccooper@reddirtequipment.com",
+        "MAIL_PASSWORD": "Av3ryJ4x!0711#",
+    }
+    app.config.update(mail_settings)
     mail = Mail(app)
 
-    app.MAIL_SERVER = "smtp.office365.com"
-    app.MAIL_PORT = "587"
-    app.MAIL_USERNAME = "ccooper@reddirtequipment.com"
-    app.MAIL_PASSWORD = "Av3ryJ4x!0711#"
-    app.MAIL_USE_TLS = True
-
-    body = """
-    <!doctype HTML>
-    <head></head>
-    <body>
-        <h1>You have a new message from Red Dirt Rentals!</h1>
-        <p>To read your messages, click the link below.</p>
-        <a href="localhost:5000/auth/login/">Read Messages</a>
-    </body>
-    """
-    msg = Message(html=body,
-                    subject="New Message From Red Dirt Rentals",
-                  sender="admin@reddirtequipment.com.com",
-                  recipients=["colby.b.cooper@gmail.com"])
-    mail.send(msg)
+    msg = Message(
+        html=body,
+        subject=subject,
+        sender="admin@reddirtequipment.com",
+        recipients=to,
+    )
+    
+    try:
+        mail.send(msg)
+    except Exception as ex:
+        print("Mail failed because: {}".format(ex))
+        raise (ex)
