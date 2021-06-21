@@ -96,17 +96,24 @@
      id="inventory_tab_content">
     <div class="row">
         <div class="col-md-8 mx-auto">
-            <div class="row col-auto">
-                <h2 class="border-bottom border-3">Rental Inventory</h2>
+            <div class="row col-auto border-bottom border-3">
+                <h2 class="col">Rental Inventory</h2>
+                <div class="col-auto">
+                    <a href="{{ url_for('admin.new') }}"
+                       class="btn btn-sm btn-outline-dark align-items-center">Add Inventory</a>
+                </div>
             </div>
             {% if rentals|length == 0 %}
-            <div class="card card-body">
+            <div class="card card-body my-4">
                 <div class="row">
-                    <h5>You haven't added any rental units</h5>
-                    <p>
-                        <a href="{{ url_for('admin.new') }}">Click here</a> 
-                        to add your first unit. Or Click inventory, then add.
-                    </p>
+                    <div class="col">
+                        <h5>You haven't added any rental units</h5>
+                        <a href="{{ url_for('admin.new') }}"
+                           class="btn btn-lg btn-primary px-5 mt-3">Add Inventory</a>
+                    </div>
+                    <img src="{{ url_for('static', filename='img/add_files_ils.svg') }}"
+                         class="col img-fluid"
+                         style="height: 100px">
                 </div>
             </div>
             {% else %}
@@ -116,28 +123,33 @@
 
                 <!--Card Header-->
                 <div class="card-header bg-white d-flex flex-row p-3 ">
-                    <div class="container">
-                        <h5 class="card-title fw-bold">
+                    <div class="row">
+                        <h5 class="col card-title fw-bold">
                             {{ rental.make }} {{ rental.model }}
                         </h5>
                         <p class="card-subtitle ff-primary text-muted">{{rental.category}}-{{rental.stock}}</p>
                     </div>
-
-                    <a class="btn btn-outline-secondary btn-sm d-flex align-items-center mx-1"
-                       href="{{ url_for( 'admin.details', id=rental.rental_id) }} ">
-                        <span class="material-icons-outlined">
-                            edit
-                        </span>
-                    </a>
-                    <a class="btn btn-outline-secondary btn-sm d-flex align-items-center mx-1"
-                       data-bs-toggle="collapse"
-                       href="#collapse_rental_{{rental.rental_id}}"
-                       aria-expanded="false"
-                       aria-controls="collapse_rental_{{rental.rental_id}}">
-                        <span class="material-icons-outlined">
-                            expand_more
-                        </span>
-                    </a>
+                    <div class="col-auto ms-auto">
+                        <a class="btn btn-outline-dark btn-sm d-flex align-items-center mx-1"
+                           href="{{ url_for( 'admin.details', id=rental.rental_id) }} ">
+                            <span class="material-icons-outlined"
+                                  style="font-size: 16px;">
+                                edit
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-dark btn-sm d-flex align-items-center mx-1"
+                           data-bs-toggle="collapse"
+                           href="#collapse_rental_{{rental.rental_id}}"
+                           aria-expanded="false"
+                           aria-controls="collapse_rental_{{rental.rental_id}}">
+                            <span class="material-icons-outlined"
+                                  style="font-size: 16px;">
+                                expand_more
+                            </span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="collapse card-body"

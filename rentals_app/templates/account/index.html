@@ -130,17 +130,6 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {% if g.user.userid == 2 %}
-                <h5 class="text-danger">
-                    You cannot change the password for this account.
-                </h5>
-                <p class="text-muted">Please contact your webmaster.</p>
-                <button type="button"
-                        class="btn btn-outline-dark ms-auto px-5"
-                        data-bs-dismiss="modal">
-                    Ok
-                </button>
-                {% else %}
                 <form action="{{url_for('auth.change_password')}}"
                       method="POST">
                     <input type="hidden"
@@ -206,7 +195,6 @@
                             }
                         </script>
                     </div>
-                    {% endif %}
                 </form>
             </div>
         </div>
@@ -234,6 +222,10 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                {% if g.user.groups == 'admin' %}
+                    <h4 class="text-danger">You cannot delete an administrator account.</h4>
+                    <p>If you think your account has been compromised, please contact your web master</p>
+                {% else %}
                 <form action="{{url_for('auth.delete_account', userid=user.userid)}}"
                       method="POST">
                     <input type="hidden"
@@ -300,6 +292,7 @@
                         </script>
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -354,29 +354,6 @@ def delete(id):
         return redirect(url_for("admin.inventory"))
 
 
-# CREATE WITH SQL
-@admin.route("/new/fast_add", methods=["GET", "POST"])
-@login_required
-@admin_only
-def fast_add():
-    print("Executing admin sql query\n{0}".format(request.form.get("sql_query")))
-    helpers.log_event(
-        "[{0}] Admin executed sql from {1}\n".format(
-            datetime.datetime.now(), request.remote_addr
-        )
-    )
-    try:
-        con, cur = helpers.connect_to_db()
-        cur.execute(request.form.get("sql_query"))
-        con.commit()
-    except Exception as ex:
-        con.rollback()
-        flash(ex)
-    finally:
-        con.close()
-        return redirect(url_for("admin.inventory"))
-
-
 # Render schedule
 @admin.route("/schedule", methods=["GET"])
 @login_required

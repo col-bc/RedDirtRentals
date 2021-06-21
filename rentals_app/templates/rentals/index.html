@@ -27,7 +27,7 @@
 </div>
 
 <!--Page Option-->
-<div class="container-fluid bg-white border-bottom">
+<div class="container-fluid bg-white border-bottom sticky-top">
     <div class="dropdown">
         <div class="row">
             <div class="col-md-10 mx-auto d-flex flex-row align-items-center">
@@ -55,74 +55,29 @@
 
                     <ul class="dropdown-menu dropdown-menu-end shadow"
                         aria-labelledby="dropdownFilters">
-                        <li class="dropdown-item fw-bold bg-white">
-                            Only Show
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Tractors
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">Mowers
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Power Tools
-                            </a>
-                        </li>
-                        <li class="dropdown-item fw-bold bg-white">
-                            Price is less than
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                $ 150
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                $ 300
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                $ 500
-                            </a>
-                        </li>
-                        <li class="dropdown-item fw-bold bg-white">
-                            For this kind of job
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Yard Care
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Tree Clearing/Cleaning
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Commercial
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item ps-5"
-                               href="#">
-                                Government
-                            </a>
-                        </li>
+                        <li class="dropdown-item fw-bold bg-white">Rental Type:</li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Type', critera='Tractor') }}">Tractors</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Type', critera='Mower') }}">Mowers</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Type', critera='Power Tool') }}">Power Tools</a></li>
+                        <li class="dropdown-item fw-bold bg-white">Hourly rate is less than:</li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Price', critera='150') }}">$ 150</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Price', critera='300') }}">$ 300</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Price', critera='500') }}">$ 500</a></li>
+                        <li class="dropdown-item fw-bold bg-white">For this kind of job:</li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Job', critera='Residential') }}">Residential</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Job', critera='Commercial') }}">Commercial</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Job', critera='Agriculture') }}">Agriculture</a></li>
+                        <li><a class="dropdown-item"
+                               href="{{ url_for('Rentals.filter', category='Job', critera='Government') }}">Government</a></li>
                     </ul>
                 </div>
             </div>
@@ -132,7 +87,7 @@
 
 <!--Rental Inventory-->
 <div class="container-fluid mb-5">
-    <div class="row-md my-5 px-5">
+    <div class="row-md my-lg-5 px-lg-5">
         <div class="col-md-10 mx-auto row g-3">
 
             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
@@ -160,9 +115,9 @@
                             <span>Available Now</span>
                         </span>
                         {% endif %}
-                        <p><strong>Engine</strong>: {{rental.horsepower}} for {{rental.job_category}}</p>
-                        <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
-                            {% if rental.implements|length >= 1 %}
+                        <p><strong>Engine</strong>: {{rental.horse_power}} for {{rental.job_category}} jobs.</p>
+                        <p><strong>Fuel Type:</strong> {{rental.fuel_type}}.</p>
+                        {% if rental.implements|length > 1 %}
                         <ul class="list-group list-group-flush mb-3">
                             <li class="list-group-item fw-bold">Compatible Implements</li>
                             {% for implement in rental.implements %}

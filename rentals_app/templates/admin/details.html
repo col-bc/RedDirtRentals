@@ -160,8 +160,8 @@
                         <option value="Agriculture"
                                 {%if
                                 rental.job_category=='Commercial'
-                                %}selected{%endif%}>Commercial</option>
-                        <option value="Government"
+                                %}selected{%endif%}>Agriculture</option>
+                        <option value="Agriculture"
                                 {%if
                                 rental.job_category=='Government'
                                 %}selected{%endif%}>Government</option>
@@ -470,15 +470,22 @@
                     Update Rental Unit
                 </button>
 
-                <div class="row col my-4">
-                    <a href="{{ url_for('admin.delete', id=rental.rental_id) }}">
-                        Delete Rental
-                    </a>
+                <div class="row mt-5">
+                    <div class="col-auto">
+                        <a href="{{ url_for('admin.delete', id=rental.rental_id) }}"
+                           class="text-decoration-none">
+                            <div class="d-flex flex-row align-items-center">
+                                <span class="material-icons-outlined me-3">delete</span>
+                                Delete Unit
+                            </div>
+                        </a>
+                    </div>
+                    <p class="m-0 pt-3"><u><b class="text-danger">Caution:</b> This action cannot be reversed. Proceed with caution</u></p>
                 </div>
-
-
             </form>
+
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

@@ -13,7 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@700&display=swap"
           rel="stylesheet">
 
     <!-- Icons -->
@@ -66,8 +66,8 @@
 
                 <a href="{{url_for('index.root')}}"
                    class="text-decoration-none">
-                    <h6 class="mb-3 text-dark"
-                        style="font-family: ethnocentric;">RedDirt Rentals</h6>
+                    <h4 class="mb-4 text-dark"
+                        style="font-family: ethnocentric;">RedDirt Rentals</h4>
                 </a>
 
                 <div class="p-4 bg-white card">
@@ -86,14 +86,14 @@
                             </p>
                             <!--Email-->
                             <div class="input-group mb-4">
-                                <span class="input-group-text"
+                                <span class="input-group-text bg-dark text-white border-dark"
                                       id="email">
                                     <span class="material-icons-outlined">
                                         alternate_email
                                     </span>
                                 </span>
                                 <input type="email"
-                                       class="form-control"
+                                       class="form-control border-dark"
                                        placeholder="Email"
                                        aria-label="Email"
                                        name="email"
@@ -103,9 +103,9 @@
                             <div class="d-flex flex-row justify-content-between">
 
                                 <div class="d-flex flex-column mt-3">
-                                    <a class=""
+                                    <a class="fw-bold"
                                        href="{{url_for('auth.login')}}">Login</a>
-                                    <a class=""
+                                    <a class="fw-bold"
                                        href="{{url_for('auth.register')}}">Register</a>
                                 </div>
 

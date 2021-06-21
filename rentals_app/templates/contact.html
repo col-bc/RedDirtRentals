@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    #container-img {
+        background: url('../static/img/storefront.jpg');
+        background-size: cover;
+    }
+
+</style>
+<div class="container-fluid px-0"
+     style="min-height: 100vh !important;">
+
+    <div class="row"
+         id="container-img">
+        <div class="col col-md-8 mx-md-auto">
+            <div class="card card-body my-5 shadow-lg">
+                <h3 class="card-title">Contact Us</h3>
+
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                <div class="text-dark mb-2 fw-bold">
+                    <h5>{{message}}</h5>
+                </div>
+                {% endfor %} {% else %}
+                <div class="mb-2 fw-bold">
+                    &nbsp;
+                </div>
+                {% endif %} {% endwith %}
+
+                <div class="row my-3">
+                    <p>
+                        Have any questions? Want to get more information about a rental?
+                        Having technical difficulties? Contact us for assistance!
+                    </p>
+                    <p>
+                        If you already have an account, it's better to <a href="{{ url_for('account.render_messages') }}" class="fw-bold">send us a message</a>
+                    </p>
+                </div>
+
+                <form method="POST"
+                      action="{{url_for('index.contact_send')}}"
+                      id="contact_form"
+                      class="">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token() }}" />
+
+                    <div class="row mb-3">
+                        <label class="form-label fw-bold">Your Name</label>
+                        <div class="input-group">
+                            <label class="input-group-text bg-dark text-white border-dark">First</label>
+                            <input type="text"
+                                   name="f_name"
+                                   required
+                                   placeholder="John"
+                                   class="form-control border-dark">
+                            <label class="input-group-text bg-dark text-white border-dark">Last</label>
+                            <input type="text"
+                                   name="l_name"
+                                   required
+                                   placeholder="Doe"
+                                   class="form-control border-dark">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="form-label fw-bold">Contact Info</label>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text bg-dark border-dark text-white">
+                                <span class="material-icons-outlined">phone</span>
+                            </label>
+                            <input type="number"
+                                   required
+                                   name="p_number"
+                                   placeholder="555-123-4567"
+                                   class="form-control border-dark">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-group-text bg-dark border-dark text-white">
+                                <span class="material-icons-outlined">email</span>
+                            </label>
+                            <input type="email"
+                                   name="email"
+                                   required
+                                   placeholder="me@mydomain.com"
+                                   class="form-control border-dark">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label fw-bold">Subject</label>
+                            <input type="text"
+                                   name="subject"
+                                   placeholder="Question about a rental unit."
+                                   class="form-control border-dark">
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col">
+                            <label class="form-label fw-bold">Message</label>
+                            <textarea name="message"
+                                      cols="30"
+                                      required
+                                      name="body"
+                                      rows="10"
+                                      class="form-control border-dark"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            id="submit_button"
+                            class="btn btn-outline-info border border-2 border-info px-5 py-2 fw-bold align-self-end">
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <div class="spinner-border spinner-border-sm me-3 d-none"
+                                 role="status"
+                                 id="submit_spinner">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span id="submit_text">Send</span>
+                        </div>
+                    </button>
+                    <script>
+                        form = document.getElementById('contact_form')
+                        if (form.addEventListener) {
+                            form.addEventListener("submit", set_loading, false)
+                        }
+                        function set_loading() {
+                            submit_btn = document.getElementById('submit_button')
+                            spinner = document.getElementById('submit_spinner')
+                            spinner.classList.remove('d-none')
+                            submit_btn.classList.add('disabled')
+                            document.getElementById('submit_text').innerText = "Sending"
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

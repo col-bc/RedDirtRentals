@@ -13,81 +13,128 @@
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
     }
 
+    #hero {
+
+        height: calc(100vh - 64px);
+        background-image:
+            linear-gradient(to bottom, rgba(42, 44, 65, 0.10), rgba(42, 44, 65, 1)),
+            url('../static/img/storefront.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    #more_icon {
+        background: #2274A5;
+        cursor: pointer;
+        padding: 3px;
+        border-radius: 100%;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+        font-size: 32px;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+    }
+
+    .bounce {
+        animation-name: bounce;
+        animation-timing-function: ease;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
+        }
+
+        25% {
+            transform: translateY(-30px);
+        }
+
+        50% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
 </style>
-<div class="container-fluid bg-danger py-4 text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <h1 class="fs-1 fw-bold">
-                    Welcome to Red Dirt Rentals
-                </h1>
+<div class="container-fluid py-4 row mx-0"
+     id="hero">
+    <div class="col-md-10 mx-auto d-flex flex-column">
 
-                <p class="fs-6">
-                    By <a href="https://reddirtequipment.com/"
-                       class="fw-light text-white"
-                       target="_blank">Red Dirt Outdoor Equipment</a>.
+        <h1 class="display-3 fw-bold text-white"
+            style="filter: drop-shadow(5px 5px 8px rgba(42, 44, 65, 0.8))">
+            Welcome to Red Dirt Rentals
+        </h1>
+
+        <h5 class="text-white flex-grow-1"
+            style="filter: drop-shadow(3px 3px 6px rgba(42, 44, 65, 0.8))">
+            By <a href="https://reddirtequipment.com/"
+               class="fw-light text-white"
+               target="_blank">Red Dirt Outdoor Equipment</a>.
+        </h5>
+
+        <h5 class="text-center mb-3">
+            <span class="material-icons-outlined text-white bounce"
+                  onclick=""
+                  id="more_icon">
+                expand_more
+            </span>
+        </h5>
+
+        <!--About-->
+        <p class="my-4">
+            <a class="btn btn-outline-light border-2 py-3 w-100 fw-bold d-flex flex-row align-items-center justify-content-center"
+               data-bs-toggle="collapse"
+               href="#collapseAbout"
+               role="button"
+               aria-expanded="false"
+               aria-controls="collapseAbout">
+                <span class="material-icons-outlined me-3">
+                    store
+                </span>
+                Read about us
+            </a>
+        </p>
+        <div class="collapse rounded mb-4 text-light bg-dark"
+             id="collapseAbout">
+            <div class="p-3 border border-white border-2 rounded">
+                <p class="fw-bold text-white">
+                    Red Dirt Rentals is a part of the Red Dirt Road Family.
+                    Located in Marianna, FL, Red Dirt Road is proud to serve the
+                    panhandle and surrounding communities with excellent customer service,
+                    in-house certified service, repairs, rentals and much more.
                 </p>
-
-                <!--About-->
-                <p class="my-4">
-                    <a class="btn btn-outline-light border-2 py-3 w-100 fw-bold d-flex flex-row justify-content-center"
-                       data-bs-toggle="collapse"
-                       href="#collapseAbout"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="collapseAbout">
-                       <span class="material-icons-outlined me-3">
-                           store
-                       </span>
-                        Read about us
+                <p class="fw-bold text-white">
+                    If you are interested in
+                    purchasing equipment from the top industry brands, like Gravely, Spartan,
+                    Mahindra, and Echo, please
+                    <a href="https://www.reddirtequipment.com/"
+                       class="text-white "
+                       target="_blank">
+                        visit our website
                     </a>
+                    to see all our brands as well as current deals, packages and more.
                 </p>
-                <div class="collapse rounded mb-4 text-dark"
-                     id="collapseAbout">
-                    <div class="p-3 border border-white border-2 rounded">
-                        <p class="fw-bold text-white">
-                            Red Dirt Rentals is a part of the Red Dirt Road Family.
-                            Located in Marianna, FL, Red Dirt Road is proud to serve the
-                            panhandle and surrounding communities with excellent customer service,
-                            in-house certified service and repairs and much more.
-                        </p>
-                        <p class="fw-bold text-white">
-                            If you are interested in
-                            purchasing equipment from the top industry brands, like Gravely, Spartan,
-                            Mahindra, and Echo, please
-                            <a href="https://www.reddirtequipment.com/"
-                               class="text-white "
-                               target="_blank">
-                                visit our website
-                            </a>
-                            to see all our brands as well as current deals, packages and more.
-                        </p>
-                        <p class="fw-bold text-white">
-                            On behalf of the entire Red Dirt Road team, we thank you for you business
-                            and look forward to meeting you face to face (or mask to mask, if you'd prefer)!
-                        </p>
-                    </div>
-                </div>
-
-                <!--Store Pic-->
-                <div class="container bg-light p-3 my-3 rounded">
-                    <img src="{{url_for('static', filename='img/storefront.jpg')}}"
-                         class="img-fluid rounded">
-                </div>
+                <p class="fw-bold text-white">
+                    On behalf of the entire Red Dirt Road team, we thank you for you business
+                    and look forward to meeting you face to face (or mask to mask, if you'd prefer)!
+                </p>
             </div>
         </div>
+
     </div>
 </div>
 
-<div class="container-fluid w-100 bg-dark">
-    <h1 class="fs-1 text-white text-center p-3 mb-0">
+<div class="container-fluid bg-dark">
+    <h1 class="display-4 text-white text-center p-3 mb-0">
         Our Rentals
     </h1>
 </div>
 
 <!--Filters-->
 <div class="dropdown">
-    <button class="btn btn-dark dropdown-toggle w-100 py-2 d-flex flex-row justify-content-center"
+    <button class="btn btn-dark dropdown-toggle w-100 py-2 d-flex flex-row align-items-center justify-content-center fs-3"
             style="border-radius: 0px;"
             type="button"
             id="dropdownFilters"
@@ -96,42 +143,42 @@
         <span class="material-icons-outlined me-3">
             filter_list
         </span>
-        <u>Filters</u>
+        <u>Filter</u>
     </button>
     <ul class="dropdown-menu w-100 shadow"
         aria-labelledby="dropdownFilters">
         <div class="row">
-            <div class="col-4">
-                <li class="dropdown-item fw-bold">Only Show</li>
+            <div class="col col-md-4">
+                <li class="dropdown-item fw-bold bg-white">Rental Type:</li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Tractors</a></li>
+                       href="{{ url_for('Rentals.filter', category='Type', critera='Tractor') }}">Tractors</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Mowers</a></li>
+                       href="{{ url_for('Rentals.filter', category='Type', critera='Mower') }}">Mowers</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Power Tools</a></li>
+                       href="{{ url_for('Rentals.filter', category='Type', critera='Power Tool') }}">Power Tools</a></li>
             </div>
-            <div class="col-4">
-                <li class="dropdown-item fw-bold">Price is less than</li>
+            <div class="col col-md-4">
+                <li class="dropdown-item fw-bold bg-white">Hourly rate is less than:</li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">$ 150</a></li>
+                       href="{{ url_for('Rentals.filter', category='Price', critera='150') }}">$ 150</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">$ 300</a></li>
+                       href="{{ url_for('Rentals.filter', category='Price', critera='300') }}">$ 300</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">$ 500</a></li>
+                       href="{{ url_for('Rentals.filter', category='Price', critera='500') }}">$ 500</a></li>
             </div>
-            <div class="col-4">
-                <li class="dropdown-item fw-bold">For this kind of job</li>
+            <div class="col col-md-4">
+                <li class="dropdown-item fw-bold bg-white">For this type of job:</li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Yard Care</a></li>
+                       href="{{ url_for('Rentals.filter', category='Job', critera='Residential') }}">Residential</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Tree Clearing/Cleaning</a></li>
+                       href="{{ url_for('Rentals.filter', category='Job', critera='Commercial') }}">Commercial</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Commercial</a></li>
+                       href="{{ url_for('Rentals.filter', category='Job', critera='Agriculture') }}">Agriculture</a></li>
                 <li><a class="dropdown-item ms-3"
-                       href="#">Government</a></li>
+                       href="{{ url_for('Rentals.filter', category='Job', critera='Government') }}">Government</a></li>
             </div>
-            <li><a class="btn btn-outline-dark w-100"
-                   href="#">All Rentals</a></li>
+            <li><a class="btn btn-outline-dark d-block w-75 mx-auto mt-2"
+                   href="{{ url_for('Rentals.all_rentals') }}">View All Rentals</a></li>
         </div>
     </ul>
 </div>
@@ -181,25 +228,27 @@
                                                         <span>Available Now</span>
                                                     </span>
                                                     {% endif %}
-                                                    <p><strong>Engine</strong>: {{rental.horse_power}} for {{rental.job_type}}</p>
+                                                    <p><strong>Engine</strong>: {{rental.horse_power}} for {{rental.job_category}} jobs.</p>
                                                     <p><strong>Fuel Type:</strong> {{rental.fuel_type}}
-                                                        {% if rental.implements|length < 0 %}
-                                                    <ul class="list-group list-group-flush mb-3">
-                                                        <li class="list-group-item fw-bold">Compatible Implements</li>
-                                                        {% for implement in rental.implements %}
-                                                        <li class="list-group-item d-flex flex-row">
-                                                            <span class="material-icons-outlined me-3">
-                                                                check
-                                                            </span>
-                                                            {{implement}}
-                                                        </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                    {% endif %}
-                                                    <p class="mb-1"><strong>Description:</strong></p>
-                                                    <p>{{rental.description}}</p>
-                                                    <p class="mb-1"><strong>Features:</strong></p>
-                                                    <p>{{rental.features}}</p>
+                                                        {% if rental.implements|length < 0
+                                                          %}
+                                                          <ul
+                                                          class="list-group list-group-flush mb-3">
+                                                            <li class="list-group-item fw-bold">Compatible Implements</li>
+                                                            {% for implement in rental.implements %}
+                                                            <li class="list-group-item d-flex flex-row">
+                                                                <span class="material-icons-outlined me-3">
+                                                                    check
+                                                                </span>
+                                                                {{implement}}
+                                                            </li>
+                                                            {% endfor %}
+                                                            </ul>
+                                                            {% endif %}
+                                                            <p class="mb-1"><strong>Description:</strong></p>
+                                                            <p>{{rental.description}}</p>
+                                                            <p class="mb-1"><strong>Features:</strong></p>
+                                                            <p>{{rental.features}}</p>
                                                 </div>
 
                                             </div>

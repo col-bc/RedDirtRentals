@@ -13,7 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
           rel="stylesheet">
 
     <!-- Icons -->
@@ -73,8 +73,8 @@
 
                 <a href="{{url_for('index.root')}}"
                    class="text-decoration-none">
-                    <h6 class="mb-3 text-dark"
-                        style="font-family: ethnocentric;">RedDirt Rentals</h6>
+                    <h4 class="mb-4 text-dark"
+                        style="font-family: ethnocentric;">RedDirt Rentals</h4>
                 </a>
 
                 <div class="card p-4 bg-white">
@@ -99,7 +99,7 @@
 
                         <!--Full Name-->
                         <div class="input-group mb-5">
-                            <span class="input-group-text">
+                            <span class="input-group-text bg-dark border-dark text-white">
                                 <span class="material-icons-outlined">
                                     badge
                                 </span>
@@ -108,26 +108,26 @@
                                    name="firstname"
                                    aria-label="First name"
                                    placeholder="First Name"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    required>
                             <input type="text"
                                    name="lastname"
                                    aria-label="Last name"
                                    placeholder="Last Name"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    required>
                         </div>
 
                         <!--Street Address1-->
                         <div class="input-group mb-3">
-                            <span class="input-group-text"
+                            <span class="input-group-text bg-dark border-dark text-white"
                                   id="address1">
                                 <span class="material-icons-round">
                                     place
                                 </span>
                             </span>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="Street Address"
                                    aria-label="Address Address"
                                    name="address1"
@@ -136,27 +136,27 @@
 
                         <!--City/State/Zip-->
                         <div class="input-group mb-3">
-                            <span class="input-group-text">
+                            <span class="input-group-text bg-dark border-dark text-white">
                                 <span class="material-icons-round">
                                     location_city
                                 </span>
                             </span>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="City"
                                    aria-label="City"
                                    name="city"
                                    required>
 
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="State"
                                    aria-label="State"
                                    name="state"
                                    required>
 
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="Zip Code"
                                    aria-label="Zip Code"
                                    name="zip"
@@ -165,14 +165,14 @@
 
                         <!--Phone-->
                         <div class="input-group mb-5">
-                            <span class="input-group-text"
+                            <span class="input-group-text bg-dark border-dark text-white"
                                   id="phone">
                                 <span class="material-icons-round">
                                     phone
                                 </span>
                             </span>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="Phone Number"
                                    aria-label="Phone Number"
                                    name="phone"
@@ -181,14 +181,14 @@
 
                         <!--Email-->
                         <div class="input-group">
-                            <span class="input-group-text"
+                            <span class="input-group-text bg-dark border-dark text-white"
                                   id="email">
                                 <span class="material-icons-outlined">
                                     mail
                                 </span>
                             </span>
                             <input type="email"
-                                   class="form-control"
+                                   class="form-control border-dark"
                                    placeholder="Email"
                                    aria-label="Email"
                                    name="email"
@@ -208,24 +208,24 @@
 
                         <!--Password-->
                         <div class="input-group">
-                            <span class="input-group-text">
+                            <span class="input-group-text bg-dark border-dark text-white">
                                 <span class="material-icons-round">
                                     https
                                 </span>
                             </span>
                             <input type="password"
-                                   class="form-control password_toggle_field"
+                                   class="form-control password_toggle_field border-dark"
                                    placeholder="Password"
                                    aria-label="Password"
                                    name="password"
                                    required
                                    aria-describedby="username">
-                            <button class="input-group-text"
+                            <button class="input-group-text bg-dark border-dark text-white"
                                     type="button"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="bottom"
                                     title="Show/Hide Password">
-                                <span class="material-icons-outlined password_toggle_indicator"
+                                <span class="material-icons-outlined password_toggle_indicator "
                                       style="cursor:pointer;"
                                       onclick="toggle_password_visibility()">
                                     visibility_off
@@ -241,7 +241,7 @@
                                class="fw-bold">Login</a>
                             <button type="submit"
                                     id="enroll_btn"
-                                    class="btn btn-outline-info border-info border-2 px-5 py-2 d-flex flex-row">
+                                    class="btn btn-outline-info border-info border-2 px-5 py-2 d-flex flex-row fw-bold">
                                 <span class="material-icons-outlined me-3">
                                     check_circle_outline
                                 </span>

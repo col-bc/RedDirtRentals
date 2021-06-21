@@ -13,7 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Comfortaa:wght@700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
           await
           rel="stylesheet">
 
@@ -61,6 +61,8 @@
 
 <body class="bg-white"
       style="overflow-x: hidden;">
+
+      
 
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
@@ -147,18 +149,36 @@
 
     {% block content %} {% endblock %}
 
-    <div class="row mx-0">
-        <div class="col-md-10 mx-auto">
-            <footer class="p-3">
-                <div class="container mt-3 border-top border-dark pt-3">
-                    <h6 class="m-0"
-                        style="font-family: ethnocentric;">RedDirt Rentals</h6>
-                    <p class="my-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
-                    <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
-                           target="_blank">Red Dirt Equipment</a>.</p>
-                    <p class="mb-2">Designed by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+    <div class="row mx-0 border-top border-dark">
+        <div class="col-md-8 mx-auto px-5 py-3">
+            <h6 class="m-0"
+                style="font-family: ethnocentric;">RedDirt Rentals</h6>
+            <p class="my-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
+            <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
+                   target="_blank">Red Dirt Equipment</a>.</p>
+            <p class="mb-2">Designed by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+        </div>
+        <div class="col px-5 py-3">
+            <ul class="nav flex-column">
+                <div class="row row-cols-2">
+                    <li class="nav-item col">
+                        <a href="{{ url_for('index.contact') }}"
+                           class="nav-link">Contact Us</a>
+                    </li>
+                    <li class="nav-item col">
+                        <a href="{{ url_for('account.index') }}"
+                           class="nav-link">My Account</a>
+                    </li>
+                    <li class="nav-itemcol">
+                        <a href="{{ url_for('index.privacy_policy') }}"
+                           class="nav-link">Privacy Policy</a>
+                    </li>
+                    <li class="nav-item col">
+                        <a href="{{ url_for('index.terms') }}"
+                           class="nav-link">Terms of Service</a>
+                    </li>
                 </div>
-            </footer>
+            </ul>
         </div>
     </div>
 

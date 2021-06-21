@@ -1,5 +1,8 @@
 import functools
-from datetime import timedelta
+from datetime import timedelta, datetime
+from logging import exception
+import uuid
+import threading
 
 from flask import (
     Blueprint,
@@ -94,11 +97,11 @@ def verify():
 def register():
     return render_template("auth/register.html", user=User())
 
-# TODO: fix password_check compliance bug
+
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
-        if not helpers.password_check(request.form.get("password"))['password_ok']:
+        if not helpers.password_check(request.form.get("password"))["password_ok"]:
             flash("Password does not meet complexity requirements. Try again.")
             return redirect(url_for("auth.register"))
         user = User(
@@ -154,7 +157,7 @@ def change_password():
         user = User.find_user(g.user.userid)
         if check_password_hash(user.password, request.form.get("current_password")):
             if request.form.get("password1") == request.form.get("password2"):
-                if helpers.password_check(request.form.get("password2"))['password_ok']:
+                if helpers.password_check(request.form.get("password2"))["password_ok"]:
                     updated_user = user.clone()
 
                     updated_user.password = generate_password_hash(
@@ -180,12 +183,117 @@ def reset_password():
     return render_template("auth/reset.html")
 
 
+#TODO: handle email send asynchronously 
 @auth.route("/reset-password/request", methods=["POST"])
 def reset_request():
-    g.email = request.form.get("email")
-    # Run async to prevent account enumeration
-    # asyncio.run(main())
+    email = request.form.get("email")
+
+    def handle_reset_request(email):
+        con, cur = helpers.connect_to_db()
+        user = User.find_user_by_email(email)
+        if user:
+            try:
+                token = uuid.uuid4().hex
+                expire = datetime.now() + timedelta(hours=1)
+                SQL = """
+                    INSERT INTO resets (
+                        token,
+                        token_expiration,
+                        userid,
+                        used
+                    )
+                    VALUES (
+                        "{0}",
+                        "{1}",
+                        "{2}",
+                        "{3}"
+                    );
+                """.format(
+                    token, expire, user.userid, 0
+                )
+                print(SQL)
+                cur.execute(SQL)
+                con.commit()
+
+                body = """
+                    <!doctype html>
+                    <html>
+                    <head></head>
+                    <body>
+                        <h3>Someone has requested a password reset for your account at Red Dirt Rentals</h3>
+                        <p>If this was not you, please disregard this email. A reset will not occur unless you click the link below</p>
+                        <p>To reset your password, please click the link below.</p>
+                        {}
+                    </body>
+                    </html>
+                """.format(
+                    token
+                )
+                helpers.send_mail(
+                    to=["colby.b.cooper@gmail.com"],
+                    subject="Here's your password reset from Red Dirt Rentals",
+                    body=body,
+                )
+            except Exception as ex:
+                raise ex
+
+    # Doesn't work because threat is out of application context
+    thread = threading.Thread(
+        target=handle_reset_request, kwargs={"email": email}
+    )
+    thread.start()
     return render_template("auth/reset_confirm.html")
+
+
+def handle_reset_request(email):
+    con, cur = helpers.connect_to_db()
+    user = User.find_user_by_email(email)
+    if user:
+        try:
+            token = uuid.uuid4().hex
+            expire = datetime.now() + timedelta(hours=1)
+            SQL = """
+                INSERT INTO resets (
+                    token,
+                    token_expiration,
+                    userid,
+                    used
+                )
+                VALUES (
+                    "{0}",
+                    "{1}",
+                    "{2}",
+                    "{3}"
+                );
+            """.format(
+                token, expire, user.userid, 0
+            )
+            print(SQL)
+            cur.execute(SQL)
+            con.commit()
+
+            body = """
+                <!doctype html>
+                <html>
+                <head></head>
+                <body>
+                    <h3>Someone has requested a password reset for your account at Red Dirt Rentals</h3>
+                    <p>If this was not you, please disregard this email. A reset will not occur unless you click the link below</p>
+                    <p>To reset your password, please click the link below.</p>
+                    {}
+                </body>
+                </html>
+            """.format(
+                token
+            )
+            helpers.send_mail(
+                to=["colby.b.cooper@gmail.com"],
+                subject="Here's your password reset from Red Dirt Rentals",
+                body=body,
+            )
+        except Exception as ex:
+            raise ex
+    return
 
 
 @auth.route("/delete-account", methods=["POST"])
@@ -214,7 +322,9 @@ def delete_account():
                 )
                 return redirect(url_for("account.index"))
         else:
-            flash("There was a problem deleting your account. Your username or password was incorrect.")
+            flash(
+                "There was a problem deleting your account. Your username or password was incorrect."
+            )
             return redirect(url_for("account.index"))
 
 
@@ -222,9 +332,3 @@ def delete_account():
 def logout():
     session.clear()
     return redirect(url_for("auth.login"))
-
-
-@auth.after_request
-def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    return response
