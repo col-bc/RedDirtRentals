@@ -261,3 +261,52 @@ def send_message():
         msg.send_message()
         flash("Message Sent!")
         return redirect(url_for("account.render_messages"))
+
+
+@account.route("/update-information", methods=["POST"])
+def update_info():
+    if request.method == "POST":
+        form = {
+            "f_name": request.form.get("f_name"),
+            "l_name": request.form.get("l_name"),
+            "email": request.form.get("email"),
+            "phone": request.form.get("phone"),
+            "address": request.form.get("address"),
+            "city": request.form.get("city"),
+            "state": request.form.get("state"),
+            "zip": request.form.get("zip"),
+        }
+
+        con, cur = helpers.connect_to_db()
+        SQL = """
+        UPDATE users SET
+            firstname="{0}",
+            lastname="{1}",
+            email="{2}",
+            phonenumber="{3}",
+            address="{4}",
+            city="{5}",
+            state="{6}",
+            zip="{7}"
+        WHERE id={8};
+        """.format(
+            form["f_name"],
+            form["l_name"],
+            form["email"],
+            form["phone"],
+            form["address"],
+            form["city"],
+            form["state"],
+            form["zip"],
+            g.user.userid,
+        )
+        try:
+            cur.execute(SQL)
+            con.commit()
+            flash("Your information has been successfully updated.")
+            return redirect(url_for('account.index'))
+        except Exception as ex:
+            raise ex
+        finally:
+            con.close()
+

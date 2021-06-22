@@ -59,10 +59,11 @@
 </head>
 
 <body class="bg-white">
-    <div class="container-fluid px-0"
+    <div class="container-fluid px-0 vh-100"
          style="min-height: 100vh !important;">
-        <div class="row vh-100 g-0">
-            <div class="col-10 mx-auto mx-md-auto col-md-5 my-5">
+        <div class="row g-0 h-100">
+
+            <div class="col col-lg-5 mx-lg-auto h-100 my-5">
                 <div class="p-5 mt-4">
                     <a href="{{url_for('index.root')}}"
                        class="text-decoration-none">
@@ -140,9 +141,10 @@
                     </form>
                 </div>
             </div>
-            <div class="col-7 d-none d-md-block border-start border-2">
-                <img src="{{ url_for('static', filename='img/storefront.jpg') }}"
-                     class="img-fluid vh-100">
+            <div class="col d-none d-md-block border-start border-2"
+                 style="background: url('../../static/img/storefront.jpg');
+                        background-size: cover;
+                        background-position:center;">
             </div>
         </div>
     </div>

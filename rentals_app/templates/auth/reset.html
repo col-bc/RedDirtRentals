@@ -13,7 +13,7 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
           rel="stylesheet">
 
     <!-- Icons -->
@@ -55,31 +55,34 @@
     <script defer
             src="{{url_for('static', filename='global.js')}}"></script>
 
-    <title>Register - RedDirtRentals</title>
+    <title>Forgot Password - RedDirtRentals</title>
 </head>
 
-<body class="bg-light">
+<body style="background-image: url(../../static/img/storefront.jpg);
+             background-size: cover;
+             background-position: center;">
     <div class="container"
          style="min-height: 100vh !important;">
         <div class="row my-5">
             <div class="col-md-6 mx-auto my-5">
 
-                <a href="{{url_for('index.root')}}"
-                   class="text-decoration-none">
-                    <h4 class="mb-4 text-dark"
-                        style="font-family: ethnocentric;">RedDirt Rentals</h4>
-                </a>
+                <div class="p-4 bg-white card shadow-lg border-dark">
 
-                <div class="p-4 bg-white card">
+                    <a href="{{url_for('index.root')}}"
+                       class="text-decoration-none">
+                        <h5 class="mb-4 text-dark"
+                            style="font-family: ethnocentric;">RedDirt Rentals</h5>
+                    </a>
+
                     <form action="{{url_for('auth.reset_request')}}"
                           method="POST">
 
                         <input type="hidden"
                                name="csrf_token"
                                value="{{ csrf_token() }}">
-                               
+
                         <div class="pb-0">
-                            <h5 class="mb-4">Account Recovery</h5>
+                            <h3 class="mb-4">Account Recovery</h3>
                             <p class="form-text">
                                 Please enter your email address that you used to create your account.
                                 If you do not remember your email, please contact us for help.

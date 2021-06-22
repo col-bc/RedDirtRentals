@@ -30,6 +30,7 @@ class User:
         self.zip = zip
 
     def find_user(id) -> "User":
+        """Searches database for user with provided id. Returns user object"""
         con, cur = helpers.connect_to_db()
         sql = """
         SELECT * FROM users WHERE id='{}'
@@ -61,6 +62,7 @@ class User:
             con.close()
 
     def find_user_by_email(email) -> "User":
+        """Searches database for user with provided email. Returns user object"""
         con, cur = helpers.connect_to_db()
         sql = """
         SELECT * FROM users WHERE email='{}';
@@ -91,6 +93,7 @@ class User:
             con.close()
 
     def create_user(self) -> bool:
+        """Inserts user data into database"""
         con, cur = helpers.connect_to_db()
         sql = """
         INSERT INTO users (
@@ -105,16 +108,16 @@ class User:
             state,
             zip
         ) VALUES (
-            '{0}',
-            '{1}',
-            '{2}',
-            '{3}',
-            '{4}',
-            '{5}',
-            '{6}',
-            '{7}',
-            '{8}',
-            '{9}'
+            "{0}",
+            "{1}",
+            "{2}",
+            "{3}",
+            "{4}",
+            "{5}",
+            "{6}",
+            "{7}",
+            "{8}",
+            "{9}"
         )
         """.format(
             self.firstname,
@@ -138,6 +141,9 @@ class User:
             raise ex
 
     def update_user(id, new) -> bool:
+        """Updates user's data with matching id.
+        `New` data overwrites existing data.
+        Returns true if successful"""
         con, cur = helpers.connect_to_db()
         SQL = """
         UPDATE users SET
@@ -177,9 +183,10 @@ class User:
             con.close()
 
     def delete_user(self) -> bool:
+        """Deletes `self` from database. Returns true if successfull."""
         con, cur = helpers.connect_to_db()
 
-        #Delete user records from databases.
+        # Delete user records from databases.
         try:
             SQL = "DELETE FROM users WHERE id='{}'".format(self.userid)
             cur.execute(SQL)
@@ -208,6 +215,7 @@ class User:
             raise ex
 
     def get_all_users() -> list():
+        """Returns all users in database"""
         cur, con = helpers.connect_to_db()
         sql = """
             SELECT * FROM users WHERE 1=1;
@@ -222,16 +230,5 @@ class User:
             con.close()
 
     def clone(self) -> "User":
+        """Returns self. Useful for changing specific data when updating database."""
         return self
-
-    def start_reset(self, token):
-        cur, con = helpers.connect_to_db()
-        try:
-            cur.execute(
-                "UPDATE users SET token='{0}' WHERE id={1}".format(token, self.userid)
-            )
-            cur.commit()
-        except Exception as ex:
-            raise ex
-        finally:
-            con.close()

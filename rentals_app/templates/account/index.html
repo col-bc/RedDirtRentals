@@ -16,21 +16,19 @@
     <div class="row mx-3">
         <div class="col-md-10 mx-auto my-3">
             <div class="row">
-                <div class="col col-md-6">
+                <div class="col col-md-5">
 
-                    <h2 class="row fw-bold border-bottom border-3 pb-2 my-3">Account Information</h2>
+                    <h2 class="row display-5 fw-bold border-bottom border-3 pb-2 my-3">Account Information</h2>
+
                     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
                     <div class="form-text text-danger mb-2 fw-bold">
                         {{message}}
                     </div>
-                    {% endfor %} {% else %}
-                    <div class="form-text text-danger mb-2 fw-bold">
-                        &nbsp;
-                    </div>
-                    {% endif %} {% endwith %}
+                    {% endfor %} {% endif %} {% endwith %}
 
-                    <div class="card card-body d-flex flex-column">
-                        <div class="row border-bottom py-3">
+                    <div class="card card-body d-flex flex-column mb-5">
+
+                        <div class="row border-bottom py-2">
                             <span class="col-auto material-icons-outlined">
                                 person
                             </span>
@@ -38,7 +36,7 @@
                                 {{user.firstname}} {{user.lastname}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-3">
+                        <div class="row border-bottom py-2">
                             <span class="col-auto material-icons-outlined">
                                 email
                             </span>
@@ -46,7 +44,7 @@
                                 {{user.email}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-3">
+                        <div class="row border-bottom py-2">
                             <span class="col-auto material-icons-outlined">
                                 phone
                             </span>
@@ -54,7 +52,7 @@
                                 {{user.phonenumber}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-3">
+                        <div class="row border-bottom py-2">
                             <span class="col-auto material-icons-outlined">
                                 place
                             </span>
@@ -63,7 +61,7 @@
                                 <span class="m-0 row">{{user.city}}, {{user.state}} {{user.zip}}</span>
                             </span>
                         </div>
-                        <div class="row py-3">
+                        <div class="row border-bottom py-2">
                             <span class="col-auto material-icons-outlined">
                                 category
                             </span>
@@ -71,34 +69,48 @@
                                 {{user.groups}}
                             </span>
                             </p>
-                            <h6 class="my-3">Account Options</h6>
-                            <div class="row ps-3">
-                                <button type="button"
-                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#ch_pwd_modal">
-                                    <span class="col-auto material-icons-outlined me-3">
-                                        https
+                        </div>
+
+                        <h6 class="mt-3">Account Options</h6>
+                        <div class="row ps-3 pb-2">
+                            <button type="button"
+                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#ch_info">
+                                <div class="d-flex flex-row align-items-center">
+                                    <span class="material-icons-outlined me-3">
+                                        manage_accounts
                                     </span>
-                                    Change my password
-                                </button>
-                            </div>
-                            <div class="row mt-2 ps-3">
-                                <button type="button"
-                                        class="col-8 btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#del_acct_modal">
-                                    <span class="col-auto material-icons-outlined me-3"
-                                          class="font-size: 12px;">
-                                        delete_forever
-                                    </span>
-                                    Delete my account
-                                </button>
-                            </div>
+                                    Update Information
+                                </div>
+                            </button>
+                        </div>
+                        <div class="row ps-3">
+                            <button type="button"
+                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#ch_pwd_modal">
+                                <span class="col-auto material-icons-outlined me-3">
+                                    https
+                                </span>
+                                Change my password
+                            </button>
+                        </div>
+                        <div class="row mt-2 ps-3">
+                            <button type="button"
+                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#del_acct_modal">
+                                <span class="col-auto material-icons-outlined me-3"
+                                      class="font-size: 12px;">
+                                    delete_forever
+                                </span>
+                                Delete my account
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="d-none d-md-flex col-md-6 flex-column mt-5">
+                <div class="d-none col d-md-flex flex-column my-auto">
                     <img src="{{ url_for('static', filename='img/account_ils.svg') }}"
                          class="img-fluid">
                 </div>
@@ -107,6 +119,119 @@
     </div>
 </div>
 
+<!--ch_info modal-->
+<div class="modal fade"
+     id="ch_info"
+     tabindex="-1"
+     aria-labelledby="ch_info_Label"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex flex-row align-items-center"
+                    id="ch_pwd_modalLabel">
+                    <span class="material-icons-outlined me-3">
+                        manage_accounts
+                    </span>
+                    Update Account Information
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('account.update_info') }}"
+                      method="POST">
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token() }}" />
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label fw-bold">Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text">First</span>
+                                <input type="text"
+                                       name="f_name"
+                                       value="{{g.user.firstname}}"
+                                       class="form-control"
+                                       required>
+                                <span class="input-group-text">Last</span>
+                                <input type="text"
+                                       name="l_name"
+                                       value="{{g.user.lastname}}"
+                                       class="form-control"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   name="email"
+                                   value="{{g.user.email}}"
+                                   required>
+                            <span class="form-text">Updating your email will change how you login</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel"
+                                   class="form-control"
+                                   name="phonenumber"
+                                   value="{{g.user.phonenumber}}"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label fw-bold">Address</label>
+                            <input type="text"
+                                   name="address"
+                                   value="{{g.user.address}}"
+                                   class="form-control">
+                            <div class="input-group mt-3">
+                                <input type="text"
+                                       name="city"
+                                       value="{{g.user.city}}"
+                                       class="form-control"
+                                       required>
+                                <input type="text"
+                                       name="state"
+                                       value="{{g.user.state}}"
+                                       class="form-control"
+                                       required>
+                                <input type="text"
+                                       name="zip"
+                                       value="{{g.user.zip}}"
+                                       class="form-control"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row mt-4 justify-content-between">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button class="btn btn-info"
+                                type="submit">
+                            Save and Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--ch_pwd Modal -->
 <div class="modal fade"
@@ -223,8 +348,8 @@
             </div>
             <div class="modal-body">
                 {% if g.user.groups == 'admin' %}
-                    <h4 class="text-danger">You cannot delete an administrator account.</h4>
-                    <p>If you think your account has been compromised, please contact your web master</p>
+                <h4 class="text-danger">You cannot delete an administrator account.</h4>
+                <p>If you think your account has been compromised, please contact your web master</p>
                 {% else %}
                 <form action="{{url_for('auth.delete_account', userid=user.userid)}}"
                       method="POST">
@@ -297,5 +422,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

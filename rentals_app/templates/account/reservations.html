@@ -20,7 +20,8 @@
                          class="img-fluid">
                 </div>
                 <div class="col col-md-8">
-                    <h2 class="border-bottom border-3">Reservations</h2>
+                    <h2 class="display-5 border-bottom border-3">Reservations</h2>
+
                     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
                     <div class="form-text text-danger mb-2 fw-bold">
                         {{message}}

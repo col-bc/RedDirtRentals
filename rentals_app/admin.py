@@ -19,6 +19,7 @@ from rentals_app.models.message import Message
 from rentals_app.auth import login_required, admin_only
 from rentals_app.models.rental import *
 
+#TODO: Delete Rental -> cancel reservations, 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 # Root route for blueprint

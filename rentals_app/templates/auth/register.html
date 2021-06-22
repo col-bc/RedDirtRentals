@@ -59,6 +59,13 @@
             content: none;
         }
 
+        body {
+            height: 100%;
+            background: url('../../static/img/storefront.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
     </style>
 
     {% block head_end %} {% endblock %}
@@ -66,18 +73,17 @@
     <title>{% block title %}{% endblock %} - RedDirtRentals</title>
 </head>
 
-<body class="bg-light">
+<body>
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto my-5">
 
-                <a href="{{url_for('index.root')}}"
-                   class="text-decoration-none">
-                    <h4 class="mb-4 text-dark"
-                        style="font-family: ethnocentric;">RedDirt Rentals</h4>
-                </a>
-
-                <div class="card p-4 bg-white">
+                <div class="card p-4 bg-white shadow-lg border-dark">
+                    <a href="{{url_for('index.root')}}"
+                       class="text-decoration-none">
+                        <h4 class="mb-4 text-dark"
+                            style="font-family: ethnocentric;">RedDirt Rentals</h4>
+                    </a>
                     <h6 class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.</h6>
                     <form action="{{url_for('auth.enroll')}}"
                           method="POST">
@@ -130,7 +136,7 @@
                                    class="form-control border-dark"
                                    placeholder="Street Address"
                                    aria-label="Address Address"
-                                   name="address1"
+                                   name="address"
                                    required>
                         </div>
 
@@ -175,7 +181,7 @@
                                    class="form-control border-dark"
                                    placeholder="Phone Number"
                                    aria-label="Phone Number"
-                                   name="phone"
+                                   name="phonenumber"
                                    required>
                         </div>
 

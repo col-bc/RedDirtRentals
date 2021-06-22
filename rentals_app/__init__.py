@@ -28,6 +28,13 @@ def page_not_found(e):
     app.logger.warn(e)
     return render_template("errors/404.html")
 
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    app.logger.error(e)
+    return render_template("errors/500.html")
+
+
 # prevent page cacheing
 @app.after_request
 def after_request(response):

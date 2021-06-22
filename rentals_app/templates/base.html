@@ -66,7 +66,7 @@
 
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark py-3">
                 <a href="{{url_for('index.root')}}"
                    class="navbar-brand">
                     <h6 class="m-0"
@@ -101,7 +101,7 @@
                         </li>
                         <!--Is User Logged In?-->
                         {% if g.user != None %}
-                        <li class="nav-item dropdown dropdown-dark ms-lg-auto ms-3">
+                        <li class="nav-item dropdown dropdown-dark ms-md-auto ms-3 ps-3">
                             <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                href="#"
                                data-bs-toggle="dropdown"
@@ -123,7 +123,7 @@
                             </ul>
                         </li>
                         {% else %}
-                        <li class="nav-item dropdown dropdown-dark ms-auto me-3">
+                        <li class="nav-item dropdown dropdown-dark ms-md-auto me-3 ps-3">
                             <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                href="#"
                                data-bs-toggle="dropdown"

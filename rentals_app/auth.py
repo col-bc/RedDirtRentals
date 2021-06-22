@@ -1,6 +1,5 @@
 import functools
 from datetime import timedelta, datetime
-from logging import exception
 import uuid
 import threading
 
@@ -13,7 +12,9 @@ from flask import (
     request,
     session,
     url_for,
+    current_app,
 )
+from flask.app import Flask
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import rentals_app.helpers as helpers
@@ -64,6 +65,7 @@ def root():
     return redirect("login")
 
 
+# -Login-
 @auth.route("/login")
 def login():
     return render_template("auth/login.html")
@@ -81,7 +83,7 @@ def verify():
         db = cur.execute(sql).fetchone()
     except Exception as ex:
         flash("Username or password does not match our records.")
-        print(ex)
+        (ex)
         return redirect(url_for("auth.login"))
 
     if db is not None and db[1] == username and check_password_hash(db[2], password):
@@ -93,6 +95,7 @@ def verify():
     return redirect(url_for("auth.login"))
 
 
+# -Register-
 @auth.route("/register")
 def register():
     return render_template("auth/register.html", user=User())
@@ -101,9 +104,11 @@ def register():
 @auth.route("/register/enroll", methods=["GET", "POST"])
 def enroll():
     if request.method == "POST":
+        # Check password strength
         if not helpers.password_check(request.form.get("password"))["password_ok"]:
             flash("Password does not meet complexity requirements. Try again.")
             return redirect(url_for("auth.register"))
+        # Create user obj
         user = User(
             firstname=request.form.get("firstname"),
             lastname=request.form.get("lastname"),
@@ -111,12 +116,7 @@ def enroll():
             email=request.form.get("email"),
             password=generate_password_hash(request.form.get("password")),
             groups="Customer",
-            address="{0} {1}".format(
-                request.form.get("address1"),
-                request.form.get("address2")
-                if request.form.get("address2") is not None
-                else "",
-            ),
+            address=request.form.get("address"),
             city=request.form.get("city"),
             state=request.form.get("state"),
             zip=request.form.get("zip"),
@@ -128,31 +128,35 @@ def enroll():
         try:
             db = cur.execute(sql).fetchone()
         except Exception as ex:
-            print(ex)
             raise ex
         finally:
             con.close()
 
+        # Check for existing account
         if db is not None:
             flash("There is already an account registered with this email.")
             return redirect(url_for("auth.register"))
         else:
             try:
+                # Create User
                 user.create_user()
                 flash("Your account has been created, please login now.")
                 return redirect(url_for("auth.login"))
             except Exception as ex:
-                print(ex)
+                (ex)
                 flash(
                     "We cannot create this account right now. Please try again in a little while."
                 )
                 return redirect(url_for("auth.register"))
+            finally:
+                con.close()
 
 
-# Service
-# TODO: fix password_check compliance bug
+# -Password Utilities-
 @auth.route("/change-password", methods=["GET", "POST"])
+@login_required
 def change_password():
+    ### Changes the password of a logged in user who knows their current account password. ###
     if request.method == "POST":
         user = User.find_user(g.user.userid)
         if check_password_hash(user.password, request.form.get("current_password")):
@@ -178,70 +182,49 @@ def change_password():
             return redirect(url_for("account.index"))
 
 
+@auth.route("/delete-account", methods=["POST"])
+@login_required
+def delete_account():
+    if request.method == "POST":
+        user = User.find_user(g.user.userid)
+        (g.user.email)
+        (request.form.get("del_username"))
+        if request.form.get("del_username") == g.user.email and check_password_hash(
+            g.user.password, request.form.get("del_password")
+        ):
+            if user.firstname == "admin":
+                flash(
+                    "There was a problem deleting your account.\
+                        You cannot delete this account because you are a site administrator."
+                )
+                return redirect(url_for("account.index"))
+            if user.delete_user():
+                flash("Your account has been deleted. We'll miss you.")
+                session.clear()
+                return redirect(url_for("auth.login"))
+            else:
+                flash(
+                    "There was a problem deleting your account. Please call us for assistance."
+                )
+                return redirect(url_for("account.index"))
+        else:
+            flash(
+                "There was a problem deleting your account. Your username or password was incorrect."
+            )
+            return redirect(url_for("account.index"))
+
+
 @auth.route("/reset-password")
 def reset_password():
     return render_template("auth/reset.html")
 
 
-#TODO: handle email send asynchronously 
+# TODO: handle email send asynchronously
 @auth.route("/reset-password/request", methods=["POST"])
 def reset_request():
+    """Attempts to generate token for provided email after verifying user exists."""
     email = request.form.get("email")
 
-    def handle_reset_request(email):
-        con, cur = helpers.connect_to_db()
-        user = User.find_user_by_email(email)
-        if user:
-            try:
-                token = uuid.uuid4().hex
-                expire = datetime.now() + timedelta(hours=1)
-                SQL = """
-                    INSERT INTO resets (
-                        token,
-                        token_expiration,
-                        userid,
-                        used
-                    )
-                    VALUES (
-                        "{0}",
-                        "{1}",
-                        "{2}",
-                        "{3}"
-                    );
-                """.format(
-                    token, expire, user.userid, 0
-                )
-                print(SQL)
-                cur.execute(SQL)
-                con.commit()
-
-                body = """
-                    <!doctype html>
-                    <html>
-                    <head></head>
-                    <body>
-                        <h3>Someone has requested a password reset for your account at Red Dirt Rentals</h3>
-                        <p>If this was not you, please disregard this email. A reset will not occur unless you click the link below</p>
-                        <p>To reset your password, please click the link below.</p>
-                        {}
-                    </body>
-                    </html>
-                """.format(
-                    token
-                )
-                helpers.send_mail(
-                    to=["colby.b.cooper@gmail.com"],
-                    subject="Here's your password reset from Red Dirt Rentals",
-                    body=body,
-                )
-            except Exception as ex:
-                raise ex
-
-    # Doesn't work because threat is out of application context
-    thread = threading.Thread(
-        target=handle_reset_request, kwargs={"email": email}
-    )
-    thread.start()
     return render_template("auth/reset_confirm.html")
 
 
@@ -268,7 +251,7 @@ def handle_reset_request(email):
             """.format(
                 token, expire, user.userid, 0
             )
-            print(SQL)
+            (SQL)
             cur.execute(SQL)
             con.commit()
 
@@ -276,56 +259,26 @@ def handle_reset_request(email):
                 <!doctype html>
                 <html>
                 <head></head>
-                <body>
-                    <h3>Someone has requested a password reset for your account at Red Dirt Rentals</h3>
-                    <p>If this was not you, please disregard this email. A reset will not occur unless you click the link below</p>
+                <body style="font-family: Roboto, Arial, Helvetica, sans-serif">
+                    <h1>Red Dirt Rentals</h1>
+                    <h5>Someone has requested a password reset for your account at Red Dirt Rentals</h5>
+                    <hr>
+                    <p>If this was not you, please disregard this email. Nothing will happen to your account if you do not proceed with the reset.</p>
                     <p>To reset your password, please click the link below.</p>
-                    {}
+                    <a href="localhost:5000/auth/reset/{}">Reset my password</a>
                 </body>
                 </html>
             """.format(
                 token
             )
             helpers.send_mail(
-                to=["colby.b.cooper@gmail.com"],
-                subject="Here's your password reset from Red Dirt Rentals",
+                to=[user.email],
+                subject="Red Dirt Rentals Password Reset",
                 body=body,
             )
         except Exception as ex:
             raise ex
     return
-
-
-@auth.route("/delete-account", methods=["POST"])
-@login_required
-def delete_account():
-    if request.method == "POST":
-        user = User.find_user(g.user.userid)
-        print(g.user.email)
-        print(request.form.get("del_username"))
-        if request.form.get("del_username") == g.user.email and check_password_hash(
-            g.user.password, request.form.get("del_password")
-        ):
-            if user.firstname == "admin":
-                flash(
-                    "There was a problem deleting your account.\
-                        You cannot delete this account because you are a site administrator."
-                )
-                return redirect(url_for("account.index"))
-            if user.delete_user():
-                flash("Your account has been deleted. We'll miss you.")
-                session.clear()
-                return redirect(url_for("auth.login"))
-            else:
-                flash(
-                    "There was a problem deleting your account. Please call us for assistance."
-                )
-                return redirect(url_for("account.index"))
-        else:
-            flash(
-                "There was a problem deleting your account. Your username or password was incorrect."
-            )
-            return redirect(url_for("account.index"))
 
 
 @auth.route("/logout")
