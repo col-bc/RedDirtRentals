@@ -56,27 +56,27 @@ def password_check(password):
 
 def send_mail(to: list, body: str, subject: str) -> None:
     from rentals_app import app
+    with app.app_context():
+        mail_settings = {
+            "MAIL_SERVER": "smtp.office365.com",
+            "MAIL_PORT": "587",
+            "MAIL_USE_TLS": True,
+            "MAIL_USE_SSL": False,
+            "MAIL_USERNAME": "ccooper@reddirtequipment.com",
+            "MAIL_PASSWORD": "Av3ryJ4x!0711#",
+        }
+        app.config.update(mail_settings)
+        mail = Mail(app)
 
-    mail_settings = {
-        "MAIL_SERVER": "smtp.office365.com",
-        "MAIL_PORT": "587",
-        "MAIL_USE_TLS": True,
-        "MAIL_USE_SSL": False,
-        "MAIL_USERNAME": "ccooper@reddirtequipment.com",
-        "MAIL_PASSWORD": "Av3ryJ4x!0711#",
-    }
-    app.config.update(mail_settings)
-    mail = Mail(app)
-
-    msg = Message(
-        html=body,
-        subject=subject,
-        sender="admin@reddirtequipment.com",
-        recipients=to,
-    )
-    
-    try:
-        mail.send(msg)
-    except Exception as ex:
-        print("Mail failed because: {}".format(ex))
-        raise (ex)
+        msg = Message(
+            html=body,
+            subject=subject,
+            sender="admin@reddirtequipment.com",
+            recipients=to,
+        )
+        
+        try:
+            mail.send(msg)
+        except Exception as ex:
+            print("Mail failed because: {}".format(ex))
+            raise (ex)

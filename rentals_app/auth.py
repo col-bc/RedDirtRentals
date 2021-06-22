@@ -219,11 +219,13 @@ def reset_password():
     return render_template("auth/reset.html")
 
 
-# TODO: handle email send asynchronously
 @auth.route("/reset-password/request", methods=["POST"])
 def reset_request():
     """Attempts to generate token for provided email after verifying user exists."""
     email = request.form.get("email")
+
+    thread = threading.Thread(target=handle_reset_request, kwargs={"email": email})
+    thread.start()
 
     return render_template("auth/reset_confirm.html")
 
@@ -254,31 +256,76 @@ def handle_reset_request(email):
             (SQL)
             cur.execute(SQL)
             con.commit()
-
-            body = """
-                <!doctype html>
-                <html>
-                <head></head>
-                <body style="font-family: Roboto, Arial, Helvetica, sans-serif">
-                    <h1>Red Dirt Rentals</h1>
-                    <h5>Someone has requested a password reset for your account at Red Dirt Rentals</h5>
-                    <hr>
-                    <p>If this was not you, please disregard this email. Nothing will happen to your account if you do not proceed with the reset.</p>
-                    <p>To reset your password, please click the link below.</p>
-                    <a href="localhost:5000/auth/reset/{}">Reset my password</a>
-                </body>
-                </html>
-            """.format(
-                token
-            )
-            helpers.send_mail(
-                to=[user.email],
-                subject="Red Dirt Rentals Password Reset",
-                body=body,
-            )
+            send_reset_email(token, email)
         except Exception as ex:
             raise ex
     return
+
+
+def send_reset_email(token, email):
+    body = """
+        <!doctype html>
+        <html>
+        <head></head>
+        <body style="font-family: Roboto, Arial, Helvetica, sans-serif">
+            <h1>Red Dirt Rentals</h1>
+            <h5>Someone has requested a password reset for your account at Red Dirt Rentals</h5>
+            <hr>
+            <p>If this was not you, please disregard this email. Nothing will happen to your account if you do not proceed with the reset.</p>
+            <p>To reset your password, please click the link below.</p>
+            <a href="localhost:5000/auth/reset/{}">Reset my password</a>
+        </body>
+        </html>
+        """.format(
+        token
+    )
+    helpers.send_mail(
+        to=[email],
+        subject="Red Dirt Rentals Password Reset",
+        body=body,
+    )
+
+
+@auth.route("/reset/<token>", methods=["GET"])
+def reset_token_validate(token):
+    con, cur = helpers.connect_to_db()
+    SQL = """
+    SELECT * FROM resets WHERE token="{}";
+    """.format(
+        token
+    )
+
+    # Try to match token 
+    try:
+        result = cur.execute(SQL).fetchone()
+    except Exception as ex:
+        raise ex
+    if result:
+        data = {
+            "token": result[1],
+            "expiration": result[2],
+            "userid": result[3],
+            "used": result[4],
+        }
+        #2021-06-21 00:10:55.230429
+        # Check if token is expired
+        if datetime.strptime(data["expiration"], '%Y-%m-%d %H:%M:%S.%f') > datetime.now():
+            # Check if token has been used:
+            if data["used"] == 0:
+                user = User.find_user(data["userid"])
+                SQL = """ 
+                UPDATE resets SET used=1 WHERE token="{}";
+                """.format(
+                    data["token"]
+                )
+                try:
+                    cur.execute(SQL)
+                    con.close()
+                    return render_template("auth/new_password.html", user=user)
+                except Exception as ex:
+                    raise ex
+    flash('The provided token was not valid. Please request a new reset email.')
+    return redirect(url_for('auth.login'))
 
 
 @auth.route("/logout")
