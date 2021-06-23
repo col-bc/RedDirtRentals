@@ -74,9 +74,11 @@
                     <form method="POST"
                           action="{{url_for('auth.verify')}}"
                           class="">
+
                         <input type="hidden"
                                name="csrf_token"
                                value="{{ csrf_token() }}" />
+
                         <div class="pb-0">
                             <h5 class="mb-4">Login to your account</h5>
                             {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}

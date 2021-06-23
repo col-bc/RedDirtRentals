@@ -62,7 +62,7 @@
 <body class="bg-white"
       style="overflow-x: hidden;">
 
-      
+
 
     <div class="row mx-0 bg-dark">
         <div class="col-md-10 mx-auto">
@@ -149,36 +149,28 @@
 
     {% block content %} {% endblock %}
 
-    <div class="row mx-0 border-top border-dark">
-        <div class="col-md-8 mx-auto px-5 py-3">
-            <h6 class="m-0"
-                style="font-family: ethnocentric;">RedDirt Rentals</h6>
-            <p class="my-2">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
-            <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
-                   target="_blank">Red Dirt Equipment</a>.</p>
-            <p class="mb-2">Designed by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
-        </div>
-        <div class="col px-5 py-3">
-            <ul class="nav flex-column">
-                <div class="row row-cols-2">
-                    <li class="nav-item col">
-                        <a href="{{ url_for('index.contact') }}"
-                           class="nav-link">Contact Us</a>
-                    </li>
-                    <li class="nav-item col">
-                        <a href="{{ url_for('account.index') }}"
-                           class="nav-link">My Account</a>
-                    </li>
-                    <li class="nav-itemcol">
-                        <a href="{{ url_for('index.privacy_policy') }}"
-                           class="nav-link">Privacy Policy</a>
-                    </li>
-                    <li class="nav-item col">
-                        <a href="{{ url_for('index.terms') }}"
-                           class="nav-link">Terms of Service</a>
-                    </li>
+    <div class="container-fluid">
+        <div class="row p-5 align-items-center bg-dark text-light fw-bold lh-1">
+            <div class="col-auto col-md-6 me-auto px-5 py-3 pt-4">
+                <h5 class="m-0 border-bottom pb-1"
+                    style="font-family: ethnocentric;">RedDirt Rentals</h5>
+                <p class="mb-2 mt-3">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
+                <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
+                       target="_blank">Red Dirt Equipment</a>.</p>
+                <p class="mb-2">Designed by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+            </div>
+            <div class="col-auto col-md-6 px-5 py-3">
+                <div class="row row-cols-2 g-3 text-start fw-bold">
+                    <a href="{{ url_for('index.contact') }}"
+                       class="col py-2 button btn-small text-white">Contact Us</a>
+                    <a href="{{ url_for('account.index') }}"
+                       class="col py-2 button btn-small text-white">My Account</a>
+                    <a href="{{ url_for('index.privacy_policy') }}"
+                       class="col py-2 button btn-small text-white">Privacy Policy</a>
+                    <a href="{{ url_for('index.terms') }}"
+                       class="col py-2 button btn-small text-white">Terms of Service</a>
                 </div>
-            </ul>
+            </div>
         </div>
     </div>
 

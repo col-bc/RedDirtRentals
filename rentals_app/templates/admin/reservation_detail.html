@@ -39,7 +39,7 @@
                        role="button"
                        aria-expanded="false">
                         Inventory
-                        <span class="material-icons-sharp ms-3">
+                        <span class="material-icons-outlined ms-3">
                             expand_more
                         </span>
                     </a>
@@ -102,6 +102,15 @@
      id="inventory_tab_content">
     <div class="row">
         <div class="col-md-8 mx-auto mt-2 mb-3">
+
+            <div class="row">
+                <a href="{{ url_for('admin.reservations') }} "
+                   class="btn btn-outline-light col-auto ms-3 text-light text-dark">
+                    <span class="material-icons-outlined pt-2">
+                        arrow_back
+                    </span>
+                </a>
+            </div>
 
             {% if reservation %}
             <div class="card my-4 rounded-0">
@@ -180,6 +189,15 @@
                                                     {%
                                                     endif
                                                     %}>Canceled by Customer</option>
+                                            <option value="CANCELED BY RDR"
+                                                    {%
+                                                    if
+                                                    reservation[10]=='CANCELED BY RDR'
+                                                    %}
+                                                    selected
+                                                    {%
+                                                    endif
+                                                    %}>Canceled by RDR</option>
                                         </select>
                                         <button class="form-group-text btn btn-small btn-light border"
                                                 type="submit">Update

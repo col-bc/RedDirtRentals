@@ -19,7 +19,7 @@ from rentals_app.models.message import Message
 from rentals_app.auth import login_required, admin_only
 from rentals_app.models.rental import *
 
-#TODO: Delete Rental -> cancel reservations, 
+# TODO: Delete Rental -> cancel reservations,
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 # Root route for blueprint
@@ -81,41 +81,51 @@ def reservations():
     try:
         reservations = cur.execute(resv_sql).fetchall()
 
+        shown_resv = list()
+        for x in reservations:
+            if x[10] not in (
+                "CANCELED BY CUSTOMER",
+                "DELETED ACCOUNT",
+                "CANCELED BY RDR",
+            ):
+                shown_resv.append(x)
+
         rental_ids = list()
         for x in reservations:
+            rental = Rental().find_rental(x[2])
             rental_ids.append(x[2])
 
-        rentals = dict()
-        for id in rental_ids:
-            rentals[str(id)] = Rental().find_rental(id)
-            rentals[str(id)].image_paths = rentals[str(id)].image_paths[
-                2 : len(rentals[str(id)].image_paths) - 2
-            ]
+        rentals = {}
+        if len(rentals) != 0:
+            for id in rental_ids:
+                rentals[str(id)] = Rental().find_rental(id)
+                rentals[str(id)].image_paths = rentals[str(id)].image_paths[
+                    2 : len(rentals[str(id)].image_paths) - 2
+                ]
 
-        print(reservations)
         customers_ids = list()
         for x in reservations:
             customers_ids.append(x[3])
-
         customers = dict()
         for id in customers_ids:
             if id == 0:
                 customers[str(id)] = None
             else:
                 customers[str(id)] = User.find_user(id)
+            (customers)
 
+        return render_template(
+            "admin/reservations.html",
+            reservations=shown_resv,
+            rentals=rentals,
+            customers=customers,
+        )
     except Exception as ex:
         print(ex)
         raise ex
 
     finally:
         con.close()
-        return render_template(
-            "admin/reservations.html",
-            reservations=reservations,
-            rentals=rentals,
-            customers=customers,
-        )
 
 
 # Render Detailed Rental Pages

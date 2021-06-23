@@ -90,6 +90,6 @@ def contact_send():
 def privacy_policy():
     return render_template('privacy.html')
 
-@index.route('/terms-of-service')
+@index.route('/terms')
 def terms():
     return render_template('terms.html')

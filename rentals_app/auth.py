@@ -285,7 +285,7 @@ def send_reset_email(token, email):
         body=body,
     )
 
-
+# TODO: Move used update on db to reset_set_password
 @auth.route("/reset/<token>", methods=["GET"])
 def reset_token_validate(token):
     con, cur = helpers.connect_to_db()
@@ -313,19 +313,30 @@ def reset_token_validate(token):
             # Check if token has been used:
             if data["used"] == 0:
                 user = User.find_user(data["userid"])
+                # Set token status to used.
                 SQL = """ 
-                UPDATE resets SET used=1 WHERE token="{}";
+                UPDATE resets SET used="1" WHERE token="{}";
                 """.format(
                     data["token"]
                 )
                 try:
                     cur.execute(SQL)
-                    con.close()
+                    con.commit()
+                    session['token'] = token
                     return render_template("auth/new_password.html", user=user)
                 except Exception as ex:
+                    con.rollback()
                     raise ex
-    flash('The provided token was not valid. Please request a new reset email.')
+                finally:
+                    con.close()
+    flash('The provided token was invalid, please request a new reset email.')
     return redirect(url_for('auth.login'))
+
+#TODO: Insert new, safe password into db and set token to used status
+@auth.route('/reset/<token>', methods=['POST'])
+def reset_set_password(token):
+    if token == session['token']:
+        con, cur = helpers.connect_to_db()
 
 
 @auth.route("/logout")

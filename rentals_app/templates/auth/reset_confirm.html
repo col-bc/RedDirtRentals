@@ -53,19 +53,24 @@
 
       <script defer
               src="{{url_for('static', filename='global.js')}}"></script>
+      <style>
+            body {
+                  min-height: 100%;
+                  background: linear-gradient(0deg, rgba(43, 45, 66, 0.6), rgba(43, 45, 66, 0.6)), url('../../static/img/storefront.jpg');
+                  background-size: cover;
+            }
+      </style>
 
       <title>Register - RedDirtRentals</title>
 </head>
 
-<body style="background-image: url(../../static/img/storefront.jpg);
-             background-size:cover;
-             background-position:center;">
 
+<body class="">
       <div class="container"
            style="min-height: 100vh !important;">
-            <div class="row my-5">
-                  <div class="col-md-6 mx-auto my-5">
-                        <div class="card card-body shadow-lg border-dark">
+            <div class="row">
+                  <div class="col col-md-8 mx-auto my-5">
+                        <div class="p-4 bg-white card shadow-lg border-dark my-5">
                               <div class="my-3">
                                     <div class="row border-bottom border-3 align-items-center">
                                           <span class="col-auto me-3 material-icons-outlined"
@@ -84,8 +89,8 @@
                                                 check your spam/junk folder before requesting another reset.
                                           </p>
                                     </div>
-                                    <a href="{{ url_for('index.root') }}"
-                                       class="btn btn-primary btn-large w-50 fw-bold text-white">Home</a>
+                                    <a href="{{ url_for('auth.root') }}"
+                                       class="btn btn-primary btn-large w-50 fw-bold text-white">Login</a>
                               </div>
                         </div>
                   </div>

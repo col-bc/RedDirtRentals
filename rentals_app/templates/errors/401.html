@@ -74,17 +74,17 @@
                   <div class="col-6">
 
                         <h1 class="border-danger border-bottom border-5 mt-5">Error 401 - Unauthorized</h1>
-                        <h4 class="text-muted text-center">
+                        <h4 class="text-muted text-start">
                               There was something suspicious about your activity.
                               To protect your account, we have stopped your request and logged you out.
                         </h4>
                         <p><small>If you continue to get this message, please contact us for support</small></p>
                         <h4 class="text-center">Please login and try again.</h4>
-                        <div class="row g-3 mt-3">
+                        <div class="row g-5 mt-3">
                               <a href="{{ url_for('index.root') }}"
-                                 class="btn btn-outline-secondary col text-center">Go to homepage</a>
+                                 class="btn btn-outline-dark btn-lg col">Go to homepage</a>
                               <a href="{{ url_for('auth.login') }}"
-                                 class="btn btn-outline-primary col text-center">Login</a>
+                                 class="btn btn-outline-primary btn-lg col">Login</a>
                         </div>
                   </div>
             </div>

@@ -94,8 +94,11 @@ class Rental:
         con, cur = helpers.connect_to_db()
         try:
             result = cur.execute(
-                "SELECT * FROM inventory WHERE id='{}'".format(rental_id)
+                """ SELECT * FROM inventory WHERE id="{}";""".format(rental_id)
             ).fetchone()
+            if not result:
+                return None 
+
             rental = Rental(
                 rental_id=result[0],
                 category=result[1],

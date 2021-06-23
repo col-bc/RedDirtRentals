@@ -28,15 +28,18 @@
 
                     <div class="card card-body d-flex flex-column mb-5">
 
-                        <div class="row border-bottom py-2">
+                        <div class="row align-items-center">
                             <span class="col-auto material-icons-outlined">
                                 person
                             </span>
-                            <span class="col">
+                            <span class="col-auto py-2">
                                 {{user.firstname}} {{user.lastname}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-2">
+
+                        <hr class="my-2">
+
+                        <div class="row py-2 align-items-center">
                             <span class="col-auto material-icons-outlined">
                                 email
                             </span>
@@ -44,7 +47,10 @@
                                 {{user.email}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-2">
+
+                        <hr class="my-2">
+
+                        <div class="row py-2 align-items-center">
                             <span class="col-auto material-icons-outlined">
                                 phone
                             </span>
@@ -52,7 +58,10 @@
                                 {{user.phonenumber}}
                             </span>
                         </div>
-                        <div class="row border-bottom py-2">
+
+                        <hr class="my-2">
+
+                        <div class="row py-2 align-items-center">
                             <span class="col-auto material-icons-outlined">
                                 place
                             </span>
@@ -61,20 +70,21 @@
                                 <span class="m-0 row">{{user.city}}, {{user.state}} {{user.zip}}</span>
                             </span>
                         </div>
-                        <div class="row border-bottom py-2">
+
+                        <hr class="my-2">
+
+                        <div class="row py-2 align-items-center">
                             <span class="col-auto material-icons-outlined">
                                 category
                             </span>
-                            <span class="col">
-                                {{user.groups}}
-                            </span>
+                            <span class="col-auto {% if user.groups == 'admin' %} fw-bold text-primary {% endif %}">{{user.groups}}</span>
                             </p>
                         </div>
 
-                        <h6 class="mt-3">Account Options</h6>
+                        <h5 class="row col mx-2 mt-3 border-bottom border-2 border-dark ">Account Options</h5>
                         <div class="row ps-3 pb-2">
                             <button type="button"
-                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none"
+                                    class="col col-lg-6 btn btn-sm btn-outline-light text-dark text-decoration-none"
                                     data-bs-toggle="modal"
                                     data-bs-target="#ch_info">
                                 <div class="d-flex flex-row align-items-center">
@@ -85,9 +95,10 @@
                                 </div>
                             </button>
                         </div>
+
                         <div class="row ps-3">
                             <button type="button"
-                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                    class="col col-lg-6 btn btn-sm btn-outline-light text-dark text-decoration-none d-flex flex-row align-items-center"
                                     data-bs-toggle="modal"
                                     data-bs-target="#ch_pwd_modal">
                                 <span class="col-auto material-icons-outlined me-3">
@@ -98,7 +109,7 @@
                         </div>
                         <div class="row mt-2 ps-3">
                             <button type="button"
-                                    class="col-auto btn btn-sm btn-link text-dark text-decoration-none d-flex flex-row align-items-center"
+                                    class="col col-lg-6 btn btn-sm btn-outline-light text-dark text-decoration-none d-flex flex-row align-items-center"
                                     data-bs-toggle="modal"
                                     data-bs-target="#del_acct_modal">
                                 <span class="col-auto material-icons-outlined me-3"
