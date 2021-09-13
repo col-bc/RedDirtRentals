@@ -3,8 +3,8 @@ from flask import current_app
 import re
 from flask_mail import Mail, Message
 
-ABS_UPLOAD_PATH = "/Users/colby/Work/RedDirtRentals/rentals_app/static/uploads"
-DB_PATH = "/Users/colby/Work/RedDirtRentals/database.db"
+ABS_UPLOAD_PATH = "/var/www/RedDirtRentals/rentals_app/static/uploads"
+DB_PATH = "/var/www/RedDirtRentals/database.db"
 ALLOWED_EXTENSIONS = {"png", "jpg", "tiff", "jpeg"}
 
 
