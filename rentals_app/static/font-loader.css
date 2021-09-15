@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'ethnocentric';
+    src: url('fonts/ethnocentric\ rg.ttf');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Gilroy';
+    src: url('fonts/gilroy-bold.woff');
+    font-weight: bold;
+}

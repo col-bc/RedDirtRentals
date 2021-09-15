@@ -86,9 +86,14 @@ def contact_send():
             raise ex
 
 
+@index.route('/about')
+def about():
+    return render_template('about.html')
+
 @index.route('/privacy')
 def privacy_policy():
     return render_template('privacy.html')
+
 
 @index.route('/terms')
 def terms():

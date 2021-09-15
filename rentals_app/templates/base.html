@@ -13,9 +13,11 @@
     <!--Fonts-->
     <link rel="preconnect"
           href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Montserrat:wght@700&display=swap"
           await
           rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='font-loader.css') }}">
 
     <!-- Icons -->
     <!-- Round -->
@@ -69,8 +71,8 @@
             <nav class="navbar navbar-expand-md navbar-dark bg-dark py-3">
                 <a href="{{url_for('index.root')}}"
                    class="navbar-brand">
-                    <h6 class="m-0"
-                        style="font-family:ethnocentric;">RedDirt Rentals</h6>
+                    <h6 class="m-0 text-light"
+                        style="font-family:ethnocentric !important;">RedDirt Rentals</h6>
                 </a>
 
                 <button class="navbar-toggler"
@@ -86,22 +88,22 @@
                 <div class="collapse navbar-collapse"
                      id="nav_main">
                     <ul class="navbar-nav w-100">
-                        <li class="nav-item mx-3">
+                        <li class="nav-item">
                             <a class="nav-link fw-bold"
                                aria-current="page"
                                href="{{ url_for('index.root') }}">Home</a>
                         </li>
-                        <li class="nav-item px-3">
+                        <li class="nav-item">
                             <a class="nav-link fw-bold"
                                href="{{url_for('Rentals.all_rentals')}}">Rentals</a>
                         </li>
-                        <li class="nav-item mx-3">
+                        <li class="nav-item">
                             <a class="nav-link fw-bold"
                                href="{{url_for('account.reservations', id=None)}}">Reservations</a>
                         </li>
                         <!--Is User Logged In?-->
                         {% if g.user != None %}
-                        <li class="nav-item dropdown dropdown-dark ms-md-auto ms-3 ps-3">
+                        <li class="nav-item dropdown dropdown-dark ms-md-auto">
                             <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                href="#"
                                data-bs-toggle="dropdown"
@@ -123,7 +125,7 @@
                             </ul>
                         </li>
                         {% else %}
-                        <li class="nav-item dropdown dropdown-dark ms-md-auto me-3 ps-3">
+                        <li class="nav-item dropdown dropdown-dark ms-md-auto">
                             <a class="nav-link dropdown-toggle d-flex flex-row align-items-center fw-bold"
                                href="#"
                                data-bs-toggle="dropdown"
@@ -150,21 +152,47 @@
     {% block content %} {% endblock %}
 
     <div class="container-fluid">
-        <div class="row p-5 align-items-center bg-dark text-light fw-bold lh-1">
+        <div class="row p-lg-5 align-items-center bg-dark text-light fw-bold lh-1">
             <div class="col-auto col-md-6 me-auto px-5 py-3 pt-4">
                 <h5 class="m-0 border-bottom pb-1"
-                    style="font-family: ethnocentric;">RedDirt Rentals</h5>
-                <p class="mb-2 mt-3">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights Reserved.</p>
-                <p class="my-2">Red Dirt Rentals is owned and operated by <a href="https://reddirtequipment.com"
-                       target="_blank">Red Dirt Equipment</a>.</p>
-                <p class="mb-2">Designed by <a href="mailto:ccooper@reddirtequipment.com">Colby Cooper</a>.</p>
+                    style="font-family: ethnocentric !important;">
+                    <a href="{{ url_for('index.root') }}"
+                       class="text-decoration-none text-white">
+                        RedDirt Rentals
+                    </a>
+                </h5>
+                <p class="mb-2 mt-3 small">Copyright &copy; 2021. RedDirt Road Partners LLC. All Rights
+                    Reserved.</p>
+                <p class="my-3 small">RedDirt Rentals is owned and operated by <a
+                       href="https://reddirtequipment.com"
+                       target="_blank">RedDirt Equipment</a>.</p>
+                <p class="mb-3 small">Designed by <a class="text-white"
+                       href="mailto:ccooper@reddirtequipment.com">Colby
+                        Cooper</a>.</p>
+                <p class="small d-block">View site <a
+                       href="https://github.com/CBCOOPER/RedDirtRentals"
+                       class="text-white"
+                       target="_blank">source code</a>. Distributed under Apache 2.0 License</p>
             </div>
             <div class="col-auto col-md-6 px-5 py-3">
+                <div class="row mb-3">
+                    <h5>Get updates from RedDirt Rentals!</h5>
+                    <div class="input-group">
+                        <input type="email"
+                               class="form-control"
+                               placeholder="Email">
+                        <button type="button"
+                                class="btn btn-primary">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+
                 <div class="row row-cols-2 g-3 text-start fw-bold">
                     <a href="{{ url_for('index.contact') }}"
                        class="col py-2 button btn-small text-white">Contact Us</a>
-                    <a href="{{ url_for('account.index') }}"
-                       class="col py-2 button btn-small text-white">My Account</a>
+                    <a href="{{ url_for('index.about') }}"
+                       class="col py-2 button btn-small text-white">About Us</a>
                     <a href="{{ url_for('index.privacy_policy') }}"
                        class="col py-2 button btn-small text-white">Privacy Policy</a>
                     <a href="{{ url_for('index.terms') }}"

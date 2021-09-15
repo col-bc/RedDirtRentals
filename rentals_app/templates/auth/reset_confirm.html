@@ -15,6 +15,8 @@
             href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
             rel="stylesheet">
+      <link rel="stylesheet"
+            href="{{ url_for('static', filename='font-loader.css') }}">
 
       <!-- Icons -->
       <!-- Baseline -->
@@ -59,6 +61,7 @@
                   background: linear-gradient(0deg, rgba(43, 45, 66, 0.6), rgba(43, 45, 66, 0.6)), url('../../static/img/storefront.jpg');
                   background-size: cover;
             }
+
       </style>
 
       <title>Register - RedDirtRentals</title>
@@ -81,12 +84,15 @@
                                     </div>
                                     <div class="row my-4">
                                           <p class="fw-bold">
-                                                If an account exists with the email address provided, we'll send you
+                                                If an account exists with the email address
+                                                provided, we'll send you
                                                 instructions on how to reset your password.
                                           </p>
                                           <p class="text-muted">
-                                                Please allow 5-10 minutes for this email to arrive. If you cannot find it,
-                                                check your spam/junk folder before requesting another reset.
+                                                Please allow 5-10 minutes for this email to arrive.
+                                                If you cannot find it,
+                                                check your spam/junk folder before requesting
+                                                another reset.
                                           </p>
                                     </div>
                                     <a href="{{ url_for('auth.root') }}"

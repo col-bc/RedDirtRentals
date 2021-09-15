@@ -16,6 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
           rel="stylesheet">
 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='font-loader.css') }}">
+
     <!-- Icons -->
     <!-- Baseline -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
@@ -81,7 +84,8 @@
 
                         <div class="pb-0">
                             <h5 class="mb-4">Login to your account</h5>
-                            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                            {% with messages = get_flashed_messages() %} {% if messages %} {% for
+                            message in messages %}
                             <div class="form-text text-danger mb-2 fw-bold">
                                 {{message}}
                             </div>

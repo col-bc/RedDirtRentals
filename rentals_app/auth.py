@@ -82,7 +82,7 @@ def verify():
     try:
         db = cur.execute(sql).fetchone()
     except Exception as ex:
-        flash("Username or password does not match our records.")
+        flash("Username or password is incorrect.")
         (ex)
         return redirect(url_for("auth.login"))
 
@@ -313,12 +313,6 @@ def reset_token_validate(token):
             # Check if token has been used:
             if data["used"] == 0:
                 user = User.find_user(data["userid"])
-                # Set token status to used.
-                SQL = """ 
-                UPDATE resets SET used="1" WHERE token="{}";
-                """.format(
-                    data["token"]
-                )
                 try:
                     cur.execute(SQL)
                     con.commit()
@@ -337,6 +331,33 @@ def reset_token_validate(token):
 def reset_set_password(token):
     if token == session['token']:
         con, cur = helpers.connect_to_db()
+        SQL = f"SELECT userid FROM resets WHERE token='{token}';"
+        if(helpers.password_check(request.form.get("password"))["password_ok"]):
+            try:
+                userid = cur.execute(SQL).fetchone()[0]
+                if userid:
+                    user = User.find_user(userid)
+                    updated_user = user
+                    updated_user.password = generate_password_hash(request.form.get('password'))
+                    print(updated_user.userid)
+                    user.update_user(updated_user)
+                    SQL = f"""DELETE FROM resets WHERE Token="{token}";"""
+                    cur.execute(SQL)
+                    # Set token status to used.
+                    SQL = """ 
+                    UPDATE resets SET used="1" WHERE token="{}";
+                    """.format(
+                        session["token"]
+                    )
+                    con.commit()
+                    flash("You password has been updated. Please login.")
+                    return redirect(url_for('auth.login'))
+                        
+            except Exception as ex:
+                con.rollback()
+                raise ex
+            finally:
+                con.close()
 
 
 @auth.route("/logout")

@@ -15,6 +15,8 @@
           href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='font-loader.css') }}">
 
     <!-- Icons -->
     <!-- Baseline -->
@@ -84,7 +86,8 @@
                         <h4 class="mb-4 text-dark"
                             style="font-family: ethnocentric;">RedDirt Rentals</h4>
                     </a>
-                    <h6 class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.</h6>
+                    <h6 class="fs-5 mb-5 fw-bold">Let's get you setup. We just have a few questions.
+                    </h6>
                     <form action="{{url_for('auth.enroll')}}"
                           method="POST">
 
@@ -258,7 +261,10 @@
                         <div class="row mt-3 mb-0">
                             <div class="col p-2 bg-light rounded">
                                 <p class="mb-0 text-muted">
-                                    By registering for an account on Red Dirt Rentals, you are expressing that you have read, understood and agree with and agree to comply with our <a href="/privacy">Privacy Policy</a> and our <a href="/terms">Terms of Service</a>.
+                                    By registering for an account on Red Dirt Rentals, you are
+                                    expressing that you have read, understood and agree with and
+                                    agree to comply with our <a href="/privacy">Privacy Policy</a>
+                                    and our <a href="/terms">Terms of Service</a>.
                                 </p>
                             </div>
                         </div>

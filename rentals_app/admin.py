@@ -140,7 +140,6 @@ def reservation_details(id):
     except Exception as ex:
         print(ex)
         raise ex
-    print(reservation, type(reservation))
     customer = User.find_user(reservation[3])
     rental = Rental().find_rental(reservation[2])
     image = rental.image_paths.strip("[").strip("]").strip("'")
@@ -285,7 +284,6 @@ def details(id):
 @admin_only
 def update(id):
     rental = Rental()
-    print("Shown is: " + request.form.get("is_available"))
     if request.method == "POST":
         rental.category = request.form.get("category")
         rental.make = request.form.get("make")
